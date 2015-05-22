@@ -1,1 +1,1 @@
-App.setPreference('AutoHideSplashScreen' ,'true');
+App.setPreference('AutoHideSplashScreen', 'true');
