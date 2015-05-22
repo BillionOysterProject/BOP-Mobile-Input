@@ -12,6 +12,10 @@ angular.module('app.example').controller 'TodoCtrl', [
 		# A utility function for creating a new project
 		# with the given projectTitle
 
+		#TODO placeholder to test image uploader
+		$scope.uploaderData =
+			userID:'abcd123'
+
 		createProject = (projectTitle) ->
 			newProject =
 				title: projectTitle
@@ -28,9 +32,9 @@ angular.module('app.example').controller 'TodoCtrl', [
 			$ionicPopup.prompt(
 				title: 'New Project'
 				subTitle: 'Name:').then (res) ->
-			if res
-				createProject res
-			return
+					if res
+						createProject res
+					return
 			return
 
 		# Grab the last active, or the first project
@@ -55,7 +59,7 @@ angular.module('app.example').controller 'TodoCtrl', [
 			return
 
 		# Create our modal
-		$ionicModal.fromTemplateUrl 'new-task.ng.html', ((modal) ->
+		$ionicModal.fromTemplateUrl 'client/todo/views/new-task.ng.html', ((modal) ->
 					$scope.taskModal = modal
 					return
 				),

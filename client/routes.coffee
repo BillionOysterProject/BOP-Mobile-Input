@@ -5,7 +5,7 @@ angular.module('app.example').config [
 		$urlRouterProvider.otherwise '/tabs'
 		$stateProvider.state 'tabs',
 			url: '/tabs'
-			templateUrl: 'index.ng.html'
+			templateUrl: 'client/todo/views/index.ng.html'
 			controller: 'TodoCtrl'
 		return
 ]
