@@ -9,6 +9,8 @@ angular.module('app.example').controller 'TodoCtrl', [
 	($scope, $meteorCollection, $ionicModal, $rootScope, $ionicSideMenuDelegate, $ionicPopup, $cordovaDatePicker) ->
 		$scope.Projects = $meteorCollection(Projects).subscribe('Projects')
 		$scope.Tasks = $meteorCollection(Tasks).subscribe('Tasks')
+#		$scope.Images = $meteorCollection(Images).subscribe('Images')
+		$scope.Images = $meteorCollection(Images).subscribe('Images') #TODO collection shouldn't be Tasks. get it to work with Images
 		# A utility function for creating a new project
 		# with the given projectTitle
 

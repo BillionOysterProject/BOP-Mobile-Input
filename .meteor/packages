@@ -12,3 +12,6 @@ coffeescript
 fourseven:scss
 tomi:upload-jquery
 tomi:upload-server
+peerlibrary:aws-sdk
+useraccounts:ionic
+accounts-password
