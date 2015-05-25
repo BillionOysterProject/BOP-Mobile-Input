@@ -1,0 +1,22 @@
+<ion-view title="TODOs">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header">
+		<meteor-include src="loginButtons"></meteor-include>
+		<!--<meteor-include src="atForm"></meteor-include>-->
+		<!--<meteor-include src="myAtForm"></meteor-include>-->
+		<ion-list>
+			<ion-item>
+				<meteor-include src="uploader"></meteor-include>
+			</ion-item>
+			<ion-item ng-repeat="task in Tasks | filter:{project: activeProject()._id}">
+				{{task.title}}
+			</ion-item>
+			<ion-item ng-repeat="image in Images">
+				<!--<img ng-if="image.ready" ng-src="http://bop-images.s3-website-us-west-1.amazonaws.com/{{image._id}}.jpg" width="320">-->
+				http://bop-images.s3-website-us-west-1.amazonaws.com/{{image._id}}.jpg
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
