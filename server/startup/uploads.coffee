@@ -22,14 +22,15 @@ UploadServer.init
 		'jpg': 'image/jpeg'
 	getDirectory: (fileInfo, formData) ->
 		# create a sub-directory in the uploadDir based on the content type (e.g. 'images')
-		"#{formData.userID}/images"
+		"s3ImagesOutbox"
 
 	finished: (fileInfo, formFields) ->
+		console.log 'formFields: ' + JSON.stringify(formFields)
 		# perform a disk operation
 
 		console.log JSON.stringify fileInfo
 
-		Images.insert {ready:false}, (err, id)->
+		Images.insert {ready:false, owner:formFields.userID}, (err, id)->
 			console.log 'inserted image ' + id
 			moveFileToS3(id, fileInfo)
 

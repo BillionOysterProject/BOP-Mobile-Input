@@ -1,5 +1,9 @@
 Meteor.publish 'Images', ->
-	Images.find {}
+	Images.find
+		$and: [
+			{owner: {$exists: true}},
+			{owner: this.userId}
+		]
 
 Images.allow
 	insert: ->

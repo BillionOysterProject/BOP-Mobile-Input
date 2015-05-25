@@ -16,7 +16,7 @@ angular.module('app.example').controller 'TodoCtrl', [
 
 		#TODO placeholder to test image uploader
 		$scope.uploaderData =
-			userID:'abcd123'
+			userID:$scope.currentUser?._id
 
 		createProject = (projectTitle) ->
 			newProject =
