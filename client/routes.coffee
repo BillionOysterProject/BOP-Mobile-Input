@@ -25,6 +25,20 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/auth.ng.html'
 					controller: 'AuthCtrl'
 
+		.state 'app.expeditions',
+			url: '/expeditions'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/expeditions.ng.html'
+					controller: 'ExpeditionsCtrl'
+
+		.state 'app.expeditionOverview',
+			url: '/expeditionOverview/:expeditionID'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/expeditionOverview.ng.html'
+					controller: 'ExpeditionOverviewCtrl'
+
 		.state 'app.home',
 			url: '/home'
 			views:

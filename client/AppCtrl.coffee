@@ -37,6 +37,9 @@ angular.module('app.example').controller 'AppCtrl', (
 		}
 	]
 
+	$scope.hasExpeditions = ->
+		Meteor.userId() and Expeditions.find().count() > 0
+
 	$scope.$watch ->
 		Meteor.userId()
 	, (newValue, oldValue) ->
@@ -53,17 +56,18 @@ angular.module('app.example').controller 'AppCtrl', (
 
 	$scope.navigateOnAuthChange = (isAuthenticated)->
 		$scope.prepareForRootViewNavigation()
+
+		$ionicSideMenuDelegate.toggleLeft(false)
+
 		if isAuthenticated
-			$state.go('app.home')
+#			if $ionicHistory.currentView().stateId isnt 'app.expeditions'
+			$state.go('app.expeditions')
 			$ionicHistory.clearHistory()
-			$timeout ->
-				$ionicNavBarDelegate.showBar(true)
 		else
-			$ionicSideMenuDelegate.toggleLeft(false)
 			$state.go('app.auth')
 			$ionicHistory.clearHistory()
-			$timeout ->
-				$ionicNavBarDelegate.showBar(false)
+
+	$scope.currentExpeditionID
 
 	$scope.navigateOnAuthChange Meteor.userId()
 

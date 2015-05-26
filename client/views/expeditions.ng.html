@@ -1,0 +1,22 @@
+<ion-view title="Expeditions">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="createExpedition()">Add</button>
+	</ion-nav-buttons>
+
+	<ion-content padding="expeditions.length == 0" class="has-header">
+		<ion-list>
+			<ion-item ng-repeat="expedition in expeditions" ui-sref="app.expeditionOverview({expeditionID:expedition._id})">
+				{{expedition.title}}
+				<span class="item-note">{{expedition.date}}</span>
+				<ion-option-button class="button-assertive" ng-click="deleteExpedition(expedition)">Delete</ion-option-button>
+			</ion-item>
+		</ion-list>
+		<div ng-if="expeditions.length == 0">
+			<h2>Create your first expedition!</h2>
+			<button class="button button-positive" ng-click="createExpedition()">Begin</button>
+		</div>
+	</ion-content>
+</ion-view>

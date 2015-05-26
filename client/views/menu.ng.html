@@ -9,18 +9,21 @@
 
 	<ion-side-menu side="left">
 		<header class="bar bar-header bar-stable">
-			<h1 class="title">Left</h1>
+			<h1 class="title">Main Menu</h1>
 		</header>
 		<ion-content class="has-header" scroll="false">
 			<meteor-include src="loginButtons"></meteor-include>
 			<ion-list>
-				<ion-item nav-clear menu-close ui-sref="app.home">
-					HOME
+				<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.home">
+					Expedition Home
 				</ion-item>
-				<ion-item nav-clear menu-close ui-sref="app.todos">
+				<ion-item nav-clear menu-close ui-sref="app.expeditions">
+					My Expeditions
+				</ion-item>
+				<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.todos">
 					TODOs
 				</ion-item>
-				<ion-item nav-clear menu-close ui-sref="app.playlists">
+				<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.playlists">
 					Playlists
 				</ion-item>
 			</ion-list>
