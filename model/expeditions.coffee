@@ -1,0 +1,1 @@
+@Expeditions = new (Meteor.Collection)('Expeditions')

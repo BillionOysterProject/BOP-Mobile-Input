@@ -7,6 +7,10 @@ angular.module('app.example').controller 'TodoCtrl', [
 	'$ionicPopup'
 	'$cordovaDatePicker'
 	($scope, $meteorCollection, $ionicModal, $rootScope, $ionicSideMenuDelegate, $ionicPopup, $cordovaDatePicker) ->
+		if !Meteor.userId()
+			location.href = '/'
+			return
+
 		$scope.Projects = $meteorCollection(Projects).subscribe('Projects')
 		$scope.Tasks = $meteorCollection(Tasks).subscribe('Tasks')
 #		$scope.Images = $meteorCollection(Images).subscribe('Images')
