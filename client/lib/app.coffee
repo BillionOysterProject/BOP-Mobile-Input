@@ -7,6 +7,7 @@ angular.module('app.example', [
 	'ui.router'
 	'ionic'
 	'ngCordova.plugins.datePicker'
+	'formlyIonic'
 ])
 if Meteor.isCordova
 	angular.element(document).on 'deviceready', onReady

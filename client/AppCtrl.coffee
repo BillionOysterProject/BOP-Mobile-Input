@@ -5,6 +5,7 @@ angular.module('app.example').controller 'AppCtrl', (
 													$ionicHistory,
 													$ionicNavBarDelegate,
 													$ionicSideMenuDelegate,
+													$meteorCollection,
 													) ->
 
 	$scope.authenticated = ->
@@ -60,14 +61,21 @@ angular.module('app.example').controller 'AppCtrl', (
 		$ionicSideMenuDelegate.toggleLeft(false)
 
 		if isAuthenticated
-#			if $ionicHistory.currentView().stateId isnt 'app.expeditions'
 			$state.go('app.expeditions')
 			$ionicHistory.clearHistory()
 		else
 			$state.go('app.auth')
 			$ionicHistory.clearHistory()
 
-	$scope.currentExpeditionID
+	$scope.navigateHome = ->
+		$scope.prepareForRootViewNavigation()
+		$ionicSideMenuDelegate.toggleLeft(false)
+		$state.go('app.home')
+		$ionicHistory.clearHistory()
+
+	$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
+	$scope.setCurrentExpeditionID = (id)->
+		$scope.currentExpeditionID = id
 
 	$scope.navigateOnAuthChange Meteor.userId()
 

@@ -19,6 +19,7 @@ angular.module('app.example').config [
 					controller: 'StartupCtrl'
 
 		.state 'app.auth',
+#			cache:false
 			url: '/auth'
 			views:
 				'menuContent':
@@ -26,6 +27,7 @@ angular.module('app.example').config [
 					controller: 'AuthCtrl'
 
 		.state 'app.expeditions',
+#			cache:false
 			url: '/expeditions'
 			views:
 				'menuContent':
@@ -40,6 +42,7 @@ angular.module('app.example').config [
 					controller: 'ExpeditionOverviewCtrl'
 
 		.state 'app.home',
+			cache:false
 			url: '/home'
 			views:
 				'menuContent':
@@ -53,19 +56,6 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/todos.ng.html'
 					controller: 'TodoCtrl'
 
-		.state 'app.playlists',
-			url: '/playlists'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/playlists.ng.html'
-					controller: 'PlaylistsCtrl'
-
-		.state 'app.single',
-			url: '/playlists/:playlistId'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/playlist.ng.html'
-					controller: 'PlaylistCtrl'
 		return
 ]
 

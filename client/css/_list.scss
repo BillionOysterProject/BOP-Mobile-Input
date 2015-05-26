@@ -1,3 +1,12 @@
-//.item {
-//	background-color: #fc3;
-//}
+.item-complex {
+	.item-content{
+	    background-color:#fff;
+	    -moz-transition:background-color 2s;
+	    -webkit-transition:background-color 2s;
+	    -o-transition:background-color 2s;
+	    transition:background-color 2s;
+	}
+	&.new .item-content{
+        background-color:yellow;
+	}
+}

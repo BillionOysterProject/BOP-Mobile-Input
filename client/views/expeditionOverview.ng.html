@@ -8,8 +8,28 @@
 
 	<ion-content class="has-header">
 		<ion-list>
-			<h2>Expedition overview</h2>
-			<h3>{{expedition.title}}</h3>
+			<h2 class="padding">Expedition overview</h2>
+			<!--<formly-form model="expedition" fields="formFields">-->
+				<!--<div class="padding">-->
+					<!--<button class="button button-full button-positive" ng-click="submit(expedition)">Submit</button>-->
+				<!--</div>-->
+			<!--</formly-form>-->
+			<ion-list>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Expedition Title</span>
+					<input type="text" placeholder="The voyage of the Beagle" ng-model="expedition.title">
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Name of site (or water body)</span>
+					<input type="text" placeholder="Suhr">
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Coordinates</span>
+					<input type="text" placeholder="lat,lng">
+				</label>
+				<ion-toggle ng-model="expedition.published" toggle-class="toggle-balanced">Published</ion-toggle>
+			</ion-list>
+			<button class="button button-full button-positive" padding="true" ng-click="changeExpedition()">Use this Expedition</button>
 		</ion-list>
 	</ion-content>
 </ion-view>
