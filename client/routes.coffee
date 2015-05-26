@@ -3,13 +3,27 @@ angular.module('app.example').config [
 	'$stateProvider'
 	($urlRouterProvider, $stateProvider) ->
 		# if none of the below states are matched, use this as the fallback
-		$urlRouterProvider.otherwise '/app/home'
+		$urlRouterProvider.otherwise '/'
 
 		$stateProvider.state 'app',
-			url: '/app'
+#			url: '/app'
 			abstract: true
 			templateUrl: 'client/views/menu.ng.html'
 			controller: 'AppCtrl'
+
+		.state 'app.startup',
+			url: '/'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/startup.ng.html'
+					controller: 'StartupCtrl'
+
+		.state 'app.auth',
+			url: '/auth'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth.ng.html'
+					controller: 'AuthCtrl'
 
 		.state 'app.home',
 			url: '/home'
@@ -17,6 +31,7 @@ angular.module('app.example').config [
 				'menuContent':
 					templateUrl: 'client/views/home.ng.html'
 					controller: 'HomeCtrl'
+
 		.state 'app.todos',
 			url: '/todos'
 			views:
