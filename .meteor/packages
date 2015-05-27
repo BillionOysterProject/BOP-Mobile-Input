@@ -16,3 +16,4 @@ peerlibrary:aws-sdk
 accounts-password
 accounts-ui
 vivekkatta:meteor-angular-formly
+angular:angular-messages

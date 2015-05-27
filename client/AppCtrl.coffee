@@ -61,7 +61,10 @@ angular.module('app.example').controller 'AppCtrl', (
 		$ionicSideMenuDelegate.toggleLeft(false)
 
 		if isAuthenticated
-			$state.go('app.expeditions')
+			if $scope.expeditions.length > 0
+				$state.go('app.home')
+			else
+				$state.go('app.expeditions')
 			$ionicHistory.clearHistory()
 		else
 			$state.go('app.auth')
@@ -77,5 +80,6 @@ angular.module('app.example').controller 'AppCtrl', (
 	$scope.setCurrentExpeditionID = (id)->
 		$scope.currentExpeditionID = id
 
+	$scope.startupComplete = true
 	$scope.navigateOnAuthChange Meteor.userId()
 

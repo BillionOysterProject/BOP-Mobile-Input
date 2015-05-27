@@ -4,6 +4,7 @@ accounts-ui@1.1.5
 accounts-ui-unstyled@1.1.7
 angular:angular@1.3.15_1
 angular:angular-animate@1.3.15_1
+angular:angular-messages@1.3.15_1
 angular:angular-sanitize@1.3.15_1
 angularui:angular-ui-router@0.2.14
 autoupdate@1.2.1

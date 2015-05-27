@@ -10,7 +10,7 @@
 		<ion-list>
 			<ion-item ng-repeat="expedition in expeditions | orderBy:'-date'"
 			          ui-sref="app.expeditionOverview({expeditionID:expedition._id})" ng-class="{'new':isNew(expedition)}">
-				{{expedition.title}}
+				{{expedition.title || 'Untitled expedition'}}
 				<span class="item-note">{{expedition.date | date:"dd-MM-yyyy hh:mm:ss a"}}</span>
 				<ion-option-button class="button-assertive" ng-click="deleteExpedition(expedition)">Delete</ion-option-button>
 			</ion-item>

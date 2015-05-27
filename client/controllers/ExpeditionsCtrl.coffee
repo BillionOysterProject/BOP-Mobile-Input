@@ -13,7 +13,6 @@ angular.module('app.example').controller 'ExpeditionsCtrl', ($scope,
 		expedition =
 			owner: Meteor.userId()
 			date: new Date()
-			title: 'Untitled expedition'
 
 		$scope.expeditions.save expedition
 		$scope.latest = expedition

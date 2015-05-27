@@ -35,6 +35,7 @@ angular.module('app.example').config [
 					controller: 'ExpeditionsCtrl'
 
 		.state 'app.expeditionOverview',
+			cache:false
 			url: '/expeditionOverview/:expeditionID'
 			views:
 				'menuContent':

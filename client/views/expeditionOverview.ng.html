@@ -7,29 +7,55 @@
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
-		<ion-list>
-			<h2 class="padding">Expedition overview</h2>
-			<!--<formly-form model="expedition" fields="formFields">-->
-				<!--<div class="padding">-->
-					<!--<button class="button button-full button-positive" ng-click="submit(expedition)">Submit</button>-->
-				<!--</div>-->
-			<!--</formly-form>-->
+		<form name="overviewForm" novalidate="" ng-submit="onTapSave(overviewForm)">
 			<ion-list>
-				<label class="item item-input item-stacked-label">
+				<h2 class="padding">Expedition overview</h2>
+				<label class="item item-input item-stacked-label"
+				       ng-class="{ 'has-error' : overviewForm.title.$invalid && overviewForm.$submitted}">
 					<span class="input-label">Expedition Title</span>
-					<input type="text" placeholder="The voyage of the Beagle" ng-model="expedition.title">
+					<input name="title"
+					       type="text"
+					       placeholder="The voyage of the Beagle"
+					       ng-model="expedition.title"
+					       ng-minlength="5"
+                           ng-maxlength="100"
+                           required>
 				</label>
-				<label class="item item-input item-stacked-label">
-					<span class="input-label">Name of site (or water body)</span>
-					<input type="text" placeholder="Suhr">
+				<div class="form-errors" ng-messages="overviewForm.title.$error"
+				     ng-show="overviewForm.title.$invalid && overviewForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				</div>
+
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">
+					<div class="input-label">
+						Name of site
+					</div>
+					<select name="site"
+					        ng-options="item.label for item in waterBodies track by item._id" ng-model="expedition.site"
+					        required></select>
 				</label>
-				<label class="item item-input item-stacked-label">
-					<span class="input-label">Coordinates</span>
-					<input type="text" placeholder="lat,lng">
-				</label>
+				<div class="form-errors" ng-messages="overviewForm.site.$error"
+				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				</div>
+
+				<div class="item item-input">
+					<span class="input-label">Location</span>
+					<input type="text" placeholder="lat,lng" ng-model="expedition.location">
+					<button class="button button-clear button-positive icon ion-pinpoint" ng-click="setLocationUsingGPS()"></button>
+				</div>
+
 				<ion-toggle ng-model="expedition.published" toggle-class="toggle-balanced">Published</ion-toggle>
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+				        <!--ng-disabled="overviewForm.$invalid"-->
+				<!--<p>title errors: {{overviewForm.title.$error}}</p>-->
+				<!--<p>site errors: {{overviewForm.site.$error}}</p>-->
 			</ion-list>
-			<button class="button button-full button-positive" padding="true" ng-click="changeExpedition()">Use this Expedition</button>
-		</ion-list>
+		</form>
+		<button class="button button-full button-positive" padding="true" ng-click="changeExpedition()">Use this Expedition</button>
 	</ion-content>
 </ion-view>
