@@ -5,38 +5,55 @@ angular.module('app.example').controller 'AppCtrl', (
 													$ionicHistory,
 													$ionicNavBarDelegate,
 													$ionicSideMenuDelegate,
+													$meteor,
 													$meteorCollection,
 													) ->
 
 	$scope.authenticated = ->
 		Meteor.userId()
 
-	$scope.playlists = [
-		{
-			title: 'Reggae'
-			id: 1
-		}
-		{
-			title: 'Chill'
-			id: 2
-		}
-		{
-			title: 'Dubstep'
-			id: 3
-		}
-		{
-			title: 'Indie'
-			id: 4
-		}
-		{
-			title: 'Rap'
-			id: 5
-		}
-		{
-			title: 'Cowbell'
-			id: 6
-		}
+	$scope.protocols = [
+		num:1
+		title:'Oyster Measurements'
+		sections:[
+			{machineName: 'cageLocation', title:'Location of oyster cage'}
+			{machineName: 'depthCondition', title:'Depth and condition of the oyster cage'}
+			{machineName: 'measuring', title:'Measuring oyster growth'}
+		]
+	,
+		num:2
+		title:'Mobile Organisms'
+		sections:[
+			{machineName: 'mobileOrganisms', title:'Mobile organisms observed'}
+		]
+	,
+		num:3
+		title:'Sessile Organisms/Settlement plates'
+		sections:[
+			{machineName: 'sessileObserved', title:'Sessile organisms observed'}
+		]
+	,
+		num:4
+		title:'Site conditions'
+		sections:[
+			{machineName: 'weather', title: 'Meteorological conditions'}
+			{machineName: 'rainfall', title: 'Recent rainfall'}
+			{machineName: 'tide', title: 'Tide conditions'}
+			{machineName: 'water', title: 'Water conditions'}
+			{machineName: 'sea', title: 'State of the sea (degree)'}
+			{machineName: 'land', title: 'Land conditions'}
+		]
+	,
+		num:5
+		title:'Water Quality'
+		sections:[
+			{machineName: 'waterQuality', title:'Water quality measurements'}
+			{machineName: 'sediment', title:'Sedimentation'}
+		]
 	]
+
+	$scope.protocolsMap = {}
+	($scope.protocolsMap[protocol.num] = protocol) for protocol in $scope.protocols
 
 	$scope.hasExpeditions = ->
 		Meteor.userId() and Expeditions.find().count() > 0
@@ -76,10 +93,14 @@ angular.module('app.example').controller 'AppCtrl', (
 		$state.go('app.home')
 		$ionicHistory.clearHistory()
 
-	$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
 	$scope.setCurrentExpeditionID = (id)->
 		$scope.currentExpeditionID = id
 
-	$scope.startupComplete = true
-	$scope.navigateOnAuthChange Meteor.userId()
+	$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
+
+	$meteor.subscribe('Expeditions').then ->
+		console.log 'expeditions ready. Count: ' + $scope.expeditions.length
+
+		$scope.startupComplete = true
+		$scope.navigateOnAuthChange Meteor.userId()
 

@@ -2,17 +2,21 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 	'$scope'
 	'$stateParams'
 	'$q'
+	'$ionicHistory'
 	'$timeout'
 	'$meteor'
 	'bopLocationHelper'
 	'$cordovaGeolocation'
-	($scope, $stateParams, $q, $timeout, $meteor, bopLocationHelper, $cordovaGeolocation) ->
+	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $cordovaGeolocation) ->
 		if !$scope.startupComplete
 			location.href = '/'
 			return
 
+		$scope.cameFromExpeditions = ->
+			return $ionicHistory.backView()?.stateId is 'app.expeditions'
+
 		$scope.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
-		$cordovaGeolocation.getCurrentPosition().then (result)->
+#		$cordovaGeolocation.getCurrentPosition().then (result)->
 
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
@@ -20,16 +24,6 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			.then (position)->
 				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
 				$scope.expedition.location = "#{position.coords.latitude},#{position.coords.longitude}"
-
-		$scope.user =
-			username: ''
-			password: ''
-
-		$scope.signIn = (form) ->
-		    console.log(form)
-		    if form.$valid
-			    console.log('Sign-In', $scope.user.username)
-#			    $state.go('tabs.home')
 
 		$scope.onTapSave = (form) ->
 			console.log(form)

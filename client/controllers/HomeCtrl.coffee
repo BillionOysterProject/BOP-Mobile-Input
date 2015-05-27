@@ -3,7 +3,7 @@ angular.module('app.example').controller 'HomeCtrl', ($scope,
                                                       $meteor,
                                                       $meteorCollection
 													) ->
-	if !Meteor.userId()
+	if !$scope.startupComplete
 		location.href = '/'
 		return
 

@@ -50,6 +50,32 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/home.ng.html'
 					controller: 'HomeCtrl'
 
+		.state 'app.protocol',
+			cache:false
+#			url: '/protocol/:protocolNum'
+			#shorthand default values
+			params:
+		        protocolNum: 1
+#		        param2: "param2Default"
+			views:
+				'menuContent':
+					templateUrl: 'client/views/protocol.ng.html'
+					controller: 'ProtocolCtrl'
+
+		.state 'app.protocolSection',
+			cache: false
+#			url: '/protocol/:protocolNum'
+			#shorthand default values
+			params:
+				protocolNum2: undefined
+				sectionMachineName: undefined
+
+			views:
+				'menuContent':
+					templateUrl: 'client/views/protocolSection.ng.html'
+					controller: 'ProtocolSectionCtrl'
+
+		#TODO deprecated, was part of getting started
 		.state 'app.todos',
 			url: '/todos'
 			views:

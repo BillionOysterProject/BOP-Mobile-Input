@@ -6,22 +6,12 @@
 		<button class="button button-clear button-positive" ng-click="navigateToOverview()">Overview</button>
 	</ion-nav-buttons>
 	<ion-content class="has-header">
-		<h4>Expedition:<br>{{expedition.title}}</h4>
+		<h4 class="padding">{{expedition.title}}</h4>
 		<ion-list>
-			<ion-item ui-sref="app.protocol({protocolNum:playlist.id})">
-				Protocol 1
-			</ion-item>
-			<ion-item ui-sref="app.protocol({protocolNum:playlist.id})">
-				Protocol 2
-			</ion-item>
-			<ion-item ui-sref="app.protocol({protocolNum:playlist.id})">
-				Protocol 3
-			</ion-item>
-			<ion-item ui-sref="app.protocol({protocolNum:playlist.id})">
-				Protocol 4
-			</ion-item>
-			<ion-item ui-sref="app.protocol({protocolNum:playlist.id})">
-				Protocol 5
+			<ion-item ng-repeat="protocol in protocols"
+			          ui-sref="app.protocol({protocolNum:protocol.num})">
+				Protocol {{protocol.num}}
+				<span class="item-note">{{protocol.title}}</span>
 			</ion-item>
 		</ion-list>
 	</ion-content>
