@@ -28,7 +28,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		$scope.onTapSave = (form) ->
 			console.log(form)
 			if form.$valid
-				console.log('onTapSave for overviewForm', $scope.user.username)
+				console.log('onTapSave for overviewForm', $scope.expedition)
 				$scope.expedition.save()
 			else
 				console.log 'do nothing, overviewForm invalid'
