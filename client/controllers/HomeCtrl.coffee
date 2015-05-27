@@ -1,4 +1,5 @@
 angular.module('app.example').controller 'HomeCtrl', ($scope,
+                                                      $state,
                                                       $meteor,
                                                       $meteorCollection
 													) ->
@@ -11,3 +12,7 @@ angular.module('app.example').controller 'HomeCtrl', ($scope,
 	else
 		$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
 		$scope.expedition = $scope.expeditions[$scope.expeditions.length - 1]
+
+	$scope.navigateToOverview = ->
+		console.log 'navigateToOverview() ' + $scope.currentExpeditionID
+		$state.go('app.expeditionOverview', {expeditionID:$scope.currentExpeditionID or $scope.expedition._id})
