@@ -7,10 +7,17 @@ angular.module('app.example').controller 'AppCtrl', (
 													$ionicSideMenuDelegate,
 													$meteor,
 													$meteorCollection,
+													$ionicPopup,
 													) ->
 
 	$scope.authenticated = ->
 		Meteor.userId()
+
+	$scope.alert = (message, title = 'Whoops!')->
+		promise = $ionicPopup.alert
+			title: title
+			template: message
+		return promise
 
 	$scope.protocols = [
 		num:1

@@ -7,12 +7,13 @@ angular.module('app.example').factory "bopLocationHelper", [
 
 			#gets lat lng coords
 			getGPSPosition:->
-#				console.log 'bopLocationHelper#getGPSPosition'
+				console.log 'bopLocationHelper#getGPSPosition'
 
 				posOptions =
-					timeout: 10000
+					timeout: 15000
+					maximumAge: 5 * 60 * 1000 #5 minutes
 
-					enableHighAccuracy: false
+					enableHighAccuracy: true
 					#need true for android emulator to be able to return GPS
 #					enableHighAccuracy: true
 

@@ -6,8 +6,8 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 	'$timeout'
 	'$meteor'
 	'bopLocationHelper'
-	'$cordovaGeolocation'
-	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $cordovaGeolocation) ->
+	'$ionicPlatform'
+	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $ionicPlatform) ->
 		if !$scope.startupComplete
 			location.href = '/'
 			return
@@ -16,14 +16,20 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
 		$scope.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
-#		$cordovaGeolocation.getCurrentPosition().then (result)->
 
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
-			bopLocationHelper.getGPSPosition()
-			.then (position)->
-				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
-				$scope.expedition.location = "#{position.coords.latitude},#{position.coords.longitude}"
+			$ionicPlatform.ready =>
+				console.log '$ionicPlatform.ready =>'
+
+				bopLocationHelper.getGPSPosition()
+				.then (position)->
+					console.log 'getGPSPosition result: '
+					console.log JSON.stringify(position.coords)
+					$scope.expedition.location = "#{position.coords.latitude},#{position.coords.longitude}"
+				.catch (error)->
+					console.error 'error: ' + JSON.stringify(error)
+					$scope.alert JSON.stringify(error), 'error'
 
 		$scope.onTapSave = (form) ->
 			console.log(form)
