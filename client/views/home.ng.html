@@ -8,7 +8,7 @@
 	<ion-content class="has-header">
 		<h4 class="padding">{{expedition.title}}</h4>
 		<ion-list>
-			<ion-item ng-repeat="protocol in protocols"
+			<ion-item ng-repeat="protocol in getProtocols()"
 			          ui-sref="app.protocol({protocolNum:protocol.num})">
 				Protocol {{protocol.num}}
 				<span class="item-note">{{protocol.title}}</span>

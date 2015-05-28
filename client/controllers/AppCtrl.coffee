@@ -8,6 +8,7 @@ angular.module('app.example').controller 'AppCtrl', (
 													$meteor,
 													$meteorCollection,
 													$ionicPopup,
+													bopStaticData,
 													) ->
 
 	$scope.authenticated = ->
@@ -19,48 +20,11 @@ angular.module('app.example').controller 'AppCtrl', (
 			template: message
 		return promise
 
-	$scope.protocols = [
-		num:1
-		title:'Oyster Measurements'
-		sections:[
-			{machineName: 'cageLocation', title:'Location of oyster cage'}
-			{machineName: 'depthCondition', title:'Depth and condition of the oyster cage'}
-			{machineName: 'measuring', title:'Measuring oyster growth'}
-		]
-	,
-		num:2
-		title:'Mobile Organisms'
-		sections:[
-			{machineName: 'mobileOrganisms', title:'Mobile organisms observed'}
-		]
-	,
-		num:3
-		title:'Sessile Organisms/Settlement plates'
-		sections:[
-			{machineName: 'sessileObserved', title:'Sessile organisms observed'}
-		]
-	,
-		num:4
-		title:'Site conditions'
-		sections:[
-			{machineName: 'weather', title: 'Meteorological conditions'}
-			{machineName: 'rainfall', title: 'Recent rainfall'}
-			{machineName: 'tide', title: 'Tide conditions'}
-			{machineName: 'water', title: 'Water conditions'}
-			{machineName: 'sea', title: 'State of the sea (degree)'}
-			{machineName: 'land', title: 'Land conditions'}
-		]
-	,
-		num:5
-		title:'Water Quality'
-		sections:[
-			{machineName: 'waterQuality', title:'Water quality measurements'}
-			{machineName: 'sediment', title:'Sedimentation'}
-		]
-	]
+	$scope.getProtocols = ->
+		bopStaticData.protocols
 
 	$scope.protocolsMap = {}
-	($scope.protocolsMap[protocol.num] = protocol) for protocol in $scope.protocols
+	($scope.protocolsMap[protocol.num] = protocol) for protocol in $scope.getProtocols()
 
 	$scope.hasExpeditions = ->
 		Meteor.userId() and Expeditions.find().count() > 0
@@ -86,6 +50,8 @@ angular.module('app.example').controller 'AppCtrl', (
 
 		if isAuthenticated
 			if $scope.expeditions.length > 0
+				if !$scope.expedition
+					$scope.setCurrentExpedition $scope.expeditions[$scope.expeditions.length - 1]
 				$state.go('app.home')
 			else
 				$state.go('app.expeditions')
@@ -100,8 +66,11 @@ angular.module('app.example').controller 'AppCtrl', (
 		$state.go('app.home')
 		$ionicHistory.clearHistory()
 
-	$scope.setCurrentExpeditionID = (id)->
-		$scope.currentExpeditionID = id
+	$scope.setCurrentExpedition = (expedition)->
+		$scope.expedition = expedition
+
+#	$scope.setCurrentExpeditionID = (id)->
+#		$scope.currentExpeditionID = id
 
 	$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
 

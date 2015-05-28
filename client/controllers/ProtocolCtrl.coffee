@@ -6,6 +6,4 @@ angular.module('app.example').controller 'ProtocolCtrl', ($scope,
 		location.href = '/'
 		return
 
-	console.log 'protocolctrl stateParams: ' + JSON.stringify($stateParams)
-
 	$scope.protocol = $scope.protocolsMap[$stateParams.protocolNum]

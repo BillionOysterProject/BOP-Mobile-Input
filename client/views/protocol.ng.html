@@ -9,7 +9,7 @@
 		<h2 class="padding">{{protocol.title}}</h2>
 		<ion-list>
 			<ion-item ng-repeat="section in protocol.sections track by $index"
-			          ui-sref="app.protocolSection({protocolNum2:protocol.num, sectionMachineName:section.machineName})">
+			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
 				{{$index + 1}}. {{section.title}}
 				<span class="item-note">p {{protocol.num}}, sIdx:{{$index}}</span>
 			</ion-item>

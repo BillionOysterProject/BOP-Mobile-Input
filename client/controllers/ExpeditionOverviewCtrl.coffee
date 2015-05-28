@@ -80,7 +80,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		]
 
 		$scope.changeExpedition = ->
-			$scope.setCurrentExpeditionID $scope.expedition._id
+			$scope.setCurrentExpedition $scope.expedition
 			$scope.navigateHome()
 
 	]
