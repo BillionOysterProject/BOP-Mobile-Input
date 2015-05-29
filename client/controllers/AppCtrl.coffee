@@ -6,7 +6,6 @@ angular.module('app.example').controller 'AppCtrl', (
 													$ionicNavBarDelegate,
 													$ionicSideMenuDelegate,
 													$meteor,
-													$meteorCollection,
 													$ionicPopup,
 													bopStaticData,
 													) ->
@@ -51,7 +50,7 @@ angular.module('app.example').controller 'AppCtrl', (
 		if isAuthenticated
 			if $scope.expeditions.length > 0
 				if !$scope.expedition
-					$scope.setCurrentExpedition $scope.expeditions[$scope.expeditions.length - 1]
+					$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
 				$state.go('app.home')
 			else
 				$state.go('app.expeditions')
@@ -66,15 +65,14 @@ angular.module('app.example').controller 'AppCtrl', (
 		$state.go('app.home')
 		$ionicHistory.clearHistory()
 
-	$scope.setCurrentExpedition = (expedition)->
-		$scope.expedition = expedition
+	$scope.setCurrentExpeditionByID = (id)->
+		$scope.expedition = $meteor.object(Expeditions, id, false);
 
-#	$scope.setCurrentExpeditionID = (id)->
-#		$scope.currentExpeditionID = id
+	$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
 
-	$scope.expeditions = $meteorCollection(Expeditions).subscribe('Expeditions')
-
-	$meteor.subscribe('Expeditions').then ->
+	$meteor.subscribe('ProtocolSection')
+	.then $meteor.subscribe('Expeditions')
+	.then ->
 		console.log 'expeditions ready. Count: ' + $scope.expeditions.length
 
 		$scope.startupComplete = true

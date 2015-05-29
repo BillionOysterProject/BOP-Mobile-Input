@@ -1,12 +1,12 @@
 angular.module('app.example').controller 'TodoCtrl', [
 	'$scope'
-	'$meteorCollection'
+	'$meteor'
 	'$ionicModal'
 	'$rootScope'
 	'$ionicSideMenuDelegate'
 	'$ionicPopup'
 	'$cordovaDatePicker'
-	($scope, $meteorCollection, $ionicModal, $rootScope, $ionicSideMenuDelegate, $ionicPopup, $cordovaDatePicker) ->
+	($scope, $meteor, $ionicModal, $rootScope, $ionicSideMenuDelegate, $ionicPopup, $cordovaDatePicker) ->
 		if !Meteor.userId()
 			location.href = '/'
 			return

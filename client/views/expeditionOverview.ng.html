@@ -16,7 +16,7 @@
 					<input name="title"
 					       type="text"
 					       placeholder="The voyage of the Beagle"
-					       ng-model="expedition.title"
+					       ng-model="expeditionEditing.title"
 					       ng-minlength="5"
                            ng-maxlength="100"
                            required>
@@ -32,7 +32,7 @@
 						Name of site
 					</div>
 					<select name="site"
-					        ng-options="item.label for item in waterBodies track by item._id" ng-model="expedition.site"
+					        ng-options="item.label for item in waterBodies track by item._id" ng-model="expeditionEditing.site"
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.site.$error"
@@ -42,11 +42,11 @@
 
 				<div class="item item-input">
 					<span class="input-label">Location</span>
-					<input type="text" placeholder="lat,lng" ng-model="expedition.location">
+					<input type="text" placeholder="lat,lng" ng-model="expeditionEditing.location">
 					<button class="button button-clear button-positive icon ion-pinpoint" ng-click="setLocationUsingGPS()"></button>
 				</div>
 
-				<ion-toggle ng-model="expedition.published" toggle-class="toggle-balanced">Published</ion-toggle>
+				<ion-toggle ng-model="expeditionEditing.published" toggle-class="toggle-balanced">Published</ion-toggle>
 				<button class="button button-full button-calm"
 				        padding="true"
 				        type="submit"

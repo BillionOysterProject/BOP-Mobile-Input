@@ -1,0 +1,1 @@
+@ProtocolSection = new (Meteor.Collection)('ProtocolSection')

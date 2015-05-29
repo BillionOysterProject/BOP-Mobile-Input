@@ -15,7 +15,8 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
-		$scope.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
+		$scope.expeditionEditing = $meteor.object(Expeditions, $stateParams.expeditionID, false);
+		isNew = !$scope.expeditionEditing.title
 
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
@@ -26,16 +27,18 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 				.then (position)->
 					console.log 'getGPSPosition result: '
 					console.log JSON.stringify(position.coords)
-					$scope.expedition.location = "#{position.coords.latitude},#{position.coords.longitude}"
+					$scope.expeditionEditing.location = "#{position.coords.latitude},#{position.coords.longitude}"
 				.catch (error)->
 					console.error 'error: ' + JSON.stringify(error)
 					$scope.alert JSON.stringify(error), 'error'
 
 		$scope.onTapSave = (form) ->
-			console.log(form)
 			if form.$valid
-				console.log('onTapSave for overviewForm', $scope.expedition)
-				$scope.expedition.save()
+				$scope.expeditionEditing.save().then ->
+					if isNew
+						$scope.changeExpedition()
+					else
+						$ionicHistory.goBack()
 			else
 				console.log 'do nothing, overviewForm invalid'
 
@@ -80,7 +83,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		]
 
 		$scope.changeExpedition = ->
-			$scope.setCurrentExpedition $scope.expedition
+			$scope.setCurrentExpeditionByID($scope.expeditionEditing._id)
 			$scope.navigateHome()
 
 	]

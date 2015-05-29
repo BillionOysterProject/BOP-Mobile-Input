@@ -1,23 +1,23 @@
 angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 	'$scope'
 	'$stateParams'
+	'$meteor'
 	'$q'
 	'$timeout'
-	'$meteor'
 	'bopLocationHelper'
-	($scope, $stateParams, $q, $timeout, $meteor, bopLocationHelper) ->
+	($scope, $stateParams, $meteor, $q, $timeout, bopLocationHelper) ->
 		if !$scope.startupComplete
 			location.href = '/'
 			return
 
 		$scope.protocol = $scope.protocolsMap[$stateParams.protocolNum]
 
-		for section, index in $scope.protocol.sections
-			if section.machineName is $stateParams.sectionMachineName
-				console.log 'parsed'
+		for sectionMeta, index in $scope.protocol.sections
+			if sectionMeta.machineName is $stateParams.sectionMachineName
 				sectionNum = index + 1
-				$scope.section = section
+				$scope.sectionMeta = sectionMeta
 				break
 
 		$scope.title = "Protocol #{$scope.protocol.num}.#{sectionNum}"
+		$scope.section = $meteor.object(ProtocolSection, {machineName:$scope.sectionMeta.machineName}, false)
 	]

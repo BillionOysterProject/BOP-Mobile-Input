@@ -1,7 +1,5 @@
 angular.module('app.example').controller 'HomeCtrl', ($scope,
                                                       $state,
-                                                      $meteor,
-                                                      $meteorCollection
 													) ->
 	if !$scope.startupComplete
 		location.href = '/'
