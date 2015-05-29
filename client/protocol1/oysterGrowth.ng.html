@@ -1,25 +1,28 @@
-<ion-view title="{{title}}">
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-		<!--<button class="button button-clear button-positive" ng-click="createExpedition()">Add</button>-->
+		<button class="button button-clear button-positive" ng-click="showHelp(protocol.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
-		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm)">
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
-				<div ng-repeat="shell in section.shells track by $index">
-					<div class="item item-divider">Shell/Group #{{$index + 1}}</div>
+				<div ng-repeat="shell in section.shells track by $index"
+				     class="shell"
+				     ng-class="{'last':$last}">
+					<div class="item item-divider">Shell {{$index + 1}} of {{section.shells.length}}</div>
 
 					<ng-form name="totalsLiveFieldForm">
-						<label class="item item-input item-stacked-label"
+						<label class="item item-input"
 						       ng-class="{ 'has-error' : totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted}">
 							<span class="input-label">Total Live Oysters</span>
 							<input name="totalLive"
 							       type="number"
 							       ng-model="section.shells[$index].totals.live"
+							       ng-change="onChangeTotalLive($index, sectionForm.$valid)"
 		                           min="0"
 		                           max="12"
 							       required>
@@ -36,12 +39,13 @@
 					</ng-form>
 
 					<ng-form name="totalsDeadFieldForm">
-						<label class="item item-input item-stacked-label"
+						<label class="item item-input"
 						       ng-class="{ 'has-error' : totalsDeadFieldForm.totalLive.$invalid && sectionForm.$submitted}">
 							<span class="input-label">Total Dead Oysters</span>
 							<input name="totalDead"
 							       type="number"
 							       ng-model="section.shells[$index].totals.dead"
+							       ng-change="updateMainTotals(sectionForm.$valid)"
 		                           min="0"
 		                           max="12"
 							       required>
@@ -56,89 +60,127 @@
 						</div>
 					</ng-form>
 
-					<h5 ng-if="section.shells[$index].totals.live > 0" class="padding">Measure all LIVE oysters</h5>
-					<div ng-repeat="oyster in getTotalLiveOystersArr($index) track by $index">
-						<ng-form name="liveOysterSize">
-							<label class="item item-input"
-							       ng-class="{ 'has-error' : liveOysterSize.liveSizeMM.$invalid && sectionForm.$submitted}">
-								<span class="input-label">#{{$index + 1}}</span>
-								<input name="liveSizeMM"
+					<ng-form name="shellSizesForm">
+						<h5 ng-if="shellHasLiveOysters($index)" class="padding">Measure all LIVE oysters on shell #{{$index + 1}}</h5>
+						<div ng-repeat="oyster in getTotalLiveOystersArr($index) track by $index">
+							<ng-form name="liveSizeMMFieldForm">
+								<label class="item item-input"
+								       ng-class="{ 'has-error' : liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted}">
+									<span class="input-label">Spat {{$index + 1}} of {{getTotalLiveOysters($parent.$index)}}:</span>
+									<input name="liveSizeMM"
+									       type="number"
+									       ng-model="section.shells[$parent.$index].liveSizesMM[$index]"
+									       ng-change="updateLiveOysterStats(shellSizesForm.$valid, $parent.$index); updateMainTotals(sectionForm.$valid)"
+				                           min="1"
+				                           max="{{maxSpatSizeMM}}"
+									       required>
+									<span class="input-label">mm</span>
+								</label>
+								<div ng-messages="liveSizeMMFieldForm.liveSizeMM.$error"
+								     class="form-errors"
+								     ng-show="liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted"
+								     ng-messages-include="client/views/partials/form-errors.ng.html">
+									<div class="form-error" ng-message="min">Can't be less than 1</div>
+									<div class="form-error" ng-message="max">{{liveSizeMMFieldForm.liveSizeMM.$viewValue}}mm seems to big to be true</div>
+								</div>
+							</ng-form>
+
+						</div>
+						<div ng-show="shellHasLiveOysters($index) && shellSizesForm.$valid && getTotalLiveOysters($index) > 1"
+						     class="calculated-fields">
+							<h5 class="padding">Size stats for shell #{{$index + 1}}:</h5>
+							<label class="item item-input">
+								<span class="input-label">Min. size</span>
+								<input name="min"
 								       type="number"
-								       ng-model="section.shells[$parent.$index].liveSizesMM[$index]"
-			                           min="1"
-			                           max="{{maxSpatSizeMM}}"
-								       required>mm
+								       ng-model="section.shells[$index].totals.sizeMM.min"
+								       tabindex="-1"
+								       readonly>
+								<span class="input-label">mm</span>
 							</label>
-							<div ng-messages="liveOysterSize.liveSizeMM.$error"
-							     class="form-errors"
-							     ng-show="liveOysterSize.liveSizeMM.$invalid && sectionForm.$submitted"
-							     ng-messages-include="client/views/partials/form-errors.ng.html">
-								<div class="form-error" ng-message="min">Can't be less than 1</div>
-								<div class="form-error" ng-message="max">{{liveOysterSize.liveSizeMM.$viewValue}}mm seems to big to be true</div>
-							</div>
-						</ng-form>
 
-					</div>
+							<label class="item item-input">
+								<span class="input-label">Max. size</span>
+								<input name="max"
+								       type="number"
+								       ng-model="section.shells[$index].totals.sizeMM.max"
+								       tabindex="-1"
+								       readonly>
+								<span class="input-label">mm</span>
+							</label>
 
-
-					<!--<label class="item item-input item-stacked-label"-->
-					       <!--ng-class="{ 'has-error' : sectionForm.title.$invalid && sectionForm.$submitted}">-->
-						<!--<span class="input-label">Total Live Oysters</span>-->
-						<!--<div>{{totalLive}}</div>-->
-						<!--&lt;!&ndash;<input name="title"&ndash;&gt;-->
-						       <!--&lt;!&ndash;type="text"&ndash;&gt;-->
-						       <!--&lt;!&ndash;placeholder="The voyage of the Beagle"&ndash;&gt;-->
-						       <!--&lt;!&ndash;ng-model="expeditionEditing.title"&ndash;&gt;-->
-						       <!--&lt;!&ndash;ng-minlength="5"&ndash;&gt;-->
-	                           <!--&lt;!&ndash;ng-maxlength="100"&ndash;&gt;-->
-	                           <!--&lt;!&ndash;required>&ndash;&gt;-->
-					<!--</label>-->
+							<label class="item item-input">
+								<span class="input-label">Avg. size</span>
+								<input name="avg"
+								       type="number"
+								       ng-model="section.shells[$index].totals.sizeMM.avg"
+								       tabindex="-1"
+								       readonly>
+								<span class="input-label">mm</span>
+							</label>
+						</div>
+						<!--<pre>{{shellSizesForm | json}}</pre>-->
+					</ng-form>
 				</div>
-				<!--<label class="item item-input item-stacked-label"-->
-				       <!--ng-class="{ 'has-error' : sectionForm.title.$invalid && sectionForm.$submitted}">-->
-					<!--<span class="input-label">Expedition Title</span>-->
-					<!--<input name="title"-->
-					       <!--type="text"-->
-					       <!--placeholder="The voyage of the Beagle"-->
-					       <!--ng-model="expeditionEditing.title"-->
-					       <!--ng-minlength="5"-->
-                           <!--ng-maxlength="100"-->
-                           <!--required>-->
-				<!--</label>-->
-				<!--<div class="form-errors" ng-messages="sectionForm.title.$error"-->
-				     <!--ng-show="sectionForm.title.$invalid && sectionForm.$submitted"-->
-				     <!--ng-messages-include="client/views/partials/form-errors.ng.html">-->
-				<!--</div>-->
+				<br>
+				<div ng-show="sectionForm.$valid" class="calculated-fields">
+					<h5 class="padding">Population total oyster measurements</h5>
+					<label class="item item-input">
+						<span class="input-label">Min. size</span>
+						<input name="min"
+						       type="number"
+						       ng-model="section.totalsMM.min"
+						       tabindex="-1"
+						       readonly>
+						<span class="input-label">mm</span>
+					</label>
 
-				<!--<label class="item item-input item-select"-->
-				       <!--ng-class="{ 'has-error' : sectionForm.site.$invalid && sectionForm.$submitted}">-->
-					<!--<div class="input-label">-->
-						<!--Name of site-->
-					<!--</div>-->
-					<!--<select name="site"-->
-					        <!--ng-options="item.label for item in waterBodies track by item._id" ng-model="expeditionEditing.site"-->
-					        <!--required></select>-->
-				<!--</label>-->
-				<!--<div class="form-errors" ng-messages="sectionForm.site.$error"-->
-				     <!--ng-show="sectionForm.site.$invalid && sectionForm.$submitted"-->
-				     <!--ng-messages-include="client/views/partials/form-errors.ng.html">-->
-				<!--</div>-->
+					<label class="item item-input">
+						<span class="input-label">Max. size</span>
+						<input name="max"
+						       type="number"
+						       ng-model="section.totalsMM.max"
+						       tabindex="-1"
+						       readonly>
+						<span class="input-label">mm</span>
+					</label>
 
-				<!--<div class="item item-input">-->
-					<!--<span class="input-label">Location</span>-->
-					<!--<input type="text" placeholder="lat,lng" ng-model="expeditionEditing.location">-->
-					<!--<button class="button button-clear button-positive icon ion-pinpoint" ng-click="setLocationUsingGPS()"></button>-->
-				<!--</div>-->
+					<label class="item item-input">
+						<span class="input-label">Avg. size</span>
+						<input name="avg"
+						       type="number"
+						       ng-model="section.totalsMM.avg"
+						       tabindex="-1"
+						       readonly>
+						<span class="input-label">mm</span>
+					</label>
+				</div>
+				<div ng-show="sectionForm.$valid" class="calculated-fields">
+					<h5 class="padding">Population total mortality:</h5>
+					<label class="item item-input">
+						<span class="input-label">Live</span>
+						<input name="min"
+						       type="number"
+						       ng-model="section.totalsMortality.live"
+						       tabindex="-1"
+						       readonly>
+					</label>
 
-				<!--<ion-toggle ng-model="expeditionEditing.published" toggle-class="toggle-balanced">Published</ion-toggle>-->
+					<label class="item item-input">
+						<span class="input-label">Dead</span>
+						<input name="min"
+						       type="number"
+						       ng-model="section.totalsMortality.dead"
+						       tabindex="-1"
+						       readonly>
+					</label>
+
+				</div>
+
 				<button class="button button-full button-calm"
 				        padding="true"
 				        type="submit"
 				        >Save</button>
-
-				        <!--ng-disabled="sectionForm.$invalid"-->
-				<!--<p>title errors: {{sectionForm.title.$error}}</p>-->
-				<!--<p>site errors: {{sectionForm.site.$error}}</p>-->
 			</ion-list>
 		</form>
 	</ion-content>

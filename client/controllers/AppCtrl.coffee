@@ -19,6 +19,9 @@ angular.module('app.example').controller 'AppCtrl', (
 			template: message
 		return promise
 
+	$scope.showHelp = (protocolNum, sectionMachineName)->
+		$scope.alert("Show help modal for " + $scope.title + ". This will be any HTML content we want.", "TODO")
+
 	$scope.getProtocols = ->
 		bopStaticData.protocols
 
