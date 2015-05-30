@@ -1,5 +1,5 @@
 angular.module('app.example').constant "bopStaticData", {
-	protocols: [
+	protocolsMetadata: [
 		num: 1
 		title: 'Oyster Measurements'
 		sections: [

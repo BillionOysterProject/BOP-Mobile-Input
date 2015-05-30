@@ -86,8 +86,8 @@ angular.module('app.example').config [
 #					controller: 'ProtocolSectionCtrl'
 #
 		#dynamically create all the protocol section states.
-		for protocol in bopStaticData.protocols
-			for section in protocol.sections
+		for protocolMetadata in bopStaticData.protocolsMetadata
+			for section in protocolMetadata.sections
 				$stateProvider.state 'app.' + section.machineName,
 					cache: false
 		#			url: '/protocol/:protocolNum'
@@ -98,7 +98,7 @@ angular.module('app.example').config [
 
 					views:
 						'menuContent':
-							templateUrl: "client/protocol#{protocol.num}/#{section.machineName}.ng.html"
+							templateUrl: "client/protocol#{protocolMetadata.num}/#{section.machineName}.ng.html"
 							controller: _.capitalize(section.machineName) + 'Ctrl'
 
 		return

@@ -10,14 +10,17 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 			location.href = '/'
 			return
 
-		$scope.protocol = $scope.protocolsMap[$stateParams.protocolNum]
+		$scope.protocolMetadata = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
-		for sectionMeta, index in $scope.protocol.sections
+		for sectionMeta, index in $scope.protocolMetadata.sections
 			if sectionMeta.machineName is $stateParams.sectionMachineName
 				sectionNum = index + 1
 				$scope.sectionMeta = sectionMeta
 				break
 
-		$scope.title = "Protocol #{$scope.protocol.num}.#{sectionNum}"
-		$scope.section = $meteor.object(ProtocolSection, {machineName:$scope.sectionMeta.machineName}, false)
+		$scope.title = "Protocol #{$scope.protocolMetadata.num}.#{sectionNum}"
+
+		sectionMachineName = $scope.sectionMeta.machineName
+		sectionID = $scope.expedition.sections[sectionMachineName + 'ID']
+		$scope.section = $meteor.object(ProtocolSection, sectionID, false)
 	]

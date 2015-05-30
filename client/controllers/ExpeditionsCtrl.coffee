@@ -30,11 +30,7 @@ angular.module('app.example').controller 'ExpeditionsCtrl', ($scope,
 		expedition =
 			owner: Meteor.userId()
 			date: new Date()
-			sections:[
-				cageLocationID
-				depthConditionID
-				oysterGrowthID
-			]
+			sections: {cageLocationID, depthConditionID, oysterGrowthID}
 
 		$scope.expeditions.save(expedition)
 

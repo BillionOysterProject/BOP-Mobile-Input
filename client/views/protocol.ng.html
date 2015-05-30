@@ -11,7 +11,6 @@
 			<ion-item ng-repeat="section in protocol.sections track by $index"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
 				{{$index + 1}}. {{section.title}}
-				<span class="item-note">p {{protocol.num}}, sIdx:{{$index}}</span>
 			</ion-item>
 		</ion-list>
 	</ion-content>

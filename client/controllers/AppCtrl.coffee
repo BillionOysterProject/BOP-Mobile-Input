@@ -22,11 +22,11 @@ angular.module('app.example').controller 'AppCtrl', (
 	$scope.showHelp = (protocolNum, sectionMachineName)->
 		$scope.alert("Show help modal for " + $scope.title + ". This will be any HTML content we want.", "TODO")
 
-	$scope.getProtocols = ->
-		bopStaticData.protocols
+	$scope.getProtocolsMetadata = ->
+		bopStaticData.protocolsMetadata
 
-	$scope.protocolsMap = {}
-	($scope.protocolsMap[protocol.num] = protocol) for protocol in $scope.getProtocols()
+	$scope.protocolsMetadataMap = {}
+	($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.getProtocolsMetadata()
 
 	$scope.hasExpeditions = ->
 		Meteor.userId() and Expeditions.find().count() > 0

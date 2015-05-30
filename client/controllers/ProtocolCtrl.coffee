@@ -6,4 +6,4 @@ angular.module('app.example').controller 'ProtocolCtrl', ($scope,
 		location.href = '/'
 		return
 
-	$scope.protocol = $scope.protocolsMap[$stateParams.protocolNum]
+	$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
