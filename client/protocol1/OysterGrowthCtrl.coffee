@@ -71,7 +71,7 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 					max = if max then Math.max(max, sizeMM) else sizeMM
 
 				if shell.totals.live > 1
-					avg = Math.round(avg / 3)
+					avg = Math.round(avg / shell.totals.live)
 
 			else
 				console.log  'form is INVALID, ignoring'
