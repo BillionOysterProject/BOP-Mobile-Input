@@ -12,6 +12,10 @@
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
 				{{$index + 1}}. {{section.title}}
 			</ion-item>
+			<ion-toggle ng-model="protocolPublished" toggle-class="toggle-balanced">
+				This protocol is ready for review
+				<span class="item-note">{{protocolPublished ? 'Yes' : 'No'}}</span>
+			</ion-toggle>
 		</ion-list>
 	</ion-content>
 </ion-view>
