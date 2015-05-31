@@ -24,7 +24,6 @@
 							       ng-model="section.shells[$index].totals.live"
 							       ng-change="onChangeTotalLive($index, sectionForm.$valid)"
 		                           min="0"
-		                           max="12"
 							       required>
 						</label>
 
@@ -33,7 +32,6 @@
 						     ng-show="totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted"
 						     ng-messages-include="client/views/partials/form-errors.ng.html">
 							<div class="form-error" ng-message="min">No less than 0</div>
-							<div class="form-error" ng-message="max">No more than 12</div>
 						</div>
 						<!--<pre>{{totalsLiveFieldForm.totalLive | json}}</pre>-->
 					</ng-form>
@@ -47,7 +45,6 @@
 							       ng-model="section.shells[$index].totals.dead"
 							       ng-change="updateMainTotals(sectionForm.$valid)"
 		                           min="0"
-		                           max="12"
 							       required>
 						</label>
 
@@ -56,17 +53,19 @@
 						     ng-show="totalsDeadFieldForm.totalDead.$invalid && sectionForm.$submitted"
 						     ng-messages-include="client/views/partials/form-errors.ng.html">
 							<div class="form-error" ng-message="min">No less than 0</div>
-							<div class="form-error" ng-message="max">No more than 12</div>
 						</div>
 					</ng-form>
 
 					<ng-form name="shellSizesForm">
-						<h5 ng-if="shellHasLiveOysters($index)" class="padding">Measure all LIVE oysters on shell #{{$index + 1}}</h5>
+						<h5 ng-if="shellHasLiveOysters($index)"
+						    class="padding">Measure all LIVE oysters on shell #{{$index + 1}}</h5>
+						<p ng-if="section.shells[$index].totals.live > maxLiveOysterMeasurements"
+								class="padding">(Measure only {{maxLiveOysterMeasurements}} of the {{section.shells[$index].totals.live}} at random)</p>
 						<div ng-repeat="oyster in getTotalLiveOystersArr($index) track by $index">
 							<ng-form name="liveSizeMMFieldForm">
 								<label class="item item-input"
 								       ng-class="{ 'has-error' : liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted}">
-									<span class="input-label">Spat {{$index + 1}} of {{getTotalLiveOysters($parent.$index)}}:</span>
+									<span class="input-label">Spat {{$index + 1}} of {{Math.min(getTotalLiveOysters($parent.$index), maxLiveOysterMeasurements)}}:</span>
 									<input name="liveSizeMM"
 									       type="number"
 									       ng-model="section.shells[$parent.$index].liveSizesMM[$index]"

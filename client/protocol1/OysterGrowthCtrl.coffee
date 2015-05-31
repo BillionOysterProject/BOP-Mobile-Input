@@ -7,6 +7,7 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		totalShells = 10
+		$scope.maxLiveOysterMeasurements = 12
 
 		#init with some basic structure that will be populated via bindings in the template
 		$scope.initSection = ->
@@ -46,7 +47,7 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 		# Dummy array to enable ng-repeat for n times (maxed at 12). Array does not get populated.
 		# @see getTotalLiveOysters
 		$scope.getTotalLiveOystersArr = (shellIndex)->
-			new Array(Math.min($scope.getTotalLiveOysters(shellIndex), 12))
+			new Array(Math.min($scope.getTotalLiveOysters(shellIndex), $scope.maxLiveOysterMeasurements))
 
 		# gets the actual number.
 		# @see getTotalLiveOystersArr
@@ -114,6 +115,8 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 					console.log 'saved section form to db'
 			else
 				console.log 'do nothing, sectionForm invalid'
+
+		$scope.Math = Math
 
 		$scope.initSection()
 	]
