@@ -11,29 +11,7 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
 
 		$scope.createExpedition = ->
-			#create protocol section documents ------ start
-
-			cageLocationID = ProtocolSection.insert
-				owner: Meteor.userId()
-				machineName:'cageLocation'
-
-			depthConditionID = ProtocolSection.insert
-				owner: Meteor.userId()
-				machineName:'depthCondition'
-
-			oysterGrowthID = ProtocolSection.insert
-				owner: Meteor.userId()
-				machineName:'oysterGrowth'
-
-			#create protocol section documents ------ end
-
-			#create expedition
-			expedition =
-				owner: Meteor.userId()
-				date: new Date()
-				sections: {cageLocationID, depthConditionID, oysterGrowthID}
-
-			$scope.expeditions.save(expedition)
+			$state.go('app.expeditionOverview', expeditionID:null)
 
 		$scope.deleteExpedition = (expedition)->
 			$scope.expeditions.remove expedition

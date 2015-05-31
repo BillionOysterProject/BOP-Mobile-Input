@@ -15,8 +15,12 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
-		$scope.expeditionEditing = $meteor.object(Expeditions, $stateParams.expeditionID, false);
-		isNew = !$scope.expeditionEditing.title
+		if $stateParams.expeditionID
+			$scope.expeditionEditing = $meteor.object(Expeditions, $stateParams.expeditionID, false);
+		else
+			$scope.expeditionEditing = {}
+
+		isNew = !$scope.expeditionEditing.hasOwnProperty('_id')
 
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
@@ -31,10 +35,44 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 
 		$scope.onTapSave = (form) ->
 			if form.$valid
-				$scope.expeditionEditing.save().then ->
-					if isNew
-						$scope.changeExpedition()
-					else
+				if isNew
+					#create protocol section documents ------ start
+					cageLocationID = null
+					depthConditionID = null
+					oysterGrowthID = null
+
+					ProtocolSection.insert
+						owner: Meteor.userId()
+						machineName:'cageLocation'
+					, (err, id)->
+						console.log 'cageLocation section inserted'
+						cageLocationID = id
+
+					ProtocolSection.insert
+						owner: Meteor.userId()
+						machineName:'depthCondition'
+					, (err, id)->
+						console.log 'depthConditionID section inserted'
+						depthConditionID = id
+
+					ProtocolSection.insert
+						owner: Meteor.userId()
+						machineName:'oysterGrowth'
+					, (err, id)->
+						console.log 'oysterGrowthID section inserted'
+						oysterGrowthID = id
+
+						#create protocol section documents ------ end
+
+						#create expedition
+						$scope.expeditionEditing.owner = Meteor.userId()
+						$scope.expeditionEditing.date = new Date()
+						$scope.expeditionEditing.sections = {cageLocationID, depthConditionID, oysterGrowthID}
+
+						Expeditions.insert $scope.expeditionEditing, (err, id)->
+							$scope.changeExpedition(id)
+				else
+					$scope.expeditionEditing.save().then ->
 						$ionicHistory.goBack()
 			else
 				console.log 'do nothing, overviewForm invalid'
@@ -79,8 +117,8 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			{_id:wb++, label:'Sherman Creek'}
 		]
 
-		$scope.changeExpedition = ->
-			$scope.setCurrentExpeditionByID($scope.expeditionEditing._id)
+		$scope.changeExpedition = (id)->
+			$scope.setCurrentExpeditionByID(id)
 			$scope.navigateHome()
 
 	]
