@@ -21,12 +21,9 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
 			$ionicPlatform.ready =>
-				console.log '$ionicPlatform.ready =>'
-
 				bopLocationHelper.getGPSPosition()
 				.then (position)->
-					console.log 'getGPSPosition result: '
-					console.log JSON.stringify(position.coords)
+#					console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
 					$scope.expeditionEditing.location = "#{position.coords.latitude},#{position.coords.longitude}"
 				.catch (error)->
 					console.error 'error: ' + JSON.stringify(error)
