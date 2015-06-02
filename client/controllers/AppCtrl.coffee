@@ -87,4 +87,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 			$scope.startupComplete = true
 			$scope.navigateOnAuthChange Meteor.userId()
+
+		.catch (error)->
+			console.error "startup failed. ", error
 	]
