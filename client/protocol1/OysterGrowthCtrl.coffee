@@ -104,8 +104,6 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				console.log 'TODO save sectionForm'
-
 				i = totalShells
 				while i--
 					$scope.pruneModel(i)
