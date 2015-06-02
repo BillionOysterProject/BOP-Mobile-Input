@@ -1,2 +1,9 @@
 @import "list";
 @import "form";
+
+.appVersion {
+	position: absolute;
+	bottom: 0;
+	padding:16px;
+	color: #333;
+}
