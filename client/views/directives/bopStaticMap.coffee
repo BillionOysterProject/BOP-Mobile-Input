@@ -4,8 +4,7 @@ angular.module('app.example').directive 'bopStaticMap', [
 			name:'bopStaticMap'
 			restrict:'E'
 
-			template:'<img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{location}}&markers=color:red%7C{{location}}&zoom=14&size=320x200&maptype=roadmap">'
-
+			templateUrl:'client/views/directives/bopStaticMap.ng.html'
 			scope:
 				location:'='
 #				mode:'='

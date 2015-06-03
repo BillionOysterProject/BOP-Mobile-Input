@@ -12,6 +12,10 @@ App.info({
   email: 'andrew@abcd.ca',
   website: 'http://input.bop.nyc'
 });
+
+App.accessRule("http://maps.googleapis.com");
+App.accessRule("http://bop-images.s3-website-us-west-1.amazonaws.com");
+App.accessRule("http://meteor.local/*");
 //// Set up resources such as icons and launch screens.
 //App.icons({
 //	'iphone': 'icons/icon-60.png',
