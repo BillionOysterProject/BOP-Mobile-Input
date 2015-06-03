@@ -11,14 +11,16 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
-				<div class="item item-input bop-icon-right">
+				<div class="item item-input bop-icon-right"
+				     ng-class="{ 'has-error' : sectionForm.location.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Location</span>
 					<input name="location"
 					       type="text"
 					       placeholder="lat,lng"
 					       ng-model="section.location"
 					       required
-					       latlng>
+					       latlng
+					       >
 					<span class="input-label button button-clear button-positive icon ion-pinpoint"
 					        ng-click="setLocationUsingGPS()"></span>
 				</div>
@@ -27,7 +29,7 @@
 				     ng-show="sectionForm.location.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
 				</div>
-				<bop-static-map ng-if="sectionForm.location.$valid" latlng="section.location"></bop-static-map>
+				<bop-static-map ng-if="sectionForm.location.$valid" location="section.location"></bop-static-map>
 
 				<button class="button button-full button-calm"
 				        padding="true"

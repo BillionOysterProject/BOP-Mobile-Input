@@ -1,12 +1,51 @@
-<ion-view title="{{title}}">
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-		<!--<button class="button button-clear button-positive" ng-click="createExpedition()">Add</button>-->
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
-		<h2>{{sectionMeta.title}}</h2>
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<label class="item item-input item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Submerged depth of cage (meters)</span>
+					<input name="submergedDepth"
+					       type="number"
+					       ng-model="section.submergedDepth"
+					       min="0"
+					       max="100"
+					       required>
+				</label>
+				<div ng-messages="sectionForm.submergedDepth.$error"
+				     class="form-errors"
+				     ng-show="sectionForm.submergedDepth.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="min">Can't be a negative number</div>
+					<div class="form-error" ng-message="max">That doesn't seem right, are you using meters?</div>
+				</div>
+
+				<div class="item item-divider">Bioaccumulation on cage:</div>
+				<ng-switch on="section.bioaccumulation">
+					<img ng-switch-when="0" src="http://www.derwenttraders.com.au/images/products/wm-Mouse-crab-pot-style-trap-sm.jpg?Action=thumbnail&Width=350&Height=400" width="320" height="150">
+					<img ng-switch-when="1" src="http://research.pomona.edu/karnolab/files/2009/06/the-crab-trap.jpg" width="320" height="150">
+					<img ng-switch-when="2" src="http://louisianaconservationist.org/wp-content/uploads/2012/05/crab-in-trap.jpg" width="320" height="150">
+					<img ng-switch-when="3" src="http://theteacupchronicles.files.wordpress.com/2011/03/img_2589.jpg" width="320" height="150">
+				</ng-switch>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="0">None/clean</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="1">Light</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="2">Medium</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="3">Heavy</ion-radio>
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+			</ion-list>
+		</form>
 	</ion-content>
 </ion-view>

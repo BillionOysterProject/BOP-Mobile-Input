@@ -20,10 +20,8 @@ angular.module('app.example').controller 'CageLocationCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				console.log 'TODO save sectionForm'
-
-#				$scope.section.save().then ->
-#					console.log 'saved section form to db'
+				$scope.section.save().then ->
+					console.log 'saved section form to db'
 			else
 				console.log 'do nothing, sectionForm invalid'
 	]
