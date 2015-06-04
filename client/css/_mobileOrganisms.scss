@@ -1,24 +1,16 @@
 .mobileOrganisms {
-	.col {
-		padding: 5px 0;
+	.tiles {
+		text-align: center;
+		vertical-align: top;
 	}
 
-	.col {
-		&.inner {
-			padding-right:5px;
-
-			&:last-child {
-				padding-right:0px;
-			}
-		}
-	}
-
-	.col-demo {
-	  padding: 5px;
-	  width: 100%;
-	  border: 1px solid #ddd;
-	  border-radius: 2px;
-	  background: #f7f7f7;
-	  text-align: center;
+	.tile {
+		display:inline-block;
+		margin: 5px;
+		width: 145px;
+		height: 200px;
+		border: 1px solid #666;
+		overflow: hidden;
+		vertical-align: top;
 	}
 }

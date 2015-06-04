@@ -8,28 +8,12 @@
 
 	<ion-content class="has-header">
 		<h2 class="padding">{{sectionMeta.title}}</h2>
-		<div class="row responsive-sm">
-			<div class="col">
-				<div class="row">
-					<div class="col inner">
-						<div class="col-demo">.col</div>
-					</div>
-					<div class="col inner">
-						<div class="col-demo">.col</div>
-					</div>
-				</div>
 
-			</div>
-			<div class="col">
-				<div class="row">
-					<div class="col inner">
-						<div class="col-demo">.col</div>
-					</div>
-					<div class="col inner">
-						<div class="col-demo">.col</div>
-					</div>
-				</div>
-
+		<div class="tiles">
+			<div ng-repeat="org in organisms track by org._id.toHexString()" class="tile">
+				<img width="145px" ng-src="/images/protocol1/depthCondition/heavy.jpg"><br>
+				<p>{{org.common}}</p>
+				<p><em>{{org.latin}}</em></p>
 			</div>
 		</div>
 	</ion-content>

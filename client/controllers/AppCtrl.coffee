@@ -80,6 +80,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
 
+		$meteor.subscribe('MobileOrganisms')
 		$meteor.subscribe('ProtocolSection')
 		.then $meteor.subscribe('Expeditions')
 		.then ->

@@ -1,9 +1,8 @@
 angular.module('app.example').controller 'MobileOrganismsCtrl', [
 	'$scope'
 	'$controller'
-	'$ionicPlatform'
-	'bopLocationHelper'
-	($scope, $controller, $ionicPlatform, bopLocationHelper) ->
+	'$meteor'
+	($scope, $controller, $meteor) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -14,4 +13,6 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 #					console.log 'saved section form to db'
 			else
 				console.log 'do nothing, sectionForm invalid'
+
+		$scope.organisms = $meteor.collection(MobileOrganisms).subscribe('MobileOrganisms')
 	]
