@@ -37,40 +37,82 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			if form.$valid
 				if isNew
 					#create protocol section documents ------ start
-					cageLocationID = null
-					depthConditionID = null
-					oysterGrowthID = null
-
-					ProtocolSection.insert
+					sections = [
+						#protocol 1.1
 						owner: Meteor.userId()
 						machineName:'cageLocation'
-					, (err, id)->
-						console.log 'cageLocation section inserted'
-						cageLocationID = id
-
-					ProtocolSection.insert
+					,
+						#protocol 1.2
 						owner: Meteor.userId()
 						machineName:'depthCondition'
-					, (err, id)->
-						console.log 'depthConditionID section inserted'
-						depthConditionID = id
-
-					ProtocolSection.insert
+					,
+						#protocol 1.3
 						owner: Meteor.userId()
 						machineName:'oysterGrowth'
-					, (err, id)->
-						console.log 'oysterGrowthID section inserted'
-						oysterGrowthID = id
+					,
+						#protocol 2.1
+						owner: Meteor.userId()
+						machineName:'mobileOrganisms'
+					,
+						#protocol 3.1
+						owner: Meteor.userId()
+						machineName:'sessileObserved'
+					,
+						#protocol 4.1
+						owner: Meteor.userId()
+						machineName:'weather'
+					,
+						#protocol 4.2
+						owner: Meteor.userId()
+						machineName:'rainfall'
+					,
+						#protocol 4.3
+						owner: Meteor.userId()
+						machineName:'tide'
+					,
+						#protocol 4.4
+						owner: Meteor.userId()
+						machineName:'water'
+					,
+						#protocol 4.5
+						owner: Meteor.userId()
+						machineName:'land'
+					,
+						#protocol 5.1
+						owner: Meteor.userId()
+						machineName:'waterQuality'
+					,
+						#protocol 5.2
+						owner: Meteor.userId()
+						machineName:'sediment'
+					]
+					#create protocol section documents ------ end
 
-						#create protocol section documents ------ end
+					handleSaveSectionsResults = (results)->
+						$q (resolve, reject)->
+							insertedIDs = (result._id for result in results)
+							idMap = {}
+							query =
+								_id:{$in:insertedIDs}
 
+							ProtocolSection.find(query).forEach (section, index, cursor)->
+								idMap[section.machineName] = section._id
+
+							resolve(idMap)
+
+					saveExpedition = (sectionIDMap)->
 						#create expedition
 						$scope.expeditionEditing.owner = Meteor.userId()
 						$scope.expeditionEditing.date = new Date()
-						$scope.expeditionEditing.sections = {cageLocationID, depthConditionID, oysterGrowthID}
+						$scope.expeditionEditing.sections = sectionIDMap
+						$scope.expeditions.save($scope.expeditionEditing)
 
-						Expeditions.insert $scope.expeditionEditing, (err, id)->
-							$scope.changeExpedition(id)
+					$scope.protocolSections.save(sections)
+					.then handleSaveSectionsResults
+					.then saveExpedition
+					.then (results)->
+						$scope.changeExpedition(results[0]._id)
+
 				else
 					$scope.expeditionEditing.save().then ->
 						$ionicHistory.goBack()
@@ -121,4 +163,6 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			$scope.setCurrentExpeditionByID(id)
 			$scope.navigateHome()
 
+
+		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
 	]

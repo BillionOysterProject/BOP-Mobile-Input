@@ -27,7 +27,6 @@ angular.module('app.example').constant "bopStaticData", {
 			{machineName: 'rainfall', title: 'Recent rainfall'}
 			{machineName: 'tide', title: 'Tide conditions'}
 			{machineName: 'water', title: 'Water conditions'}
-			{machineName: 'sea', title: 'State of the sea (degree)'}
 			{machineName: 'land', title: 'Land conditions'}
 		]
 	,

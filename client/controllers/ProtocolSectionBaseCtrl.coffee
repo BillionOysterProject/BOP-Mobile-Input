@@ -21,7 +21,7 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 		$scope.title = "Protocol #{$scope.protocolMetadata.num}.#{sectionNum}"
 
 		sectionMachineName = $scope.sectionMeta.machineName
-		sectionID = $scope.expedition.sections[sectionMachineName + 'ID']
+		sectionID = $scope.expedition.sections[sectionMachineName]
 		$scope.section = $meteor.object(ProtocolSection, sectionID, false)
 #		$scope.section.subscribe(ProtocolSection)
 	]
