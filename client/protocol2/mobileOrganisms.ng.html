@@ -10,11 +10,22 @@
 		<h2 class="padding">{{sectionMeta.title}}</h2>
 
 		<div class="tiles">
-			<div ng-repeat="org in organisms track by org._id.toHexString()" class="tile">
-				<img width="145px" ng-src="/images/protocol1/depthCondition/heavy.jpg"><br>
-				<p>{{org.common}}</p>
-				<p><em>{{org.latin}}</em></p>
+			<div ng-repeat="org in organisms track by org._id.toHexString()" ng-init="id = org._id.toHexString()" class="tile">
+				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
+				<p class="name">
+					<span class="common">{{org.common}}</span><br>
+					<span class="latin">{{org.latin}}</span>
+				</p>
+				<div class="controls">
+					<button class="button icon ion-minus left" ng-click="decrement(id)"></button>
+					<button class="button icon ion-plus right" ng-click="increment(id)"></button>
+					<label class="item item-input">
+						<input type="number" min="0" ng-model="section[id].count" ng-blur="enforceNumber(id)">
+					</label>
+				</div>
 			</div>
 		</div>
+
+		<button class="button button-block button-positive" ng-click="onTapSave()">Save</button>
 	</ion-content>
 </ion-view>
