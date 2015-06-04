@@ -2,7 +2,8 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 	'$scope'
 	'$controller'
 	'$meteor'
-	($scope, $controller, $meteor) ->
+	'$ionicModal'
+	($scope, $controller, $meteor, $ionicModal) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -26,6 +27,15 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			if !org.count or isNaN(org.count)
 				org.count = parseInt(org.count) || 0
 
+		$scope.showFilters = ->
+			$ionicModal.fromTemplateUrl("client/protocol2/mobileOrganismsModal.ng.html",
+				scope: $scope
+				animation: 'slide-in-up')
+			.then (modal) ->
+				console.log 'modal made, showing...'
+				$scope.filtersModal = modal
+				$scope.filtersModal.show()
+
 		$scope.onTapSave = ->
 			console.log 'onTapSave'
 
@@ -38,6 +48,30 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 				console.log 'saved section form to db'
 
 		$scope.organisms = $meteor.collection(MobileOrganisms).subscribe('MobileOrganisms')
+
+		$scope.orgCategories = _.unique((org.category for org in $scope.organisms), true)
+		$scope.filters =
+			category:undefined
+
+		$scope.items = [
+			category:'Fish'
+			name:'clown'
+		,
+			category:'Fish'
+			name:'Sturgeon'
+		,
+			category:'Fish'
+			name:'perch'
+		,
+			category: 'Ball'
+			name:'baseball'
+		,
+			category: 'Ball'
+			name:'soccerball'
+		,
+			category: 'Ball'
+			name:'volleyball'
+		]
 
 		#initial values
 		$scope.section.organisms ?= {}

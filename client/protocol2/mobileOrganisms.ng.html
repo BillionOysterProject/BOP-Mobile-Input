@@ -6,11 +6,23 @@
 		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
-	<ion-content class="has-header">
+	<div class="bar bar-subheader bar-positive">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="showFilters()">Filters</button>
+		</div>
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	</div>
+
+	<ion-content class="has-header has-subheader">
 		<h2 class="padding">{{sectionMeta.title}}</h2>
 
 		<div class="tiles">
-			<div ng-repeat="org in organisms track by org._id.toHexString()" ng-init="id = org._id.toHexString()" class="tile">
+			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined}" ng-init="id = org._id.toHexString()" class="tile">
 				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
 				<p class="name">
 					<span class="common">{{org.common}}</span><br>

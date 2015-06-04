@@ -1,3 +1,5 @@
+#TODO cleanup - I don't think I got this to work and decided against it for alignment considerations in UI anyway.
+
 angular.module('app.example').directive 'abcdsuffix', ->
 	{
 	require: 'ngModel'

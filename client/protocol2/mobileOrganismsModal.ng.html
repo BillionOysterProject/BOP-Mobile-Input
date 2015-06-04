@@ -1,0 +1,20 @@
+<ion-modal-view>
+	<ion-header-bar>
+		<h1 class="title">Filters</h1>
+		<button class="button button-clear button-positive" ng-click="filtersModal.remove()">Close</button>
+	</ion-header-bar>
+	<ion-content scroll="true" class="has-header padding">
+		<label class="item item-input item-select"
+		       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">
+			<div class="input-label">
+				Category
+			</div>
+			<select name="category"
+			        ng-options="cat for cat in orgCategories" ng-model="filters.category"
+			        required>
+				<option value>-- All --</option>
+			</select>
+		</label>
+	</ion-content>
+</ion-modal-view>
+
