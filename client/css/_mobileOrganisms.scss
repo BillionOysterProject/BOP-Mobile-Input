@@ -55,3 +55,25 @@
 		}
 	}
 }
+
+.mobileOrganismsModal {
+	.tiles {
+		text-align: center;
+//		vertical-align: top;
+	}
+
+	.tile {
+		position: relative;
+		display:inline-block;
+		margin: 5px;
+		width: 140px;
+		height: 140px;
+		overflow: hidden;
+		vertical-align: top;
+
+//		img {
+//			width:145px;
+//			height:145px;
+//		}
+	}
+}

@@ -3,7 +3,8 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 	'$controller'
 	'$meteor'
 	'$ionicModal'
-	($scope, $controller, $meteor, $ionicModal) ->
+	'$ionicScrollDelegate'
+	($scope, $controller, $meteor, $ionicModal, $ionicScrollDelegate) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -53,25 +54,18 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 		$scope.filters =
 			category:undefined
 
-		$scope.items = [
-			category:'Fish'
-			name:'clown'
-		,
-			category:'Fish'
-			name:'Sturgeon'
-		,
-			category:'Fish'
-			name:'perch'
-		,
-			category: 'Ball'
-			name:'baseball'
-		,
-			category: 'Ball'
-			name:'soccerball'
-		,
-			category: 'Ball'
-			name:'volleyball'
-		]
+		$scope.categoryMap =
+			Crustaceans:"filter-crustaceans.svg"
+			Fish:"filter-fish.svg"
+			Molluscs:"filter-molluscs.svg"
+			Sponges:"filter-sponges.svg"
+			Tunicates:"filter-tunicates.svg"
+			Worms:"filter-worms.svg"
+
+		$scope.onChangeCategory = (cat)->
+			$scope.filters.category = cat
+			$scope.filtersModal.remove()
+			$ionicScrollDelegate.scrollTop(false)
 
 		#initial values
 		$scope.section.organisms ?= {}
