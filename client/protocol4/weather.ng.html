@@ -1,0 +1,116 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader bar-positive">-->
+		<!--<div class="buttons">-->
+			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
+		<!--</div>-->
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<ion-content class="has-header has-subheader">
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<div class="item item-input"
+				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Wind Speed</span>
+					<input name="windSpeed"
+					       type="number"
+					       ng-model="section.windSpeed"
+					       min="0"
+					       max="157"
+					       required
+					       >
+					<span class="input-label">MPH</span>
+				</div>
+				<div ng-messages="sectionForm.windSpeed.$error"
+				     class="form-errors"
+				     ng-show="sectionForm.windSpeed.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="max">Should you be worrying about oysters in a hurricane?</div>
+				</div>
+
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
+					<div class="input-label">Wind Direction</div>
+					<select name="windDirection"
+					        ng-options="direction.label for direction in windDirections"
+					        ng-model="formIntermediary.windDirection"
+					        required></select>
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.windDirection.$error"
+				     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				</div>
+
+				<div class="item item-input"
+				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Temperature</span>
+					<input name="temperatureF"
+					       type="number"
+					       ng-model="section.temperatureF"
+					       min="0"
+					       max="140"
+					       required
+					       >
+					<span class="input-label">℉</span>
+				</div>
+				<div ng-messages="sectionForm.temperatureF.$error"
+				     class="form-errors"
+				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="max">Is it really that hot out?</div>
+				</div>
+
+				<div class="item item-input"
+				     ng-class="{ 'has-error' : sectionForm.humidityPct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Humidity</span>
+					<input name="humidityPct"
+					       type="number"
+					       ng-model="section.humidityPct"
+					       min="0"
+					       max="100"
+					       required
+					       >
+					<span class="input-label">%</span>
+				</div>
+				<div ng-messages="sectionForm.humidityPct.$error"
+				     class="form-errors"
+				     ng-show="sectionForm.humidityPct.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="max">Can't be greater than 100%</div>
+				</div>
+				
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
+					<div class="input-label">Weather</div>
+					<select name="weatherCondition"
+					        ng-options="direction.label for direction in weatherConditions"
+					        ng-model="formIntermediary.weatherCondition"
+					        required></select>
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.weatherCondition.$error"
+				     ng-show="sectionForm.weatherCondition.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				</div>
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+			</ion-list>
+		</form>
+	</ion-content>
+</ion-view>

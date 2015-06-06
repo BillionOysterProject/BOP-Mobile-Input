@@ -37,4 +37,40 @@ angular.module('app.example').constant "bopStaticData", {
 			{machineName: 'sediment', title: 'Sedimentation'}
 		]
 	]
+	
+	weatherConditions:[
+		{id:'partly-sunny', label:'Partly Sunny'}
+		{id:'scattered-thunderstorms', label:'Scattered Thunderstorms'}
+		{id:'showers', label:'Showers'}
+		{id:'scattered-showers', label:'Scattered Showers'}
+		{id:'rain-and-snow', label:'Rain and Snow'}
+		{id:'overcast', label:'Overcast'}
+		{id:'light-snow', label:'Light Snow'}
+		{id:'freezing-drizzle', label:'Freezing Drizzle'}
+		{id:'chance-of-rain', label:'Chance of Rain'}
+		{id:'sunny', label:'Sunny'}
+		{id:'clear', label:'Clear'}
+		{id:'mostly-sunny', label:'Mostly Sunny'}
+		{id:'partly-cloudy', label:'Partly Cloudy'}
+		{id:'mostly-cloudy', label:'Mostly Cloudy'}
+		{id:'chance-of-storm', label:'Chance of Storm'}
+		{id:'rain', label:'Rain'}
+		{id:'chance-of-snow', label:'Chance of Snow'}
+		{id:'cloudy', label:'Cloudy'}
+		{id:'mist', label:'Mist'}
+		{id:'storm', label:'Storm'}
+		{id:'thunderstorm', label:'Thunderstorm'}
+		{id:'chance-of-tstorm', label:'Chance of TStorm'}
+		{id:'sleet', label:'Sleet'}
+		{id:'snow', label:'Snow'}
+		{id:'icy', label:'Icy'}
+		{id:'dust', label:'Dust'}
+		{id:'fog', label:'Fog'}
+		{id:'smoke', label:'Smoke'}
+		{id:'haze', label:'Haze'}
+		{id:'flurries', label:'Flurries'}
+		{id:'light-rain', label:'Light Rain'}
+		{id:'snow-showers', label:'Snow Showers'}
+		{id:'hail', label:'Hail'}
+	]
 }
