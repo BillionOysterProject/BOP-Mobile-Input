@@ -1,0 +1,51 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader bar-positive">-->
+		<!--<div class="buttons">-->
+			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
+		<!--</div>-->
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<ion-content class="has-header has-subheader">
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+				<div class="item item-divider">Tide Level: </div>
+				<div class="item range range-positive">
+					<i class="icon ion-battery-empty"></i>
+					<input type="range"
+					       name="tideEstimate"
+					       min="0" max="4" step="1"
+					       ng-model="section.tideEstimate"
+					       ng-change="castTideEstimateToNum()">
+					<i class="icon ion-battery-full"></i>
+				</div>
+
+				<h1>TODO tide table tideActual</h1>
+
+				<div class="item item-divider">Tide Direction:</div>
+				<ion-radio ng-model="section.tideDirection" ng-value="'flood'">Flood Current</ion-radio>
+				<ion-radio ng-model="section.tideDirection" ng-value="'slack'">Slack Water</ion-radio>
+				<ion-radio ng-model="section.tideDirection" ng-value="'ebb'">Ebb Current</ion-radio>
+
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+			</ion-list>
+		</form>
+	</ion-content>
+</ion-view>
