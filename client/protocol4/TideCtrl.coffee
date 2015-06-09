@@ -7,13 +7,13 @@ angular.module('app.example').controller 'TideCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		$scope.tideLevels = [
-			'dead low'
-			'med/low'
-			'mid'
-			'med/high'
-			'high'
-		]
+#		$scope.tideLevels = [
+#			'dead low'
+#			'med/low'
+#			'mid'
+#			'med/high'
+#			'high'
+#		]
 
 		$scope.castTideEstimateToNum = ->
 			$scope.section.tideEstimate = Number($scope.section.tideEstimate)
