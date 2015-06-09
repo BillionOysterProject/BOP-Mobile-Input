@@ -1,0 +1,127 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader bar-positive">-->
+		<!--<div class="buttons">-->
+			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
+		<!--</div>-->
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<ion-content class="has-header">
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<!-- Shoreline types ____________ start -->
+				<div class="item item-divider">Shoreline Type:</div>
+				<ion-checkbox ng-repeat="type in shorelineTypes track by type.id"
+				              ng-model="formIntermediary.shorelineTypes[type.id]">{{type.label}}</ion-checkbox>
+
+				<div ng-if="formIntermediary.shorelineTypes.other">
+					<label class="item item-input item-stacked-label item-text-wrap"
+					       ng-class="{ 'has-error' : sectionForm.shorelineDescOther.$invalid && sectionForm.$submitted}"
+							>
+						<span class="input-label">Other Shoreline Description</span>
+
+						<textarea name="shorelineDescOther"
+						          ng-model="section.shorelineDescOther"
+						          msd-elastic="\n"
+						          required></textarea>
+					</label>
+					<div class="form-errors" ng-messages="sectionForm.shorelineDescOther.$error"
+					     ng-show="sectionForm.shorelineDescOther.$invalid && sectionForm.$submitted"
+					     ng-messages-include="client/views/partials/form-errors.ng.html">
+					</div>
+				</div>
+
+				<!-- Observe adjacent shoreline ___________ start -->
+				<div class="item item-divider">Observe adjacent shoreline</div>
+				<div class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.adjacentShorelinePavedPct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Coverage adjacent shoreline paved or impervious surface (%)</span>
+					<input name="adjacentShorelinePavedPct"
+					       type="number"
+					       ng-model="section.adjacentShoreline.pavedPct"
+					       min="0"
+					       max="100"
+					       required
+					       >
+				</div>
+				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePavedPct.$error"
+				     ng-show="sectionForm.adjacentShorelinePavedPct.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="min">Must be 0 to 100</div>
+					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+				</div>
+
+				<div class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.adjacentShorelineVegetatedPct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Coverage vegetated surface (grass, shrubs, trees) (%)</span>
+					<input name="adjacentShorelineVegetatedPct"
+					       type="number"
+					       ng-model="section.adjacentShoreline.vegetatedPct"
+					       min="0"
+					       max="100"
+					       required
+					       >
+				</div>
+				<div class="form-errors" ng-messages="sectionForm.adjacentShorelineVegetatedPct.$error"
+				     ng-show="sectionForm.adjacentShorelineVegetatedPct.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="min">Must be 0 to 100</div>
+					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+				</div>
+
+				<div class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.adjacentShorelinePorousPct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Coverage dirt, gravel, or other porous surface (%)</span>
+					<input name="adjacentShorelinePorousPct"
+					       type="number"
+					       ng-model="section.adjacentShoreline.porousPct"
+					       min="0"
+					       max="100"
+					       required
+					       >
+				</div>
+				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePorousPct.$error"
+				     ng-show="sectionForm.adjacentShorelinePorousPct.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+					<div class="form-error" ng-message="min">Must be 0 to 100</div>
+					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+				</div>
+
+				<label class="item item-input item-stacked-label item-text-wrap"
+				       ng-class="{ 'has-error' : sectionForm.garbageDescription.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Debris or garbage present on land</span>
+
+					<textarea name="garbageDescription"
+					          placeholder="{{garbageDescPlaceholder}}"
+					          ng-model="section.garbageDescription"
+					          msd-elastic="\n"
+					          required></textarea>
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
+				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted"
+				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				</div>
+
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+			</ion-list>
+		</form>
+	</ion-content>
+</ion-view>
