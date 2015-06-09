@@ -9,6 +9,7 @@ angular.module('app.example', [
 	'ionic'
 	'ngMessages'
 	'ngCordova'
+	'monospaced.elastic' #for resizable textarea
 ])
 if Meteor.isCordova
 	angular.element(document).on 'deviceready', onReady
