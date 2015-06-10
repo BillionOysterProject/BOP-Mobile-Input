@@ -10,43 +10,77 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
+		#scope for the add/edit data-sample popup
+		$scope.datumPopupScope = $rootScope.$new()
+		$scope.datumPopupScope.onSubmit = (formValid)->
+			console.log 'formValid: ' + formValid
+			if formValid
+				console.log 'form valid, create/update datum in samples'
+				switch $scope.datumPopupScope.action
+					when 'add'
+						$scope.getSamples().push $scope.datumPopupScope.data.popupData
+					when 'edit'
+						$scope.getSamples()[$scope.datumPopupScope.index] = $scope.datumPopupScope.data.popupData
+
+				$scope.datumPopupScope.data.popupData = null
+				delete $scope.datumPopupScope.action
+				delete $scope.datumPopupScope.index
+				$scope.datumPopupScope.popup.close()
+
+		#popup containing an input field for the data to create/edit
+		$scope.createDatumPopup = (action)->
+			$scope.datumPopupScope.action = action
+			$scope.datumPopupScope.popup = $ionicPopup.show(
+				templateUrl: 'client/protocol5/indicatorDatumPopup.ng.html'
+				title: 'Enter value for sample'
+				subTitle: $scope.formIntermediary.method.label
+				scope: $scope.datumPopupScope
+			)
+
+			$scope.datumPopupScope.popup
+
 		$scope.getSamples = ->
-			$scope.formIntermediary.samples[$scope.formIntermediary.method.machineName]
+			methodKey = $scope.formIntermediary.method.machineName
+			$scope.sectionIndicator.methods[methodKey].samples
 
 		$scope.onClickAdd = ->
 			$ionicListDelegate.closeOptionButtons()
-			# An elaborate, custom popup
-			myPopup = $ionicPopup.show(
-				template: '<input type="number" ng-model="formIntermediary.popupData">'
-				title: 'Enter value for sample'
-				subTitle: $scope.formIntermediary.method.label
-				scope: $scope
-				buttons: [
-					{text: 'Cancel'}
-					{
-						text: '<b>Save</b>'
-						type: 'button-positive'
-						onTap: (e) ->
-							console.log isNaN($scope.formIntermediary.popupData)
-							if isNaN($scope.formIntermediary.popupData)
-								#don't allow the user to close unless he enters wifi password
-								e.preventDefault()
-							else
-								return $scope.formIntermediary.popupData
-							return
+			$scope.createDatumPopup('add')
 
-					}
-				])
-			myPopup.then (datum) ->
-				if datum
-					console.log 'Tapped!', datum
-					$scope.getSamples().push datum
-					$scope.formIntermediary.popupData = null
-				return
+		$scope.deleteSample = (index)->
+			$ionicListDelegate.closeOptionButtons()
+			$scope.getSamples().splice(index, 1)
 
-		$scope.indicators = bopStaticData.waterQualitySectionIndicators
+		$scope.editSample = (index)->
+			console.log 'edit index ' + index
+			$ionicListDelegate.closeOptionButtons()
+			$scope.datumPopupScope.index = index
+			$scope.datumPopupScope.data =
+				popupData: $scope.getSamples()[index]
 
-		for indicator in $scope.indicators
+			$scope.createDatumPopup('edit')
+
+		$scope.onTapSave = ->
+			$ionicListDelegate.closeOptionButtons()
+
+			$scope.sectionIndicator.totalSamples = 0
+			for method in $scope.indicator.methods
+				console.log 'save indicator method: ' + method.label
+				sectionIndicatorMethod = $scope.sectionIndicator.methods[method.machineName]
+
+				#remove invalid sample values (NaN) before save
+				pruneIndices = []
+				for sample, index in sectionIndicatorMethod.samples
+					pruneIndices.push(index) if isNaN(sample)
+				_.pullAt(sectionIndicatorMethod.samples, pruneIndices)
+
+				$scope.sectionIndicator.totalSamples += sectionIndicatorMethod.samples.length
+
+			$scope.section.save().then ->
+				console.log 'saved section form to db'
+
+		#get reference to current indicator (i.e. Temperature (which has a couple different methods like 'thermometer' and 'Atlas probe')
+		for indicator in bopStaticData.waterQualitySectionIndicators
 			if indicator.machineName is $stateParams.indicatorMachineName
 				$scope.indicator = indicator
 				break
@@ -56,78 +90,27 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		$scope.formIntermediary =
 			method:$scope.indicator.methods[0]
 			singleMethod:$scope.indicator.methods.length is 1
-			samples:{} #keys are method machineName, values are measurement datum
 
-
+		#initialize ------------------------   start
 		$scope.section.indicators ?= {}
-
-		#initialize
 		$scope.section.indicators[$scope.indicator.machineName] ?=
 			units:$scope.indicator.units
 			methods:null
 
-		#shorthand alias
-		sectionIndicator = $scope.section.indicators[$scope.indicator.machineName]
+		#shorthand alias to current indicator data
+		$scope.sectionIndicator = $scope.section.indicators[$scope.indicator.machineName]
 
 		for method in $scope.indicator.methods
-			sectionIndicator.methods ?= {}
-			sectionIndicator.methods[method.machineMame] ?= samples:[]
-			sectionIndicatorMethod = sectionIndicator.methods[method.machineMame]
-			if sectionIndicatorMethod.samples.length > 0
-				$scope.formIntermediary.samples[method.machineName] = _.clone(sectionIndicatorMethod.samples)
-			else
+			$scope.sectionIndicator.methods ?= {}
+			$scope.sectionIndicator.methods[method.machineName] ?= {samples:[]}
+			sectionIndicatorMethod = $scope.sectionIndicator.methods[method.machineName]
+
+			if sectionIndicatorMethod.samples.length is 0
 				#start user with three blank slots for samples (blank ones will get pruned on save)
-				$scope.formIntermediary.samples[method.machineName] = new Array(3)
+				sectionIndicatorMethod.samples = new Array(3)
 
-		$scope.deleteSample = (index)->
-			$ionicListDelegate.closeOptionButtons()
-			$scope.getSamples().splice(index, 1)
+		#initialize ------------------------   end
 
-		$scope.editSample = (index)->
-			console.log 'edit index ' + index
-			$ionicListDelegate.closeOptionButtons()
-			$scope.formIntermediary.popupData = $scope.getSamples()[index]
 
-			# An elaborate, custom popup
-			myPopup = $ionicPopup.show(
-				template: '<input type="number" ng-model="formIntermediary.popupData" autofocus>'
-				title: 'Set value for sample'
-				subTitle: $scope.formIntermediary.method.label
-				scope: $scope
-				buttons: [
-					{text: 'Cancel'}
-					{
-						text: '<b>Save</b>'
-						type: 'button-positive'
-						onTap: (e) ->
-							console.log isNaN($scope.formIntermediary.popupData)
-							if isNaN($scope.formIntermediary.popupData)
-								#don't allow the user to close unless he enters wifi password
-								e.preventDefault()
-							else
-								return $scope.formIntermediary.popupData
-							return
 
-					}
-				])
-			myPopup.then (datum) ->
-				if datum
-					console.log 'Tapped!', datum
-					$scope.getSamples()[index] = $scope.formIntermediary.popupData
-					$scope.formIntermediary.popupData = null
-				return
-
-		$scope.onTapSave = ->
-			$ionicListDelegate.closeOptionButtons()
-
-			for method in $scope.indicator.methods
-				console.log 'save indicator method: ' + method.label
-				sectionIndicatorMethod = sectionIndicator.methods[method.machineMame]
-				sectionIndicatorMethod.samples = []
-				for sample in $scope.formIntermediary.samples[method.machineName]
-					#add samples to section object, prune invalid (probably just empty) items
-					sectionIndicatorMethod.samples.push(sample) if !isNaN(sample)
-
-			$scope.section.save().then ->
-				console.log 'saved section form to db'
 ]

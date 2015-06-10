@@ -1,0 +1,30 @@
+<!--<div ng-controller="WaterQualityIndicatorCtrl">-->
+	<form name="datumForm"
+	      novalidate=""
+	      ng-submit="onSubmit(datumForm.$valid)">
+		<label class="item item-input bop-icon-right"
+		     ng-class="{ 'has-error' : datumForm.$invalid}">
+			<input name="datum"
+			       type="number"
+			       min="0"
+			       ng-model="data.popupData"
+			       autofocus>
+			<span class="input-label">{{indicator.units}}</span>
+		</label>
+		<div class="form-errors" ng-messages="datumForm.$error"
+		     ng-show="datumForm.$invalid"
+		     ng-messages-include="client/views/partials/form-errors.ng.html">
+		</div>
+		<div class="popup-buttons">
+			<button class="button button-default"
+				    padding="true"
+				    type="button"
+			        ng-click="popup.close()"
+				    >Cancel</button>
+			<button class="button button-calm"
+		    padding="true"
+		    type="submit"
+		    >Save</button>
+		</div>
+	</form>
+<!--</div>-->
