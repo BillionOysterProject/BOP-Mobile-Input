@@ -60,16 +60,24 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 
 		$scope.section.indicators ?= {}
+
 		#initialize
 		$scope.section.indicators[$scope.indicator.machineName] ?=
 			units:$scope.indicator.units
-			samples:null
+			methods:null
 
 		#shorthand alias
 		sectionIndicator = $scope.section.indicators[$scope.indicator.machineName]
 
 		for method in $scope.indicator.methods
-			$scope.formIntermediary.samples[method.machineName] = new Array(3)
+			sectionIndicator.methods ?= {}
+			sectionIndicator.methods[method.machineMame] ?= samples:[]
+			sectionIndicatorMethod = sectionIndicator.methods[method.machineMame]
+			if sectionIndicatorMethod.samples.length > 0
+				$scope.formIntermediary.samples[method.machineName] = _.clone(sectionIndicatorMethod.samples)
+			else
+				#start user with three blank slots for samples (blank ones will get pruned on save)
+				$scope.formIntermediary.samples[method.machineName] = new Array(3)
 
 		$scope.deleteSample = (index)->
 			$ionicListDelegate.closeOptionButtons()
@@ -109,11 +117,17 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 					$scope.formIntermediary.popupData = null
 				return
 
-		$scope.onTapSave = (formIsValid)->
+		$scope.onTapSave = ->
 			$ionicListDelegate.closeOptionButtons()
-			if formIsValid
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-			else
-				console.log 'do nothing, sectionForm invalid'
-	]
+
+			for method in $scope.indicator.methods
+				console.log 'save indicator method: ' + method.label
+				sectionIndicatorMethod = sectionIndicator.methods[method.machineMame]
+				sectionIndicatorMethod.samples = []
+				for sample in $scope.formIntermediary.samples[method.machineName]
+					#add samples to section object, prune invalid (probably just empty) items
+					sectionIndicatorMethod.samples.push(sample) if !isNaN(sample)
+
+			$scope.section.save().then ->
+				console.log 'saved section form to db'
+]
