@@ -37,7 +37,95 @@ angular.module('app.example').constant "bopStaticData", {
 			{machineName: 'sediment', title: 'Sedimentation'}
 		]
 	]
-	
+
+	waterQualitySectionIndicators: [
+		machineName:'temperature'
+		title:'Water Temperature'
+		units:'ºC'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'thermometer', label:'Thermometer'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+		]
+	,
+		machineName:'DO'
+		title:'Dissolved Oxygen (DO)'
+		units:'%'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'winkler', label:'Winkler Method'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+			{machineName:'chemets', label:'CHEMets Colorimetric'}
+		]
+	,
+		machineName:'turbidity'
+		title:'Turbidity'
+		units:'%'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'turbidityTube', label:'Turbidity tube'}
+		]
+	,
+		machineName:'oxiReducPot'
+		title:'Oxidation Reduction Potential'
+		units:'%'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+		]
+	,
+		machineName:'salinity'
+		title:'Salinity'
+		units:'ppt'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+			{machineName:'refractometer', label:'Refractometer'}
+		]
+	,
+		machineName:'pH'
+		title:'pH'
+		units:'ppt'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+			{machineName:'phMeter', label:'pH Meter'}
+			{machineName:'phStrips', label:'pH Test Strips'}
+		]
+	,
+		machineName:'nitrates'
+		title:'Nitrates'
+		units:'mg/L'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+		]
+	,
+		machineName:'phosphates'
+		title:'Phosphates'
+		units:'mg/L'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+		]
+	,
+		machineName:'ammonia'
+		title:'Ammonia'
+		units:'mg/L'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+		]
+	,
+		machineName:'fecal'
+		title:'Fecal Coliform'
+		units:'MPN'
+		icon:'foo-icon'
+		methods:[
+			{machineName:'colilert', label:'Colilert'}
+		]
+	]
+
 	weatherConditions:[
 		{id:'partly-sunny', label:'Partly Sunny'}
 		{id:'scattered-thunderstorms', label:'Scattered Thunderstorms'}

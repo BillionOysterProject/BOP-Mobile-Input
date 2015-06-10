@@ -2,10 +2,7 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 	'$scope'
 	'$stateParams'
 	'$meteor'
-	'$q'
-	'$timeout'
-	'bopLocationHelper'
-	($scope, $stateParams, $meteor, $q, $timeout, bopLocationHelper) ->
+	($scope, $stateParams, $meteor) ->
 		if !$scope.startupComplete
 			location.href = '/'
 			return

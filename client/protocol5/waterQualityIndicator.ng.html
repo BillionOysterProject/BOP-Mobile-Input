@@ -1,0 +1,64 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader bar-positive">-->
+		<!--<div class="buttons">-->
+			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
+		<!--</div>-->
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<ion-content class="has-header">
+		<ion-list>
+			<h3 class="padding">{{indicator.title}}</h3>
+			<!-- method _______________ start -->
+			<ng-switch on="formIntermediary.singleMethod">
+				<label ng-switch-when="false"
+						class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.method.$invalid && sectionForm.$submitted}">
+					<div class="input-label">Method:</div>
+						<select name="method"
+						        ng-options="method.label for method in indicator.methods"
+						        ng-model="formIntermediary.method"
+						        required></select>
+				</label>
+				<label ng-switch-when="true"
+				       class="item item-input"
+				       ng-class="{ 'has-error' : sectionForm.method.$invalid && sectionForm.$submitted}">
+					<div class="input-label">Method:</div>
+					<p class="singleSelectOption">{{formIntermediary.method.label}}</p>
+				</label>
+			</ng-switch>
+			<div class="form-errors" ng-messages="sectionForm.windDirection.$error"
+			     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted"
+			     ng-messages-include="client/views/partials/form-errors.ng.html">
+			</div>
+		</ion-list>
+		<ion-list can-swipe="true">
+			<!-- data points _______________ start -->
+			<div ng-show="getSamples().length > 0" class="item item-divider">Samples</div>
+			<p class="item item-icon-left item-text-wrap">
+				<i class="icon ion-ios-lightbulb-outline"></i> Double-tap to edit a sample, swipe left to delete.
+			</p>
+			<ion-item ng-repeat="sample in getSamples() track by $index" on-double-tap="editSample($index)">
+				<p class="text-right">{{getSamples()[$index]}} {{indicator.units}}</p>
+			    <ion-option-button class="button-assertive"
+			                       ng-click="deleteSample($index)">
+			      Delete
+			    </ion-option-button>
+			</ion-item>
+			<button class="button button-clear button-positive" ng-click="onClickAdd()">
+				<i class="icon ion-ios-plus-empty"></i> Add {{getSamples().length > 0 ? 'another' : 'a'}} sample</button>
+		</ion-list>
+	</ion-content>
+</ion-view>
