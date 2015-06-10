@@ -5,7 +5,7 @@
 // the entire section is optional.
 App.info({
   id: 'ca.knowledge.bopinput',
-  version: '0.0.8',
+  version: '0.0.9',
   name: 'BOP Input',
   description: 'Data collection app for BOP',
   author: 'ABCD',
