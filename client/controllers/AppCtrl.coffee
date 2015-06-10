@@ -1,5 +1,6 @@
 angular.module('app.example').controller 'AppCtrl', [
 	'$scope'
+	'$rootScope'
 	'$state'
 	'$timeout'
 	'$ionicHistory'
@@ -9,7 +10,7 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$ionicPopup'
 	'$ionicModal'
 	'bopStaticData'
-	($scope, $state, $timeout, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, bopStaticData) ->
+	($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, bopStaticData) ->
 
 		$scope.authenticated = ->
 			Meteor.userId()
@@ -21,13 +22,21 @@ angular.module('app.example').controller 'AppCtrl', [
 			return promise
 
 		$scope.showHelp = (protocolNum, sectionMachineName)->
+			helpScope = $rootScope.$new()
+			for protocol in bopStaticData.protocolsMetadata
+				if protocol.num is protocolNum
+					for section in protocol.sections
+						if section.machineName is sectionMachineName
+							helpScope.sectionTitle = section.title
+							break
+
 			$ionicModal.fromTemplateUrl("client/views/help/protocol#{protocolNum}/#{sectionMachineName}Help.ng.html",
-				scope: $scope
+				scope: helpScope
 				animation: 'slide-in-up')
 			.then (modal) ->
 				console.log 'modal made, showing...'
-				$scope.helpModal = modal
-				$scope.helpModal.show()
+				helpScope.helpModal = modal
+				helpScope.helpModal.show()
 
 		$scope.getProtocolsMetadata = ->
 			bopStaticData.protocolsMetadata
