@@ -82,7 +82,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 			# An elaborate, custom popup
 			myPopup = $ionicPopup.show(
-				template: '<input type="number" ng-model="formIntermediary.popupData">'
+				template: '<input type="number" ng-model="formIntermediary.popupData" autofocus>'
 				title: 'Set value for sample'
 				subTitle: $scope.formIntermediary.method.label
 				scope: $scope

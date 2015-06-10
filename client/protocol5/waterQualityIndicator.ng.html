@@ -48,9 +48,9 @@
 			<!-- data points _______________ start -->
 			<div ng-show="getSamples().length > 0" class="item item-divider">Samples</div>
 			<p class="item item-icon-left item-text-wrap">
-				<i class="icon ion-ios-lightbulb-outline"></i> Double-tap to edit a sample, swipe left to delete.
+				<i class="icon ion-ios-lightbulb-outline"></i> Tap a sample to edit, swipe left to delete.
 			</p>
-			<ion-item ng-repeat="sample in getSamples() track by $index" on-double-tap="editSample($index)">
+			<ion-item ng-repeat="sample in getSamples() track by $index" ng-click="editSample($index)">
 				<p class="text-right">{{getSamples()[$index]}} {{indicator.units}}</p>
 			    <ion-option-button class="button-assertive"
 			                       ng-click="deleteSample($index)">

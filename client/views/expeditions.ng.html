@@ -8,6 +8,9 @@
 
 	<ion-content padding="expeditions.length == 0" class="has-header">
 		<ion-list>
+			<p class="item item-icon-left item-text-wrap">
+				<i class="icon ion-ios-lightbulb-outline"></i> Tap an expedition to edit, swipe left to delete.
+			</p>
 			<ion-item ng-repeat="expedition in expeditions | orderBy:'-date'"
 			          ui-sref="app.expeditionOverview({expeditionID:expedition._id})" ng-class="{'new':isNew(expedition)}">
 				{{expedition.title || 'Untitled expedition'}}
