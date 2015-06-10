@@ -7,7 +7,7 @@
 	</ion-nav-buttons>
 
 	<ion-content padding="expeditions.length == 0" class="has-header">
-		<ion-list>
+		<ion-list ng-if="expeditions.length > 0">
 			<p class="item item-icon-left item-text-wrap">
 				<i class="icon ion-ios-lightbulb-outline"></i> Tap an expedition to edit, swipe left to delete.
 			</p>
