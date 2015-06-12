@@ -16,10 +16,13 @@ angular.module('app.example').controller 'TideCtrl', [
 #		]
 
 		$scope.castTideEstimateToNum = ->
-			$scope.section.tideEstimate = Number($scope.section.tideEstimate)
+			$scope.section.estimate = Number($scope.section.estimate)
 
-		$scope.section.tideEstimate ?= 0
-		$scope.section.tideDirection ?= 'slack'
+		$scope.castTideSpeedToNum = ->
+			$scope.section.speed = Number($scope.section.speed)
+
+		$scope.section.estimate ?= 0
+		$scope.section.direction ?= 'slack'
 
 
 		#an object to bind certain things to that we don't want directly bound to the meteor model.
