@@ -16,7 +16,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 		$scope.datumPopupScope.onCancel = ->
 			$ionicPlatform.ready ->
-				cordova.plugins.Keyboard.close()
+				cordova?.plugins.Keyboard.close()
 
 			$scope.datumPopupScope.popup.close()
 
@@ -35,7 +35,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 				delete $scope.datumPopupScope.index
 
 				$ionicPlatform.ready ->
-					cordova.plugins.Keyboard.close()
+					cordova?.plugins.Keyboard.close()
 					
 				$scope.datumPopupScope.popup.close()
 
@@ -51,7 +51,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 			)
 
 			$ionicPlatform.ready ->
-				cordova.plugins.Keyboard.show()
+				cordova?.plugins.Keyboard.show()
 
 			$scope.datumPopupScope.popup
 
