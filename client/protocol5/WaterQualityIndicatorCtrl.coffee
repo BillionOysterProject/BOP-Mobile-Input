@@ -2,16 +2,24 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 	'$scope'
 	'$rootScope'
 	'$controller'
+	'$ionicPlatform'
 	'$stateParams'
 	'$ionicPopup'
 	'$ionicListDelegate'
 	'bopStaticData'
-	($scope, $rootScope, $controller, $stateParams, $ionicPopup, $ionicListDelegate, bopStaticData) ->
+	($scope, $rootScope, $controller, $ionicPlatform, $stateParams, $ionicPopup, $ionicListDelegate, bopStaticData) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		#scope for the add/edit data-sample popup
 		$scope.datumPopupScope = $rootScope.$new()
+
+		$scope.datumPopupScope.onCancel = ->
+			$ionicPlatform.ready ->
+				cordova.plugins.Keyboard.close()
+
+			$scope.datumPopupScope.popup.close()
+
 		$scope.datumPopupScope.onSubmit = (formValid)->
 			console.log 'formValid: ' + formValid
 			if formValid
@@ -25,17 +33,25 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 				$scope.datumPopupScope.data.popupData = null
 				delete $scope.datumPopupScope.action
 				delete $scope.datumPopupScope.index
+
+				$ionicPlatform.ready ->
+					cordova.plugins.Keyboard.close()
+					
 				$scope.datumPopupScope.popup.close()
 
 		#popup containing an input field for the data to create/edit
 		$scope.createDatumPopup = (action)->
 			$scope.datumPopupScope.action = action
+			$scope.datumPopupScope.units = $scope.sectionIndicator.methods[$scope.formIntermediary.method.machineName].units
 			$scope.datumPopupScope.popup = $ionicPopup.show(
 				templateUrl: 'client/protocol5/indicatorDatumPopup.ng.html'
 				title: 'Enter value for sample'
 				subTitle: $scope.formIntermediary.method.label
 				scope: $scope.datumPopupScope
 			)
+
+			$ionicPlatform.ready ->
+				cordova.plugins.Keyboard.show()
 
 			$scope.datumPopupScope.popup
 
