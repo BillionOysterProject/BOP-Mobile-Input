@@ -41,88 +41,78 @@ angular.module('app.example').constant "bopStaticData", {
 	waterQualitySectionIndicators: [
 		machineName:'temperature'
 		title:'Water Temperature'
-		units:'ºC'
-		icon:'foo-icon'
+		icon:'icon-water-temperature'
 		methods:[
-			{machineName:'thermometer', label:'Thermometer'}
-			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+			{machineName:'thermometer', label:'Thermometer', units:'ºC'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe', units:'ºC'}
 		]
 	,
 		machineName:'DO'
 		title:'Dissolved Oxygen (DO)'
-		units:'%'
-		icon:'foo-icon'
+		icon:'icon-dissolved-oxygen'
 		methods:[
-			{machineName:'winkler', label:'Winkler Method'}
-			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
-			{machineName:'chemets', label:'CHEMets Colorimetric'}
+			{machineName:'winkler', label:'Winkler Method', units:'mg/L'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe', units:'%'}
+			{machineName:'chemets', label:'CHEMets Colorimetric', units:'PPM'}
 		]
 	,
 		machineName:'turbidity'
 		title:'Turbidity'
-		units:'%'
-		icon:'foo-icon'
+		icon:'icon-turbidity'
 		methods:[
-			{machineName:'turbidityTube', label:'Turbidity tube'}
+			{machineName:'turbidityTube', label:'Turbidity tube', units:'JTU'}
 		]
 	,
 		machineName:'oxiReducPot'
 		title:'Oxidation Reduction Potential'
-		units:'%'
-		icon:'foo-icon'
+		icon:'icon-oxidation-reduction-potential'
 		methods:[
-			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe', units:'ORP'}
 		]
 	,
 		machineName:'salinity'
 		title:'Salinity'
-		units:'ppt'
-		icon:'foo-icon'
+		icon:'icon-salinity'
 		methods:[
-			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
-			{machineName:'refractometer', label:'Refractometer'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe', units:'PPT'}
+			{machineName:'refractometer', label:'Refractometer', units:'PPT'}
 		]
 	,
 		machineName:'pH'
 		title:'pH'
-		units:'ppt'
-		icon:'foo-icon'
+		icon:'icon-ph'
 		methods:[
-			{machineName:'atlasProbe', label:'Atlas Scientific probe'}
-			{machineName:'phMeter', label:'pH Meter'}
-			{machineName:'phStrips', label:'pH Test Strips'}
+			{machineName:'atlasProbe', label:'Atlas Scientific probe', units:'pH'}
+			{machineName:'phMeter', label:'pH Meter', units:'pH'}
+			{machineName:'phStrips', label:'pH Test Strips', units:'pH'}
 		]
 	,
 		machineName:'nitrates'
 		title:'Nitrates'
-		units:'mg/L'
-		icon:'foo-icon'
+		icon:'icon-ph'
 		methods:[
-			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+			{machineName:'aquaStrips', label:'Aquacheck test strips', units:'PPM'}
 		]
 	,
 		machineName:'phosphates'
 		title:'Phosphates'
-		units:'mg/L'
-		icon:'foo-icon'
+		icon:'icon-phosphates'
 		methods:[
-			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+			{machineName:'aquaStrips', label:'Aquacheck test strips', units:'PPM'}
 		]
 	,
 		machineName:'ammonia'
 		title:'Ammonia'
-		units:'mg/L'
-		icon:'foo-icon'
+		icon:'icon-ammonia'
 		methods:[
-			{machineName:'aquaStrips', label:'Aquacheck test strips'}
+			{machineName:'aquaStrips', label:'Aquacheck test strips', units:'PPM'}
 		]
 	,
 		machineName:'fecal'
 		title:'Fecal Coliform'
-		units:'MPN'
-		icon:'foo-icon'
+		icon:'icon-fecal-coliform'
 		methods:[
-			{machineName:'colilert', label:'Colilert'}
+			{machineName:'colilert', label:'Colilert', units:'MPN'}
 		]
 	]
 

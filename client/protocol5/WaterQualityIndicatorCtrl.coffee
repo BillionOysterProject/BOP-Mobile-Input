@@ -94,7 +94,6 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		#initialize ------------------------   start
 		$scope.section.indicators ?= {}
 		$scope.section.indicators[$scope.indicator.machineName] ?=
-			units:$scope.indicator.units
 			methods:null
 
 		#shorthand alias to current indicator data
@@ -102,7 +101,10 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 		for method in $scope.indicator.methods
 			$scope.sectionIndicator.methods ?= {}
-			$scope.sectionIndicator.methods[method.machineName] ?= {samples:[]}
+			$scope.sectionIndicator.methods[method.machineName] ?=
+				samples:[]
+				units:method.units
+
 			sectionIndicatorMethod = $scope.sectionIndicator.methods[method.machineName]
 
 			if sectionIndicatorMethod.samples.length is 0

@@ -1,4 +1,4 @@
-<ion-view title="{{title}}">
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
@@ -9,7 +9,9 @@
 		<ion-list>
 			<h2 class="padding">{{sectionMeta.title}}</h2>
 			<ion-item ng-repeat="indicator in indicators track by indicator.machineName"
-			          ui-sref="app.waterQualityIndicator({protocolNum:protocol.num, sectionMachineName:section.machineName, indicatorMachineName:indicator.machineName})">
+			          ui-sref="app.waterQualityIndicator({protocolNum:protocol.num, sectionMachineName:section.machineName, indicatorMachineName:indicator.machineName})"
+			          class="item-text-wrap">
+				<i class="icon {{indicator.icon}}"></i>
 				{{indicator.title}}
 						</ion-item>
 		</ion-list>

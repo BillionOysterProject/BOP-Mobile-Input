@@ -51,7 +51,7 @@
 				<i class="icon ion-ios-lightbulb-outline"></i> Tap a sample to edit, swipe left to delete.
 			</p>
 			<ion-item ng-repeat="sample in getSamples() track by $index" ng-click="editSample($index)">
-				<p class="text-right">{{getSamples()[$index]}} {{indicator.units}}</p>
+				<p class="text-right">{{getSamples()[$index]}} {{sectionIndicator.methods[formIntermediary.method.machineName].units}}</p>
 			    <ion-option-button class="button-assertive"
 			                       ng-click="deleteSample($index)">
 			      Delete
