@@ -6,16 +6,18 @@
 		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
-	<div class="bar bar-subheader bar-positive">
-		<div class="buttons">
-			<button class="button button-clear" ng-click="showFilters()">Filters</button>
+	<div class="bar bar-subheader bar-default filter-buttons">
+		<div class="row">
+			<div class="col">
+				<button class="button button-clear button-positive all-cats" ng-click="onChangeCategory()">All</button>
+			</div>
+			<div class="col" ng-repeat="cat in orgCategories">
+				<button class="button button-clear" ng-click="onChangeCategory(cat)">
+					<img class="filterIcon"
+					     ng-src="/images/protocol2/mobileOrganisms/filterIcons/{{categoryMap[cat]}}">
+				</button>
+			</div>
 		</div>
-
-		<!--<h2 class="title">Subhead!</h2>-->
-
-		<!--<div class="buttons">-->
-			<!--<button class="button">Right Button</button>-->
-		<!--</div>-->
 	</div>
 
 	<ion-content class="has-header has-subheader">

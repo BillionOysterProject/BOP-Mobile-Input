@@ -28,15 +28,6 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			if !org.count or isNaN(org.count)
 				org.count = parseInt(org.count) || 0
 
-		$scope.showFilters = ->
-			$ionicModal.fromTemplateUrl("client/protocol2/mobileOrganismsModal.ng.html",
-				scope: $scope
-				animation: 'slide-in-up')
-			.then (modal) ->
-				console.log 'modal made, showing...'
-				$scope.filtersModal = modal
-				$scope.filtersModal.show()
-
 		$scope.onTapSave = ->
 			console.log 'onTapSave'
 
@@ -64,7 +55,6 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 
 		$scope.onChangeCategory = (cat)->
 			$scope.filters.category = cat
-			$scope.filtersModal.remove()
 			$ionicScrollDelegate.scrollTop(false)
 
 		#initial values
