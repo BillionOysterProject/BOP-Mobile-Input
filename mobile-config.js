@@ -5,7 +5,7 @@
 // the entire section is optional.
 App.info({
   id: 'ca.knowledge.bopinput',
-  version: '0.1.1',
+  version: '0.1.2',
   name: 'BOP Input',
   description: 'Data collection app for BOP',
   author: 'ABCD',
@@ -125,7 +125,8 @@ App.launchScreens({
 
 //
 //// Set PhoneGap/Cordova preferences
-//App.setPreference('BackgroundColor', '0xff0000ff');
+App.setPreference('BackgroundColor', '0x11223b');
+App.setPreference('SplashScreenDelay', '1500');
 //App.setPreference('HideKeyboardFormAccessoryBar', true);
 //
 //// Pass preferences for a particular PhoneGap/Cordova plugin
