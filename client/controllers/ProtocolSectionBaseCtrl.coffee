@@ -2,7 +2,8 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 	'$scope'
 	'$stateParams'
 	'$meteor'
-	($scope, $stateParams, $meteor) ->
+	'$ionicHistory'
+	($scope, $stateParams, $meteor, $ionicHistory) ->
 		if !$scope.startupComplete
 			location.href = '/'
 			return
@@ -16,6 +17,9 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 				break
 
 		$scope.title = "Protocol #{$scope.protocolMetadata.num}.#{sectionNum}"
+
+		$scope.back = (steps = -1)->
+			$ionicHistory.goBack(steps)
 
 		sectionMachineName = $scope.sectionMeta.machineName
 		sectionID = $scope.expedition.sections[sectionMachineName]

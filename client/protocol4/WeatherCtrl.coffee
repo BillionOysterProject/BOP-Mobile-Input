@@ -40,6 +40,8 @@ angular.module('app.example').controller 'WeatherCtrl', [
 				$scope.section.windDirection = $scope.formIntermediary.windDirection.label
 				$scope.section.save().then ->
 					console.log 'saved section form to db'
+					$scope.showSaveDone()
+					$scope.back()
 			else
 				console.log 'do nothing, sectionForm invalid'
 	]

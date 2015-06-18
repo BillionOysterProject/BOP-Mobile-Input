@@ -15,6 +15,8 @@ angular.module('app.example').controller 'SedimentCtrl', [
 			if formIsValid
 				$scope.section.save().then ->
 					console.log 'saved section form to db'
+					$scope.showSaveDone()
+					$scope.back()
 			else
 				console.log 'do nothing, sectionForm invalid'
 	]

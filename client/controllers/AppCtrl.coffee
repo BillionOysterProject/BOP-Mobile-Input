@@ -87,7 +87,27 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);
 
+		$scope.showSaveDone = ->
+			toastr.success("Saved")
+
 		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
+
+		toastr.options =
+			'closeButton': false
+			'debug': false
+			'newestOnTop': true
+			'progressBar': false
+			'positionClass': 'toast-bottom-center'
+			'preventDuplicates': false
+			'onclick': null
+			'showDuration': '150'
+			'hideDuration': '750'
+			'timeOut': '1000'
+			'extendedTimeOut': '1300'
+			'showEasing': 'swing'
+			'hideEasing': 'linear'
+			'showMethod': 'fadeIn'
+			'hideMethod': 'fadeOut'
 
 		$meteor.subscribe('MobileOrganisms')
 		$meteor.subscribe('ProtocolSection')

@@ -61,6 +61,8 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 		$scope.onClickAdd = ->
 			$ionicListDelegate.closeOptionButtons()
+			$scope.datumPopupScope.data =
+				popupData: null
 			$scope.createDatumPopup('add')
 
 		$scope.deleteSample = (index)->
@@ -94,6 +96,9 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 			$scope.section.save().then ->
 				console.log 'saved section form to db'
+				$scope.showSaveDone()
+				$scope.back()
+
 
 		#get reference to current indicator (i.e. Temperature (which has a couple different methods like 'thermometer' and 'Atlas probe')
 		for indicator in bopStaticData.waterQualitySectionIndicators
