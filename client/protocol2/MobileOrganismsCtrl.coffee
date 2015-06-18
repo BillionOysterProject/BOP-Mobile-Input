@@ -38,6 +38,8 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 
 			$scope.section.save().then ->
 				console.log 'saved section form to db'
+				$scope.showSaveDone()
+				$scope.back()
 
 		$scope.organisms = $meteor.collection(MobileOrganisms).subscribe('MobileOrganisms')
 
