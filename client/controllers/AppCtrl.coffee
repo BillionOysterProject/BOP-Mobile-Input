@@ -9,8 +9,9 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$meteor'
 	'$ionicPopup'
 	'$ionicModal'
+	'$filter'
 	'bopStaticData'
-	($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, bopStaticData) ->
+	($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, bopStaticData) ->
 
 		$scope.authenticated = ->
 			Meteor.userId()
@@ -87,6 +88,9 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);
 
+		$scope.setCurrentExpeditionToLatest = ->
+			$scope.expedition = $filter('orderBy')($scope.expeditions, '-date', false)[0]
+
 		$scope.showSaveDone = ->
 			toastr.success("Saved")
 
@@ -95,7 +99,7 @@ angular.module('app.example').controller 'AppCtrl', [
 		toastr.options =
 			'closeButton': false
 			'debug': false
-			'newestOnTop': true
+			'newestOnTop': false
 			'progressBar': false
 			'positionClass': 'toast-bottom-center'
 			'preventDuplicates': false

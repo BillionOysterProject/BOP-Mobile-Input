@@ -15,6 +15,7 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 
 		$scope.deleteExpedition = (expedition)->
 			$scope.expeditions.remove expedition
+			$scope.setCurrentExpeditionToLatest()
 
 		#ephemeral. Just used to support highlighting in UI on creation
 		$scope.isNew = (expedition)->
