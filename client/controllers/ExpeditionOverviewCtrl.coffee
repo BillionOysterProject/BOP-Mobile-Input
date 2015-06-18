@@ -111,10 +111,12 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 					.then handleSaveSectionsResults
 					.then saveExpedition
 					.then (results)->
+						toastr.success("Expedition Created", null, {timeOut:'4000'})
 						$scope.changeExpedition(results[0]._id)
 
 				else
 					$scope.expeditionEditing.save().then ->
+						$scope.showSaveDone()
 						$ionicHistory.goBack()
 			else
 				console.log 'do nothing, overviewForm invalid'
@@ -161,6 +163,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 
 		$scope.changeExpedition = (id)->
 			$scope.setCurrentExpeditionByID(id)
+			toastr.success("Switched Expeditions", null, {timeOut:'4000'})
 			$scope.navigateHome()
 
 
