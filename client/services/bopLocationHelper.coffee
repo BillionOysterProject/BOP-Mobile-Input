@@ -1,7 +1,8 @@
 angular.module('app.example').factory "bopLocationHelper", [
 	"$q"
+	"$ionicPlatform"
 	"$cordovaGeolocation"
-	($q, $cordovaGeolocation)->
+	($q, $ionicPlatform, $cordovaGeolocation)->
 		class bopLocationHelper
 			constructor:->
 
@@ -17,8 +18,14 @@ angular.module('app.example').factory "bopLocationHelper", [
 					#need true for android emulator to be able to return GPS
 #					enableHighAccuracy: true
 
+				promise = null
 				if window.cordova?
-					promise = $cordovaGeolocation.getCurrentPosition(posOptions)
+					$ionicPlatform.ready ->
+						console.log 'geolocation, platform ready'
+#						GeolocationFG.get ->
+#							console.log 'GeolocationFG.get(GeolocationCallback); arguments: '
+#							console.log arguments
+						promise = $cordovaGeolocation.getCurrentPosition(posOptions)
 				else
 					promise = $q (resolve, reject)->
 						#hardcoded Vancouver location for browser testing
