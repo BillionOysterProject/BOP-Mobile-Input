@@ -22,6 +22,15 @@ angular.module('app.example').controller 'AppCtrl', [
 				template: message
 			return promise
 
+		#tmp
+		$scope.protocolProgress = [
+			Math.random()
+			Math.random()
+			Math.random()
+			Math.random()
+			Math.random()
+		]
+
 		$scope.showHelp = (protocolNum, sectionMachineName)->
 			helpScope = $rootScope.$new()
 			for protocol in bopStaticData.protocolsMetadata

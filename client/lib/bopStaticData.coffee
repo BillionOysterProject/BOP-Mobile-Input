@@ -15,7 +15,7 @@ angular.module('app.example').constant "bopStaticData", {
 		]
 	,
 		num: 3
-		title: 'Sessile Organisms/Settlement plates'
+		title: 'Sessile Organisms'
 		sections: [
 			{machineName: 'sessileObserved', title: 'Sessile organisms observed'}
 		]

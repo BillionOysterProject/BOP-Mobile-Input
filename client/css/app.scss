@@ -22,3 +22,14 @@
 #toast-container > div {
 	opacity: 1;
 }
+
+.bop-progress-bar {
+	display: block;
+	background-color: #cccbca;
+	width: 100%;
+
+	.inner {
+		background-color: #aa322b;
+		height: 10px;
+	}
+}
