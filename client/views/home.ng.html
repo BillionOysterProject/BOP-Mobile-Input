@@ -8,11 +8,16 @@
 	<ion-content class="has-header">
 		<h4 class="padding">{{expedition.title}}</h4>
 		<ion-list>
+
 			<ion-item ng-repeat="protocol in getProtocolsMetadata()"
-			          ui-sref="app.protocol({protocolNum:protocol.num})">
-				Protocol {{protocol.num}}
-				<span class="item-note">{{protocol.title}}</span>
+			          ui-sref="app.protocol({protocolNum:protocol.num})"
+			          class="item-thumbnail-left item-text-wrap"
+					>
+				<img ng-src="images/protocol-0{{$index + 1}}.svg">
+				<h2>Protocol {{protocol.num}}</h2>
+				<p>{{protocol.title}}</p>
 			</ion-item>
+
 		</ion-list>
 	</ion-content>
 </ion-view>
