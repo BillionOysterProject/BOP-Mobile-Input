@@ -97,7 +97,7 @@
 				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
 					<div class="input-label">Weather</div>
 					<select name="weatherCondition"
-					        ng-options="direction.label for direction in weatherConditions"
+					        ng-options="condition.label for condition in weatherConditions"
 					        ng-model="formIntermediary.weatherCondition"
 					        required></select>
 				</label>

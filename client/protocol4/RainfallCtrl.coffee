@@ -2,8 +2,7 @@ angular.module('app.example').controller 'RainfallCtrl', [
 	'$scope'
 	'$controller'
 	'$ionicPlatform'
-	'bopStaticData'
-	($scope, $controller, $ionicPlatform, bopStaticData) ->
+	($scope, $controller, $ionicPlatform) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 

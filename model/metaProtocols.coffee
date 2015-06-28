@@ -1,0 +1,1 @@
+@MetaProtocols = new (Meteor.Collection)('MetaProtocols')

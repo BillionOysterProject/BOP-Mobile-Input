@@ -1,18 +1,23 @@
-angular.module('app.example').factory "bopRoutesDynamic", [
-	"$stateProvider"
-	"$meteor"
-	($stateProvider, $meteor)->
-		class RoutesDynamic
+#
+# For additional routes which are dependent on some metadata being loaded from DB.
+# config-time dependencies can be injected here at .provider() declaration
+#
+# @see routes.coffee For routes that are known before startup time
+# ref: http://stackoverflow.com/a/25872852/756177
+#
+angular.module('app.example').provider 'bopRoutesDynamic', ($stateProvider) ->
+
+	# runtime dependencies for the service can be injected here, at the provider.$get() function.
+	@$get = ($meteor) ->
+		return {
 			init: ->
 				protocolsMetadata = $meteor.collection(MetaProtocols).subscribe('MetaProtocols')
-		#		protocolsMetadata = MetaProtocols.find()
 
-					#dynamically create all the protocol section states.
+				#dynamically create all the protocol section states.
 				for protocolMetadata in protocolsMetadata
 					for section in protocolMetadata.sections
 						$stateProvider.state 'app.' + section.machineName,
 							cache: false
-				#			url: '/protocol/:protocolNum'
 							#shorthand default values
 							params:
 								protocolNum: undefined
@@ -26,7 +31,6 @@ angular.module('app.example').factory "bopRoutesDynamic", [
 				#special case: create route for protocol 5's waterQuality indicator subsection
 				$stateProvider.state 'app.waterQualityIndicator',
 					cache: false
-		#			url: '/protocol/:protocolNum'
 					#shorthand default values
 					params:
 						protocolNum: undefined
@@ -37,10 +41,6 @@ angular.module('app.example').factory "bopRoutesDynamic", [
 						'menuContent':
 							templateUrl: "client/protocol5/waterQualityIndicator.ng.html"
 							controller: 'WaterQualityIndicatorCtrl'
+		}
 
-		bopRoutesDynamic = new RoutesDynamic()
-
-		return bopRoutesDynamic
-]
-
-
+	return

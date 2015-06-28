@@ -1,0 +1,1 @@
+@MetaWeatherConditions = new (Meteor.Collection)('MetaWeatherConditions')

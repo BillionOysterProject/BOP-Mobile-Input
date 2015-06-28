@@ -6,8 +6,8 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 	'$stateParams'
 	'$ionicPopup'
 	'$ionicListDelegate'
-	'bopStaticData'
-	($scope, $rootScope, $controller, $ionicPlatform, $stateParams, $ionicPopup, $ionicListDelegate, bopStaticData) ->
+	'$meteor'
+	($scope, $rootScope, $controller, $ionicPlatform, $stateParams, $ionicPopup, $ionicListDelegate, $meteor) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -101,10 +101,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 
 		#get reference to current indicator (i.e. Temperature (which has a couple different methods like 'thermometer' and 'Atlas probe')
-		for indicator in bopStaticData.waterQualitySectionIndicators
-			if indicator.machineName is $stateParams.indicatorMachineName
-				$scope.indicator = indicator
-				break
+		$scope.indicator = $meteor.object(MetaWaterQualityIndicators, machineName:$stateParams.indicatorMachineName);
 
 #		#an object to bind certain things to that we don't want directly bound to the meteor model.
 #		# We can take what we need from this right before save.

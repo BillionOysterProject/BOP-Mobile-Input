@@ -1,8 +1,12 @@
+#
+# For routes that are known before startup time
+#
+# @see bopRoutesDynamic.coffee for additional routes which are dependent on some metadata being loaded from DB
+#
 angular.module('app.example').config [
 	'$urlRouterProvider'
 	'$stateProvider'
-	'bopStaticData'
-	($urlRouterProvider, $stateProvider, bopStaticData) ->
+	($urlRouterProvider, $stateProvider) ->
 		# if none of the below states are matched, use this as the fallback
 		$urlRouterProvider.otherwise '/'
 
@@ -70,51 +74,6 @@ angular.module('app.example').config [
 				'menuContent':
 					templateUrl: 'client/views/todos.ng.html'
 					controller: 'TodoCtrl'
-
-#		.state 'app.protocolSection',
-#			cache: false
-##			url: '/protocol/:protocolNum'
-#			#shorthand default values
-#			abstract:true
-#			params:
-#				protocolNum2: undefined
-#				sectionMachineName: undefined
-#
-#			views:
-#				'menuContent':
-##					templateUrl: 'client/views/protocolSection.ng.html'
-#					controller: 'ProtocolSectionCtrl'
-#
-		#dynamically create all the protocol section states.
-		for protocolMetadata in bopStaticData.protocolsMetadata
-			for section in protocolMetadata.sections
-				$stateProvider.state 'app.' + section.machineName,
-					cache: false
-		#			url: '/protocol/:protocolNum'
-					#shorthand default values
-					params:
-						protocolNum: undefined
-						sectionMachineName: undefined
-
-					views:
-						'menuContent':
-							templateUrl: "client/protocol#{protocolMetadata.num}/#{section.machineName}.ng.html"
-							controller: _.capitalize(section.machineName) + 'Ctrl'
-
-		#special case: create route for protocol 5's waterQuality indicator subsection
-		$stateProvider.state 'app.waterQualityIndicator',
-			cache: false
-#			url: '/protocol/:protocolNum'
-			#shorthand default values
-			params:
-				protocolNum: undefined
-				sectionMachineName: undefined
-				indicatorMachineName: undefined
-
-			views:
-				'menuContent':
-					templateUrl: "client/protocol5/waterQualityIndicator.ng.html"
-					controller: 'WaterQualityIndicatorCtrl'
 
 		return
 ]

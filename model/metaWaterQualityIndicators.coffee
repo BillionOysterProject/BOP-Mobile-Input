@@ -1,0 +1,1 @@
+@MetaWaterQualityIndicators = new (Meteor.Collection)('MetaWaterQualityIndicators')

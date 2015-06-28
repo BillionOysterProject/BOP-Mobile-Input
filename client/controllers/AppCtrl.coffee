@@ -49,7 +49,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		$scope.showHelp = (protocolNum, sectionMachineName)->
 			helpScope = $rootScope.$new()
-			for protocol in bopStaticData.protocolsMetadata
+			for protocol in metaProtocols
 				if protocol.num is protocolNum
 					for section in protocol.sections
 						if section.machineName is sectionMachineName
@@ -63,12 +63,6 @@ angular.module('app.example').controller 'AppCtrl', [
 				console.log 'modal made, showing...'
 				helpScope.helpModal = modal
 				helpScope.helpModal.show()
-
-		$scope.getProtocolsMetadata = ->
-			bopStaticData.protocolsMetadata
-
-		$scope.protocolsMetadataMap = {}
-		($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.getProtocolsMetadata()
 
 		$scope.hasExpeditions = ->
 			Meteor.userId() and Expeditions.find().count() > 0
@@ -119,7 +113,8 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.showSaveDone = ->
 			toastr.success("Saved")
 
-		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
+		$scope.metaProtocols = $meteor.collection(MetaProtocols)
+		$scope.expeditions = $meteor.collection(Expeditions)
 
 		toastr.options =
 			'closeButton': false
@@ -138,11 +133,16 @@ angular.module('app.example').controller 'AppCtrl', [
 			'showMethod': 'fadeIn'
 			'hideMethod': 'fadeOut'
 
+		$meteor.subscribe('MetaProtocols')
 		$meteor.subscribe('MobileOrganisms')
 		$meteor.subscribe('ProtocolSection')
 		.then $meteor.subscribe('Expeditions')
 		.then ->
 			console.log 'expeditions ready. Count: ' + $scope.expeditions.length
+			$scope.protocolsMetadataMap = {}
+			($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.metaProtocols
+
+			bopRoutesDynamic.init()
 
 			$scope.startupComplete = true
 			$scope.navigateOnAuthChange Meteor.userId()
@@ -150,3 +150,4 @@ angular.module('app.example').controller 'AppCtrl', [
 		.catch (error)->
 			console.error "startup failed. ", error
 	]
+

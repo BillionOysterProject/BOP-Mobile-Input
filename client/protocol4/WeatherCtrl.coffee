@@ -1,9 +1,8 @@
 angular.module('app.example').controller 'WeatherCtrl', [
 	'$scope'
 	'$controller'
-	'$ionicPlatform'
-	'bopStaticData'
-	($scope, $controller, $ionicPlatform, bopStaticData) ->
+	'$meteor'
+	($scope, $controller, $meteor) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -22,12 +21,14 @@ angular.module('app.example').controller 'WeatherCtrl', [
 		# We can take what we need from this right before save.
 		$scope.formIntermediary = {}
 
-		$scope.weatherConditions = bopStaticData.weatherConditions
-		if $scope.section.weatherCondition?
-			for item in $scope.weatherConditions
-				if $scope.section.weatherCondition is item.id
-					$scope.formIntermediary.weatherCondition = item
-					break
+		$scope.weatherConditions = $meteor.collection(MetaWeatherConditions)
+
+		$meteor.subscribe('MetaWeatherConditions').then ->
+			if $scope.section.weatherCondition?
+				for condition in $scope.weatherConditions
+					if $scope.section.weatherCondition is condition.machineName
+						$scope.formIntermediary.weatherCondition = condition
+						break
 
 		if $scope.section.windDirection?
 			for item in $scope.windDirections
@@ -36,7 +37,7 @@ angular.module('app.example').controller 'WeatherCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.weatherCondition = $scope.formIntermediary.weatherCondition.id
+				$scope.section.weatherCondition = $scope.formIntermediary.weatherCondition.machineName
 				$scope.section.windDirection = $scope.formIntermediary.windDirection.label
 				$scope.section.save().then ->
 					console.log 'saved section form to db'
