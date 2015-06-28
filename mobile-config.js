@@ -4,7 +4,7 @@
 // This section sets up some basic app metadata,
 // the entire section is optional.
 App.info({
-  id: 'ca.knowledge.bopinput',
+  id: 'ca.visualscience.bopinput',
   version: '0.1.3',
   name: 'BOP Input',
   description: 'Data collection app for BOP',
