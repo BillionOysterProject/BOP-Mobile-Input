@@ -14,6 +14,8 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 			$state.go('app.expeditionOverview', expeditionID:null)
 
 		$scope.deleteExpedition = (expedition)->
+			ProtocolSection.remove({_id: sectionID}) for sectionMachineName, sectionID of expedition.sections
+
 			$scope.expeditions.remove expedition
 			$scope.setCurrentExpeditionToLatest()
 
