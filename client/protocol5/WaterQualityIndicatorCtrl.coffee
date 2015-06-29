@@ -42,7 +42,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		#popup containing an input field for the data to create/edit
 		$scope.createDatumPopup = (action)->
 			$scope.datumPopupScope.action = action
-			$scope.datumPopupScope.units = $scope.sectionIndicator.methods[$scope.formIntermediary.method.machineName].units
+			$scope.datumPopupScope.units = $scope.getUnitsForMethod($scope.formIntermediary.method.machineName)
 			$scope.datumPopupScope.popup = $ionicPopup.show(
 				templateUrl: 'client/protocol5/indicatorDatumPopup.ng.html'
 				title: 'Enter value for sample'
@@ -117,11 +117,15 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		#shorthand alias to current indicator data
 		$scope.sectionIndicator = $scope.section.indicators[$scope.indicator.machineName]
 
+		$scope.getUnitsForMethod = (methodMachineName)->
+			for method in $scope.indicator.methods
+				if method.machineName is methodMachineName
+					return method.units
+
 		for method in $scope.indicator.methods
 			$scope.sectionIndicator.methods ?= {}
 			$scope.sectionIndicator.methods[method.machineName] ?=
 				samples:[]
-				units:method.units
 
 			sectionIndicatorMethod = $scope.sectionIndicator.methods[method.machineName]
 
