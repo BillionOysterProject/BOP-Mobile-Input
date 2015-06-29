@@ -39,7 +39,7 @@
 				     class="form-errors"
 				     ng-show="sectionForm.windSpeed.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="max">Should you be worrying about oysters in a hurricane?</div>
+					<div class="form-error" ng-message="max">{{getMessage('unlikelyWindy')}}</div>
 				</div>
 
 				<label class="item item-input item-select"
@@ -71,7 +71,7 @@
 				     class="form-errors"
 				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="max">Is it really that hot out?</div>
+					<div class="form-error" ng-message="max">{{getMessage('unlikelyHot')}}</div>
 				</div>
 
 				<div class="item item-input"
@@ -90,7 +90,7 @@
 				     class="form-errors"
 				     ng-show="sectionForm.humidityPct.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="max">Can't be greater than 100%</div>
+					<div class="form-error" ng-message="max">{{getMessage('notGreaterThanN') | tokenValues:['100%']}}</div>
 				</div>
 				
 				<label class="item item-input item-select"

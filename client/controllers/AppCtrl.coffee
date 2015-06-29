@@ -113,8 +113,12 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.showSaveDone = ->
 			toastr.success("Saved")
 
+		$scope.getMessage = (tplKey)->
+			Messages.findOne({tplKey:tplKey}).tpl
+
 		$scope.metaProtocols = $meteor.collection(MetaProtocols)
 		$scope.expeditions = $meteor.collection(Expeditions)
+#		$scope.messages = $meteor.collection(Messages)
 
 		toastr.options =
 			'closeButton': false
@@ -134,9 +138,10 @@ angular.module('app.example').controller 'AppCtrl', [
 			'hideMethod': 'fadeOut'
 
 		$meteor.subscribe('MetaProtocols')
-		$meteor.subscribe('MobileOrganisms')
-		$meteor.subscribe('ProtocolSection')
+		.then $meteor.subscribe('MobileOrganisms')
+		.then $meteor.subscribe('ProtocolSection')
 		.then $meteor.subscribe('Expeditions')
+		.then $meteor.subscribe('Messages')
 		.then ->
 			console.log 'expeditions ready. Count: ' + $scope.expeditions.length
 			$scope.protocolsMetadataMap = {}

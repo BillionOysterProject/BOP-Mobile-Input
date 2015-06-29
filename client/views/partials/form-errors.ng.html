@@ -1,6 +1,6 @@
-<div class="form-error" ng-message="required">This field is required.</div>
-<div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
-<div class="form-error" ng-message="maxlength">This field is must be less than 100 characters</div>
-<div class="form-error" ng-message="min">Can't be a negative number</div>
-<div class="form-error" ng-message="number">Value must be a number</div>
-<div class="form-error" ng-message="latlng">Coordinates are not valid. Format: lat,lng</div>
+<div class="form-error" ng-message="required">{{getMessage('requiredDefault')}}</div>
+<div class="form-error" ng-message="minlength">{{getMessage('minLenDefault')}}</div>
+<div class="form-error" ng-message="maxlength">{{getMessage('maxLenDefault')}}</div>
+<div class="form-error" ng-message="min">{{getMessage('minDefault')}}</div>
+<div class="form-error" ng-message="number">{{getMessage('numberDefault')}}</div>
+<div class="form-error" ng-message="latlng">{{getMessage('latlngDefault')}}</div>

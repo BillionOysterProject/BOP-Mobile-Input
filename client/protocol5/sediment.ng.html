@@ -30,7 +30,7 @@
 				<div class="form-errors" ng-messages="sectionForm.volume.$error"
 				     ng-show="sectionForm.volume.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="max">That doesn't seem right</div>
+					<div class="form-error" ng-message="max">{{getMessage('unlikely')}}</div>
 				</div>
 
 				<!-- n days collected ____________ start -->

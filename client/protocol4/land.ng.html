@@ -61,8 +61,8 @@
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePavedPct.$error"
 				     ng-show="sectionForm.adjacentShorelinePavedPct.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="min">Must be 0 to 100</div>
-					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
 				</div>
 
 				<div class="item item-input item-text-wrap item-stacked-label"
@@ -79,8 +79,8 @@
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelineVegetatedPct.$error"
 				     ng-show="sectionForm.adjacentShorelineVegetatedPct.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="min">Must be 0 to 100</div>
-					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
 				</div>
 
 				<div class="item item-input item-text-wrap item-stacked-label"
@@ -97,8 +97,8 @@
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePorousPct.$error"
 				     ng-show="sectionForm.adjacentShorelinePorousPct.$invalid && sectionForm.$submitted"
 				     ng-messages-include="client/views/partials/form-errors.ng.html">
-					<div class="form-error" ng-message="min">Must be 0 to 100</div>
-					<div class="form-error" ng-message="max">Must be 0 to 100</div>
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
 				</div>
 
 				<label class="item item-input item-stacked-label item-text-wrap"

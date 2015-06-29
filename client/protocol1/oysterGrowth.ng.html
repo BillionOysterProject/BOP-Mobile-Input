@@ -31,7 +31,7 @@
 						     class="form-errors"
 						     ng-show="totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted"
 						     ng-messages-include="client/views/partials/form-errors.ng.html">
-							<div class="form-error" ng-message="min">No less than 0</div>
+							<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>
 						</div>
 						<!--<pre>{{totalsLiveFieldForm.totalLive | json}}</pre>-->
 					</ng-form>
@@ -52,7 +52,7 @@
 						     class="form-errors"
 						     ng-show="totalsDeadFieldForm.totalDead.$invalid && sectionForm.$submitted"
 						     ng-messages-include="client/views/partials/form-errors.ng.html">
-							<div class="form-error" ng-message="min">No less than 0</div>
+							<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>
 						</div>
 					</ng-form>
 
@@ -79,8 +79,8 @@
 								     class="form-errors"
 								     ng-show="liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted"
 								     ng-messages-include="client/views/partials/form-errors.ng.html">
-									<div class="form-error" ng-message="min">Can't be less than 1</div>
-									<div class="form-error" ng-message="max">{{liveSizeMMFieldForm.liveSizeMM.$viewValue}}mm seems to big to be true</div>
+									<div class="form-error" ng-message="min">{{getMessage('notLessThanN') | tokenValues:[1]}}</div>
+									<div class="form-error" ng-message="max">{{liveSizeMMFieldForm.liveSizeMM.$viewValue}}mm {{getMessage('unlikelyBig')}}</div>
 								</div>
 							</ng-form>
 
