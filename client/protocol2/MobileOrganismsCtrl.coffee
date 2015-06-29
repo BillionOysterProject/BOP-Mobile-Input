@@ -41,7 +41,9 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 				$scope.showSaveDone()
 				$scope.back()
 
-		$scope.organisms = $meteor.collection(MobileOrganisms).subscribe('MobileOrganisms')
+		$scope.organisms = $meteor.collection( ->
+			Organisms.find({mobile:true})
+		)
 
 		$scope.orgCategories = _.unique((org.category for org in $scope.organisms), true)
 		$scope.filters =

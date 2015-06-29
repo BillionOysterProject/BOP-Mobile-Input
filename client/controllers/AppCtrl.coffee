@@ -138,7 +138,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			'hideMethod': 'fadeOut'
 
 		$meteor.subscribe('MetaProtocols')
-		.then $meteor.subscribe('MobileOrganisms')
+		.then $meteor.subscribe('Organisms')
 		.then $meteor.subscribe('ProtocolSection')
 		.then $meteor.subscribe('Expeditions')
 		.then $meteor.subscribe('Messages')

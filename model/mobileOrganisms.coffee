@@ -1,1 +1,0 @@
-@MobileOrganisms = new (Meteor.Collection)('MobileOrganisms')

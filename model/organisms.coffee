@@ -1,0 +1,1 @@
+@Organisms = new (Meteor.Collection)('Organisms')
