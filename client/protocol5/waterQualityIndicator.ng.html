@@ -40,8 +40,8 @@
 				</label>
 			</ng-switch>
 			<div class="form-errors" ng-messages="sectionForm.windDirection.$error"
-			     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted"
-			     ng-messages-include="client/views/partials/form-errors.ng.html">
+			     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted">
+				<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 			</div>
 		</ion-list>
 		<ion-list can-swipe="true">

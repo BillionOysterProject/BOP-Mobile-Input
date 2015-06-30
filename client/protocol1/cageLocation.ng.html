@@ -26,8 +26,8 @@
 				</div>
 				<div ng-messages="sectionForm.location.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.location.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.location.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 				<bop-static-map ng-if="sectionForm.location.$valid" location="section.location"></bop-static-map>
 

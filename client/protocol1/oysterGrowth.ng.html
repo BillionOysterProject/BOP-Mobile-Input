@@ -29,9 +29,9 @@
 
 						<div ng-messages="totalsLiveFieldForm.totalLive.$error"
 						     class="form-errors"
-						     ng-show="totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted"
-						     ng-messages-include="client/views/partials/form-errors.ng.html">
+						     ng-show="totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted">
 							<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>
+							<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 						</div>
 						<!--<pre>{{totalsLiveFieldForm.totalLive | json}}</pre>-->
 					</ng-form>
@@ -50,9 +50,9 @@
 
 						<div ng-messages="totalsDeadFieldForm.totalDead.$error"
 						     class="form-errors"
-						     ng-show="totalsDeadFieldForm.totalDead.$invalid && sectionForm.$submitted"
-						     ng-messages-include="client/views/partials/form-errors.ng.html">
+						     ng-show="totalsDeadFieldForm.totalDead.$invalid && sectionForm.$submitted">
 							<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>
+							<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 						</div>
 					</ng-form>
 
@@ -77,10 +77,10 @@
 								</label>
 								<div ng-messages="liveSizeMMFieldForm.liveSizeMM.$error"
 								     class="form-errors"
-								     ng-show="liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted"
-								     ng-messages-include="client/views/partials/form-errors.ng.html">
+								     ng-show="liveSizeMMFieldForm.liveSizeMM.$invalid && sectionForm.$submitted">
 									<div class="form-error" ng-message="min">{{getMessage('notLessThanN') | tokenValues:[1]}}</div>
 									<div class="form-error" ng-message="max">{{liveSizeMMFieldForm.liveSizeMM.$viewValue}}mm {{getMessage('unlikelyBig')}}</div>
+									<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 								</div>
 							</ng-form>
 

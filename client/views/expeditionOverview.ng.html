@@ -22,8 +22,8 @@
                            required>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.title.$error"
-				     ng-show="overviewForm.title.$invalid && overviewForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="overviewForm.title.$invalid && overviewForm.$submitted">
+				     <div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<label class="item item-input item-select"
@@ -36,8 +36,8 @@
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.site.$error"
-				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<div class="item item-input bop-icon-right">
