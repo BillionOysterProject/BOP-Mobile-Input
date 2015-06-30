@@ -13,9 +13,9 @@ tomi:upload-server
 peerlibrary:aws-sdk
 accounts-password
 accounts-ui
-vivekkatta:meteor-angular-formly
 angular:angular-messages
 stevezhu:lodash
 chrismbeckett:toastr
 urigo:angular
 urigo:ionic
+ground:db
