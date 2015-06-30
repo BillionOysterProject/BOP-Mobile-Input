@@ -37,9 +37,9 @@
 				</div>
 				<div ng-messages="sectionForm.windSpeed.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.windSpeed.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.windSpeed.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('unlikelyWindy')}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<label class="item item-input item-select"
@@ -51,8 +51,8 @@
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.windDirection.$error"
-				     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.windDirection.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<div class="item item-input"
@@ -69,9 +69,9 @@
 				</div>
 				<div ng-messages="sectionForm.temperatureF.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('unlikelyHot')}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<div class="item item-input"
@@ -88,9 +88,9 @@
 				</div>
 				<div ng-messages="sectionForm.humidityPct.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.humidityPct.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.humidityPct.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('notGreaterThanN') | tokenValues:['100%']}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 				
 				<label class="item item-input item-select"
@@ -102,8 +102,8 @@
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.weatherCondition.$error"
-				     ng-show="sectionForm.weatherCondition.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.weatherCondition.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<button class="button button-full button-calm"

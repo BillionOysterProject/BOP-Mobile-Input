@@ -23,9 +23,9 @@
 				</label>
 				<div ng-messages="sectionForm.submergedDepth.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.submergedDepth.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.submergedDepth.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('metersCheck')}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<div class="item item-divider">Bioaccumulation on cage:</div>

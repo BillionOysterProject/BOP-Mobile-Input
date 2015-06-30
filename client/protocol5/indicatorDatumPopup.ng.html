@@ -12,8 +12,8 @@
 			<span class="input-label">{{units}}</span>
 		</label>
 		<div class="form-errors" ng-messages="datumForm.$error"
-		     ng-show="datumForm.$invalid"
-		     ng-messages-include="client/views/partials/form-errors.ng.html">
+		     ng-show="datumForm.$invalid">
+			<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 		</div>
 		<div class="popup-buttons">
 			<button class="button button-default"

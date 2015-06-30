@@ -34,8 +34,8 @@
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.waterColor.$error"
-				     ng-show="sectionForm.waterColor.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.waterColor.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<ion-checkbox name="recentRain72h"
@@ -52,8 +52,8 @@
 					          required></textarea>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
-				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted"
-				     ng-messages-include="client/views/partials/form-errors.ng.html">
+				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
 				<!-- sewer drains ____________ start -->
@@ -75,8 +75,8 @@
 						        ng-click="setDrainLocationUsingGPS()"></span>
 					</div>
 					<div class="form-errors" ng-messages="sectionForm.sewerDrainLocation.$error"
-					     ng-show="sectionForm.sewerDrainLocation.$invalid && sectionForm.$submitted"
-					     ng-messages-include="client/views/partials/form-errors.ng.html">
+					     ng-show="sectionForm.sewerDrainLocation.$invalid && sectionForm.$submitted">
+						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 					</div>
 
 					<label class="item item-input item-stacked-label"
@@ -89,8 +89,8 @@
 						       required>
 					</label>
 					<div class="form-errors" ng-messages="sectionForm.outfallGPM.$error"
-					     ng-show="sectionForm.outfallGPM.$invalid && sectionForm.$submitted"
-					     ng-messages-include="client/views/partials/form-errors.ng.html">
+					     ng-show="sectionForm.outfallGPM.$invalid && sectionForm.$submitted">
+						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 					</div>
 				</div>
 
@@ -113,8 +113,8 @@
 						        ng-click="setPollutionDrainLocationUsingGPS()"></span>
 					</div>
 					<div class="form-errors" ng-messages="sectionForm.pollutionDrainLocation.$error"
-					     ng-show="sectionForm.pollutionDrainLocation.$invalid && sectionForm.$submitted"
-					     ng-messages-include="client/views/partials/form-errors.ng.html">
+					     ng-show="sectionForm.pollutionDrainLocation.$invalid && sectionForm.$submitted">
+						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 					</div>
 
 					<label class="item item-input item-stacked-label"
@@ -127,8 +127,8 @@
 						       required>
 					</label>
 					<div class="form-errors" ng-messages="sectionForm.pollutionOutfallGPM.$error"
-					     ng-show="sectionForm.pollutionOutfallGPM.$invalid && sectionForm.$submitted"
-					     ng-messages-include="client/views/partials/form-errors.ng.html">
+					     ng-show="sectionForm.pollutionOutfallGPM.$invalid && sectionForm.$submitted">
+						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 					</div>
 				</div>
 
