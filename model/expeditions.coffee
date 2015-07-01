@@ -1,1 +1,1 @@
-@Expeditions = new (Meteor.Collection)('Expeditions')
+@Expeditions = new Ground.Collection(new Meteor.Collection('Expeditions'))

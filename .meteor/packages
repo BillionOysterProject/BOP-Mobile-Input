@@ -16,6 +16,6 @@ accounts-ui
 angular:angular-messages
 stevezhu:lodash
 chrismbeckett:toastr
-urigo:angular
 urigo:ionic
 ground:db
+urigo:angular

@@ -1,1 +1,1 @@
-@MetaProtocols = new (Meteor.Collection)('MetaProtocols')
+@MetaProtocols = new Ground.Collection(new Meteor.Collection('MetaProtocols'))

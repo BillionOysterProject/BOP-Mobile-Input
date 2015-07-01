@@ -1,1 +1,1 @@
-@ProtocolSection = new (Meteor.Collection)('ProtocolSection')
+@ProtocolSection = new Ground.Collection(new Meteor.Collection('ProtocolSection'))

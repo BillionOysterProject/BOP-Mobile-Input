@@ -61,10 +61,10 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			$scope.filters.category = cat
 			$ionicScrollDelegate.scrollTop(false)
 
-		#initial values
+		#initia values
 		$scope.section.organisms ?= {}
 		for org in $scope.organisms
-			orgID = org._id.toHexString()
+			orgID = org._id
 			$scope.section.organisms[orgID] ?= {}
 #			$scope.section.organisms[orgID].count ?= 0
 	]

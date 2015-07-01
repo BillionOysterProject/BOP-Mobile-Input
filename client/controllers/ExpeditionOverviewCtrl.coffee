@@ -88,9 +88,32 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 					]
 					#create protocol section documents ------ end
 
-					handleSaveSectionsResults = (results)->
+					saveProtocolSections = (sections)->
+						console.log 'saveProtocolSections  top'
+						promises = (for section in sections
+							console.log 'saveProtocolSections loop top'
+							$q (resolve, reject)->
+								console.log 'saveProtocolSections $q top'
+								insertID = ProtocolSection.insert(section)
+								console.log 'saveProtocolSections insertID: ' + insertID
+								resolve(insertID)
+#								ProtocolSection.insert(section, (err, _id)->
+#									console.log 'saveProtocolSections insert top'
+#									if err
+#										console.log 'saveProtocolSections insert err'
+#										reject(err)
+#									else
+#										console.log 'saveProtocolSections insert ok'
+#										resolve(_id)
+#								)
+						)
+						console.log 'saveProtocolSections, ' + promises.length + ' promises'
+
+						$q.all(promises)
+
+					handleSaveSectionsResults = (insertedIDs)->
+						console.log 'saveProtocolSections insert ok'
 						$q (resolve, reject)->
-							insertedIDs = (result._id for result in results)
 							idMap = {}
 							query =
 								_id:{$in:insertedIDs}
@@ -101,18 +124,26 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 							resolve(idMap)
 
 					saveExpedition = (sectionIDMap)->
-						#create expedition
-						$scope.expeditionEditing.owner = Meteor.userId()
-						$scope.expeditionEditing.date = new Date()
-						$scope.expeditionEditing.sections = sectionIDMap
-						$scope.expeditions.save($scope.expeditionEditing)
+						console.log 'saveExpedition'
+						$q (resolve, reject)->
+							#create expedition
+							$scope.expeditionEditing.owner = Meteor.userId()
+							$scope.expeditionEditing.date = new Date()
+							$scope.expeditionEditing.sections = sectionIDMap
+	#						$scope.expeditions.save($scope.expeditionEditing)
+							insertID = Expeditions.insert($scope.expeditionEditing)
+							resolve insertID
 
-					$scope.protocolSections.save(sections)
+#					$scope.protocolSections.save(sections)
+					saveProtocolSections(sections)
 					.then handleSaveSectionsResults
 					.then saveExpedition
-					.then (results)->
+					.then (insertedID)->
+						console.log 'insertedID: ' + insertedID
 						toastr.success("Expedition Created", null, {timeOut:'4000'})
-						$scope.changeExpedition(results[0]._id)
+						$scope.changeExpedition(insertedID)
+					.catch (err)->
+						console.error(err)
 
 				else
 					$scope.expeditionEditing.save().then ->
@@ -121,7 +152,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			else
 				console.log 'do nothing, overviewForm invalid'
 
-		#TODO move into Mongo?
+		#TODO move into Mongo, rename to 'sites'.
 		wb = 0
 		$scope.waterBodies = [
 			{_id:wb++, label:'Lower East Side Ecology Center'}

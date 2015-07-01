@@ -1,1 +1,1 @@
-@MetaWeatherConditions = new (Meteor.Collection)('MetaWeatherConditions')
+@MetaWeatherConditions = new Ground.Collection(new Meteor.Collection('MetaWeatherConditions'))

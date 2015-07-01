@@ -24,7 +24,7 @@
 		<h2 class="padding">{{sectionMeta.title}}</h2>
 
 		<div class="tiles">
-			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id.toHexString()" ng-init="id = org._id.toHexString()" class="tile">
+			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id" ng-init="id = org._id" class="tile">
 				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
 				<p class="name">
 					<span class="common">{{org.common}}</span><br>

@@ -1,1 +1,1 @@
-@MetaWaterQualityIndicators = new (Meteor.Collection)('MetaWaterQualityIndicators')
+@MetaWaterQualityIndicators = new Ground.Collection(new Meteor.Collection('MetaWaterQualityIndicators'))

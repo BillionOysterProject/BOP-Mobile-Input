@@ -1,1 +1,1 @@
-@Images = new (Meteor.Collection)('Images')
+@Images = new Ground.Collection(new Meteor.Collection('Images'))

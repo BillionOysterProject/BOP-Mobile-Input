@@ -1,1 +1,1 @@
-@Messages = new (Meteor.Collection)('Messages')
+@Messages = new Ground.Collection(new Meteor.Collection('Messages'))
