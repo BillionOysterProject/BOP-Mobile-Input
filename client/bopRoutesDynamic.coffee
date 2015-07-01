@@ -5,10 +5,9 @@
 # @see routes.coffee For routes that are known before startup time
 # ref: http://stackoverflow.com/a/25872852/756177
 #
-angular.module('app.example').provider 'bopRoutesDynamic', ($stateProvider) ->
-
+angular.module('app.example').provider('bopRoutesDynamic', ['$stateProvider', ($stateProvider)->
 	# runtime dependencies for the service can be injected here, at the provider.$get() function.
-	@$get = ($meteor) ->
+	@$get = ['$meteor', ($meteor) ->
 		return {
 			init: ->
 				protocolsMetadata = $meteor.collection(MetaProtocols).subscribe('MetaProtocols')
@@ -42,5 +41,7 @@ angular.module('app.example').provider 'bopRoutesDynamic', ($stateProvider) ->
 							templateUrl: "client/protocol5/waterQualityIndicator.ng.html"
 							controller: 'WaterQualityIndicatorCtrl'
 		}
+	]
 
 	return
+])
