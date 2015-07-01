@@ -12,6 +12,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			location.href = '/'
 			return
 
+
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
@@ -23,7 +24,6 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		isNew = !$scope.expeditionEditing.hasOwnProperty('_id')
 
 		$scope.setLocationUsingGPS = ->
-			console.log 'setLocationUsingGPS'
 			$ionicPlatform.ready =>
 				bopLocationHelper.getGPSPosition()
 				.then (position)->
@@ -89,25 +89,11 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 					#create protocol section documents ------ end
 
 					saveProtocolSections = (sections)->
-						console.log 'saveProtocolSections  top'
 						promises = (for section in sections
-							console.log 'saveProtocolSections loop top'
 							$q (resolve, reject)->
-								console.log 'saveProtocolSections $q top'
 								insertID = ProtocolSection.insert(section)
-								console.log 'saveProtocolSections insertID: ' + insertID
 								resolve(insertID)
-#								ProtocolSection.insert(section, (err, _id)->
-#									console.log 'saveProtocolSections insert top'
-#									if err
-#										console.log 'saveProtocolSections insert err'
-#										reject(err)
-#									else
-#										console.log 'saveProtocolSections insert ok'
-#										resolve(_id)
-#								)
 						)
-						console.log 'saveProtocolSections, ' + promises.length + ' promises'
 
 						$q.all(promises)
 
@@ -130,7 +116,6 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 							$scope.expeditionEditing.owner = Meteor.userId()
 							$scope.expeditionEditing.date = new Date()
 							$scope.expeditionEditing.sections = sectionIDMap
-	#						$scope.expeditions.save($scope.expeditionEditing)
 							insertID = Expeditions.insert($scope.expeditionEditing)
 							resolve insertID
 

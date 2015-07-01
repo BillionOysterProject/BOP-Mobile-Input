@@ -93,10 +93,10 @@ angular.module('app.example').controller 'AppCtrl', [
 					$state.go('app.home')
 				else
 					$state.go('app.expeditions')
-				$ionicHistory.clearHistory()
 			else
 				$state.go('app.auth')
-				$ionicHistory.clearHistory()
+
+			$ionicHistory.clearHistory()
 
 		$scope.navigateHome = ->
 			$scope.prepareForRootViewNavigation()
@@ -143,7 +143,6 @@ angular.module('app.example').controller 'AppCtrl', [
 		.then $meteor.subscribe('Expeditions')
 		.then $meteor.subscribe('Messages')
 		.then ->
-			console.log 'expeditions ready. Count: ' + $scope.expeditions.length
 			$scope.protocolsMetadataMap = {}
 			($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.metaProtocols
 
