@@ -16,7 +16,7 @@
 					<input name="title"
 					       type="text"
 					       placeholder="The voyage of the Beagle"
-					       ng-model="expeditionEditing.title"
+					       ng-model="formIntermediary.expedition.title"
 					       ng-minlength="5"
                            ng-maxlength="100"
                            required>
@@ -32,7 +32,7 @@
 						Name of site
 					</div>
 					<select name="site"
-					        ng-options="item.label for item in waterBodies track by item._id" ng-model="expeditionEditing.site"
+					        ng-options="site.label for site in sites track by site._id" ng-model="formIntermediary.selectedSite"
 					        required></select>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.site.$error"
@@ -42,11 +42,11 @@
 
 				<div class="item item-input bop-icon-right">
 					<span class="input-label">Location</span>
-					<input type="text" placeholder="lat,lng" ng-model="expeditionEditing.location">
+					<input type="text" placeholder="lat,lng" ng-model="formIntermediary.expedition.location">
 					<span class="input-label button button-clear button-positive icon ion-pinpoint"
 					        ng-click="setLocationUsingGPS()"></span>
 				</div>
-				<!--<bop-static-map ng-if="expeditionEditing.location.$valid" latlng="section.location"></bop-static-map>-->
+				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
 
 				<button class="button button-full button-calm"
 				        padding="true"
@@ -57,9 +57,9 @@
 				<!--<p>site errors: {{overviewForm.site.$error}}</p>-->
 			</ion-list>
 		</form>
-		<button ng-if="cameFromExpeditions() && expeditionEditing._id"
+		<button ng-if="cameFromExpeditions() && formIntermediary.expedition._id"
 		        class="button button-full button-positive"
 		        padding="true"
-		        ng-click="changeExpedition(expeditionEditing._id)">Use this Expedition</button>
+		        ng-click="changeExpedition(formIntermediary.expedition._id)">Use this Expedition</button>
 	</ion-content>
 </ion-view>

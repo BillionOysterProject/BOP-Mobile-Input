@@ -10,13 +10,13 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 
 		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
 
+		#Navigates user to the form for creating a new one
 		$scope.createExpedition = ->
 			$state.go('app.expeditionOverview', expeditionID:null)
 
 		$scope.deleteExpedition = (expedition)->
-			ProtocolSection.remove({_id: sectionID}) for sectionMachineName, sectionID of expedition.sections
-
-			$scope.expeditions.remove expedition
+			ProtocolSection.remove(sectionID) for sectionMachineName, sectionID of expedition.sections
+			Expeditions.remove expedition._id
 			$scope.setCurrentExpeditionToLatest()
 
 		#ephemeral. Just used to support highlighting in UI on creation

@@ -16,19 +16,12 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
-		if $stateParams.expeditionID
-			$scope.expeditionEditing = $meteor.object(Expeditions, $stateParams.expeditionID, false);
-		else
-			$scope.expeditionEditing = {}
-
-		isNew = !$scope.expeditionEditing.hasOwnProperty('_id')
-
 		$scope.setLocationUsingGPS = ->
 			$ionicPlatform.ready =>
 				bopLocationHelper.getGPSPosition()
 				.then (position)->
 #					console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
-					$scope.expeditionEditing.location = "#{position.coords.latitude},#{position.coords.longitude}"
+					$scope.formIntermediary.expedition.location = "#{position.coords.latitude},#{position.coords.longitude}"
 				.catch (error)->
 					console.error 'error: ' + JSON.stringify(error)
 					$scope.alert JSON.stringify(error), 'error'
@@ -113,13 +106,14 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 						console.log 'saveExpedition'
 						$q (resolve, reject)->
 							#create expedition
-							$scope.expeditionEditing.owner = Meteor.userId()
-							$scope.expeditionEditing.date = new Date()
-							$scope.expeditionEditing.sections = sectionIDMap
-							insertID = Expeditions.insert($scope.expeditionEditing)
+							$scope.formIntermediary.expedition.owner = Meteor.userId()
+							$scope.formIntermediary.expedition.date = new Date()
+							$scope.formIntermediary.expedition.sections = sectionIDMap
+							$scope.formIntermediary.expedition.site = $scope.formIntermediary.selectedSite._id
+
+							insertID = Expeditions.insert($scope.formIntermediary.expedition)
 							resolve insertID
 
-#					$scope.protocolSections.save(sections)
 					saveProtocolSections(sections)
 					.then handleSaveSectionsResults
 					.then saveExpedition
@@ -131,57 +125,41 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 						console.error(err)
 
 				else
-					$scope.expeditionEditing.save().then ->
-						$scope.showSaveDone()
-						$ionicHistory.goBack()
+					#update existing expedition
+					exp = $scope.formIntermediary.expedition
+					Expeditions.update exp._id,
+						$set:
+							title:exp.title
+							site:$scope.formIntermediary.selectedSite._id
+							location:exp.location
+
+					$scope.showSaveDone()
+					$ionicHistory.goBack()
+
 			else
 				console.log 'do nothing, overviewForm invalid'
-
-		#TODO move into Mongo, rename to 'sites'.
-		wb = 0
-		$scope.waterBodies = [
-			{_id:wb++, label:'Lower East Side Ecology Center'}
-			{_id:wb++, label:'The River Project/Pier 40/Hudson River Park'}
-			{_id:wb++, label:'La Marina Restaurant'}
-			{_id:wb++, label:'Concrete Plant Park'}
-			{_id:wb++, label:'Randall\'s Island Park'}
-			{_id:wb++, label:'East River State Park/Human Impact Institute'}
-			{_id:wb++, label:'Hunter\'s Point South Park'}
-			{_id:wb++, label:'Anable Basin Sailing Bar & Grill'}
-			{_id:wb++, label:'WNYC Transmitter Park'}
-			{_id:wb++, label:'Jefferson Park'}
-			{_id:wb++, label:'Harlem River Park'}
-			{_id:wb++, label:'Mill Pond Park'}
-			{_id:wb++, label:'Swindler Cove'}
-			{_id:wb++, label:'Roberto Clemente State Park'}
-			{_id:wb++, label:'West Harlem Piers Park'}
-			{_id:wb++, label:'Riverside Clay Tennis Association'}
-			{_id:wb++, label:'Hudson River Park'}
-			{_id:wb++, label:'The Battery Conservancy'}
-			{_id:wb++, label:'Sebago Canoe Club'}
-			{_id:wb++, label:'Erie Basin Park/IKEA'}
-			{_id:wb++, label:'Brooklyn Bridge Park - Pier 6'}
-			{_id:wb++, label:'Conference House Park'}
-			{_id:wb++, label:'Bay Ridge Eco-Dock'}
-			{_id:wb++, label:'Worlds Fair Marina'}
-			{_id:wb++, label:'Richmond County Yacht Club'}
-			{_id:wb++, label:'SolarOne/Stuy Cove'}
-			{_id:wb++, label:'79th Street Boat Basin'}
-			{_id:wb++, label:'Miller\'s Launch'}
-			{_id:wb++, label:'Marina 59'}
-			{_id:wb++, label:'Princess Bay Marina/Lemon Creek'}
-			{_id:wb++, label:'Hudson River Community Sailing'}
-			{_id:wb++, label:'Bush Terminal Park'}
-			{_id:wb++, label:'Rainey Park'}
-			{_id:wb++, label:'Faber Pool and Park'}
-			{_id:wb++, label:'Sherman Creek'}
-		]
 
 		$scope.changeExpedition = (id)->
 			$scope.setCurrentExpeditionByID(id)
 			toastr.success("Switched Expeditions", null, {timeOut:'4000'})
 			$scope.navigateHome()
+		
+			
+		$scope.formIntermediary = {}
+		
+		$scope.sites = $meteor.collection(Sites)
 
+		if $stateParams.expeditionID
+			$scope.formIntermediary.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
+			for site in $scope.sites
+				if site._id is $scope.formIntermediary.expedition.site
+					$scope.formIntermediary.selectedSite = site
+					break
+		else
+			$scope.formIntermediary.expedition = {}
+			$scope.formIntermediary.selectedSite = {}
+
+		isNew = !$scope.formIntermediary.expedition.hasOwnProperty('_id')
 
 		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
 	]

@@ -1,0 +1,1 @@
+@Sites = new Ground.Collection(new Meteor.Collection('Sites'))

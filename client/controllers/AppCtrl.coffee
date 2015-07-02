@@ -139,6 +139,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		$meteor.subscribe('MetaProtocols')
 		.then $meteor.subscribe('Organisms')
+		.then $meteor.subscribe('Sites')
 		.then $meteor.subscribe('ProtocolSection')
 		.then $meteor.subscribe('Expeditions')
 		.then $meteor.subscribe('Messages')
