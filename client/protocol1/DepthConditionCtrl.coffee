@@ -10,10 +10,10 @@ angular.module('app.example').controller 'DepthConditionCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-					$scope.showSaveDone()
-					$scope.back()
+				ProtocolSection.update $scope.section._id,
+					$set:_.pick($scope.section.getRawObject(), 'submergedDepth', 'bioaccumulation')
+				$scope.showSaveDone()
+				$scope.back()
 			else
 				console.log 'do nothing, sectionForm invalid'
 	]
