@@ -2,8 +2,8 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$scope'
 	'$rootScope'
 	'$state'
+	'$q'
 	'$ionicPlatform'
-	'$timeout'
 	'$ionicHistory'
 	'$ionicNavBarDelegate'
 	'$ionicSideMenuDelegate'
@@ -13,7 +13,7 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$filter'
 	'$cordovaAppVersion'
 	'bopRoutesDynamic'
-	($scope, $rootScope, $state, $ionicPlatform, $timeout, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $cordovaAppVersion, bopRoutesDynamic) ->
+	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $cordovaAppVersion, bopRoutesDynamic) ->
 
 		#Version number display.
 		$ionicPlatform.ready ->
@@ -49,7 +49,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		$scope.showHelp = (protocolNum, sectionMachineName)->
 			helpScope = $rootScope.$new()
-			for protocol in metaProtocols
+			for protocol in $scope.metaProtocols
 				if protocol.num is protocolNum
 					for section in protocol.sections
 						if section.machineName is sectionMachineName
@@ -67,36 +67,11 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.hasExpeditions = ->
 			Meteor.userId() and Expeditions.find().count() > 0
 
-		$scope.$watch ->
-			Meteor.userId()
-		, (newValue, oldValue) ->
-			if newValue != oldValue
-				console.log 'auth watcher, newValue: ' + newValue
-				$scope.navigateOnAuthChange(newValue)
-			return
-
 		$scope.prepareForRootViewNavigation = ->
 			$ionicHistory.nextViewOptions
 				disableBack: true #The next view should forget its back view, and set it to null.
 				historyRoot: true #The next view should become the root view in its history stack.
 				disableAnimate:true
-
-		$scope.navigateOnAuthChange = (isAuthenticated)->
-			$scope.prepareForRootViewNavigation()
-
-			$ionicSideMenuDelegate.toggleLeft(false)
-
-			if isAuthenticated
-				if $scope.expeditions.length > 0
-					if !$scope.expedition
-						$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
-					$state.go('app.home')
-				else
-					$state.go('app.expeditions')
-			else
-				$state.go('app.auth')
-
-			$ionicHistory.clearHistory()
 
 		$scope.navigateHome = ->
 			$scope.prepareForRootViewNavigation()
@@ -116,10 +91,6 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.getMessage = (tplKey)->
 			Messages.findOne({tplKey:tplKey}).tpl
 
-		$scope.metaProtocols = $meteor.collection(MetaProtocols)
-		$scope.expeditions = $meteor.collection(Expeditions)
-#		$scope.messages = $meteor.collection(Messages)
-
 		toastr.options =
 			'closeButton': false
 			'debug': false
@@ -137,22 +108,80 @@ angular.module('app.example').controller 'AppCtrl', [
 			'showMethod': 'fadeIn'
 			'hideMethod': 'fadeOut'
 
-		$meteor.subscribe('MetaProtocols')
-		.then $meteor.subscribe('Organisms')
-		.then $meteor.subscribe('Sites')
-		.then $meteor.subscribe('ProtocolSection')
-		.then $meteor.subscribe('Expeditions')
-		.then $meteor.subscribe('Messages')
-		.then ->
-			$scope.protocolsMetadataMap = {}
-			($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.metaProtocols
+		getUserExpeditions = ->
+			$q (resolve, reject)->
+#					# using Meteor syntax here because resolved promise for $meteor.subscribe doesn't guarantee that client has actually loaded the records
+				Meteor.subscribe 'Expeditions',
+					onReady: ->
+						resolve()
+					onStop: (err)->
+						reject(err)
 
-			bopRoutesDynamic.init()
+		#startup sequence for authenticated user
+		startup = ->
+			$meteor.subscribe('MetaProtocols')
+			.then $meteor.subscribe('Organisms')
+			.then $meteor.subscribe('Sites')
+			.then $meteor.subscribe('ProtocolSection')
+			.then $meteor.subscribe('Messages')
+			.then getUserExpeditions
+			.then ->
+				$scope.metaProtocols = $meteor.collection(MetaProtocols)
+				$scope.protocolsMetadataMap = {}
+				($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.metaProtocols
 
-			$scope.startupComplete = true
-			$scope.navigateOnAuthChange Meteor.userId()
+				if !$scope.dynamicRoutesDefined
+					$scope.dynamicRoutesDefined = true
+					bopRoutesDynamic.init()
 
-		.catch (error)->
-			console.error "startup failed. ", error
+				#user's expeditions
+				$scope.expeditions = $meteor.collection(Expeditions)
+
+				$scope.startupComplete = true
+#				$scope.navigateOnAuthChange Meteor.userId()
+
+				$scope.prepareForRootViewNavigation()
+				$ionicSideMenuDelegate.toggleLeft(false)
+
+				if $scope.expeditions.length > 0
+					if !$scope.expedition
+						$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
+					$state.go('app.home')
+				else
+					$state.go('app.expeditions')
+
+				$ionicHistory.clearHistory()
+
+			.catch (error)->
+				console.error "startup failed. ", error
+
+		Accounts.onLogin ->
+			$meteor.waitForUser()
+			.then (currentUser)->
+				startup()
+
+		navigateToLogin = ->
+			$scope.prepareForRootViewNavigation()
+			$ionicSideMenuDelegate.toggleLeft(false)
+
+			$state.go('app.auth')
+			$ionicHistory.clearHistory()
+			
+		$scope.$watch ->
+			Meteor.userId()
+		, (newValue, oldValue) ->
+			if !newValue
+				navigateToLogin()
+			return
+
+		$scope.dynamicRoutesDefined = false
+
+		$meteor.waitForUser()
+		.then (currentUser)->
+			if currentUser
+				startup()
+			else
+				navigateToLogin()
+
 	]
 
