@@ -11,6 +11,7 @@ angular.module('app.example').controller 'WaterCtrl', [
 		# We can take what we need from this right before save.
 		$scope.formIntermediary = {}
 
+		#TODO move to DB? Need official list, I made this up --abcd
 		$scope.waterColours = [
 			{label:'Clear'}
 			{label:'Pea green'}
@@ -67,10 +68,9 @@ angular.module('app.example').controller 'WaterCtrl', [
 				$scope.section.sewerDrainLocations = [] if !$scope.formIntermediary.sewerDrainsNear
 				$scope.section.pollutionDrainLocations = [] if !$scope.formIntermediary.pollutionDrainsNear
 
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-					$scope.showSaveDone()
-					$scope.back()
+				$scope.saveSection ['waterColour', 'garbageDescription', 'oilSheen', 'pollutionDrainLocations', 'sewerDrainLocations']
+				$scope.showSaveDone()
+				$scope.back()
 
 			else
 				console.log 'do nothing, sectionForm invalid'

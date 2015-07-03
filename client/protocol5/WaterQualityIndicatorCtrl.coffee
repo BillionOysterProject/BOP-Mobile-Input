@@ -94,10 +94,9 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 				$scope.sectionIndicator.totalSamples += sectionIndicatorMethod.samples.length
 
-			$scope.section.save().then ->
-				console.log 'saved section form to db'
-				$scope.showSaveDone()
-				$scope.back()
+			$scope.saveSection ['indicators']
+			$scope.showSaveDone()
+			$scope.back()
 
 
 		#get reference to current indicator (i.e. Temperature (which has a couple different methods like 'thermometer' and 'Atlas probe')

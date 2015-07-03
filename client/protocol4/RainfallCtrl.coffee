@@ -12,10 +12,9 @@ angular.module('app.example').controller 'RainfallCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-					$scope.showSaveDone()
-					$scope.back()
+				$scope.saveSection ['recentRain72h', 'recentRain7d']
+				$scope.showSaveDone()
+				$scope.back()
 
 			else
 				console.log 'do nothing, sectionForm invalid'

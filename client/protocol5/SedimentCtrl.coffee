@@ -13,10 +13,10 @@ angular.module('app.example').controller 'SedimentCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-					$scope.showSaveDone()
-					$scope.back()
+				$scope.saveSection ['daysCollected', 'sedimentDescription', 'volume', 'volumeRate']
+				$scope.showSaveDone()
+				$scope.back()
+
 			else
 				console.log 'do nothing, sectionForm invalid'
 	]

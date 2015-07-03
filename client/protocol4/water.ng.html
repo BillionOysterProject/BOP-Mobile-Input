@@ -26,15 +26,15 @@
 				<!--<h2>TODO: Take a landscape photo of the water</h2>-->
 
 				<label class="item item-input item-select"
-				       ng-class="{ 'has-error' : sectionForm.waterColor.$invalid && sectionForm.$submitted}">
+				       ng-class="{ 'has-error' : sectionForm.waterColour.$invalid && sectionForm.$submitted}">
 					<div class="input-label">Water Color</div>
-					<select name="waterColor"
+					<select name="waterColour"
 					        ng-options="colour.label for colour in waterColours"
 					        ng-model="formIntermediary.waterColour"
 					        required></select>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.waterColor.$error"
-				     ng-show="sectionForm.waterColor.$invalid && sectionForm.$submitted">
+				<div class="form-errors" ng-messages="sectionForm.waterColour.$error"
+				     ng-show="sectionForm.waterColour.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
