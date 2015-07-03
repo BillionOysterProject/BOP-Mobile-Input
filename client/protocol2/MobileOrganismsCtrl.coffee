@@ -36,10 +36,9 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 				if !(org.count > 0) #works for null or invalid strings too
 					delete $scope.section.organisms[id]
 
-			$scope.section.save().then ->
-				console.log 'saved section form to db'
-				$scope.showSaveDone()
-				$scope.back()
+			$scope.saveSection(['organisms'])
+			$scope.showSaveDone()
+			$scope.back()
 
 		$scope.filters =
 			category:undefined
