@@ -24,4 +24,9 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 		sectionMachineName = $scope.sectionMeta.machineName
 		sectionID = $scope.expedition.sections[sectionMachineName]
 		$scope.section = $meteor.object(ProtocolSection, sectionID, false)
+
+		# @param Array. Fields to pass to update function (other fields like _id, owner will be omitted)
+		$scope.saveSection = (updateFields)->
+			ProtocolSection.update $scope.section._id,
+				$set:_.pick($scope.section.getRawObject(), updateFields)
 	]

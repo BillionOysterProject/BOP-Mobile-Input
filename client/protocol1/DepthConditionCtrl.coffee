@@ -10,8 +10,7 @@ angular.module('app.example').controller 'DepthConditionCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				ProtocolSection.update $scope.section._id,
-					$set:_.pick($scope.section.getRawObject(), 'submergedDepth', 'bioaccumulation')
+				$scope.saveSection ['submergedDepth', 'bioaccumulation']
 				$scope.showSaveDone()
 				$scope.back()
 			else
