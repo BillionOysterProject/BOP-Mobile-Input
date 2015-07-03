@@ -3,6 +3,21 @@
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
 	<ion-content class="has-header">
-		Startup
+		<div ng-hide="true">
+			<!-- cage condition images -->
+			<img src="/images/protocol1/depthCondition/none.jpg" width="320" height="150">
+			<img src="/images/protocol1/depthCondition/light.jpg" width="320" height="150">
+			<img src="/images/protocol1/depthCondition/medium.jpg" width="320" height="150">
+			<img src="/images/protocol1/depthCondition/heavy.jpg" width="320" height="150">
+
+			<!-- mobile organism images and icons -->
+			<div ng-repeat="org in organisms track by org._id">
+				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}">
+			</div>
+			<div ng-repeat="cat in organismCategories">
+				<img ng-src="/images/protocol2/mobileOrganisms/filterIcons/{{organismCategoriesFileMap[cat]}}">
+			</div>
+		</div>
+		
 	</ion-content>
 </ion-view>

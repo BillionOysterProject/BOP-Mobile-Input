@@ -117,10 +117,35 @@ angular.module('app.example').controller 'AppCtrl', [
 					onStop: (err)->
 						reject(err)
 
+		getOrganisms = ->
+			$q (resolve, reject)->
+				Meteor.subscribe 'Organisms',
+					onReady: ->
+						resolve()
+					onStop: (err)->
+						reject(err)
+
+		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
+		initOrganisms = ->
+			$scope.organisms = $meteor.collection( ->
+				Organisms.find({mobile:true})
+			)
+			$scope.organismCategories = _.unique((org.category for org in $scope.organisms), true)
+
+			#TODO might want to move this into the db
+			$scope.organismCategoriesFileMap =
+				Crustaceans:"filter-crustaceans.svg"
+				Fish:"filter-fish.svg"
+				Molluscs:"filter-molluscs.svg"
+				Sponges:"filter-sponges.svg"
+				Tunicates:"filter-tunicates.svg"
+				Worms:"filter-worms.svg"
+
 		#startup sequence for authenticated user
 		startup = ->
 			$meteor.subscribe('MetaProtocols')
-			.then $meteor.subscribe('Organisms')
+			.then getOrganisms
+			.then initOrganisms
 			.then $meteor.subscribe('Sites')
 			.then $meteor.subscribe('ProtocolSection')
 			.then $meteor.subscribe('Messages')

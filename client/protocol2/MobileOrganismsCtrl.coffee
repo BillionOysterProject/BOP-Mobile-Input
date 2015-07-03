@@ -41,21 +41,8 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 				$scope.showSaveDone()
 				$scope.back()
 
-		$scope.organisms = $meteor.collection( ->
-			Organisms.find({mobile:true})
-		)
-
-		$scope.orgCategories = _.unique((org.category for org in $scope.organisms), true)
 		$scope.filters =
 			category:undefined
-
-		$scope.categoryMap =
-			Crustaceans:"filter-crustaceans.svg"
-			Fish:"filter-fish.svg"
-			Molluscs:"filter-molluscs.svg"
-			Sponges:"filter-sponges.svg"
-			Tunicates:"filter-tunicates.svg"
-			Worms:"filter-worms.svg"
 
 		$scope.onChangeCategory = (cat)->
 			$scope.filters.category = cat
