@@ -18,6 +18,21 @@
 			width:145px;
 			height:145px;
 		}
+
+		.item {
+			border: none;
+			padding-top:0;
+			padding-bottom:8px;
+		}
+
+		.item-input-wrapper {
+			margin-top: 5px;
+		}
+
+		input {
+			height:45px;
+			line-height: 19px;
+		}
 	}
 
 	.filter-buttons {
@@ -58,13 +73,22 @@
 	.controls {
 		position: absolute;
 		bottom:0;
+		width:100%;
+
+		.buttons {
+			position: relative;
+			height:58px;
+		}
 
 		button {
-			.left {
-				left:0;
+			position: absolute;
+			top:1px;
+
+			&.left {
+				left:10px;
 			}
-			.right {
-				right:0;
+			&.right {
+				right:10px;
 			}
 		}
 
