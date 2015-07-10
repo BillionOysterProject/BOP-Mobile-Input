@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'bopicon';
-  src: url('/fonts/bopicon.eot?61314507');
-  src: url('/fonts/bopicon.eot?61314507#iefix') format('embedded-opentype'),
-       url('/fonts/bopicon.woff?61314507') format('woff'),
-       url('/fonts/bopicon.ttf?61314507') format('truetype'),
-       url('/fonts/bopicon.svg?61314507#bopicon') format('svg');
+  src: url('/fonts/bopicon.eot?25483650');
+  src: url('/fonts/bopicon.eot?25483650#iefix') format('embedded-opentype'),
+       url('/fonts/bopicon.woff?25483650') format('woff'),
+       url('/fonts/bopicon.ttf?25483650') format('truetype'),
+       url('/fonts/bopicon.svg?25483650#bopicon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'bopicon';
-    src: url('/fonts/bopicon.svg?61314507#bopicon') format('svg');
+    src: url('/fonts/bopicon.svg?25483650#bopicon') format('svg');
   }
 }
 */
@@ -80,6 +80,21 @@
 .icon-cloud-sun:before { content: '\e817'; } /* '' */
 .icon-cloud:before { content: '\e818'; } /* '' */
 .icon-rain:before { content: '\e819'; } /* '' */
+.icon-oyster-alive:before { content: '\e81a'; } /* '' */
+.icon-oyster-dead:before { content: '\e81b'; } /* '' */
+.icon-substrate-shell:before { content: '\e81c'; } /* '' */
+.icon-check-mark:before { content: '\e81d'; } /* '' */
+.icon-oyster-measurement:before { content: '\e81e'; } /* '' */
+.icon-school:before { content: '\e81f'; } /* '' */
 .icon-thunderstorm:before { content: '\e820'; } /* '' */
 .icon-snow:before { content: '\e821'; } /* '' */
 .icon-hail:before { content: '\e822'; } /* '' */
+.icon-cage-depth:before { content: '\e823'; } /* '' */
+.icon-cage-bioaccumulation:before { content: '\e824'; } /* '' */
+.icon-flag:before { content: '\e825'; } /* '' */
+.icon-camera:before { content: '\e826'; } /* '' */
+.icon-trash:before { content: '\e827'; } /* '' */
+.icon-chart-bar:before { content: '\e828'; } /* '' */
+.icon-graduation-cap:before { content: '\e829'; } /* '' */
+.icon-pencil:before { content: '\e82a'; } /* '' */
+.icon-picture-1:before { content: '\e82c'; } /* '' */
