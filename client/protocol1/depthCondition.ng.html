@@ -15,10 +15,11 @@
 				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Submerged depth of cage (meters)</span>
 					<input name="submergedDepth"
-					       type="number"
+					       type="text"
 					       ng-model="section.submergedDepth"
-					       min="0"
-					       max="100"
+					       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }"
+					       samsung-min="0"
+					       samsung-max="100"
 					       required>
 				</label>
 				<div ng-messages="sectionForm.submergedDepth.$error"
