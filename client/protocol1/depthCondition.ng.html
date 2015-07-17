@@ -14,13 +14,11 @@
 				<label class="item item-input item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Submerged depth of cage (meters)</span>
-					<input name="submergedDepth"
-					       type="text"
-					       ng-model="section.submergedDepth"
-					       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }"
-					       samsung-min="0"
-					       samsung-max="100"
-					       required>
+
+					<bop-samsung-number-input name="submergedDepth"
+					                          ng-model="section.submergedDepth"
+					                          is-samsung="isSamsung"
+					                          min="0" max="100"></bop-samsung-number-input>
 				</label>
 				<div ng-messages="sectionForm.submergedDepth.$error"
 				     class="form-errors"

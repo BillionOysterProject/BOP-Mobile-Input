@@ -1,3 +1,4 @@
+#note, works like max validator directive. Updates 'max' not 'samsungMax' in ngMessages
 angular.module('app.example').directive 'samsungMax', ->
 	{
 	restrict:'A'
@@ -14,6 +15,7 @@ angular.module('app.example').directive 'samsungMax', ->
 				modelCtrl.$setViewValue(transformedVal)
 				modelCtrl.$render()
 
+				#Note, updates 'max' not 'samsungMax' in ngMessages
 				modelCtrl.$setValidity 'max', Number(transformedVal) <= attrs.samsungMax
 
 			Number(transformedVal)

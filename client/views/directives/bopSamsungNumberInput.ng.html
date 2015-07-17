@@ -1,0 +1,21 @@
+<ng-switch on="isSamsung">
+	<div ng-switch-when="true">
+		<input dynamic-name="opts.name"
+		       type="text"
+		       ng-model="myValue"
+		       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }"
+		       ng-change="propagateModel()"
+		       samsung-min="{{min}}"
+		       samsung-max="{{max}}"
+		       required>
+	</div>
+	<div ng-switch-when="false">
+		<input dynamic-name="opts.name"
+		       type="number"
+		       ng-model="myValue"
+		       ng-change="propagateModel()"
+		       min="{{min}}"
+		       max="{{max}}"
+		       required>
+	</div>
+</ng-switch>

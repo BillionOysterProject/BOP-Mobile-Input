@@ -201,6 +201,10 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		$scope.dynamicRoutesDefined = false
 
+		#support for samsungMax and samsungMin directives. I created those to work around the bug where the Samsung keyboard has no decimal point: https://code.google.com/p/chromium/issues/detail?id=151738#c17
+		regex = ///(SAMSUNG[- ])?(GT|SM)-[IGNPST]\d\d\d///
+		$scope.isSamsung = regex.test(navigator.userAgent);
+
 		$meteor.waitForUser()
 		.then (currentUser)->
 			if currentUser

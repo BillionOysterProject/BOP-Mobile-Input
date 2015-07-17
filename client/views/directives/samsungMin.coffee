@@ -1,3 +1,4 @@
+#note, works like min validator directive. Updates 'min' not 'samsungMin' in ngMessages
 angular.module('app.example').directive 'samsungMin', ->
 	{
 	restrict:'A'
@@ -13,6 +14,8 @@ angular.module('app.example').directive 'samsungMin', ->
 			if transformedVal != inputValue
 				modelCtrl.$setViewValue(transformedVal)
 				modelCtrl.$render()
+
+				#Note, updates 'min' not 'samsungMin' in ngMessages
 				modelCtrl.$setValidity 'min', Number(transformedVal) >= attrs.samsungMin
 
 			Number(transformedVal)

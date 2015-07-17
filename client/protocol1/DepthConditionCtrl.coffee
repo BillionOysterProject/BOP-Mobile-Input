@@ -8,6 +8,8 @@ angular.module('app.example').controller 'DepthConditionCtrl', [
 
 		$scope.section.bioaccumulation ?= 0
 
+		console.log 'DepthConditionCtrl isSamsung: ' + $scope.isSamsung
+
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
 				$scope.saveSection ['submergedDepth', 'bioaccumulation']
