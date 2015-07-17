@@ -1,12 +1,13 @@
-angular.module('app.example').directive 'bopSamsungNumberInput', [
-	'$timeout'
-	($timeout)->
+# @author Andrew Blair
+angular.module('app.example').directive 'samsungFix', [
+	->
 		def =
-			name:'bopSamsungNumberInput'
-			restrict:'E'
+			name:'samsungFix'
+			restrict:'A'
 			require:'ngModel'
+			replace:true
 
-			templateUrl:"client/views/directives/bopSamsungNumberInput.ng.html"
+			templateUrl:"client/views/directives/samsungFix.ng.html"
 #
 			scope:
 				name:'='
@@ -16,7 +17,6 @@ angular.module('app.example').directive 'bopSamsungNumberInput', [
 				isSamsung:'='
 
 			link: ($scope, element, attrs, ngModelCtrl)->
-				element.addClass('bop-samsung-number-input')
 				$scope.opts = attrs
 
 				#I don't know why I had to do this, I expected that myValue would two-way bind back up to the original model passed in.
