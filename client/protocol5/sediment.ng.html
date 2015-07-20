@@ -23,8 +23,7 @@
 					       ng-model="section.volume"
 					       ng-change="updateVolumeRate(sectionForm)"
 					       min="0"
-					       max="100"
-					       required>
+					       max="100">
 					<span class="input-label">cm&sup3;</span>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.volume.$error"
@@ -41,8 +40,7 @@
 					       type="number"
 					       ng-model="section.daysCollected"
 					       ng-change="updateVolumeRate(sectionForm)"
-					       min="0"
-					       required>
+					       min="0">
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.daysCollected.$error"
 				     ng-show="sectionForm.daysCollected.$invalid && sectionForm.$submitted">
@@ -72,8 +70,7 @@
 					<textarea name="sedimentDescription"
 					          placeholder="Silty grey, uniform color"
 					          ng-model="section.sedimentDescription"
-					          msd-elastic="\n"
-					          required></textarea>
+					          msd-elastic="\n"></textarea>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.sedimentDescription.$error"
 				     ng-show="sectionForm.sedimentDescription.$invalid && sectionForm.$submitted">

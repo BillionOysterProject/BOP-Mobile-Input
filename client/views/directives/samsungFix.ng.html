@@ -7,7 +7,6 @@
 		       ng-change="propagateModel()"
 		       samsung-min="{{min}}"
 		       samsung-max="{{max}}"
-		       required>
 	</div>
 	<div ng-switch-when="false">
 		<input dynamic-name="opts.name"
@@ -15,7 +14,7 @@
 		       ng-model="myValue"
 		       ng-change="propagateModel()"
 		       min="{{min}}"
-		       max="{{max}}"
 		       required>
+		       max="{{max}}">
 	</div>
 </ng-switch>

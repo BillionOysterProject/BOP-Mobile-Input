@@ -18,8 +18,7 @@
 					       placeholder="The voyage of the Beagle"
 					       ng-model="formIntermediary.expedition.title"
 					       ng-minlength="5"
-                           ng-maxlength="100"
-                           required>
+                           ng-maxlength="100">
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.title.$error"
 				     ng-show="overviewForm.title.$invalid && overviewForm.$submitted">
@@ -32,8 +31,7 @@
 						Name of site
 					</div>
 					<select name="site"
-					        ng-options="site.label for site in sites track by site._id" ng-model="formIntermediary.selectedSite"
-					        required></select>
+					        ng-options="site.label for site in sites track by site._id" ng-model="formIntermediary.selectedSite"></select>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.site.$error"
 				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">

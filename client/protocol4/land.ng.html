@@ -36,8 +36,7 @@
 
 						<textarea name="shorelineDescOther"
 						          ng-model="section.shorelineDescOther"
-						          msd-elastic="\n"
-						          required></textarea>
+						          msd-elastic="\n"></textarea>
 					</label>
 					<div class="form-errors" ng-messages="sectionForm.shorelineDescOther.$error"
 					     ng-show="sectionForm.shorelineDescOther.$invalid && sectionForm.$submitted">
@@ -55,7 +54,6 @@
 					       ng-model="section.adjacentShoreline.pavedPct"
 					       min="0"
 					       max="100"
-					       required
 					       >
 				</div>
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePavedPct.$error"
@@ -73,7 +71,6 @@
 					       ng-model="section.adjacentShoreline.vegetatedPct"
 					       min="0"
 					       max="100"
-					       required
 					       >
 				</div>
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelineVegetatedPct.$error"
@@ -91,7 +88,6 @@
 					       ng-model="section.adjacentShoreline.porousPct"
 					       min="0"
 					       max="100"
-					       required
 					       >
 				</div>
 				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePorousPct.$error"
@@ -108,8 +104,7 @@
 					<textarea name="garbageDescription"
 					          placeholder="{{garbageDescPlaceholder}}"
 					          ng-model="section.garbageDescription"
-					          msd-elastic="\n"
-					          required></textarea>
+					          msd-elastic="\n"></textarea>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
 				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted">

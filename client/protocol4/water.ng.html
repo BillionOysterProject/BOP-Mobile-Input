@@ -30,8 +30,7 @@
 					<div class="input-label">Water Color</div>
 					<select name="waterColour"
 					        ng-options="colour.label for colour in waterColours"
-					        ng-model="formIntermediary.waterColour"
-					        required></select>
+					        ng-model="formIntermediary.waterColour"></select>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.waterColour.$error"
 				     ng-show="sectionForm.waterColour.$invalid && sectionForm.$submitted">
@@ -48,8 +47,7 @@
 					<textarea name="garbageDescription"
 					          placeholder="{{garbageDescPlaceholder}}"
 					          ng-model="section.garbageDescription"
-					          msd-elastic="\n"
-					          required></textarea>
+					          msd-elastic="\n"></textarea>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
 				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted">
@@ -68,7 +66,6 @@
 						       type="text"
 						       placeholder="lat,lng"
 						       ng-model="section.sewerDrainLocations[0].location"
-						       required
 						       latlng
 						       >
 						<span class="input-label button button-clear button-positive icon ion-pinpoint"
@@ -85,8 +82,7 @@
 						<input name="outfallGPM"
 						       type="number"
 						       ng-model="section.sewerDrainLocations[0].outfallGPM"
-	                           min="0"
-						       required>
+	                           min="0">
 					</label>
 					<div class="form-errors" ng-messages="sectionForm.outfallGPM.$error"
 					     ng-show="sectionForm.outfallGPM.$invalid && sectionForm.$submitted">
@@ -106,7 +102,6 @@
 						       type="text"
 						       placeholder="lat,lng"
 						       ng-model="section.pollutionDrainLocations[0].location"
-						       required
 						       latlng
 						       >
 						<span class="input-label button button-clear button-positive icon ion-pinpoint"
@@ -123,8 +118,7 @@
 						<input name="pollutionOutfallGPM"
 						       type="number"
 						       ng-model="section.pollutionDrainLocations[0].outfallGPM"
-	                           min="0"
-						       required>
+	                           min="0">
 					</label>
 					<div class="form-errors" ng-messages="sectionForm.pollutionOutfallGPM.$error"
 					     ng-show="sectionForm.pollutionOutfallGPM.$invalid && sectionForm.$submitted">

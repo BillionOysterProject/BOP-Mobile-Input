@@ -23,8 +23,7 @@
 							       type="number"
 							       ng-model="section.shells[$index].totals.live"
 							       ng-change="onChangeTotalLive($index, sectionForm.$valid)"
-		                           min="0"
-							       required>
+		                           min="0">
 						</label>
 
 						<div ng-messages="totalsLiveFieldForm.totalLive.$error"
@@ -44,8 +43,7 @@
 							       type="number"
 							       ng-model="section.shells[$index].totals.dead"
 							       ng-change="updateMainTotals(sectionForm.$valid)"
-		                           min="0"
-							       required>
+		                           min="0">
 						</label>
 
 						<div ng-messages="totalsDeadFieldForm.totalDead.$error"
@@ -72,7 +70,7 @@
 									       ng-change="updateLiveOysterStats(shellSizesForm.$valid, $parent.$index); updateMainTotals(sectionForm.$valid)"
 				                           min="1"
 				                           max="{{maxSpatSizeMM}}"
-									       required>
+									       >
 									<span class="input-label">mm</span>
 								</label>
 								<div ng-messages="liveSizeMMFieldForm.liveSizeMM.$error"
