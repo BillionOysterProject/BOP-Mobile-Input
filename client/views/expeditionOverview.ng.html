@@ -42,9 +42,18 @@
 
 				<div class="item item-input bop-icon-right">
 					<span class="input-label">Location</span>
-					<input type="text" placeholder="lat,lng" ng-model="formIntermediary.expedition.location">
+					<input type="text"
+					       name="location"
+					       placeholder="lat,lng"
+					       ng-model="formIntermediary.expedition.location"
+					       latlng>
 					<span class="input-label button button-clear button-positive icon ion-pinpoint"
 					        ng-click="setLocationUsingGPS()"></span>
+				</div>
+				<div ng-messages="overviewForm.location.$error"
+				     class="form-errors"
+				     ng-show="overviewForm.location.$invalid && overviewForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
 
