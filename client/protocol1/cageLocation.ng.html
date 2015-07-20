@@ -28,7 +28,7 @@
 				     ng-show="sectionForm.location.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
-				<bop-static-map ng-if="sectionForm.location.$valid" location="section.location"></bop-static-map>
+				<bop-static-map ng-if="sectionForm.location.$valid && section.location" location="section.location"></bop-static-map>
 
 				<button class="button button-full button-calm"
 				        padding="true"

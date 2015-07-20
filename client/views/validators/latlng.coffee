@@ -24,13 +24,21 @@ angular.module('app.example').directive 'latlng', [
 
 			#For DOM -> model validation
 			ngModel.$parsers.unshift (value) ->
-				valid = latlngRegex.test(value)
+				if attr.hasOwnProperty('required')
+					valid = latlngRegex.test(value)
+				else
+					valid = if _.isEmpty(value) then true else latlngRegex.test(value)
+
 				ngModel.$setValidity 'latlng', valid
 				if valid then value else undefined
 
 			#For model -> DOM validation
 			ngModel.$formatters.unshift (value) ->
-				valid = latlngRegex.test(value)
+				if attr.hasOwnProperty('required')
+					valid = latlngRegex.test(value)
+				else
+					valid = if _.isEmpty(value) then true else latlngRegex.test(value)
+
 				ngModel.$setValidity 'latlng', valid
 				value
 			return
