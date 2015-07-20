@@ -29,7 +29,7 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 				live: null
 				dead: null
 
-		$scope.maxSpatSizeMM = 50
+		$scope.maxSpatSizeMM = 200
 
 		$scope.onChangeTotalLive = (shellIndex, formIsValid)->
 			if formIsValid
