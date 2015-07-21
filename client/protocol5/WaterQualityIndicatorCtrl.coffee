@@ -43,6 +43,10 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		$scope.createDatumPopup = (action)->
 			$scope.datumPopupScope.action = action
 			$scope.datumPopupScope.units = $scope.getUnitsForMethod($scope.formIntermediary.method.machineName)
+
+			$scope.datumPopupScope.getMessage = (tplKey)->
+				$scope.getMessage(tplKey)
+
 			$scope.datumPopupScope.popup = $ionicPopup.show(
 				templateUrl: 'client/protocol5/indicatorDatumPopup.ng.html'
 				title: 'Enter value for sample'
