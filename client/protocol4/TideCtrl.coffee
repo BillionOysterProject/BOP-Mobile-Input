@@ -21,6 +21,7 @@ angular.module('app.example').controller 'TideCtrl', [
 			$scope.section.speed = Number($scope.section.speed)
 
 		$scope.section.estimate ?= 0
+		$scope.section.speed ?= 1
 		$scope.section.direction ?= 'slack'
 
 

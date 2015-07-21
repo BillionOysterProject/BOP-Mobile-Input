@@ -15,11 +15,16 @@
 				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Submerged depth of cage (meters)</span>
 
-					<div samsung-fix
-					     name="submergedDepth"
-                         ng-model="section.submergedDepth"
-                         is-samsung="isSamsung"
-                         min="0" max="100" ></div>
+					<input type="number"
+					       name="submergedDepth"
+	                       ng-model="section.submergedDepth"
+	                       min="0" max="100">
+
+					<!--<div samsung-fix-->
+					     <!--name="submergedDepth"-->
+                         <!--ng-model="section.submergedDepth"-->
+                         <!--is-samsung="isSamsung"-->
+                         <!--min="0" max="100" ></div>-->
 				</label>
 				<div ng-messages="sectionForm.submergedDepth.$error"
 				     class="form-errors"

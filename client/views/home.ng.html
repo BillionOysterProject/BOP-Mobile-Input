@@ -13,9 +13,9 @@
 			          class="item-thumbnail-left item-text-wrap"
 					>
 				<img ng-src="images/protocol-0{{$index + 1}}.svg">
-				<h2>Protocol {{protocol.num}}</h2>
-				<p>{{protocol.title}}</p>
-				<bop-progress-bar p="protocolProgress[$index]"></bop-progress-bar>
+				<h2>Protocol {{::protocol.num}}</h2>
+				<p>{{::protocol.title}}</p>
+				<bop-progress-bar p="::getProtocolCompleteness(protocol)"></bop-progress-bar>
 			</ion-item>
 
 		</ion-list>

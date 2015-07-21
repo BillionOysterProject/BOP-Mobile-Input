@@ -49,7 +49,7 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 					,
 						#protocol 3.1
 						owner: Meteor.userId()
-						machineName:'sessileObserved'
+						machineName:'sessileOrganisms'
 					,
 						#protocol 4.1
 						owner: Meteor.userId()

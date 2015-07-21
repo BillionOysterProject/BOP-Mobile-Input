@@ -10,7 +10,8 @@
 		<ion-list>
 			<ion-item ng-repeat="section in protocol.sections track by $index"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
-				{{$index + 1}}. {{section.title}}
+				{{::$index + 1}}. {{::section.title}}
+				<span class="item-note">{{::getCompleteness(section.machineName) * 100 | number}}%</span>
 			</ion-item>
 			<ion-checkbox ng-model="protocolPublished">
 				This protocol is ready for review

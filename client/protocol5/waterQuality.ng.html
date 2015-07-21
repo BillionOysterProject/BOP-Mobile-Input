@@ -7,12 +7,14 @@
 	<!--</ion-nav-buttons>-->
 	<ion-content class="has-header">
 		<ion-list>
-			<h2 class="padding">{{sectionMeta.title}}</h2>
+			<h2 class="padding">{{::sectionMeta.title}}</h2>
 			<ion-item ng-repeat="indicator in indicators track by indicator.machineName"
 			          ui-sref="app.waterQualityIndicator({protocolNum:protocol.num, sectionMachineName:section.machineName, indicatorMachineName:indicator.machineName})"
 			          class="item-text-wrap">
-				<i class="icon {{indicator.icon}}"></i>
-				{{indicator.title}}
+				<i class="icon {{::indicator.icon}}"></i>
+				{{::indicator.title}}
+				<span class="badge"
+				      ng-class="::{'badge-positive':getTotalSamples(indicator.machineName) == 0, 'badge-balanced': getTotalSamples(indicator.machineName) > 0}">{{::getTotalSamples(indicator.machineName)}}</span>
 						</ion-item>
 		</ion-list>
 	</ion-content>

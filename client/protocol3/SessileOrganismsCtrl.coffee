@@ -1,4 +1,4 @@
-angular.module('app.example').controller 'SessileObservedCtrl', [
+angular.module('app.example').controller 'SessileOrganismsCtrl', [
 	'$scope'
 	'$controller'
 	'$ionicPlatform'

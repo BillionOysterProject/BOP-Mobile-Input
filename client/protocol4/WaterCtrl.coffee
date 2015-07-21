@@ -54,8 +54,6 @@ angular.module('app.example').controller 'WaterCtrl', [
 					console.error 'error: ' + JSON.stringify(error)
 					$scope.alert JSON.stringify(error), 'error'
 
-		$scope.garbageDescPlaceholder = 'Many small plastic particles of different colours ranging from .25" to 1" in size'
-
 		if $scope.section.waterColour?
 			for item in $scope.waterColours
 				if $scope.section.waterColour is item.label
@@ -64,7 +62,8 @@ angular.module('app.example').controller 'WaterCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.waterColour = $scope.formIntermediary.waterColour.label
+				$scope.section.waterColour = $scope.formIntermediary.waterColour?.label
+				$scope.section.oilSheen ?= false
 				$scope.section.sewerDrainLocations = [] if !$scope.formIntermediary.sewerDrainsNear
 				$scope.section.pollutionDrainLocations = [] if !$scope.formIntermediary.pollutionDrainsNear
 

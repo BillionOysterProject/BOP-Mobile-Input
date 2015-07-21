@@ -24,9 +24,11 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			org.count = Math.max(org.count - 1, 0)
 
 		$scope.enforceNumber = (id)->
+			return 0 if !$scope.section.organisms.hasOwnProperty(id)
+
 			org = $scope.section.organisms[id]
-			if !org.count or isNaN(org.count)
-				org.count = parseInt(org.count) || 0
+			if !org.count? or isNaN(org.count)
+				org.count = parseInt(org?.count) || 0
 
 		$scope.onTapSave = ->
 			console.log 'onTapSave'

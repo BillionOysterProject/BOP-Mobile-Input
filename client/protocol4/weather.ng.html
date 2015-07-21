@@ -56,11 +56,10 @@
 				<div class="item item-input"
 				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Temperature</span>
-					<div samsung-fix
-					     name="temperatureF"
-                         ng-model="section.temperatureF"
-                         is-samsung="isSamsung"
-                         min="0" max="140"></div>
+					<input type="number"
+					       name="temperatureF"
+					       ng-model="section.temperatureF"
+					       min="0" max="140">
 					<span class="input-label">℉</span>
 				</div>
 				<div ng-messages="sectionForm.temperatureF.$error"

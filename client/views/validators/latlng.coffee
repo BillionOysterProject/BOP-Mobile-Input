@@ -27,7 +27,7 @@ angular.module('app.example').directive 'latlng', [
 				if attr.hasOwnProperty('required')
 					valid = latlngRegex.test(value)
 				else
-					valid = if _.isEmpty(value) then true else latlngRegex.test(value)
+					valid = if !value? then true else latlngRegex.test(value)
 
 				ngModel.$setValidity 'latlng', valid
 				if valid then value else undefined
@@ -37,7 +37,7 @@ angular.module('app.example').directive 'latlng', [
 				if attr.hasOwnProperty('required')
 					valid = latlngRegex.test(value)
 				else
-					valid = if _.isEmpty(value) then true else latlngRegex.test(value)
+					valid = if !value? then true else latlngRegex.test(value)
 
 				ngModel.$setValidity 'latlng', valid
 				value

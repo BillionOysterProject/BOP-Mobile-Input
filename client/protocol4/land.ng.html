@@ -99,10 +99,10 @@
 
 				<label class="item item-input item-stacked-label item-text-wrap"
 				       ng-class="{ 'has-error' : sectionForm.garbageDescription.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Debris or garbage present on land</span>
+					<span class="input-label">Describe the type and extent of garbage present on land</span>
 
 					<textarea name="garbageDescription"
-					          placeholder="{{garbageDescPlaceholder}}"
+					          placeholder="{{getMessage('garbageDescPlaceholderLand')}}"
 					          ng-model="section.garbageDescription"
 					          msd-elastic="\n"></textarea>
 				</label>
