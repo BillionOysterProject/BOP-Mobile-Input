@@ -11,10 +11,10 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$ionicPopup'
 	'$ionicModal'
 	'$filter'
+	'$interval'
 	'$cordovaAppVersion'
 	'bopRoutesDynamic'
-	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $cordovaAppVersion, bopRoutesDynamic) ->
-
+	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $interval, $cordovaAppVersion, bopRoutesDynamic) ->
 		#Version number display.
 		$ionicPlatform.ready ->
 			$scope.buildNumber =
@@ -23,7 +23,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 				# Increment this manually each time a hot push is deployed.
 				# Set to zero every time a native build is deployed.
-				hotPush: 2;
+				hotPush: 3;
 
 			if window.cordova
 				$cordovaAppVersion.getAppVersion().then (buildNum)->
