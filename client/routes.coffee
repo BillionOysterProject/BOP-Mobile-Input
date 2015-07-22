@@ -23,12 +23,20 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/startup.ng.html'
 					controller: 'StartupCtrl'
 
-		.state 'app.auth',
+		.state 'app.login',
 #			cache:false
-			url: '/auth'
+			url: '/login'
 			views:
 				'menuContent':
-					templateUrl: 'client/views/auth.ng.html'
+					templateUrl: 'client/views/auth/login.ng.html'
+					controller: 'AuthCtrl'
+
+		.state 'app.createAccount',
+#			cache:false
+			url: '/createAccount'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth/createAccount.ng.html'
 					controller: 'AuthCtrl'
 
 		.state 'app.expeditions',

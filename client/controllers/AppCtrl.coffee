@@ -116,6 +116,17 @@ angular.module('app.example').controller 'AppCtrl', [
 					onStop: (err)->
 						reject(err)
 
+		getMessages = ->
+			console.log 'getMessages'
+			$q (resolve, reject)->
+				Meteor.subscribe 'Messages',
+					onReady: ->
+						console.log 'getMessages onReady'
+						resolve()
+					onStop: (err)->
+						console.log 'getMessages onStop'
+						reject(err)
+
 		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
 		initOrganisms = ->
 			$scope.organisms = $meteor.collection( ->
@@ -139,7 +150,6 @@ angular.module('app.example').controller 'AppCtrl', [
 			.then initOrganisms
 			.then $meteor.subscribe('Sites')
 			.then $meteor.subscribe('ProtocolSection')
-			.then $meteor.subscribe('Messages')
 			.then getUserExpeditions
 			.then ->
 				$scope.metaProtocols = $meteor.collection(MetaProtocols)
@@ -172,6 +182,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				console.error "startup failed. ", error
 
 		Accounts.onLogin ->
+			console.log 'AppCtrl onLogin event fired'
 			$meteor.waitForUser()
 			.then (currentUser)->
 				startup()
@@ -179,16 +190,12 @@ angular.module('app.example').controller 'AppCtrl', [
 		navigateToLogin = ->
 			$scope.prepareForRootViewNavigation()
 			$ionicSideMenuDelegate.toggleLeft(false)
-
-			$state.go('app.auth')
+			$state.go('app.login')
 			$ionicHistory.clearHistory()
-			
-		$scope.$watch ->
-			Meteor.userId()
-		, (newValue, oldValue) ->
-			if !newValue
+
+		$scope.logout = ->
+			Meteor.logout ->
 				navigateToLogin()
-			return
 
 		$scope.dynamicRoutesDefined = false
 
@@ -196,8 +203,13 @@ angular.module('app.example').controller 'AppCtrl', [
 		regex = ///(SAMSUNG[- ])?(GT|SM|SGH)-[IGNPST]\d\d\d///
 		$scope.isSamsung = regex.test(navigator.userAgent);
 
-		$meteor.waitForUser()
+		getMessages()
+		.then $meteor.waitForUser
 		.then (currentUser)->
+			$scope.startupStarted = true
+			console.log 'bottom of AppCtrl fired'
+			console.log 'Messages: ' + Messages.find().count()
+			console.log 'user: ', JSON.stringify(currentUser)
 			if currentUser
 				startup()
 			else

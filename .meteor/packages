@@ -12,10 +12,10 @@ tomi:upload-jquery
 tomi:upload-server
 peerlibrary:aws-sdk
 accounts-password
-accounts-ui
 angular:angular-messages
 stevezhu:lodash
 chrismbeckett:toastr
 urigo:ionic
 ground:db
 urigo:angular
+accounts-ui-unstyled

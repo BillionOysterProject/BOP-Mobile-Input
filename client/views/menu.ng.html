@@ -12,7 +12,6 @@
 			<h1 class="title">Main Menu</h1>
 		</header>
 		<ion-content class="has-header" scroll="false">
-			<meteor-include src="loginButtons"></meteor-include>
 			<ion-list>
 				<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.home">
 					Expedition Home
@@ -20,9 +19,9 @@
 				<ion-item nav-clear menu-close ui-sref="app.expeditions">
 					My Expeditions
 				</ion-item>
-				<!--<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.todos">-->
-					<!--TODOs-->
-				<!--</ion-item>-->
+				<ion-item ng-click="logout()">
+					Logout
+				</ion-item>
 			</ion-list>
 			<p class="appVersion">V {{buildNumber.native || '#.#.#'}}-{{buildNumber.hotPush}}</p>
 		</ion-content>
