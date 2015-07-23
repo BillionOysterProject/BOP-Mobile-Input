@@ -14,10 +14,18 @@ angular.module('app.example').controller 'AuthCtrl', [
 
 		$scope.onTapCreateAccount = (formIsValid)->
 			if formIsValid
-				Accounts.createUser {email: $scope.user.email, password: $scope.user.password}
 
-				#Note, see onLogin in AppCtrl
-				Meteor.loginWithPassword $scope.user.email, $scope.user.password
+				# ref: http://docs.meteor.com/#/full/accounts_createuser
+				userOptions =
+					email: $scope.user.email,       #meteor-reserved key
+					password: $scope.user.password  #meteor-reserved key
+					profile:                        #meteor-reserved key
+						#contents of profile are arbitrary for developer
+						roles: [
+							'citizenScientist'
+						]
+
+				Accounts.createUser userOptions
 
 		Accounts.onLoginFailure ->
 			$scope.alert('There was a problem logging in, please try again', 'Sorry')
