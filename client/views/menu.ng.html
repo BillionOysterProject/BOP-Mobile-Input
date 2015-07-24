@@ -13,14 +13,21 @@
 		</header>
 		<ion-content class="has-header" scroll="false">
 			<ion-list>
-				<ion-item ng-if="hasExpeditions()" nav-clear menu-close ui-sref="app.home">
-					Expedition Home
+				<ion-item ng-if="hasExpeditions()"
+				          nav-clear menu-close
+				          ui-sref="app.home"
+				          class="item-text-wrap">
+					Protocols<br>
+					<p>{{expedition.alias || getExpeditionTitle(expedition)}}</p>
+					<!--<span class="item-note"></span>-->
 				</ion-item>
 				<ion-item nav-clear menu-close ui-sref="app.expeditions">
 					My Expeditions
+					<span class="badge badge-positive">{{getTotalExpeditions()}}</span>
 				</ion-item>
 				<ion-item ng-click="logout()">
 					Logout
+					<p>{{getUserEmail()}}</p>
 				</ion-item>
 			</ion-list>
 			<p class="appVersion">V {{buildNumber.native || '#.#.#'}}-{{buildNumber.hotPush}}</p>

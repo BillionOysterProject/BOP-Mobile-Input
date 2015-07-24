@@ -25,6 +25,8 @@ angular.module('app.example').controller 'AuthCtrl', [
 							'citizenScientist'
 						]
 
+						name:$scope.user.name
+
 				Accounts.createUser userOptions
 
 		Accounts.onLoginFailure ->

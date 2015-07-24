@@ -1,0 +1,27 @@
+<ion-view title="Expeditions" hide-nav-bar="false" hide-back-button="true">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="createExpedition()"><i class="icon ion-ios-plus-empty"></i> New</button>
+	</ion-nav-buttons>
+
+	<ion-content padding="expeditions.length == 0" class="has-header">
+		<ion-list ng-if="expeditions.length > 0">
+			<p class="item item-icon-left item-text-wrap">
+				<i class="icon ion-ios-lightbulb-outline"></i> Tap an expedition to edit, swipe left to delete.
+			</p>
+			<ion-item ng-repeat="exp in expeditions | orderBy:'-date'"
+			          ui-sref="app.expeditionSettings({expeditionID:exp._id})"
+			          class="item-text-wrap"
+			          ng-class="{'new':isNew(exp)}">
+				{{exp.alias || getExpeditionTitle(exp)}}
+				<p ng-if="exp.alias">{{getExpeditionTitle(exp)}}</p>
+				<ion-option-button class="button-assertive" ng-click="deleteExpedition(exp)">Delete</ion-option-button>
+			</ion-item>
+		</ion-list>
+		<div ng-if="expeditions.length == 0">
+			<p class="padding">You have no expeditions yet. Tap New above to start.</p>
+		</div>
+	</ion-content>
+</ion-view>

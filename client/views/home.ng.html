@@ -1,12 +1,15 @@
-<ion-view title="Home">
+<ion-view title="Protocols">
 	<ion-nav-buttons side="left">
 		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
-	<ion-nav-buttons side="right">
-		<button class="button button-clear button-positive" ng-click="navigateToOverview()">Overview</button>
-	</ion-nav-buttons>
+	<!--<ion-nav-buttons side="right">-->
+		<!--<button class="button button-clear button-positive" ng-click="navigateToOverview()">Settings</button>-->
+	<!--</ion-nav-buttons>-->
 	<ion-content class="has-header">
-		<h4 class="padding">{{expedition.title}}</h4>
+		<div class="padding text-center">
+			<h4>{{::expedition.alias || getExpeditionTitle(expedition)}}</h4>
+			<p ng-if="expedition.alias">{{::getExpeditionTitle(expedition)}}</p>
+		</div>
 		<ion-list>
 			<ion-item ng-repeat="protocol in metaProtocols"
 			          ui-sref="app.protocol({protocolNum:protocol.num})"

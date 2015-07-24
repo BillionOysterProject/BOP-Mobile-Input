@@ -6,9 +6,9 @@ angular.module('app.example').controller 'HomeCtrl', [
 		if !$scope.startupComplete
 			location.href = '/'
 			return
-
-		$scope.navigateToOverview = ->
-			$state.go('app.expeditionOverview', {expeditionID:$scope.expedition._id})
+#
+#		$scope.navigateToOverview = ->
+#			$state.go('app.expeditionSettings', {expeditionID:$scope.expedition._id})
 
 		#gets aggregate completeness of sections
 		$scope.getProtocolCompleteness = (protocol)->

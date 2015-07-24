@@ -44,16 +44,24 @@ angular.module('app.example').config [
 			url: '/expeditions'
 			views:
 				'menuContent':
-					templateUrl: 'client/views/expeditions.ng.html'
-					controller: 'ExpeditionsCtrl'
+					templateUrl: 'client/views/expeditionList.ng.html'
+					controller: 'ExpeditionListCtrl'
 
-		.state 'app.expeditionOverview',
+		.state 'app.expeditionSettings',
 			cache:false
-			url: '/expeditionOverview/:expeditionID'
+			url: '/expeditionSettings/:expeditionID'
 			views:
 				'menuContent':
-					templateUrl: 'client/views/expeditionOverview.ng.html'
-					controller: 'ExpeditionOverviewCtrl'
+					templateUrl: 'client/views/expeditionSettings.ng.html'
+					controller: 'ExpeditionCtrl'
+
+		.state 'app.expeditionCreate',
+			cache:false
+			url: '/expeditionCreate'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/expeditionCreate.ng.html'
+					controller: 'ExpeditionCtrl'
 
 		.state 'app.home',
 			cache:false

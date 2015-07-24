@@ -1,4 +1,4 @@
-angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
+angular.module('app.example').controller 'ExpeditionCtrl', [
 	'$scope'
 	'$stateParams'
 	'$q'
@@ -129,9 +129,11 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 					exp = $scope.formIntermediary.expedition
 					Expeditions.update exp._id,
 						$set:
-							title:exp.title
+							alias:exp.alias
 							site:$scope.formIntermediary.selectedSite._id
-							location:exp.location
+							date:exp.date
+							#TODO for teachers:
+#							class:$scope.formIntermediary.selectedClass._id
 
 					$scope.showSaveDone()
 					$ionicHistory.goBack()
@@ -139,14 +141,14 @@ angular.module('app.example').controller 'ExpeditionOverviewCtrl', [
 			else
 				console.log 'do nothing, overviewForm invalid'
 
+
 		$scope.changeExpedition = (id)->
 			$scope.setCurrentExpeditionByID(id)
 			toastr.success("Switched Expeditions", null, {timeOut:'4000'})
 			$scope.navigateHome()
-		
-			
+
 		$scope.formIntermediary = {}
-		
+
 		$scope.sites = $meteor.collection(Sites)
 
 		if $stateParams.expeditionID

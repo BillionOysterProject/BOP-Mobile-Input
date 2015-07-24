@@ -1,0 +1,38 @@
+<ion-view title="Create Expedition" class="expeditionCreate">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<!--<button class="button button-clear button-positive" ng-click="createExpedition()">Add</button>-->
+	</ion-nav-buttons>
+
+	<ion-content class="has-header">
+		<form name="overviewForm" novalidate="" ng-submit="onTapSave(overviewForm)">
+			<ion-list>
+				<!--<h4 class="text-center">{{getExpeditionTitle(formIntermediary.expedition)}}</h4>-->
+
+				<!-- select site -->
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">
+					<div class="input-label">
+						Name of site
+					</div>
+					<select name="site"
+					        ng-options="site.label for site in sites track by site._id"
+					        ng-model="formIntermediary.selectedSite"></select>
+				</label>
+				<div class="form-errors" ng-messages="overviewForm.site.$error"
+				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Create</button>
+			</ion-list>
+		</form>
+	</ion-content>
+</ion-view>

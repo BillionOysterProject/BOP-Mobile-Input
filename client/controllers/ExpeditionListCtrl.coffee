@@ -1,4 +1,4 @@
-angular.module('app.example').controller 'ExpeditionsCtrl', [
+angular.module('app.example').controller 'ExpeditionListCtrl', [
 	'$scope'
 	'$state'
 	'$meteor'
@@ -12,7 +12,7 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 
 		#Navigates user to the form for creating a new one
 		$scope.createExpedition = ->
-			$state.go('app.expeditionOverview', expeditionID:null)
+			$state.go('app.expeditionCreate', expeditionID:null)
 
 		$scope.deleteExpedition = (expedition)->
 			ProtocolSection.remove(sectionID) for sectionMachineName, sectionID of expedition.sections
@@ -25,6 +25,6 @@ angular.module('app.example').controller 'ExpeditionsCtrl', [
 
 	#	$scope.onTapExpedition = (expedition)->
 	#		$scope.prepareForRootViewNavigation()
-	#		$state.go('app.expeditionOverview', {expeditionID:expedition._id})
+	#		$state.go('app.expeditionSettings', {expeditionID:expedition._id})
 	#		$ionicHistory.clearHistory()
 	]

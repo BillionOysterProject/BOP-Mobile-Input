@@ -1,4 +1,4 @@
-<ion-view title="Expedition">
+<ion-view title="Expedition Settings" class="expeditionSettings">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
@@ -9,21 +9,30 @@
 	<ion-content class="has-header">
 		<form name="overviewForm" novalidate="" ng-submit="onTapSave(overviewForm)">
 			<ion-list>
-				<h2 class="padding">Expedition overview</h2>
+				<h4 class="text-center">{{getExpeditionTitle(formIntermediary.expedition)}}</h4>
+				<!-- title alias -->
 				<label class="item item-input item-stacked-label"
 				       ng-class="{ 'has-error' : overviewForm.title.$invalid && overviewForm.$submitted}">
-					<span class="input-label">Expedition Title</span>
-					<input name="title"
+					<span class="input-label">Alias</span>
+					<input name="alias"
 					       type="text"
 					       placeholder="The voyage of the Beagle"
-					       ng-model="formIntermediary.expedition.title"
+					       ng-model="formIntermediary.expedition.alias"
 					       ng-minlength="5"
                            ng-maxlength="100">
 				</label>
-				<div class="form-errors" ng-messages="overviewForm.title.$error"
-				     ng-show="overviewForm.title.$invalid && overviewForm.$submitted">
+				<div class="form-errors" ng-messages="overviewForm.alias.$error"
+				     ng-show="overviewForm.alias.$invalid && overviewForm.$submitted">
 				     <div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
+
+				<!-- expedition date -->
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Expedition Date</span>
+					<input name="date"
+					       type="date"
+					       ng-model="formIntermediary.expedition.date">
+				</label>
 
 				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">
@@ -38,21 +47,6 @@
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<div class="item item-input bop-icon-right">
-					<span class="input-label">Location</span>
-					<input type="text"
-					       name="location"
-					       placeholder="lat,lng"
-					       ng-model="formIntermediary.expedition.location"
-					       latlng>
-					<span class="input-label button button-clear button-positive icon ion-pinpoint"
-					        ng-click="setLocationUsingGPS()"></span>
-				</div>
-				<div ng-messages="overviewForm.location.$error"
-				     class="form-errors"
-				     ng-show="overviewForm.location.$invalid && overviewForm.$submitted">
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
 				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
 
 				<button class="button button-full button-calm"
@@ -64,9 +58,11 @@
 				<!--<p>site errors: {{overviewForm.site.$error}}</p>-->
 			</ion-list>
 		</form>
-		<button ng-if="cameFromExpeditions() && formIntermediary.expedition._id"
+		<button ng-if="cameFromExpeditions() && formIntermediary.expedition._id && formIntermediary.expedition._id != expedition._id"
 		        class="button button-full button-positive"
 		        padding="true"
-		        ng-click="changeExpedition(formIntermediary.expedition._id)">Use this Expedition</button>
+		        ng-click="changeExpedition(formIntermediary.expedition._id)">Switch to this expedition</button>
+		<p ng-if="formIntermediary.expedition._id == expedition._id" class="activeExpedition text-center">(This is the active expedition)</p>
+		<!--<p ng-if="formIntermediary.expedition._id != expedition._id" class="activeExpedition text-center">(The active expedition is "{{expedition.title}}")</p>-->
 	</ion-content>
 </ion-view>

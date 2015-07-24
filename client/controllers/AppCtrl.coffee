@@ -82,6 +82,32 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.getMessage = (tplKey)->
 			Messages.findOne({tplKey:tplKey}).tpl
 
+		#gets generated title of expedition (user can also customize an alias of this)
+		$scope.getExpeditionTitle = (exp)->
+			return '' if !Meteor.user()
+
+			titleParts = []
+			titleParts.push "#{Meteor.user().profile.name.first} #{Meteor.user().profile.name.last}"
+
+			if $scope.userHasRole('teacher')
+				#TODO replace with actual class name which will be from a (yet to be created) Class.find(id).name where id is $scope.expedition.class
+				titleParts.push "Biology 101"
+
+			if exp?
+				titleParts.push $filter('date')(exp.date, 'MMM d, yyyy')
+				titleParts.push Sites.findOne(exp.site).label
+
+			titleParts.join(" | ")
+
+		$scope.getUserEmail = ->
+			Meteor.user()?.emails[0].address
+
+		$scope.getTotalExpeditions = ->
+			Expeditions.find().count()
+
+		$scope.userHasRole = (role)->
+			Meteor.user().profile.roles.indexOf(role) isnt -1
+
 		toastr.options =
 			'closeButton': false
 			'debug': false
@@ -117,14 +143,11 @@ angular.module('app.example').controller 'AppCtrl', [
 						reject(err)
 
 		getMessages = ->
-			console.log 'getMessages'
 			$q (resolve, reject)->
 				Meteor.subscribe 'Messages',
 					onReady: ->
-						console.log 'getMessages onReady'
 						resolve()
 					onStop: (err)->
-						console.log 'getMessages onStop'
 						reject(err)
 
 		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
@@ -182,7 +205,6 @@ angular.module('app.example').controller 'AppCtrl', [
 				console.error "startup failed. ", error
 
 		Accounts.onLogin ->
-			console.log 'AppCtrl onLogin event fired'
 			$meteor.waitForUser()
 			.then (currentUser)->
 				startup()
@@ -207,9 +229,6 @@ angular.module('app.example').controller 'AppCtrl', [
 		.then $meteor.waitForUser
 		.then (currentUser)->
 			$scope.startupStarted = true
-			console.log 'bottom of AppCtrl fired'
-			console.log 'Messages: ' + Messages.find().count()
-			console.log 'user: ', JSON.stringify(currentUser)
 			if currentUser
 				startup()
 			else
