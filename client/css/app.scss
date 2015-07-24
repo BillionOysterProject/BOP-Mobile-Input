@@ -1,3 +1,10 @@
+// includes Ionic overrides
+@import "variables";
+
+// Then import ionic after. Ionic will use your variables instead of it's own.
+//@import '/Users/ablair/Documents/projects/visualScience/bop/bop_git/.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
+@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
+
 @import "bopFonts";
 @import "list";
 @import "form";
@@ -7,6 +14,9 @@
 
 //protocol 5
 @import "waterQuality";
+
+//lobby, login, createAccount...
+@import "auth";
 
 .appVersion {
 	position: absolute;

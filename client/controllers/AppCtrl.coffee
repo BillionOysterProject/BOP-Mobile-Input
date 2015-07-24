@@ -210,15 +210,16 @@ angular.module('app.example').controller 'AppCtrl', [
 			.then (currentUser)->
 				startup()
 
-		navigateToLogin = ->
+		#Lobby is the branded view that has the buttons for sign in and create account
+		navigateToLobby = ->
 			$scope.prepareForRootViewNavigation()
 			$ionicSideMenuDelegate.toggleLeft(false)
-			$state.go('app.login')
+			$state.go('app.lobby')
 			$ionicHistory.clearHistory()
 
 		$scope.logout = ->
 			Meteor.logout ->
-				navigateToLogin()
+				navigateToLobby()
 
 		$scope.dynamicRoutesDefined = false
 
@@ -233,7 +234,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			if currentUser
 				startup()
 			else
-				navigateToLogin()
+				navigateToLobby()
 
 	]
 

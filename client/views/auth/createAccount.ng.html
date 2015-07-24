@@ -1,8 +1,10 @@
-<ion-view title="Startup" hide-nav-bar="true">
+<ion-view title="Create Account" hide-nav-bar="true" class="bop-auth">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
 	<ion-content padding="true">
+		<ng-include src="'client/views/auth/backToLobbyBtn.ng.html'"></ng-include>
+
 		<h2>Create a new account</h2>
 		<form name="createUserForm" novalidate ng-submit="onTapCreateAccount(createUserForm.$valid)">
 			<ion-list>
@@ -79,11 +81,6 @@
 			        padding="true"
 			        type="submit"
 			        >Create Account</button>
-
-				<button class="button"
-			        padding="true"
-				    ui-sref="app.login"
-			        >Sign in</button>
 
 			</ion-list>
 		</form>

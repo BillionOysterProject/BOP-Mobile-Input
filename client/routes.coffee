@@ -31,6 +31,14 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/auth/login.ng.html'
 					controller: 'AuthCtrl'
 
+		.state 'app.lobby',
+#			cache:false
+			url: '/lobby'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth/lobby.ng.html'
+#					controller: 'AuthCtrl'
+
 		.state 'app.createAccount',
 #			cache:false
 			url: '/createAccount'

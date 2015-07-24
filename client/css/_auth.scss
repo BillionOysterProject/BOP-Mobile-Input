@@ -1,0 +1,20 @@
+$authBG: #11233B;
+
+.bop-auth {
+	background-color: $authBG;
+
+	h2 {
+		color: #fff;
+	}
+
+	.button.back {
+		color: lighten($authBG, 80%);
+		padding-left: 0;
+	}
+}
+
+.lobby {
+	.branding {
+		width: 100%;
+	}
+}
