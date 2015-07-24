@@ -185,6 +185,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 				#user's expeditions
 				$scope.expeditions = $meteor.collection(Expeditions)
+				$scope.setCurrentExpeditionToLatest()
 
 				$scope.startupComplete = true
 #				$scope.navigateOnAuthChange Meteor.userId()
