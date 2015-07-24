@@ -8,6 +8,7 @@
 
 	<ion-content class="has-header">
 		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<div ng-init="setFormScope(sectionForm)"></div>
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 

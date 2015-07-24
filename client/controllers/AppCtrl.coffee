@@ -32,6 +32,36 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.authenticated = ->
 			Meteor.userId()
 
+		$scope.setPromptToSave = (prompt)->
+			$scope.promptToSave = prompt
+
+		$scope.promptToSave = false
+
+		$scope.myGoBack = ->
+			$scope.$broadcast 'bop.userTappedBack'
+
+			if $scope.promptToSave
+				$scope.promptToSave = false
+				console.log 'about to show popup'
+				confirmPopup = $ionicPopup.confirm(
+					title: 'Abandon Changes?'
+					template: 'Are you sure you want to abandon your unsaved changes?'
+					cancelText: 'Keep'
+					cancelType: 'button-stable'
+					okText: 'Abandon'
+					okType: 'button-calm'
+				)
+
+				confirmPopup.then (res) ->
+					if res
+						$ionicHistory.goBack()
+					else
+						console.log 'Back aborted.'
+					return
+				return
+			else
+				$ionicHistory.goBack()
+
 		$scope.alert = (message, title = 'Whoops!')->
 			promise = $ionicPopup.alert
 				title: title

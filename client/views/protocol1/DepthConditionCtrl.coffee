@@ -11,6 +11,7 @@ angular.module('app.example').controller 'DepthConditionCtrl', [
 		console.log 'DepthConditionCtrl isSamsung: ' + $scope.isSamsung
 
 		$scope.onTapSave = (formIsValid)->
+			console.log 'sectionForm: ', $scope.sectionForm
 			if formIsValid
 				$scope.saveSection ['submergedDepth', 'bioaccumulation']
 				$scope.showSaveDone()
