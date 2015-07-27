@@ -92,13 +92,29 @@ angular.module('app.example').config [
 					controller: 'ProtocolCtrl'
 
 		#TODO deprecated, was part of getting started
-		.state 'app.todos',
-			url: '/todos'
+#		.state 'app.todos',
+#			url: '/todos'
+#			views:
+#				'menuContent':
+#					templateUrl: 'client/views/todos.ng.html'
+#					controller: 'TodoCtrl'
+
+
+		#special case: create route for protocol 5's waterQuality indicator subsection
+		.state 'app.waterQualityIndicator',
+			cache: false
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				indicatorMachineName: undefined
+
 			views:
 				'menuContent':
-					templateUrl: 'client/views/todos.ng.html'
-					controller: 'TodoCtrl'
+					templateUrl: "client/views/protocol5/waterQualityIndicator.ng.html"
+					controller: 'WaterQualityIndicatorCtrl'
 
+		#see bopRoutesDynamic.coffee for additional routes which are dependent on some metadata being loaded from DB
 		return
 ]
 

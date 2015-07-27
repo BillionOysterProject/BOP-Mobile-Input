@@ -27,19 +27,6 @@ angular.module('app.example').provider('bopRoutesDynamic', ['$stateProvider', ($
 									templateUrl: "client/views/protocol#{protocolMetadata.num}/#{section.machineName}.ng.html"
 									controller: _.capitalize(section.machineName) + 'Ctrl'
 
-				#special case: create route for protocol 5's waterQuality indicator subsection
-				$stateProvider.state 'app.waterQualityIndicator',
-					cache: false
-					#shorthand default values
-					params:
-						protocolNum: undefined
-						sectionMachineName: undefined
-						indicatorMachineName: undefined
-
-					views:
-						'menuContent':
-							templateUrl: "client/views/protocol5/waterQualityIndicator.ng.html"
-							controller: 'WaterQualityIndicatorCtrl'
 		}
 	]
 
