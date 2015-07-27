@@ -1,3 +1,6 @@
+# An attempt to fix the Samsung bug where on earlier versions of Android < ~5.0.0 on Samsung devices where they have
+# their own keyboard, they're missing the decimal point when input type=number.
+# This fix doesn't facilitate things like adding ng-change or any other directives and the scope just gets too crazy. I haven't figure out how to get the html autofocus directive to work when adding it dynamically which is important for the Water Quality section data-input pop-up
 # @author Andrew Blair
 angular.module('app.example').directive 'samsungFix', [
 	'$timeout'

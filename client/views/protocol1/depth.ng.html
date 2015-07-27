@@ -12,6 +12,7 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
+				<!-- depth -->
 				<label class="item item-input item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Submerged depth of cage (meters)</span>
@@ -33,18 +34,6 @@
 					<div class="form-error" ng-message="max">{{getMessage('metersCheck')}}</div>
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
-
-				<div class="item item-divider">Bioaccumulation on cage:</div>
-				<ng-switch on="section.bioaccumulation">
-					<img ng-switch-when="0" src="/images/protocol1/depthCondition/none.jpg" width="320" height="150">
-					<img ng-switch-when="1" src="/images/protocol1/depthCondition/light.jpg" width="320" height="150">
-					<img ng-switch-when="2" src="/images/protocol1/depthCondition/medium.jpg" width="320" height="150">
-					<img ng-switch-when="3" src="/images/protocol1/depthCondition/heavy.jpg" width="320" height="150">
-				</ng-switch>
-				<ion-radio ng-model="section.bioaccumulation" ng-value="0">None/clean</ion-radio>
-				<ion-radio ng-model="section.bioaccumulation" ng-value="1">Light</ion-radio>
-				<ion-radio ng-model="section.bioaccumulation" ng-value="2">Medium</ion-radio>
-				<ion-radio ng-model="section.bioaccumulation" ng-value="3">Heavy</ion-radio>
 
 				<button class="button button-full button-calm"
 				        padding="true"

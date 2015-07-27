@@ -1,4 +1,4 @@
-angular.module('app.example').controller 'DepthConditionCtrl', [
+angular.module('app.example').controller 'DepthCtrl', [
 	'$scope'
 	'$controller'
 	'bopLocationHelper'
@@ -6,14 +6,11 @@ angular.module('app.example').controller 'DepthConditionCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		$scope.section.bioaccumulation ?= 0
-
-		console.log 'DepthConditionCtrl isSamsung: ' + $scope.isSamsung
-
 		$scope.onTapSave = (formIsValid)->
 			console.log 'sectionForm: ', $scope.sectionForm
+
 			if formIsValid
-				$scope.saveSection ['submergedDepth', 'bioaccumulation']
+				$scope.saveSection ['submergedDepth']
 				$scope.showSaveDone()
 				$scope.back()
 			else

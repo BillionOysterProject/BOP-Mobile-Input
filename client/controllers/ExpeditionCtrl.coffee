@@ -37,9 +37,13 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					,
 						#protocol 1.2
 						owner: Meteor.userId()
-						machineName:'depthCondition'
+						machineName:'depth'
 					,
 						#protocol 1.3
+						owner: Meteor.userId()
+						machineName:'condition'
+					,
+						#protocol 1.4
 						owner: Meteor.userId()
 						machineName:'oysterGrowth'
 					,

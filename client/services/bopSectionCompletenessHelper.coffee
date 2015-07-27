@@ -6,7 +6,8 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 				#need to manually keep this up to date to keep in sync with number of fields in the section forms
 				@fieldTotalsMap =
 					cageLocation:1
-					depthCondition:2
+					depth:1
+					condition:1
 					oysterGrowth:10
 					mobileOrganisms:1 #for now making it look for at least one organism
 					sessileOrganisms:1 #TODO replace with actual number
@@ -26,8 +27,10 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					when 'cageLocation'
 						fieldCount++ if section.location?
 
-					when 'depthCondition'
+					when 'depth'
 						fieldCount++ if section.submergedDepth?
+
+					when 'condition'
 						fieldCount++ if section.bioaccumulation?
 
 					when 'oysterGrowth'

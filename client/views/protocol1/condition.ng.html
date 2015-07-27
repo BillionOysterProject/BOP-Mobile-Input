@@ -1,0 +1,34 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<ion-content class="has-header">
+		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+			<div ng-init="setFormScope(sectionForm)"></div>
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<div class="item item-divider">Bioaccumulation on cage:</div>
+				<ng-switch on="section.bioaccumulation">
+					<img ng-switch-when="0" src="/images/protocol1/condition/none.jpg" width="320" height="150">
+					<img ng-switch-when="1" src="/images/protocol1/condition/light.jpg" width="320" height="150">
+					<img ng-switch-when="2" src="/images/protocol1/condition/medium.jpg" width="320" height="150">
+					<img ng-switch-when="3" src="/images/protocol1/condition/heavy.jpg" width="320" height="150">
+				</ng-switch>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="0">None/clean</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="1">Light</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="2">Medium</ion-radio>
+				<ion-radio ng-model="section.bioaccumulation" ng-value="3">Heavy</ion-radio>
+
+				<button class="button button-full button-calm"
+				        padding="true"
+				        type="submit"
+				        >Save</button>
+			</ion-list>
+		</form>
+	</ion-content>
+</ion-view>
