@@ -99,8 +99,21 @@ angular.module('app.example').config [
 #					templateUrl: 'client/views/todos.ng.html'
 #					controller: 'TodoCtrl'
 
+		#subsection for oyster growth (an individual substrate shell) (note, app.oysterGrowth is defined in bopRoutesDynamic.coffee and is a list of the 10 substrate shells)
+		.state 'app.oysterGrowthShell',
+			cache: false
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				shellIndex: undefined
 
-		#special case: create route for protocol 5's waterQuality indicator subsection
+			views:
+				'menuContent':
+					templateUrl: "client/views/protocol1/oysterGrowthShell.ng.html"
+					controller: 'OysterGrowthShellCtrl'
+
+		#subsection for protocol 5's waterQuality indicator
 		.state 'app.waterQualityIndicator',
 			cache: false
 			#shorthand default values

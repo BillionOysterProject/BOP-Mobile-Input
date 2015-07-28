@@ -1,0 +1,53 @@
+.protocol-section.oysterGrowth {
+	.shell {
+		position: relative;
+		display: inline-block;
+		margin-right: -7px;
+		margin-bottom: 13px;
+		padding: 0;
+		height: 90px;
+		max-height: none;
+
+		i.icon-substrate-shell {
+			&::before {
+				font-size: 500%;
+
+			}
+
+			color:$bop-action;
+		}
+
+		.icon::before {
+			margin:0;
+		}
+
+		i.icon-check-mark {
+			&::before {
+				font-size: 110%;
+
+			}
+
+			position: absolute;
+			right:10px;
+			bottom:-9px;
+			color:$bop-action;
+		}
+
+		.label {
+			position: absolute;
+			font-size: 1.4em;
+			top: 11px;
+			left: 20px;
+			text-align: center;
+			width: 40px;
+			font-weight: bold;
+			color: $bop-action;
+		}
+
+//		&.selected {
+//			i {
+//				color: $bop-action-active;
+//			}
+//		}
+	}
+}
