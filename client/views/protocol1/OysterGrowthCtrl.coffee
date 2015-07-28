@@ -2,7 +2,9 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 	'$scope'
 	'$controller'
 	'$stateParams'
-	($scope, $controller, $stateParams) ->
+	'$ionicModal'
+	'$rootScope'
+	($scope, $controller, $stateParams, $ionicModal, $rootScope) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -34,4 +36,20 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 
 			$scope.section.totalsMM = {min, max, avg}
 			$scope.section.totalsMortality = {live, dead}
+
+		$scope.showOverallStats = ->
+			statsScope = $rootScope.$new()
+#			for protocol in $scope.metaProtocols
+#				if protocol.num is protocolNum
+#					for section in protocol.sections
+#						if section.machineName is sectionMachineName
+#							statsScope.sectionTitle = section.title
+#							break
+
+			$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthOverallStats.ng.html",
+				scope: statsScope
+				animation: 'slide-in-up')
+			.then (modal) ->
+				statsScope.statsModal = modal
+				statsScope.statsModal.show()
 	]
