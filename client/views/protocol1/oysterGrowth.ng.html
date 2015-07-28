@@ -7,7 +7,7 @@
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
-		<h2 class="padding"><i class="icon icon-oyster-measurement"></i> {{::sectionMeta.title}}</h2>
+		<h2 class="padding"><i class="icon icon-oyster-measurement"></i>{{::sectionMeta.title}}</h2>
 		<p class="item item-icon-left item-text-wrap cta"><i class="icon ion-ios-lightbulb-outline"></i> Choose a substrate shell</p>
 		<button ng-repeat="shell in totalShells track by $index"
 		        class="button button-clear shell"
@@ -18,6 +18,6 @@
 			<div class="label">{{::$index + 1}}</div>
 		</button><br>
 
-		<button class="button button-full button-action-alternate">Overall Stats</button>
+		<button class="button button-full button-action-alternate" ng-click="showOverallStats()">Overall Stats</button>
 	</ion-content>
 </ion-view>

@@ -81,9 +81,8 @@ angular.module('app.example').controller 'AppCtrl', [
 				scope: helpScope
 				animation: 'slide-in-up')
 			.then (modal) ->
-				console.log 'modal made, showing...'
-				helpScope.helpModal = modal
-				helpScope.helpModal.show()
+				helpScope.statsModal = modal
+				helpScope.statsModal.show()
 
 		$scope.hasExpeditions = ->
 			Meteor.userId() and Expeditions.find().count() > 0
