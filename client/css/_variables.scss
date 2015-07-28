@@ -1,1 +1,34 @@
+//Ionic Framework overrides
+//================================================================================
+
+// Colors
+// -------------------------------
 $calm:                            #E96058 !default;
+
+// Base
+// -------------------------------
+$base-color:                      #414141 !default;
+
+
+
+
+
+
+
+//custom BOP variables
+//================================================================================
+
+// Colors
+// -------------------------------
+$bop-action: $calm;
+$bop-action-active:               darken($bop-action, 10%);
+$bop-action-alternate:            #11233B;
+
+// Buttons
+// -------------------------------
+$button-action-alternate-bg:                  $bop-action-alternate !default;
+$button-action-alternate-text:                #fff !default;
+$button-action-alternate-border:              darken($bop-action-alternate, 10%) !default;
+$button-action-alternate-active-bg:           darken($bop-action-alternate, 10%) !default;
+$button-action-alternate-active-border:       darken($bop-action-alternate, 10%) !default;
+

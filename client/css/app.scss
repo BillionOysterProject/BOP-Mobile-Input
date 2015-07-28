@@ -5,9 +5,14 @@
 //@import '/Users/ablair/Documents/projects/visualScience/bop/bop_git/.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 
+@import 'buttons';
+
 @import "bopFonts";
 @import "list";
 @import "form";
+
+//protocol 1
+@import "oysterGrowth";
 
 //protocol 2.1
 @import "mobileOrganisms";
@@ -47,5 +52,22 @@
 .expeditionSettings {
 	.activeExpedition {
 		color: #aaa;
+	}
+}
+
+//call to action tip
+.cta {
+	margin-bottom:15px;
+}
+
+.protocol, .protocol-section {
+	h2 {
+		font-size: 25px;
+	}
+}
+
+.modal.help {
+	h1 {
+		font-size: 25px;
 	}
 }

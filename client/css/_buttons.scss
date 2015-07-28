@@ -1,0 +1,5 @@
+&.button-action-alternate {
+	@include button-style($button-action-alternate-bg, $button-action-alternate-border, $button-action-alternate-active-bg, $button-action-alternate-active-border, $button-action-alternate-text);
+	@include button-clear($button-action-alternate-bg);
+	@include button-outline($button-action-alternate-bg);
+}
