@@ -82,3 +82,10 @@
         width: 60%;
 	}
 }
+
+//hides the ugly spinner icon and weird spacing in Chrome desktop (and Safari maybe)
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
