@@ -1,0 +1,83 @@
+<ion-modal-view class="protocol-section oysterGrowth overallStats">
+	<ion-header-bar>
+		<h1 class="title">Substrate shell {{::shellIndex + 1}} stats</h1>
+		<button class="button button-clear button-positive" ng-click="shellStatsModal.remove()">Close</button>
+	</ion-header-bar>
+	<ion-content scroll="true" class="has-header padding">
+		<h2>Oyster growth stats for substrate shell {{::shellIndex + 1}}</h2>
+
+		<!--
+		<div ng-show="shellHasLiveOysters(shellIndex) && shellSizesForm.$valid && getTotalLiveOysters(shellIndex) > 1"
+		     class="calculated-fields">
+			<h5 class="padding">Size stats for shell #{{$index + 1}}:</h5>
+			<label class="item item-input">
+				<span class="input-label">Min. size</span>
+				<input name="min"
+				       type="number"
+				       ng-model="section.substrateShells[shellIndex].totals.sizeMM.min"
+				       tabindex="-1"
+				       readonly>
+				<span class="input-label">mm</span>
+			</label>
+
+			<label class="item item-input">
+				<span class="input-label">Max. size</span>
+				<input name="max"
+				       type="number"
+				       ng-model="section.substrateShells[shellIndex].totals.sizeMM.max"
+				       tabindex="-1"
+				       readonly>
+				<span class="input-label">mm</span>
+			</label>
+
+			<label class="item item-input">
+				<span class="input-label">Avg. size</span>
+				<input name="avg"
+				       type="number"
+				       ng-model="section.substrateShells[shellIndex].totals.sizeMM.avg"
+				       tabindex="-1"
+				       readonly>
+				<span class="input-label">mm</span>
+			</label>
+		</div>
+		-->
+		<!--<ng-form name="totalsLiveFieldForm">-->
+			<!--<label class="item item-input"-->
+			       <!--ng-class="{ 'has-error' : totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted}">-->
+				<!--<span class="input-label">Total Live Oysters</span>-->
+				<!--<input name="totalLive"-->
+				       <!--type="number"-->
+				       <!--ng-model="section.substrateShells[shellIndex].totals.live"-->
+	                   <!--min="0">-->
+			<!--</label>-->
+
+			<!--<div ng-messages="totalsLiveFieldForm.totalLive.$error"-->
+			     <!--class="form-errors"-->
+			     <!--ng-show="totalsLiveFieldForm.totalLive.$invalid && sectionForm.$submitted">-->
+				<!--<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>-->
+				<!--<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>-->
+			<!--</div>-->
+			<!--&lt;!&ndash;<pre>{{totalsLiveFieldForm.totalLive | json}}</pre>&ndash;&gt;-->
+		<!--</ng-form>-->
+
+		<!--<ng-form name="totalsDeadFieldForm">-->
+			<!--<label class="item item-input"-->
+			       <!--ng-class="{ 'has-error' : totalsDeadFieldForm.totalLive.$invalid && sectionForm.$submitted}">-->
+				<!--<span class="input-label">Total Dead Oysters</span>-->
+				<!--<input name="totalDead"-->
+				       <!--type="number"-->
+				       <!--ng-model="section.substrateShells[shellIndex].totals.dead"-->
+				       <!--ng-change="updateMainTotals(sectionForm.$valid)"-->
+	                   <!--min="0">-->
+			<!--</label>-->
+
+			<!--<div ng-messages="totalsDeadFieldForm.totalDead.$error"-->
+			     <!--class="form-errors"-->
+			     <!--ng-show="totalsDeadFieldForm.totalDead.$invalid && sectionForm.$submitted">-->
+				<!--<div class="form-error" ng-message="min">{{getMessage('notNegative')}}</div>-->
+				<!--<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>-->
+			<!--</div>-->
+		<!--</ng-form>-->
+		<pre>{{section.substrateShells[shellIndex].totals | json}}</pre>
+	</ion-content>
+</ion-modal-view>

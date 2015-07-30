@@ -1,5 +1,5 @@
 .protocol-section.oysterGrowth {
-	.shell {
+	.substrate-shell {
 		position: relative;
 		display: inline-block;
 		margin-right: -7px;
@@ -14,11 +14,11 @@
 
 			}
 
-			color:$bop-action;
+			color: $bop-action;
 		}
 
 		.icon::before {
-			margin:0;
+			margin: 0;
 		}
 
 		i.icon-check-mark {
@@ -28,9 +28,9 @@
 			}
 
 			position: absolute;
-			right:10px;
-			bottom:-9px;
-			color:$bop-action;
+			right: 10px;
+			bottom: -9px;
+			color: $bop-action;
 		}
 
 		.label {
@@ -43,11 +43,107 @@
 			font-weight: bold;
 			color: $bop-action;
 		}
+	}
 
-//		&.selected {
-//			i {
-//				color: $bop-action-active;
-//			}
-//		}
+	.oyster {
+		$iconSize:54px;
+
+		h3 {
+			margin-bottom:10px;
+		}
+
+		$height:110px;
+
+		.living-status {
+			display: inline-block;
+			vertical-align: bottom;
+			margin-right:15px;
+
+			input[type=radio] {
+				position: absolute;
+				left:-9999px;
+				width: $iconSize;
+				height: $height;
+				margin: 0 -10px 0 0;
+				padding: 0;
+				opacity: 0;
+
+				+ label {
+					display: inline-block;
+					opacity: .7;
+					padding-top: 87px;
+					margin-left: -15px;
+					background: transparent url("/images/protocol1/oysterGrowth/oyster-alive.svg") no-repeat 0 0;
+					width: 79px;
+					text-align: center;
+					height: 110px;
+
+					&.dead {
+						background: transparent url("/images/protocol1/oysterGrowth/oyster-dead.svg") no-repeat 0 0;
+					}
+				}
+
+				&:checked {
+					+ label {
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		.size {
+			position: relative;
+			display: inline-block;
+			vertical-align: bottom;
+			width: 124px;
+			height: $height;
+			background: transparent url("/images/protocol1/oysterGrowth/calipers-average-grey.svg") no-repeat 0 0;
+			background-size: auto 79px;
+
+			.fg {
+				position: absolute;
+				bottom:4px;
+				right:0;
+				width:100%;
+				text-align: right;
+			}
+
+			.inputContainer {
+				display: block;
+				font-size:26px;
+				vertical-align: middle;
+			}
+
+			input {
+				width: 62px;
+				text-align: right;
+				display: inline-block;
+				font-size: inherit;
+				vertical-align: inherit;
+				height: auto;
+				padding: 0;
+				background-color: transparent;
+				color:$base-color;
+
+				+ span {
+					vertical-align: inherit;
+					margin-left: -5px;
+				}
+
+				&::-webkit-input-placeholder {
+					//for some reason it's different by default so made this adjustment to make the placeholder match a user-entered value
+					line-height: 31px;
+				}
+			}
+		}
+
+		.item-content {
+			padding-right:16px;
+
+			.form-errors {
+				text-align: right;
+				margin-right: 12px;
+			}
+		}
 	}
 }

@@ -13,43 +13,13 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 		$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
 		$scope.shellIsComplete = (index)->
-			$scope.section.shells?[index].totals.live? || $scope.section.shells?[index].totals.dead?
-
-		$scope.updateMainTotals = (formIsValid)->
-			console.log 'updateMainTotals'
-			if formIsValid
-				live = 0
-				dead = 0
-				min = null
-				max = null
-				avg = 0
-				for shell in $scope.section.shells
-					avg += shell.totals.sizeMM.avg
-					min = if min then Math.min(min, shell.totals.sizeMM.min) else shell.totals.sizeMM.min
-					max = if max then Math.max(max, shell.totals.sizeMM.max) else shell.totals.sizeMM.max
-					live += shell.totals.live
-					dead += shell.totals.dead
-
-				avg = Math.round(avg / totalShells)
-			else
-				live = dead = min = max = avg = null
-
-			$scope.section.totalsMM = {min, max, avg}
-			$scope.section.totalsMortality = {live, dead}
+			$scope.section.substrateShells?[index].totals.live? || $scope.section.substrateShells?[index].totals.dead?
 
 		$scope.showOverallStats = ->
-			statsScope = $rootScope.$new()
-#			for protocol in $scope.metaProtocols
-#				if protocol.num is protocolNum
-#					for section in protocol.sections
-#						if section.machineName is sectionMachineName
-#							statsScope.sectionTitle = section.title
-#							break
-
 			$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthOverallStats.ng.html",
-				scope: statsScope
+				scope: $scope
 				animation: 'slide-in-up')
 			.then (modal) ->
-				statsScope.statsModal = modal
-				statsScope.statsModal.show()
+				$scope.overallStatsModal = modal
+				$scope.overallStatsModal.show()
 	]

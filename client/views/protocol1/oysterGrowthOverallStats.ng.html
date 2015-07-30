@@ -1,7 +1,7 @@
 <ion-modal-view class="protocol-section oysterGrowth overallStats">
 	<ion-header-bar>
 		<h1 class="title">Overall Stats</h1>
-		<button class="button button-clear button-positive" ng-click="statsModal.remove()">Close</button>
+		<button class="button button-clear button-positive" ng-click="overallStatsModal.remove()">Close</button>
 	</ion-header-bar>
 	<ion-content scroll="true" class="has-header padding">
 		<h2>Oyster growth overall stats</h2>
@@ -61,6 +61,10 @@
 
 		</div>
 -->
+		<p>Measurement totals:</p>
+		<pre>{{section.totalsMM | json}}</pre>
 
+		<p>Mortality totals:</p>
+		<pre>{{section.totalsMortality | json}}</pre>
 	</ion-content>
 </ion-modal-view>

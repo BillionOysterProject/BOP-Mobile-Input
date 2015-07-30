@@ -34,8 +34,8 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 						fieldCount++ if section.bioaccumulation?
 
 					when 'oysterGrowth'
-						if section.shells?
-							for shell in section.shells
+						if section.substrateShells?
+							for shell in section.substrateShells
 								fieldCount++ if shell.totals.live? and shell.totals.dead?
 
 					when 'mobileOrganisms'
