@@ -32,40 +32,51 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.authenticated = ->
 			Meteor.userId()
 
-		$scope.setPromptToSave = (prompt)->
-			$scope.promptToSave = prompt
-
-		$scope.promptToSave = false
+		$scope.setSectionFormState = (dirty, invalid, submitted)->
+			$scope.sectionFormState = {dirty, invalid, submitted}
 
 		$scope.myGoBack = ->
 			$scope.$broadcast 'bop.userTappedBack'
 
-			if $scope.promptToSave
-				$scope.promptToSave = false
-				console.log 'about to show popup'
-				confirmPopup = $ionicPopup.confirm(
-					title: 'Abandon Changes?'
-					template: 'Are you sure you want to abandon your unsaved changes?'
-					cancelText: 'Keep'
-					cancelType: 'button-stable'
-					okText: 'Abandon'
-					okType: 'button-calm'
-				)
+			formState = $scope.sectionFormState
 
-				confirmPopup.then (res) ->
-					if res
-						$ionicHistory.goBack()
-					else
-						console.log 'Back aborted.'
-					return
-				return
+			if formState?.dirty
+				console.log 'has formState obj'
+				if formState.invalid
+					console.log 'form is invalid'
+					$scope.alert('Please check your measurements and try again')
+					.then (res) ->
+						$scope.$broadcast 'bop.userChoseSaveAndGoBack'
+						return
+				else
+					console.log 'form is valid'
+					confirmPopup = $ionicPopup.confirm(
+						title: 'Save Changes?'
+						template: 'Are you sure you want to abandon your unsaved changes?'
+						cancelText: 'Don\'t Save'
+						cancelType: 'button-stable'
+						okText: 'Save'
+						okType: 'button-calm'
+					)
+
+					confirmPopup.then (res) ->
+						if res
+							console.log 'clicked save'
+							$scope.$broadcast 'bop.userChoseSaveAndGoBack'
+
+						else
+							console.log 'clicked Don\'t save'
+							$ionicHistory.goBack()
+						return
 			else
+				console.log 'no formState obj, (nothing to save) going back'
 				$ionicHistory.goBack()
 
 		$scope.alert = (message, title = 'Whoops!')->
 			promise = $ionicPopup.alert
 				title: title
 				template: message
+				okType: 'button-calm'
 			return promise
 
 		$scope.showHelp = (protocolNum, sectionMachineName)->

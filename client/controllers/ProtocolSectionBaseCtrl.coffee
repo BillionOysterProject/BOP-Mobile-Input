@@ -41,8 +41,13 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 
 		# userTappedBack is broadcast from AppCtrl
 		$scope.$on 'bop.userTappedBack', ->
-			$scope.setPromptToSave !$scope.sectionFormRef.$submitted and $scope.sectionFormRef.$dirty
+			$scope.setSectionFormState($scope.sectionFormRef.$dirty, $scope.sectionFormRef.$invalid, $scope.sectionFormRef.$submitted)
+
+		#user taps save in back button prompt so we submit the form
+		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+			$scope.sectionFormRef.submitProgrammatically()
 		#intercepting back button ------- end
+
 
 		$scope.sectionFormRef = null
 
