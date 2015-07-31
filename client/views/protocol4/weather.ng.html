@@ -24,7 +24,8 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
-				<div class="item item-input"
+				<!-- wind speed-->
+				<div class="item item-input bop-units-right"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Wind Speed</span>
 					<input name="windSpeed"
@@ -33,7 +34,7 @@
 					       min="0"
 					       max="157"
 					       >
-					<span class="input-label">MPH</span>
+					<span>MPH</span>
 				</div>
 				<div ng-messages="sectionForm.windSpeed.$error"
 				     class="form-errors"
@@ -42,6 +43,7 @@
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
+				<!-- wind direction -->
 				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
 					<div class="input-label">Wind Direction</div>
@@ -54,14 +56,15 @@
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<div class="item item-input"
+				<!-- temperature -->
+				<div class="item item-input bop-units-right"
 				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Temperature</span>
 					<input type="number"
 					       name="temperatureF"
 					       ng-model="section.temperatureF"
 					       min="0" max="140">
-					<span class="input-label">℉</span>
+					℉
 				</div>
 				<div ng-messages="sectionForm.temperatureF.$error"
 				     class="form-errors"
@@ -70,7 +73,8 @@
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<div class="item item-input"
+				<!-- humidity -->
+				<div class="item item-input bop-units-right"
 				     ng-class="{ 'has-error' : sectionForm.humidityPct.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Humidity</span>
 					<input name="humidityPct"
@@ -79,7 +83,7 @@
 					       min="0"
 					       max="100"
 					       >
-					<span class="input-label">%</span>
+					%
 				</div>
 				<div ng-messages="sectionForm.humidityPct.$error"
 				     class="form-errors"
@@ -87,8 +91,9 @@
 					<div class="form-error" ng-message="max">{{getMessage('notGreaterThanN') | tokenValues:['100%']}}</div>
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
-				
-				<label class="item item-input item-select"
+
+				<!-- weather condition (i.e. sunny)-->
+				<label class="item item-input item-select bop-units-right"
 				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
 					<div class="input-label">Weather</div>
 					<select name="weatherCondition"

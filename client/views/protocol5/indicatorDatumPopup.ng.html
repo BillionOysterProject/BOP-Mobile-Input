@@ -2,14 +2,14 @@
 	<form name="datumForm"
 	      novalidate=""
 	      ng-submit="onSubmit(datumForm.$valid)">
-		<label class="item item-input bop-icon-right"
+		<label class="item item-input bop-units-right"
 		     ng-class="{ 'has-error' : datumForm.$invalid && datumForm.$submitted}">
 			<input name="datum"
 			       type="number"
 			       min="0"
 			       ng-model="data.popupData"
 			       autofocus>
-			<span class="input-label">{{units}}</span>
+			{{units}}
 		</label>
 		<div class="form-errors" ng-messages="datumForm.datum.$error"
 		     ng-show="datumForm.datum.$invalid && datumForm.$submitted">

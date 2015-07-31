@@ -52,6 +52,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 				title: 'Enter value for sample'
 				subTitle: $scope.formIntermediary.method.label
 				scope: $scope.datumPopupScope
+				cssClass: 'bopDatumPopup'
 			)
 
 			$ionicPlatform.ready ->

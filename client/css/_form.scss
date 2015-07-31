@@ -49,6 +49,19 @@
 	}
 }
 
+.bop-units-right {
+	input {
+		@include flex(1, 145px);
+	}
+}
+
+.bopDatumPopup {
+	.item-input {
+		padding-right:16px;
+	}
+}
+
+
 //.weatherCondition {
 //	&.item-input {
 //	  display: block !important;
