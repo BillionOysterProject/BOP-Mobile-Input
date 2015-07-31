@@ -36,18 +36,23 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 		# @see AppCtrl#myGoBack
 
 		$scope.setFormScope = (sectionForm)->
+			console.log 'setFormScope'
 			$scope.sectionFormRef = sectionForm
-
 
 		# userTappedBack is broadcast from AppCtrl
 		$scope.$on 'bop.userTappedBack', ->
-			$scope.setSectionFormState($scope.sectionFormRef.$dirty, $scope.sectionFormRef.$invalid, $scope.sectionFormRef.$submitted)
+			# Check if section form exists to ensure we're going back from a section that
+			# has a sectionForm form otherwise ignore. Avoids this functionality running
+			# on sections like Oyster Measurement (aka oysterGrowth) where there's an index screen and
+			# the form is actually one level deeper (but they share this controller)
+			if $scope.sectionFormRef?
+				$scope.setSectionFormState($scope.sectionFormRef.$dirty, $scope.sectionFormRef.$invalid, $scope.sectionFormRef.$submitted)
 
 		#user taps save in back button prompt so we submit the form
 		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+#			if $scope.sectionFormRef?
 			$scope.sectionFormRef.submitProgrammatically()
 		#intercepting back button ------- end
-
 
 		$scope.sectionFormRef = null
 

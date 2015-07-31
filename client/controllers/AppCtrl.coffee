@@ -41,15 +41,12 @@ angular.module('app.example').controller 'AppCtrl', [
 			formState = $scope.sectionFormState
 
 			if formState?.dirty
-				console.log 'has formState obj'
 				if formState.invalid
-					console.log 'form is invalid'
 					$scope.alert('Please check your measurements and try again')
 					.then (res) ->
 						$scope.$broadcast 'bop.userChoseSaveAndGoBack'
 						return
 				else
-					console.log 'form is valid'
 					confirmPopup = $ionicPopup.confirm(
 						title: 'Save Changes?'
 						template: 'Are you sure you want to abandon your unsaved changes?'
@@ -61,16 +58,15 @@ angular.module('app.example').controller 'AppCtrl', [
 
 					confirmPopup.then (res) ->
 						if res
-							console.log 'clicked save'
 							$scope.$broadcast 'bop.userChoseSaveAndGoBack'
 
 						else
-							console.log 'clicked Don\'t save'
 							$ionicHistory.goBack()
 						return
 			else
-				console.log 'no formState obj, (nothing to save) going back'
 				$ionicHistory.goBack()
+
+			$scope.sectionFormState = null
 
 		$scope.alert = (message, title = 'Whoops!')->
 			promise = $ionicPopup.alert
