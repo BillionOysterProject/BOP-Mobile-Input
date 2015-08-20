@@ -13,9 +13,6 @@
 				{{::$index + 1}}. {{::section.title}}
 				<span class="item-note">{{::getCompleteness(section.machineName) * 100 | number}}%</span>
 			</ion-item>
-			<ion-checkbox ng-model="protocolPublished">
-				This protocol is ready for review
-			</ion-checkbox>
 		</ion-list>
 	</ion-content>
 </ion-view>
