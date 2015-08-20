@@ -68,6 +68,18 @@
 	}
 }
 
+.protocol {
+	.scroll-content > .scroll {
+		> h2 {
+			img {
+				width: 42px;
+				padding-right: 10px;
+				vertical-align: middle;
+			}
+		}
+	}
+}
+
 .modal.help {
 	h1 {
 		font-size: 25px;

@@ -6,7 +6,7 @@
 		<!--<button class="button button-clear button-positive" ng-click="navigateToOverview()">Overview</button>-->
 	<!--</ion-nav-buttons>-->
 	<ion-content class="has-header">
-		<h2 class="padding">{{protocol.title}}</h2>
+		<h2 class="padding"><img ng-src="images/protocol-0{{protocol.num}}.svg">{{protocol.title}}</h2>
 		<ion-list>
 			<ion-item ng-repeat="section in protocol.sections track by $index"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
