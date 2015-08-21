@@ -4,10 +4,6 @@ angular.module('app.example').controller 'ExpeditionListCtrl', [
 	'$meteor'
 	'$timeout'
 	($scope, $state, $meteor, $timeout) ->
-		if !Meteor.userId()
-			location.href = '/'
-			return
-
 		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
 
 		#Navigates user to the form for creating a new one

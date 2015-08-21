@@ -8,11 +8,6 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 	'bopLocationHelper'
 	'$ionicPlatform'
 	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $ionicPlatform) ->
-		if !$scope.startupComplete
-			location.href = '/'
-			return
-
-
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
@@ -155,6 +150,8 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.sites = $meteor.collection(Sites)
 
+		# Note this controller is used for creation and editing an expedition.
+		# This condition is for editing an existing expedition
 		if $stateParams.expeditionID
 			$scope.formIntermediary.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
 			for site in $scope.sites

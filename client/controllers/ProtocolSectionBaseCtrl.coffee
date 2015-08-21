@@ -4,10 +4,6 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 	'$meteor'
 	'$ionicHistory'
 	($scope, $stateParams, $meteor, $ionicHistory) ->
-		if !$scope.startupComplete
-			location.href = '/'
-			return
-
 		$scope.protocolMetadata = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
 		for sectionMeta, index in $scope.protocolMetadata.sections

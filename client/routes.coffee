@@ -13,8 +13,10 @@ angular.module('app.example').config [
 		$stateProvider.state 'app',
 #			url: '/app'
 			abstract: true
-			templateUrl: 'client/views/menu.ng.html'
-			controller: 'AppCtrl'
+			views:
+				'default':
+					templateUrl: 'client/views/menu.ng.html'
+					controller: 'AppCtrl'
 
 		.state 'app.startup',
 			url: '/'
@@ -25,7 +27,7 @@ angular.module('app.example').config [
 
 		.state 'app.login',
 #			cache:false
-			url: '/login'
+#			url: '/login'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/auth/login.ng.html'
@@ -33,7 +35,7 @@ angular.module('app.example').config [
 
 		.state 'app.lobby',
 #			cache:false
-			url: '/lobby'
+#			url: '/lobby'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/auth/lobby.ng.html'
@@ -41,7 +43,7 @@ angular.module('app.example').config [
 
 		.state 'app.createAccount',
 #			cache:false
-			url: '/createAccount'
+#			url: '/createAccount'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/auth/createAccount.ng.html'
@@ -49,7 +51,7 @@ angular.module('app.example').config [
 
 		.state 'app.expeditions',
 #			cache:false
-			url: '/expeditions'
+#			url: '/expeditions'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/expeditionList.ng.html'
@@ -57,7 +59,12 @@ angular.module('app.example').config [
 
 		.state 'app.expeditionSettings',
 			cache:false
-			url: '/expeditionSettings/:expeditionID'
+#			url: '/expeditionSettings/:expeditionID'
+
+			#shorthand default values
+			params:
+				expeditionID: undefined
+
 			views:
 				'menuContent':
 					templateUrl: 'client/views/expeditionSettings.ng.html'
@@ -65,7 +72,12 @@ angular.module('app.example').config [
 
 		.state 'app.expeditionCreate',
 			cache:false
-			url: '/expeditionCreate'
+#			url: '/expeditionCreate'
+
+			#shorthand default values
+			params:
+				expeditionID: undefined
+
 			views:
 				'menuContent':
 					templateUrl: 'client/views/expeditionCreate.ng.html'
@@ -73,7 +85,7 @@ angular.module('app.example').config [
 
 		.state 'app.home',
 			cache:false
-			url: '/home'
+#			url: '/home'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/home.ng.html'
@@ -90,14 +102,6 @@ angular.module('app.example').config [
 				'menuContent':
 					templateUrl: 'client/views/protocol.ng.html'
 					controller: 'ProtocolCtrl'
-
-		#TODO deprecated, was part of getting started
-#		.state 'app.todos',
-#			url: '/todos'
-#			views:
-#				'menuContent':
-#					templateUrl: 'client/views/todos.ng.html'
-#					controller: 'TodoCtrl'
 
 		#subsection for oyster growth (an individual substrate shell) (note, app.oysterGrowth is defined in bopRoutesDynamic.coffee and is a list of the 10 substrate shells)
 		.state 'app.oysterGrowthShell',

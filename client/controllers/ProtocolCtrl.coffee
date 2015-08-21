@@ -3,10 +3,6 @@ angular.module('app.example').controller 'ProtocolCtrl', [
 	'$stateParams'
 	'bopSectionCompletenessHelper'
 	($scope, $stateParams, bopSectionCompletenessHelper) ->
-		if !$scope.startupComplete
-			location.href = '/'
-			return
-
 		$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
 		$scope.getCompleteness = (machineName)->

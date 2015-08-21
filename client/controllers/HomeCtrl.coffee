@@ -3,10 +3,6 @@ angular.module('app.example').controller 'HomeCtrl', [
 	'$state'
 	'bopSectionCompletenessHelper'
 	($scope, $state, bopSectionCompletenessHelper) ->
-		if !$scope.startupComplete
-			location.href = '/'
-			return
-#
 #		$scope.navigateToOverview = ->
 #			$state.go('app.expeditionSettings', {expeditionID:$scope.expedition._id})
 
