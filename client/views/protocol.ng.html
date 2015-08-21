@@ -9,7 +9,9 @@
 		<h2 class="padding"><img ng-src="images/protocol-0{{protocol.num}}.svg">{{protocol.title}}</h2>
 		<ion-list>
 			<ion-item ng-repeat="section in protocol.sections track by $index"
+			          class="section"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
+				<i class="icon {{::section.icon}} title"></i>
 				{{::$index + 1}}. {{::section.title}}
 				<span class="item-note">{{::getCompleteness(section.machineName) * 100 | number}}%</span>
 			</ion-item>

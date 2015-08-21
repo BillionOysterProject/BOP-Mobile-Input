@@ -11,7 +11,7 @@
 			<p ng-if="expedition.alias">{{::getExpeditionTitle(expedition)}}</p>
 		</div>
 		<ion-list>
-			<ion-item ng-repeat="protocol in metaProtocols"
+			<ion-item ng-repeat="protocol in metaProtocols | orderBy:'num'"
 			          ui-sref="app.protocol({protocolNum:protocol.num})"
 			          class="item-thumbnail-left item-text-wrap"
 					>
