@@ -103,7 +103,7 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.navigateHome = ->
 			$scope.prepareForRootViewNavigation()
 			$ionicSideMenuDelegate.toggleLeft(false)
-			$state.go('app.home')
+			$state.go('app.home') if $ionicHistory.currentStateName() isnt 'app.home'
 			$ionicHistory.clearHistory()
 
 		$scope.setCurrentExpeditionByID = (id)->
@@ -233,7 +233,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				if $scope.expeditions.length > 0
 					if !$scope.expedition
 						$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
-					$state.go('app.home')
+					$scope.navigateHome()
 				else
 					$state.go('app.expeditions')
 
