@@ -204,6 +204,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		#startup sequence for authenticated user
 		startup = ->
+			$scope.startupStarted = true
 			$meteor.subscribe('MetaProtocols')
 			.then getOrganisms
 			.then initOrganisms
@@ -241,11 +242,6 @@ angular.module('app.example').controller 'AppCtrl', [
 			.catch (error)->
 				console.error "startup failed. ", error
 
-		Accounts.onLogin ->
-			$meteor.waitForUser()
-			.then (currentUser)->
-				startup()
-
 		#Lobby is the branded view that has the buttons for sign in and create account
 		navigateToLobby = ->
 			$scope.prepareForRootViewNavigation()
@@ -257,6 +253,10 @@ angular.module('app.example').controller 'AppCtrl', [
 			Meteor.logout ->
 				navigateToLobby()
 
+		#only for logins that occur after user goes through the login view (not for when user is logged in automatically based on cached credentials – i.e. not for when user logs in then reloads page and is still logged in)
+		$scope.$on 'bop.onLogin', ->
+			startup()
+
 		$scope.dynamicRoutesDefined = false
 
 		#support for samsungMax and samsungMin directives. I created those to work around the bug where the Samsung keyboard has no decimal point: https://code.google.com/p/chromium/issues/detail?id=151738#c17
@@ -266,11 +266,9 @@ angular.module('app.example').controller 'AppCtrl', [
 		getMessages()
 		.then $meteor.waitForUser
 		.then (currentUser)->
-			$scope.startupStarted = true
 			if currentUser
 				startup()
 			else
 				navigateToLobby()
-
 	]
 

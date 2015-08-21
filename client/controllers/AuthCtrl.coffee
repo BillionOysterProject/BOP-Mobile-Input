@@ -1,10 +1,7 @@
 angular.module('app.example').controller 'AuthCtrl', [
 	'$scope'
-	($scope) ->
-		if !$scope.startupStarted
-			location.href = '/'
-			return
-
+	'$meteor'
+	($scope, $meteor) ->
 		$scope.user = {}
 
 		$scope.onTapLogin = (formIsValid)->
@@ -32,4 +29,8 @@ angular.module('app.example').controller 'AuthCtrl', [
 		Accounts.onLoginFailure ->
 			$scope.alert('There was a problem logging in, please try again', 'Sorry')
 
+		Accounts.onLogin ->
+			$meteor.waitForUser()
+			.then (currentUser)->
+				$scope.$emit 'bop.onLogin'
 	]
