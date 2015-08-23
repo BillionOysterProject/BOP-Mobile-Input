@@ -128,6 +128,7 @@ App.launchScreens({
 App.setPreference('BackgroundColor', '0x11223b');
 App.setPreference('SplashScreenDelay', '1500');
 App.setPreference('orientation', 'portrait');
+App.setPreference('BackupWebStorage', 'local');
 //App.setPreference('HideKeyboardFormAccessoryBar', true);
 //
 //// Pass preferences for a particular PhoneGap/Cordova plugin
