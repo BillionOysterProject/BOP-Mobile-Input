@@ -163,28 +163,72 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		getUserExpeditions = ->
 			$q (resolve, reject)->
-#					# using Meteor syntax here because resolved promise for $meteor.subscribe doesn't guarantee that client has actually loaded the records
-				Meteor.subscribe 'Expeditions',
-					onReady: ->
-						resolve()
-					onStop: (err)->
-						reject(err)
+				Meteor.subscribe 'Expeditions'
 
-		getOrganisms = ->
-			$q (resolve, reject)->
-				Meteor.subscribe 'Organisms',
-					onReady: ->
+				stop = $interval ->
+					if Expeditions.find().count() > 0
+						$interval.cancel(stop)
 						resolve()
-					onStop: (err)->
-						reject(err)
+				, 100
 
 		getMessages = ->
 			$q (resolve, reject)->
-				Meteor.subscribe 'Messages',
-					onReady: ->
+				Meteor.subscribe 'Messages'
+
+				stop = $interval ->
+					if Messages.find().count() > 0
+						$interval.cancel(stop)
 						resolve()
-					onStop: (err)->
-						reject(err)
+				, 100
+
+		getMetaProtocols = ->
+			#promise here doesn't guarantee collection is populated just helps kick off the promise chain
+			$q (resolve, reject)->
+				Meteor.subscribe('MetaProtocols')
+				resolve()
+
+		getSites = ->
+			Meteor.subscribe 'Sites'
+
+		getProtocolSections = ->
+			$q (resolve, reject)->
+				Meteor.subscribe 'ProtocolSection'
+
+				stop = $interval ->
+					if ProtocolSection.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
+
+		getMetaWaterQualityIndicators = ->
+			$q (resolve, reject)->
+				Meteor.subscribe 'MetaWaterQualityIndicators'
+
+				stop = $interval ->
+					if MetaWaterQualityIndicators.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
+
+		getMetaWeatherConditions = ->
+			$q (resolve, reject)->
+				Meteor.subscribe('MetaWeatherConditions')
+
+				stop = $interval ->
+					if MetaWeatherConditions.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
+
+		getOrganisms = ->
+			$q (resolve, reject)->
+				Meteor.subscribe 'Organisms'
+
+				stop = $interval ->
+					if Organisms.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
 
 		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
 		initOrganisms = ->
@@ -205,11 +249,14 @@ angular.module('app.example').controller 'AppCtrl', [
 		#startup sequence for authenticated user
 		startup = ->
 			$scope.startupStarted = true
-			$meteor.subscribe('MetaProtocols')
+
+			getMetaProtocols()
 			.then getOrganisms
 			.then initOrganisms
-			.then $meteor.subscribe('Sites')
-			.then $meteor.subscribe('ProtocolSection')
+			.then getMetaWaterQualityIndicators
+			.then getMetaWeatherConditions
+			.then getSites
+			.then getProtocolSections
 			.then getUserExpeditions
 			.then ->
 				$scope.metaProtocols = $meteor.collection(MetaProtocols)
@@ -264,9 +311,10 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.isSamsung = regex.test(navigator.userAgent);
 
 		getMessages()
-		.then $meteor.waitForUser
-		.then (currentUser)->
-			if currentUser
+		.then ->
+			$meteor.waitForUser
+		.then ->
+			if Meteor.userId()
 				startup()
 			else
 				navigateToLobby()

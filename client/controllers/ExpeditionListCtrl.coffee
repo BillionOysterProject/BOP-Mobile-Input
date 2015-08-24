@@ -4,7 +4,8 @@ angular.module('app.example').controller 'ExpeditionListCtrl', [
 	'$meteor'
 	'$timeout'
 	($scope, $state, $meteor, $timeout) ->
-		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
+#		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
+		$scope.expeditions = $meteor.collection(Expeditions)
 
 		#Navigates user to the form for creating a new one
 		$scope.createExpedition = ->

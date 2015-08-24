@@ -164,5 +164,6 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		isNew = !$scope.formIntermediary.expedition.hasOwnProperty('_id')
 
-		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
+#		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
+		$scope.protocolSections = $meteor.collection(ProtocolSection, false)
 	]

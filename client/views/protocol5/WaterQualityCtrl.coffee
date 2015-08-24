@@ -8,7 +8,8 @@ angular.module('app.example').controller 'WaterQualityCtrl', [
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
-		$scope.indicators = $meteor.collection(MetaWaterQualityIndicators).subscribe('MetaWaterQualityIndicators')
+		$scope.indicators = $meteor.collection(MetaWaterQualityIndicators)
+
 		section = ProtocolSection.findOne($scope.expedition.sections.waterQuality)
 
 		$scope.getTotalSamples = (indicatorMachineName)->

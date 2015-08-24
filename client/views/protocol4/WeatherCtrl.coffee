@@ -2,7 +2,8 @@ angular.module('app.example').controller 'WeatherCtrl', [
 	'$scope'
 	'$controller'
 	'$meteor'
-	($scope, $controller, $meteor) ->
+	'$q'
+	($scope, $controller, $meteor, $q) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -23,12 +24,11 @@ angular.module('app.example').controller 'WeatherCtrl', [
 
 		$scope.weatherConditions = $meteor.collection(MetaWeatherConditions)
 
-		$meteor.subscribe('MetaWeatherConditions').then ->
-			if $scope.section.weatherCondition?
-				for condition in $scope.weatherConditions
-					if $scope.section.weatherCondition is condition.machineName
-						$scope.formIntermediary.weatherCondition = condition
-						break
+		if $scope.section.weatherCondition?
+			for condition in $scope.weatherConditions
+				if $scope.section.weatherCondition is condition.machineName
+					$scope.formIntermediary.weatherCondition = condition
+					break
 
 		if $scope.section.windDirection?
 			for item in $scope.windDirections
