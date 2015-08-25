@@ -1,8 +1,17 @@
 angular.module('app.example').controller 'AuthCtrl', [
 	'$scope'
 	'$meteor'
-	($scope, $meteor) ->
+	'$ionicHistory'
+	'$ionicSideMenuDelegate'
+	'$state'
+	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $state) ->
 		$scope.user = {}
+		Meteor.subscribe 'Messages'
+
+		$scope.$on '$ionicView.beforeEnter', -> #doesn't work without wrapping in beforeEnter handler
+			#disable swipe (content fg) to reveal main menu. Disables for all future views (unless they call this again with true)
+			$ionicSideMenuDelegate.canDragContent(false)
+
 
 		$scope.onTapLogin = (formIsValid)->
 			if formIsValid
@@ -30,7 +39,11 @@ angular.module('app.example').controller 'AuthCtrl', [
 			$scope.alert('There was a problem logging in, please try again', 'Sorry')
 
 		Accounts.onLogin ->
-			$meteor.waitForUser()
-			.then (currentUser)->
-				$scope.$emit 'bop.onLogin'
+			if Expeditions.find().count() > 0
+				$state.go('app.home')
+			else
+				$state.go('app.expeditions')
+
+			$ionicHistory.clearHistory()
+
 	]

@@ -8,6 +8,22 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
+		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
+		$scope.organisms = $meteor.collection ->
+			Organisms.find({mobile:true})
+
+		$scope.organismCategories = _.unique((org.category for org in $scope.organisms), true)
+
+		#TODO might want to move this into the db
+		$scope.organismCategoriesFileMap =
+			Crustaceans:"filter-crustaceans.svg"
+			Fish:"filter-fish.svg"
+			Molluscs:"filter-molluscs.svg"
+			Sponges:"filter-sponges.svg"
+			Tunicates:"filter-tunicates.svg"
+			Worms:"filter-worms.svg"
+
+
 		$scope.increment = (id)->
 			org = $scope.section.organisms[id]
 			if !org.count or isNaN(org.count)
@@ -31,8 +47,6 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 				org.count = parseInt(org?.count) || 0
 
 		$scope.onTapSave = ->
-			console.log 'onTapSave'
-
 			#prune to keep db smaller: only keep organisms where count is > 0
 			for id, org of $scope.section.organisms
 				if !(org.count > 0) #works for null or invalid strings too

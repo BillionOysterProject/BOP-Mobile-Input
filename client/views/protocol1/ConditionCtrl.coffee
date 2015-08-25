@@ -9,7 +9,6 @@ angular.module('app.example').controller 'ConditionCtrl', [
 		$scope.section.bioaccumulation ?= 0
 
 		$scope.onTapSave = (formIsValid)->
-			console.log 'sectionForm: ', $scope.sectionForm
 			if formIsValid
 				$scope.saveSection ['bioaccumulation']
 				$scope.showSaveDone()

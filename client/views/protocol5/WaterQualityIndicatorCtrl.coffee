@@ -21,9 +21,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 			$scope.datumPopupScope.popup.close()
 
 		$scope.datumPopupScope.onSubmit = (formValid)->
-			console.log 'formValid: ' + formValid
 			if formValid
-				console.log 'form valid, create/update datum in samples'
 				switch $scope.datumPopupScope.action
 					when 'add'
 						$scope.getSamples().push $scope.datumPopupScope.data.popupData
@@ -75,7 +73,6 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 			$scope.getSamples().splice(index, 1)
 
 		$scope.editSample = (index)->
-			console.log 'edit index ' + index
 			$ionicListDelegate.closeOptionButtons()
 			$scope.datumPopupScope.index = index
 			$scope.datumPopupScope.data =
@@ -88,7 +85,6 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 			$scope.sectionIndicator.totalSamples = 0
 			for method in $scope.indicator.methods
-				console.log 'save indicator method: ' + method.label
 				sectionIndicatorMethod = $scope.sectionIndicator.methods[method.machineName]
 
 				#remove invalid sample values (NaN) before save

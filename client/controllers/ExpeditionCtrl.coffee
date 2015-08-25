@@ -117,7 +117,6 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					.then handleSaveSectionsResults
 					.then saveExpedition
 					.then (insertedID)->
-						console.log 'insertedID: ' + insertedID
 						toastr.success("Expedition Created", null, {timeOut:'4000'})
 						$scope.changeExpedition(insertedID)
 					.catch (err)->

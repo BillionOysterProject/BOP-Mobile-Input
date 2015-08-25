@@ -7,8 +7,8 @@
 	<!--</ion-nav-buttons>-->
 	<ion-content class="has-header">
 		<div class="padding text-center">
-			<h4>{{::expedition.alias || getExpeditionTitle(expedition)}}</h4>
-			<p ng-if="expedition.alias">{{::getExpeditionTitle(expedition)}}</p>
+			<h4>{{expedition.alias || getExpeditionTitle(expedition)}}</h4>
+			<p ng-if="expedition.alias">{{getExpeditionTitle(expedition)}}</p>
 		</div>
 		<ion-list>
 			<ion-item ng-repeat="protocol in metaProtocols | orderBy:'num'"
@@ -20,6 +20,7 @@
 				<p>{{::protocol.title}}</p>
 				<bop-progress-bar p="::getProtocolCompleteness(protocol)"></bop-progress-bar>
 			</ion-item>
+			<ion-item ng-if="!startupComplete">Loading...</ion-item>
 
 		</ion-list>
 	</ion-content>

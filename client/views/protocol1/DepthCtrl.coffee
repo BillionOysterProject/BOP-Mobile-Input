@@ -7,8 +7,6 @@ angular.module('app.example').controller 'DepthCtrl', [
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		$scope.onTapSave = (formIsValid)->
-			console.log 'sectionForm: ', $scope.sectionForm
-
 			if formIsValid
 				$scope.saveSection ['submergedDepth']
 				$scope.showSaveDone()

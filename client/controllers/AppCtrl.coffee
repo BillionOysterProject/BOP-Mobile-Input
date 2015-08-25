@@ -15,8 +15,12 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$cordovaAppVersion'
 	'bopRoutesDynamic'
 	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $interval, $cordovaAppVersion, bopRoutesDynamic) ->
-		#Version number display.
+		$scope.$on '$ionicView.beforeEnter', -> #doesn't work without wrapping in beforeEnter handler
+			#disable swipe (content fg) to reveal main menu. Disables for all future views (unless they call this again with true)
+			$ionicSideMenuDelegate.canDragContent(false)
+
 		$ionicPlatform.ready ->
+			#Version number display.
 			$scope.buildNumber =
 				#Set native build number in mobile-config.js
 				native: '#.#.#' #overridden below when running on a native platform. Shows as this string only when viewed in a browser without native shell.
@@ -101,10 +105,16 @@ angular.module('app.example').controller 'AppCtrl', [
 				disableAnimate:true
 
 		$scope.navigateHome = ->
-			$scope.prepareForRootViewNavigation()
-			$ionicSideMenuDelegate.toggleLeft(false)
-			$state.go('app.home') if $ionicHistory.currentStateName() isnt 'app.home'
-			$ionicHistory.clearHistory()
+			if $ionicHistory.currentStateName() isnt 'app.home'
+				$scope.prepareForRootViewNavigation()
+				$ionicSideMenuDelegate.toggleLeft(false)
+
+				if Expeditions.find().count() > 0
+					$state.go('app.home')
+				else
+					$state.go('app.expeditions')
+
+				$ionicHistory.clearHistory()
 
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);
@@ -230,29 +240,13 @@ angular.module('app.example').controller 'AppCtrl', [
 						resolve()
 				, 100
 
-		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
-		initOrganisms = ->
-			$scope.organisms = $meteor.collection( ->
-				Organisms.find({mobile:true})
-			)
-			$scope.organismCategories = _.unique((org.category for org in $scope.organisms), true)
-
-			#TODO might want to move this into the db
-			$scope.organismCategoriesFileMap =
-				Crustaceans:"filter-crustaceans.svg"
-				Fish:"filter-fish.svg"
-				Molluscs:"filter-molluscs.svg"
-				Sponges:"filter-sponges.svg"
-				Tunicates:"filter-tunicates.svg"
-				Worms:"filter-worms.svg"
-
 		#startup sequence for authenticated user
-		startup = ->
+		$scope.startup = ->
 			$scope.startupStarted = true
 
 			getMetaProtocols()
 			.then getOrganisms
-			.then initOrganisms
+#			.then initOrganisms
 			.then getMetaWaterQualityIndicators
 			.then getMetaWeatherConditions
 			.then getSites
@@ -272,29 +266,21 @@ angular.module('app.example').controller 'AppCtrl', [
 				$scope.setCurrentExpeditionToLatest()
 
 				$scope.startupComplete = true
-#				$scope.navigateOnAuthChange Meteor.userId()
-
-				$scope.prepareForRootViewNavigation()
-				$ionicSideMenuDelegate.toggleLeft(false)
 
 				if $scope.expeditions.length > 0
 					if !$scope.expedition
 						$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
-					$scope.navigateHome()
-				else
-					$state.go('app.expeditions')
-
-				$ionicHistory.clearHistory()
 
 			.catch (error)->
 				console.error "startup failed. ", error
 
 		#Lobby is the branded view that has the buttons for sign in and create account
 		navigateToLobby = ->
-			$scope.prepareForRootViewNavigation()
-			$ionicSideMenuDelegate.toggleLeft(false)
-			$state.go('app.lobby')
-			$ionicHistory.clearHistory()
+			if $ionicHistory.currentStateName() isnt 'auth.lobby'
+				$scope.prepareForRootViewNavigation()
+				$ionicSideMenuDelegate.toggleLeft(false)
+				$state.go('auth.lobby')
+				$ionicHistory.clearHistory()
 
 		$scope.logout = ->
 			Meteor.logout ->
@@ -302,7 +288,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		#only for logins that occur after user goes through the login view (not for when user is logged in automatically based on cached credentials – i.e. not for when user logs in then reloads page and is still logged in)
 		$scope.$on 'bop.onLogin', ->
-			startup()
+			$scope.startup()
 
 		$scope.dynamicRoutesDefined = false
 
@@ -312,11 +298,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 		getMessages()
 		.then ->
-			$meteor.waitForUser
-		.then ->
 			if Meteor.userId()
-				startup()
-			else
-				navigateToLobby()
+				$scope.startup()
 	]
 

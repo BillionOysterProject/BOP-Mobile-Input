@@ -10,48 +10,67 @@ angular.module('app.example').config [
 		# if none of the below states are matched, use this as the fallback
 		$urlRouterProvider.otherwise '/'
 
+		$stateProvider.state 'auth',
+			url:'^'
+			abstract: true
+			views:
+				'default':
+					templateUrl: 'client/views/menu.ng.html'
+					controller: 'AuthCtrl'
+
+		.state 'auth.lobby',
+#			cache:false
+			url: '/'
+			data:
+				loginRequired:false
+
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth/lobby.ng.html'
+
+			resolve:
+				authorize: ["$meteor", "$state", "$ionicHistory", "$ionicSideMenuDelegate", "$timeout", ($meteor, $state, $ionicHistory, $ionicSideMenuDelegate, $timeout)->
+					$timeout(1) #without this, when offline '$meteor.waitForUser()' doesn't resolve
+					.then $meteor.waitForUser()
+					.then ->
+#						console.log 'Meteor.user(): ' + Meteor.user()
+#						console.log 'Meteor.userId(): ' + Meteor.userId()
+						if Meteor.userId()
+							if Expeditions.find().count() > 0
+								$state.go('app.home')
+							else
+								$state.go('app.expeditions')
+
+							$ionicHistory.clearHistory()
+
+				]
+
+		.state 'auth.login',
+			data:
+				loginRequired:false
+
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth/login.ng.html'
+
+		.state 'auth.createAccount',
+			data:
+				loginRequired:false
+
+			views:
+				'menuContent':
+					templateUrl: 'client/views/auth/createAccount.ng.html'
+
 		$stateProvider.state 'app',
-#			url: '/app'
+			url:'^'
 			abstract: true
 			views:
 				'default':
 					templateUrl: 'client/views/menu.ng.html'
 					controller: 'AppCtrl'
 
-		.state 'app.startup',
-			url: '/'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/startup.ng.html'
-					controller: 'StartupCtrl'
-
-		.state 'app.login',
-#			cache:false
-#			url: '/login'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/auth/login.ng.html'
-					controller: 'AuthCtrl'
-
-		.state 'app.lobby',
-#			cache:false
-#			url: '/lobby'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/auth/lobby.ng.html'
-#					controller: 'AuthCtrl'
-
-		.state 'app.createAccount',
-#			cache:false
-#			url: '/createAccount'
-			views:
-				'menuContent':
-					templateUrl: 'client/views/auth/createAccount.ng.html'
-					controller: 'AuthCtrl'
-
 		.state 'app.expeditions',
 #			cache:false
-#			url: '/expeditions'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/expeditionList.ng.html'
@@ -59,7 +78,6 @@ angular.module('app.example').config [
 
 		.state 'app.expeditionSettings',
 			cache:false
-#			url: '/expeditionSettings/:expeditionID'
 
 			#shorthand default values
 			params:
@@ -72,7 +90,6 @@ angular.module('app.example').config [
 
 		.state 'app.expeditionCreate',
 			cache:false
-#			url: '/expeditionCreate'
 
 			#shorthand default values
 			params:
@@ -85,7 +102,6 @@ angular.module('app.example').config [
 
 		.state 'app.home',
 			cache:false
-#			url: '/home'
 			views:
 				'menuContent':
 					templateUrl: 'client/views/home.ng.html'
@@ -93,19 +109,20 @@ angular.module('app.example').config [
 
 		.state 'app.protocol',
 			cache:false
-#			url: '/protocol/:protocolNum'
+
 			#shorthand default values
 			params:
 		        protocolNum: 1
-#		        param2: "param2Default"
+
 			views:
 				'menuContent':
 					templateUrl: 'client/views/protocol.ng.html'
 					controller: 'ProtocolCtrl'
 
 		#subsection for oyster growth (an individual substrate shell) (note, app.oysterGrowth is defined in bopRoutesDynamic.coffee and is a list of the 10 substrate shells)
-		.state 'app.oysterGrowthShell',
+		.state 'app.oysterGrowthShell ',
 			cache: false
+
 			#shorthand default values
 			params:
 				protocolNum: undefined
@@ -120,6 +137,7 @@ angular.module('app.example').config [
 		#subsection for protocol 5's waterQuality indicator
 		.state 'app.waterQualityIndicator',
 			cache: false
+
 			#shorthand default values
 			params:
 				protocolNum: undefined
@@ -135,4 +153,13 @@ angular.module('app.example').config [
 		return
 ]
 
+angular.module('app.example').run [
+	'$rootScope'
+	($rootScope) ->
 
+#		$rootScope.$on '$stateChangeStart', (event, to, toParams, from, fromParams) ->
+#			console.log ''
+#			console.log '~~~~~~~~~~~~~'
+#			console.log '~~~~~~$stateChangeStart %s -> %s', from.name, to.name
+
+]
