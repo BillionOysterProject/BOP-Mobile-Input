@@ -9,6 +9,7 @@ angular.module('app.example').controller 'CageLocationCtrl', [
 
 		$scope.setLocationUsingGPS = ->
 			console.log 'setLocationUsingGPS'
+			$scope.sectionFormRef.$setDirty()
 			$ionicPlatform.ready =>
 				bopLocationHelper.getGPSPosition()
 				.then (position)->
