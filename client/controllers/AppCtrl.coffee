@@ -141,7 +141,15 @@ angular.module('app.example').controller 'AppCtrl', [
 
 			if exp?
 				titleParts.push $filter('date')(exp.date, 'MMM d, yyyy')
-				titleParts.push Sites.findOne(exp.site).label
+				titleParts.push Sites.findOne(exp.site)?.label #added ? in case Sites collection not populated yet.
+#				site = Sites.findOne(exp.site)
+#				try
+#					titleParts.push site?.label
+#				catch err
+#					console.warn 'exp.site: ' + exp.site
+#					console.warn 'Sites count(): ' + Sites.find().count()
+#					console.warn 'site ', angular.toJson(site)
+#					console.error err
 
 			titleParts.join(" | ")
 

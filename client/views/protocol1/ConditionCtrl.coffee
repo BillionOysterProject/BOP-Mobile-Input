@@ -10,7 +10,7 @@ angular.module('app.example').controller 'ConditionCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.saveSection ['bioaccumulation']
+				$scope.saveSection ['bioaccumulation', 'damageDescription']
 				$scope.showSaveDone()
 				$scope.back()
 			else

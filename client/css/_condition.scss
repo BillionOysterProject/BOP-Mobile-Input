@@ -1,0 +1,83 @@
+$maxSize: 250px;
+.protocol-section.condition {
+	.imageGrid {
+		$gridPadding: 10px;
+		.row, .col {
+			padding:0;
+		}
+
+		.row:first-child {
+			padding-bottom: $gridPadding;
+		}
+
+		.row .col:nth-child(1){
+			padding-right:$gridPadding;
+		}
+
+		.image {
+			display:inline-block;
+
+			width: $maxSize / 2;
+			height: $maxSize / 2;
+
+			&.activated {
+				opacity: 0.7;
+			}
+
+			&.none {
+				background: #fff url("/images/protocol1/condition/none.jpg") no-repeat 0 0;
+			}
+
+			&.light {
+				background: #fff url("/images/protocol1/condition/light.jpg") no-repeat 0 0;
+			}
+
+			&.medium {
+				background: #fff url("/images/protocol1/condition/medium.jpg") no-repeat 0 0;
+			}
+
+			&.heavy {
+				background: #fff url("/images/protocol1/condition/heavy.jpg") no-repeat 0 0;
+			}
+
+			&.selected {
+				$selectedBorderSize:2px;
+				border: $selectedBorderSize solid $calm;
+				background-position-x: -$selectedBorderSize;
+				background-position-y: -$selectedBorderSize;
+			}
+		}
+
+		.image[disabled] {
+			cursor: default !important;
+			pointer-events: none;
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.protocol-section.condition {
+		.imageGrid {
+			$gridPadding: 15px;
+			.row:first-child {
+				padding-bottom: $gridPadding;
+			}
+
+			.row .col:nth-child(1){
+				padding-right:$gridPadding;
+			}
+
+			.image {
+				width: $maxSize;
+				height: $maxSize;
+
+				&.selected {
+					$selectedBorderSize:3px;
+					border: $selectedBorderSize solid $calm;
+					background-position-x: -$selectedBorderSize;
+					background-position-y: -$selectedBorderSize;
+				}
+			}
+		}
+	}
+}
