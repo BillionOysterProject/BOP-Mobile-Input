@@ -120,7 +120,7 @@ angular.module('app.example').config [
 					controller: 'ProtocolCtrl'
 
 		#subsection for oyster growth (an individual substrate shell) (note, app.oysterGrowth is defined in bopRoutesDynamic.coffee and is a list of the 10 substrate shells)
-		.state 'app.oysterGrowthShell ',
+		.state 'app.oysterGrowthShell',
 			cache: false
 
 			#shorthand default values
