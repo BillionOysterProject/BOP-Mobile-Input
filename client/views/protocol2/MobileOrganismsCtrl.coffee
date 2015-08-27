@@ -64,10 +64,28 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			$scope.filters.category = cat
 			$ionicScrollDelegate.scrollTop(false)
 
+		#dirty if section data has changed – emulates ngForm.dirty
+		$scope.isDirty = ->
+			angular.toJson($scope.section) != $scope.sectionBeforeChanged
+
+		#intercepting back button ------- start
+
+		# userTappedBack is broadcast from AppCtrl
+		$scope.$on 'bop.userTappedBack', ->
+			$scope.setSectionFormState($scope.isDirty(), false, false)
+
+		#user taps save in back button prompt so we submit the form
+		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+			$scope.onTapSave()
+		#intercepting back button ------- end
+
 		#initia values
 		$scope.section.organisms ?= {}
 		for org in $scope.organisms
 			orgID = org._id
 			$scope.section.organisms[orgID] ?= {}
 #			$scope.section.organisms[orgID].count ?= 0
+
+		$scope.sectionBeforeChanged = angular.toJson($scope.section)
+
 	]

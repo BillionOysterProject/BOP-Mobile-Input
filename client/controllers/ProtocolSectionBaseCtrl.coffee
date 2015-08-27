@@ -46,8 +46,7 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 
 		#user taps save in back button prompt so we submit the form
 		$scope.$on 'bop.userChoseSaveAndGoBack', ->
-#			if $scope.sectionFormRef?
-			$scope.sectionFormRef.submitProgrammatically()
+			$scope.sectionFormRef?.submitProgrammatically()
 		#intercepting back button ------- end
 
 		$scope.sectionFormRef = null
