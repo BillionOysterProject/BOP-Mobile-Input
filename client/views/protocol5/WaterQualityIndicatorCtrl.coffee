@@ -110,6 +110,22 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 			method:$scope.indicator.methods[0]
 			singleMethod:$scope.indicator.methods.length is 1
 
+		#dirty if section data has changed – emulates ngForm.dirty
+		$scope.isDirty = ->
+			dataNow = angular.toJson($scope.sectionIndicator)
+			dataNow != $scope.dataBeforeChanged
+
+		#intercepting back button ------- start
+
+		# userTappedBack is broadcast from AppCtrl
+		$scope.$on 'bop.userTappedBack', ->
+			$scope.setSectionFormState($scope.isDirty(), false, false)
+
+		#user taps save in back button prompt so we submit the form
+		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+			$scope.onTapSave()
+		#intercepting back button ------- end
+
 		#initialize ------------------------   start
 		$scope.section.indicators ?= {}
 		$scope.section.indicators[$scope.indicator.machineName] ?=
@@ -134,6 +150,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 				#start user with three blank slots for samples (blank ones will get pruned on save)
 				sectionIndicatorMethod.samples = new Array(3)
 
+		$scope.dataBeforeChanged = angular.toJson($scope.sectionIndicator)
 		#initialize ------------------------   end
 
 
