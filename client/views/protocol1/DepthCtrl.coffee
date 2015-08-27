@@ -8,7 +8,7 @@ angular.module('app.example').controller 'DepthCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.saveSection ['submergedDepth']
+				$scope.saveSection ['submergedDepth', 'avgDepth']
 				$scope.showSaveDone()
 				$scope.back()
 			else
