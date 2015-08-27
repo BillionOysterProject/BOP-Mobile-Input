@@ -43,8 +43,9 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			return 0 if !$scope.section.organisms.hasOwnProperty(id)
 
 			org = $scope.section.organisms[id]
-			if !org.count? or isNaN(org.count)
-				org.count = parseInt(org?.count) || 0
+			if org.cont isnt undefined
+				if isNaN(org.count)
+					org.count = parseInt(org?.count) || 0
 
 		$scope.onTapSave = ->
 			#prune to keep db smaller: only keep organisms where count is > 0
