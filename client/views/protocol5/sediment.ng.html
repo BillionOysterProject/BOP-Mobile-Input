@@ -15,7 +15,7 @@
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
 				<!-- sediment volume ____________ start -->
-				<label class="item item-input item-text-wrap"
+				<label class="item item-input item-text-wrap bop-units-right"
 				       ng-class="{ 'has-error' : sectionForm.outfallGPM.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Sediment volume</span>
 					<input name="volume"
@@ -23,9 +23,10 @@
 					       class="text-right"
 					       ng-model="section.volume"
 					       ng-change="updateVolumeRate(sectionForm)"
+					       placeholder="0"
 					       min="0"
 					       max="100">
-					<span class="input-label">cm&sup3;</span>
+					cm&sup3;
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.volume.$error"
 				     ng-show="sectionForm.volume.$invalid && sectionForm.$submitted">
@@ -41,6 +42,7 @@
 					       type="number"
 					       ng-model="section.daysCollected"
 					       ng-change="updateVolumeRate(sectionForm)"
+					       placeholder="0"
 					       min="0">
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.daysCollected.$error"
@@ -50,7 +52,7 @@
 
 				<!-- calculated ____________ start -->
 				<div ng-show="sectionForm.volume.$valid && sectionForm.daysCollected.$valid"
-				     class="calculated-fields">
+				     class="calculated-fields bop-units-right">
 					<label class="item item-input item-text-wrap">
 						<span class="input-label">Rate per day: </span>
 						<input name="volumeRate"
@@ -59,7 +61,7 @@
 						       ng-model="volumeRateDisplay"
 						       tabindex="-1"
 						       readonly>
-						<span class="input-label">cm&sup3;</span>
+						cm&sup3;
 					</label>
 				</div>
 
