@@ -81,6 +81,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 			$scope.createDatumPopup('edit')
 
 		$scope.onTapSave = ->
+			#hides the options you see on a list item after you swipe it left
 			$ionicListDelegate.closeOptionButtons()
 
 			$scope.sectionIndicator.totalSamples = 0
