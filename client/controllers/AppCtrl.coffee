@@ -27,7 +27,7 @@ angular.module('app.example').controller 'AppCtrl', [
 
 				# Increment this manually each time a hot push is deployed.
 				# Set to zero every time a native build is deployed.
-				hotPush: 1;
+				hotPush: 2;
 
 			if window.cordova
 				$cordovaAppVersion.getAppVersion().then (buildNum)->
