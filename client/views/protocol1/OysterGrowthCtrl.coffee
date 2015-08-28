@@ -13,7 +13,7 @@ angular.module('app.example').controller 'OysterGrowthCtrl', [
 		$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
 		$scope.shellIsComplete = (index)->
-			$scope.section.substrateShells?[index].totals.live? || $scope.section.substrateShells?[index].totals.dead?
+			$scope.section.substrateShells[index].oysters.length > 0
 
 		$scope.showOverallStats = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthOverallStats.ng.html",

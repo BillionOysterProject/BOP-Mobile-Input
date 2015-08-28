@@ -294,6 +294,9 @@ angular.module('app.example').controller 'AppCtrl', [
 			Meteor.logout ->
 				navigateToLobby()
 
+		$scope.useTabletLayout = ->
+			window.innerWidth >= 768
+
 		#only for logins that occur after user goes through the login view (not for when user is logged in automatically based on cached credentials – i.e. not for when user logs in then reloads page and is still logged in)
 		$scope.$on 'bop.onLogin', ->
 			$scope.startup()

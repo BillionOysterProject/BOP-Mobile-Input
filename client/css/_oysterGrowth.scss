@@ -146,4 +146,42 @@
 			}
 		}
 	}
+
+	&.stats {
+
+		.col:first-child {
+			padding-right:25px;
+		}
+
+		.value {
+			$imgHeight: 50px;
+			font-size: 30px;
+			white-space: nowrap;
+			text-align: right;
+			height:$imgHeight;
+			line-height: 2.4em;
+
+			background-repeat: no-repeat;
+			background-position: bottom left;
+			background-size: auto $imgHeight;
+
+			&.alive {
+				background-image: url("/images/protocol1/oysterGrowth/oyster-alive.svg");
+				background-position-x: -10px; //compensate for left-padding in this svg image
+			}
+
+			&.dead {
+				background-image: url("/images/protocol1/oysterGrowth/oyster-dead.svg")
+			}
+
+			&.size {
+				background-image: url("/images/protocol1/oysterGrowth/calipers-average-grey.svg")
+			}
+
+			.units {
+				font-size:70%;
+				padding-left:5px
+			}
+		}
+	}
 }

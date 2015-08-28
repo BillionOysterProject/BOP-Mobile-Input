@@ -119,7 +119,6 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 #			shell.totals.dead = dead
 
 		$scope.updateOysterStats = ->
-			console.log 'updateOysterStats'
 			shell = $scope.section.substrateShells[$scope.shellIndex]
 
 			console.log  'form is valid, update stats'
@@ -163,6 +162,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 					max = if max then Math.max(max, shell.totals.sizeMM.max) else shell.totals.sizeMM.max
 
 					live += shell.totals.live
+
+				if shell.totals.dead?
 					dead += shell.totals.dead
 
 			avg = Math.round(avg / shellsNotIgnoredCount)
