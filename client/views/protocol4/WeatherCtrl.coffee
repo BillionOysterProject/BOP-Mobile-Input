@@ -37,8 +37,12 @@ angular.module('app.example').controller 'WeatherCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.section.weatherCondition = $scope.formIntermediary.weatherCondition.machineName
-				$scope.section.windDirection = $scope.formIntermediary.windDirection.label
+				if $scope.formIntermediary.weatherCondition?
+					$scope.section.weatherCondition = $scope.formIntermediary.weatherCondition.machineName
+
+				if $scope.formIntermediary.windDirection?
+					$scope.section.windDirection = $scope.formIntermediary.windDirection.label
+
 				$scope.saveSection(['humidityPct','machineName','temperatureF','weatherCondition','windDirection','windSpeed'])
 				$scope.showSaveDone()
 				$scope.back()
