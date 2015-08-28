@@ -41,17 +41,19 @@
 								<div class="living-status">
 									<input id="aliveRadio{{$index}}"
 									       type="radio"
+									       name="livingStatus"
 									       ng-model="oyster.isAlive"
 									       ng-value="radioBoolValues.boolTrue"
-									       ng-change="updateOysterStats(shellSizesForm.$valid, $index)"
+									       required
 											>
 									<label for="aliveRadio{{$index}}">Alive</label>
 
 									<input id="deadRadio{{$index}}"
+									       name="livingStatus"
 									       type="radio"
 									       ng-model="oyster.isAlive"
 									       ng-value="radioBoolValues.boolFalse"
-									       ng-change="updateOysterStats(shellSizesForm.$valid, $index)"
+									       required
 									       >
 									<label for="deadRadio{{$index}}" class="dead">Dead</label>
 								</div>
@@ -65,7 +67,6 @@
 											       placeholder="0"
 											       ng-class="{ 'has-error' : oystersForm.liveSizeMM.$invalid && sectionForm.$submitted}"
 											       ng-model="section.substrateShells[shellIndex].oysters[$index].sizeMM"
-											       ng-change="updateOysterStats(shellSizesForm.$valid, shellIndex); updateMainTotals(sectionForm.$valid)"
 						                           min="1"
 						                           max="{{maxSpatSizeMM}}"
 											       required
@@ -74,6 +75,12 @@
 										</div>
 										Measurement
 									</div>
+								</div>
+								<div ng-messages="oystersForm.livingStatus.$error"
+								     class="form-errors"
+								     ng-show="oystersForm.livingStatus.$invalid && sectionForm.$submitted">
+									<div class="form-error text-center" ng-message="required">{{getMessage('requiredLivingStatus')}}</div>
+									<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 								</div>
 								<div ng-messages="oystersForm.liveSizeMM.$error"
 								     class="form-errors"
