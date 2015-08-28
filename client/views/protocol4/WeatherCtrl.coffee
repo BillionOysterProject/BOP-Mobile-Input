@@ -35,6 +35,22 @@ angular.module('app.example').controller 'WeatherCtrl', [
 				if $scope.section.windDirection is item.label
 					$scope.formIntermediary.windDirection = item
 
+		directionsDegMap =
+			E:0
+			NE:45
+			N:90
+			NW:135
+			W:180
+			SW:225
+			S:270
+			SE:315
+
+		# @param directionStr i.e. "NW", "S", "SE"...
+		$scope.directionToDeg = (directionStr)->
+			deg = directionsDegMap[directionStr]
+			deg -= directionsDegMap.S #adjustment because icon points south – ideally it would point east at 0 degrees before rotation
+			return deg
+
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
 				if $scope.formIntermediary.weatherCondition?

@@ -25,9 +25,9 @@
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
 				<!-- wind speed-->
-				<div class="item item-input bop-units-right"
+				<div class="item item-input bop-units-right item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Wind Speed</span>
+					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed</span>
 					<input name="windSpeed"
 					       type="number"
 					       ng-model="section.windSpeed"
@@ -44,9 +44,9 @@
 				</div>
 
 				<!-- wind direction -->
-				<label class="item item-input item-select"
+				<label class="item item-input item-select item-text-wrap"
 				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
-					<div class="input-label">Wind Direction</div>
+					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{directionToDeg(formIntermediary.windDirection.label)}}"></i> Wind Direction</div>
 					<select name="windDirection"
 					        ng-options="direction.label for direction in windDirections"
 					        ng-model="formIntermediary.windDirection"></select>
@@ -57,9 +57,9 @@
 				</div>
 
 				<!-- temperature -->
-				<div class="item item-input bop-units-right"
+				<div class="item item-input bop-units-right item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Temperature</span>
+					<span class="input-label"><i class="icon icon-temperature"></i> Temperature</span>
 					<input type="number"
 					       name="temperatureF"
 					       ng-model="section.temperatureF"
@@ -74,9 +74,9 @@
 				</div>
 
 				<!-- humidity -->
-				<div class="item item-input bop-units-right"
+				<div class="item item-input bop-units-right item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.humidityPct.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Humidity</span>
+					<span class="input-label"><i class="icon icon-humidity"></i> Humidity</span>
 					<input name="humidityPct"
 					       type="number"
 					       ng-model="section.humidityPct"
@@ -93,9 +93,9 @@
 				</div>
 
 				<!-- weather condition (i.e. sunny)-->
-				<label class="item item-input item-select bop-units-right"
+				<label class="item item-input item-select bop-units-right item-text-wrap"
 				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
-					<div class="input-label">Weather</div>
+					<div class="input-label"><i class="icon ion-ios-partlysunny"></i> Weather</div>
 					<select name="weatherCondition"
 					        ng-options="condition.label for condition in weatherConditions"
 					        ng-model="formIntermediary.weatherCondition"></select>
