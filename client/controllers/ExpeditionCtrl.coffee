@@ -152,19 +152,41 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.sites = $meteor.collection(Sites)
 
-		radius = ->
-			radius = $(window).width() / 80
-			if radius > 6
-				radius = 6
-			#greater than 7 is too big even on larger screens (tested up to 1680 anyways)
-			radius
+		inBounds = (point, bounds) ->
+			eastBound = point.longitude < bounds.NE.longitude
+			westBound = point.longitude > bounds.SW.longitude
+			inLong = undefined
+			if bounds.NE.longitude < bounds.SW.longitude
+				inLong = eastBound or westBound
+			else
+				inLong = eastBound and westBound
+			inLat = point.latitude > bounds.SW.latitude and point.latitude < bounds.NE.latitude
+			inLat and inLong
 
-		bubbleBorderWidth = ->
-			stroke = $(window).width() / 300
-			if stroke > 1.5
-				stroke = 1.5
-			#greater than 1.5 is too big even on larger screens (tested up to 1680 anyways)
-			stroke
+		calcScaleCenter = ->
+			bounds =
+				'NE':
+					latitude: '41.20'
+					longitude: '-73.30'
+				'SW':
+					latitude: '40.27'
+					longitude: '-74.74'
+
+			if inBounds(location, bounds)
+				scaleCenter =
+					'scale': '300000'
+					'center': location
+			else
+				scaleCenter =
+					'scale': '50000'
+					'center':
+						latitude: '40.67'
+						longitude: '-74.10'
+			#console.log scaleCenter
+			scaleCenter
+
+		#get current location
+		location = bopLocationHelper.getGPSPosition().$$state.value.coords
 
 		#setup map
 		$scope.map =
@@ -182,9 +204,8 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 				popupOnHover: false
 				highlightOnHover: false
 			bubblesConfig:
-				radius: radius()
-				animate: false
-				borderWidth: bubbleBorderWidth()
+				radius: 10
+				borderWidth: 1.5
 				borderColor: '#353535'
 				popupOnHover: true
 				popupTemplate: (geography, data) ->
@@ -202,9 +223,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			dataType: 'json'
 			setProjection: (element) ->
 				projection = d3.geo.mercator().center([
-					-74
-					40.7
-				]).scale(70000).translate([
+					calcScaleCenter().center.longitude
+					calcScaleCenter().center.latitude
+				]).scale(calcScaleCenter().scale).translate([
 					element.offsetWidth / 2
 					element.offsetHeight / 2
 				])
