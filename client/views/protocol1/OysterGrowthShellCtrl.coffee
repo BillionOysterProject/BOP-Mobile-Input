@@ -84,6 +84,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 				shell.totals.live ?= 0
 				shell.totals.live++
 
+				$scope.sectionFormRef.$setDirty()
 				$ionicScrollDelegate.scrollBottom(true)
 
 		$scope.deleteOyster = (oysterIndex)->
@@ -96,6 +97,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 			$ionicListDelegate.closeOptionButtons()
 			_.pull(shell.oysters, oyster)
+
+			$scope.sectionFormRef.$setDirty()
 
 #		$scope.onChangeIsAlive = (oysterIndex)->
 #			shell = $scope.section.substrateShells[$scope.shellIndex]
