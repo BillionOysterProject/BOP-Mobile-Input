@@ -10,6 +10,7 @@ angular.module('app.example', [
 	'ngMessages'
 	'ngCordova'
 	'monospaced.elastic' #for resizable textarea
+	'datamaps'
 ])
 if Meteor.isCordova
 	angular.element(document).on 'deviceready', onReady

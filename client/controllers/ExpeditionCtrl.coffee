@@ -7,7 +7,8 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 	'$meteor'
 	'bopLocationHelper'
 	'$ionicPlatform'
-	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $ionicPlatform) ->
+	'$interval'
+	($scope, $stateParams, $q, $ionicHistory, $timeout, $meteor, bopLocationHelper, $ionicPlatform, $interval) ->
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
@@ -117,6 +118,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					.then handleSaveSectionsResults
 					.then saveExpedition
 					.then (insertedID)->
+						console.log 'insertedID: ' + insertedID
 						toastr.success("Expedition Created", null, {timeOut:'4000'})
 						$scope.changeExpedition(insertedID)
 					.catch (err)->
@@ -146,11 +148,116 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.navigateHome()
 
 		$scope.formIntermediary = {}
+		$scope.formIntermediary.selectedSite = {}
 
 		$scope.sites = $meteor.collection(Sites)
 
-		# Note this controller is used for creation and editing an expedition.
-		# This condition is for editing an existing expedition
+		radius = ->
+			radius = $(window).width() / 80
+			if radius > 6
+				radius = 6
+			#greater than 7 is too big even on larger screens (tested up to 1680 anyways)
+			radius
+
+		bubbleBorderWidth = ->
+			stroke = $(window).width() / 300
+			if stroke > 1.5
+				stroke = 1.5
+			#greater than 1.5 is too big even on larger screens (tested up to 1680 anyways)
+			stroke
+
+		#setup map
+		$scope.map =
+			scope: 'nyc_harbor'
+			options:
+				width: '100%'
+				aspectRatio: 0.66
+				legendHeight: 0
+				staticGeoData: true
+			geographyConfig:
+				dataUrl: '/data/map.topo.json'
+				popupTemplate: (geography, data) ->
+					#this function should just return a string
+					'<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>'
+				popupOnHover: false
+				highlightOnHover: false
+			bubblesConfig:
+				radius: radius()
+				animate: false
+				borderWidth: bubbleBorderWidth()
+				borderColor: '#353535'
+				popupOnHover: true
+				popupTemplate: (geography, data) ->
+					'<div class="hoverinfo">Station: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
+				fillOpacity: 1
+				highlightOnHover: true
+				highlightFillColor: '#E96057'
+				highlightBorderColor: 'rgba(0, 0, 0, 0.2)'
+				highlightBorderWidth: 1
+				highlightFillOpacity: 0.85
+			fills:
+				defaultFill: '#AAC06C'
+				unselectedSite: '#75A3F0'
+				selectedSite: '#E96057'
+			dataType: 'json'
+			setProjection: (element) ->
+				projection = d3.geo.mercator().center([
+					-74
+					40.7
+				]).scale(70000).translate([
+					element.offsetWidth / 2
+					element.offsetHeight / 2
+				])
+				path = d3.geo.path().projection(projection)
+				{
+					path: path
+					projection: projection
+				}
+			responsive: true
+		$scope.mapPlugins = bubbles: null
+
+		$scope.updateBubbles = ->
+			siteBubbles = []
+			siteName = ''
+			i = 0
+			angular.forEach $scope.sites, (site, key) ->
+				bubbleFillKey = if site._id == $scope.formIntermediary.selectedSite._id then 'selectedSite' else 'unselectedSite'
+				if site._id == $scope.formIntermediary.selectedSite._id
+					siteName = site.label
+				siteBubbles[i] =
+					'id': site._id
+					'name': site.label
+					'latitude': site.lat
+					'longitude': site.lng
+					'fillKey': bubbleFillKey
+				i++
+				return
+			$scope.mapPluginData = bubbles: siteBubbles
+			if siteName != ''
+				toastr.remove()
+				toastr.success siteName, null, timeOut: '4000'
+				toastr.warning 'Click Create to Continue', null, timeOut: '4000'
+			addClickHandlers()
+			return
+
+		addClickHandlers = ->
+			$('.datamaps-bubble').off 'click'
+			$('.datamaps-bubble').on 'click', ->
+				$scope.formIntermediary.selectedSite = '_id': $(this).data('info')['id']
+				$scope.updateBubbles()
+				$scope.$apply()
+				return
+			$interval.cancel bubblesReady
+			return
+
+		#set initial bubble data
+		$scope.updateBubbles()
+		bubblesReady = $interval((->
+			if $('.datamaps-bubble')
+				addClickHandlers()
+			return
+		), 100)
+
 		if $stateParams.expeditionID
 			$scope.formIntermediary.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
 			for site in $scope.sites
@@ -163,6 +270,5 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		isNew = !$scope.formIntermediary.expedition.hasOwnProperty('_id')
 
-#		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
-		$scope.protocolSections = $meteor.collection(ProtocolSection, false)
+		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
 	]

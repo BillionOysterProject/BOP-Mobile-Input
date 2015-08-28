@@ -19,12 +19,23 @@
 					</div>
 					<select name="site"
 					        ng-options="site.label for site in sites track by site._id"
-					        ng-model="formIntermediary.selectedSite"></select>
+					        ng-model="formIntermediary.selectedSite"
+					        ng-change="updateBubbles()"></select>
 				</label>
 				<div class="form-errors" ng-messages="overviewForm.site.$error"
 				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
+
+	            <datamap
+	                style="background:#75C1F1"
+	                map="map"
+	                zoomable
+	                plugins="mapPlugins"
+	                plugin-data="mapPluginData"
+	                on-click="selectSite"
+	                >
+	            </datamap>
 
 				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
 
