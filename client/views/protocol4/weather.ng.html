@@ -24,6 +24,36 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
+				<!-- weather condition (i.e. sunny)-->
+				<label class="item item-input item-select bop-units-right item-text-wrap"
+				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
+					<div class="input-label"><i class="icon ion-ios-partlysunny"></i> Weather</div>
+					<select name="weatherCondition"
+					        ng-options="condition.label for condition in weatherConditions"
+					        ng-model="formIntermediary.weatherCondition"></select>
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.weatherCondition.$error"
+				     ng-show="sectionForm.weatherCondition.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<!-- temperature -->
+				<div class="item item-input bop-units-right item-text-wrap"
+				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
+					<span class="input-label"><i class="icon icon-temperature"></i> Temperature</span>
+					<input type="number"
+					       name="temperatureF"
+					       ng-model="section.temperatureF"
+					       min="0" max="140">
+					℉
+				</div>
+				<div ng-messages="sectionForm.temperatureF.$error"
+				     class="form-errors"
+				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted">
+					<div class="form-error" ng-message="max">{{getMessage('unlikelyHot')}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
 				<!-- wind speed-->
 				<div class="item item-input bop-units-right item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
@@ -56,23 +86,6 @@
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<!-- temperature -->
-				<div class="item item-input bop-units-right item-text-wrap"
-				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-temperature"></i> Temperature</span>
-					<input type="number"
-					       name="temperatureF"
-					       ng-model="section.temperatureF"
-					       min="0" max="140">
-					℉
-				</div>
-				<div ng-messages="sectionForm.temperatureF.$error"
-				     class="form-errors"
-				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="max">{{getMessage('unlikelyHot')}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
-
 				<!-- humidity -->
 				<div class="item item-input bop-units-right item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.humidityPct.$invalid && sectionForm.$submitted}">
@@ -89,19 +102,6 @@
 				     class="form-errors"
 				     ng-show="sectionForm.humidityPct.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('notGreaterThanN') | tokenValues:['100%']}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
-
-				<!-- weather condition (i.e. sunny)-->
-				<label class="item item-input item-select bop-units-right item-text-wrap"
-				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
-					<div class="input-label"><i class="icon ion-ios-partlysunny"></i> Weather</div>
-					<select name="weatherCondition"
-					        ng-options="condition.label for condition in weatherConditions"
-					        ng-model="formIntermediary.weatherCondition"></select>
-				</label>
-				<div class="form-errors" ng-messages="sectionForm.weatherCondition.$error"
-				     ng-show="sectionForm.weatherCondition.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
