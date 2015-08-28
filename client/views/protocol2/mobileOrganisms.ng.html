@@ -12,7 +12,7 @@
 				<button class="button button-clear button-positive all-cats" ng-click="onChangeCategory()">All</button>
 			</div>
 			<div class="col" ng-repeat="cat in organismCategories">
-				<button class="button button-clear" ng-click="onChangeCategory(cat)">
+				<button class="button button-clear" ng-click="onChangeCategory(cat)" ng-disabled="cat == filters.category">
 					<img class="filterIcon"
 					     ng-src="/images/protocol2/mobileOrganisms/filterIcons/{{organismCategoriesFileMap[cat]}}">
 				</button>
