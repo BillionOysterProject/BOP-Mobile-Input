@@ -32,7 +32,7 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 		# @see AppCtrl#myGoBack
 
 		$scope.setFormScope = (sectionForm)->
-			console.log 'setFormScope'
+			console.log 'ProtocolSectionBaseCtrl#setFormScope'
 			$scope.sectionFormRef = sectionForm
 
 		# userTappedBack is broadcast from AppCtrl

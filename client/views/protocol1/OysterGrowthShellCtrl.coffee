@@ -84,6 +84,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 				shell.totals.live ?= 0
 				shell.totals.live++
 
+				$scope.sectionFormRef.$setDirty()
 				$ionicScrollDelegate.scrollBottom(true)
 
 		$scope.deleteOyster = (oysterIndex)->
@@ -96,6 +97,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 			$ionicListDelegate.closeOptionButtons()
 			_.pull(shell.oysters, oyster)
+
+			$scope.sectionFormRef.$setDirty()
 
 #		$scope.onChangeIsAlive = (oysterIndex)->
 #			shell = $scope.section.substrateShells[$scope.shellIndex]
@@ -115,39 +118,34 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 #			shell.totals.live = live
 #			shell.totals.dead = dead
 
-		$scope.updateOysterStats = (formIsValid, shellIndex)->
+		$scope.updateOysterStats = ->
 			console.log 'updateOysterStats'
-			shell = $scope.section.substrateShells[shellIndex]
+			shell = $scope.section.substrateShells[$scope.shellIndex]
 
-			if formIsValid
-				console.log  'form is valid, update stats'
-				min = null
-				max = null
-				avg = 0
-				live = 0
-				dead = 0
-				for oyster in shell.oysters
-					if oyster.isAlive
-						live++
-						avg += oyster.sizeMM
-						min = if min then Math.min(min, oyster.sizeMM) else oyster.sizeMM
-						max = if max then Math.max(max, oyster.sizeMM) else oyster.sizeMM
-					else
-						dead++
-						delete oyster.sizeMM
+			console.log  'form is valid, update stats'
+			min = null
+			max = null
+			avg = 0
+			live = 0
+			dead = 0
+			for oyster in shell.oysters
+				if oyster.isAlive
+					live++
+					avg += oyster.sizeMM
+					min = if min then Math.min(min, oyster.sizeMM) else oyster.sizeMM
+					max = if max then Math.max(max, oyster.sizeMM) else oyster.sizeMM
+				else
+					dead++
+					delete oyster.sizeMM
 
-				if shell.totals.live > 1
-					avg = Math.round(avg / shell.totals.live)
-
-			else
-				console.log  'form is INVALID, ignoring'
-				live = dead = min = max = avg = null
+			if shell.totals.live > 1
+				avg = Math.round(avg / shell.totals.live)
 
 			shell.totals.sizeMM = {min, max, avg}
 			shell.totals.live = live
 			shell.totals.dead = dead
 
-		$scope.updateMainTotals = (formIsValid)->
+		$scope.updateMainTotals = ->
 			live = 0
 			dead = 0
 			min = null
@@ -177,7 +175,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 				for oyster in $scope.getOysters()
 					delete oyster.sizeMM if !oyster.isAlive
 
-				$scope.updateMainTotals(true)
+				$scope.updateStats()
 				$scope.saveSection ['substrateShells', 'totalsMM', 'totalsMortality']
 				$scope.showSaveDone()
 				$scope.back()
@@ -186,14 +184,21 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 		$scope.showShellStats = ->
 			if $scope.sectionFormRef.$invalid
-				$scope.alert('Check measurements then try again')
+				$scope.sectionFormRef.submitProgrammatically()
+				$scope.alert('Check living status and measurements then try again')
 			else
+				$scope.updateStats()
+
 				$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthShellStats.ng.html",
 					scope: $scope
 					animation: 'slide-in-up')
 				.then (modal) ->
 					$scope.shellStatsModal = modal
 					$scope.shellStatsModal.show()
+
+		$scope.updateStats = ->
+			$scope.updateOysterStats()
+			$scope.updateMainTotals()
 
 		$scope.Math = Math
 
