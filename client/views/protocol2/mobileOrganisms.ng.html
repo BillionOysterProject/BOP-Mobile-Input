@@ -20,7 +20,16 @@
 		</div>
 	</div>
 
-	<ion-content class="has-header has-subheader">
+	<div class="bar bar-footer bar-default">
+		<!--<button class="button button-clear button-calm icon ion-ios-plus-empty"-->
+		        <!--ng-click="addOyster()">Foo</button>-->
+		<!--<h2 class="title">Foo</h2>-->
+		<button class="button button-calm pull-right"
+		        type="submit"
+		        ng-click="onTapSave()">Save</button>
+	</div>
+
+	<ion-content class="has-header has-subheader has-footer">
 		<h2 class="padding">{{sectionMeta.title}}</h2>
 		<div class="tiles">
 			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id" ng-init="id = org._id" class="tile">
@@ -49,6 +58,6 @@
 			</div>
 		</div>
 
-		<button class="button button-block button-positive" ng-click="onTapSave()">Save</button>
+		<!--<button class="button button-block button-positive" ng-click="onTapSave()">Save</button>-->
 	</ion-content>
 </ion-view>
