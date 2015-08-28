@@ -35,13 +35,13 @@
 
 					</ng-switch>
 					<ion-item ng-repeat="oyster in getOysters() track by $index" class="oyster">
-						<ng-form name="oystersForm">
+						<ng-form name="oystersForm" ng-init="livingStatusName = 'livingStatus' + $index">
 							<h3>Oyster #{{$index + 1}} of {{getOysters().length}}:</h3>
 								<!-- oyster isAlive toggle buttons -->
 								<div class="living-status">
 									<input id="aliveRadio{{$index}}"
 									       type="radio"
-									       name="livingStatus"
+									       name="{{livingStatusName}}"
 									       ng-model="oyster.isAlive"
 									       ng-value="radioBoolValues.boolTrue"
 									       required
@@ -49,7 +49,7 @@
 									<label for="aliveRadio{{$index}}">Alive</label>
 
 									<input id="deadRadio{{$index}}"
-									       name="livingStatus"
+									       name="{{livingStatusName}}"
 									       type="radio"
 									       ng-model="oyster.isAlive"
 									       ng-value="radioBoolValues.boolFalse"
@@ -76,9 +76,9 @@
 										Measurement
 									</div>
 								</div>
-								<div ng-messages="oystersForm.livingStatus.$error"
+								<div ng-messages="oystersForm[livingStatusName].$error"
 								     class="form-errors"
-								     ng-show="oystersForm.livingStatus.$invalid && sectionForm.$submitted">
+								     ng-show="oystersForm[livingStatusName].$invalid && sectionForm.$submitted">
 									<div class="form-error text-center" ng-message="required">{{getMessage('requiredLivingStatus')}}</div>
 									<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 								</div>
