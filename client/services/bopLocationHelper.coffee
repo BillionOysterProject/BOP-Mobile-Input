@@ -28,13 +28,13 @@ angular.module('app.example').factory "bopLocationHelper", [
 						promise = $cordovaGeolocation.getCurrentPosition(posOptions)
 				else
 					promise = $q (resolve, reject)->
-						#hardcoded Vancouver location for browser testing
+						#hardcoded Governor's island location for browser testing
 						position =
 							coords:
-								latitude: 49.263002,
-								longitude: -123.108446
+								latitude: 40.684517,
+								longitude: -74.026048
 						resolve(position)
-
+				#console.log promise
 				promise
 
 		locationHelper = new bopLocationHelper()
