@@ -39,17 +39,6 @@
 							<h3>Oyster #{{$index + 1}} of {{getOysters().length}}:</h3>
 								<!-- oyster isAlive toggle buttons -->
 								<div class="living-status">
-									<input id="aliveRadio{{$index}}"
-									       type="radio"
-									       name="{{livingStatusName}}"
-									       ng-model="oyster.isAlive"
-									       ng-value="radioBoolValues.boolTrue"
-									       required
-											>
-
-									<!-- skinned with live oyster icon -->
-									<label for="aliveRadio{{$index}}"></label>
-
 									<input id="deadRadio{{$index}}"
 									       name="{{livingStatusName}}"
 									       type="radio"
@@ -59,12 +48,21 @@
 									       >
 
 									<!-- skinned with dead oyster icon -->
-									<label for="deadRadio{{$index}}" class="dead"></label>
+									<label for="deadRadio{{$index}}" class="dead">Dead</label>
 
-									<div ng-switch="oystersForm[livingStatusName].$valid" class="text-center living-status-label">
-										<p ng-switch-when="true">{{ oyster.isAlive ? 'Alive' : 'Dead'}}</p>
-										<p ng-switch-when="false"><i class="icon ion-android-arrow-up"></i> Alive or dead?</p>
-									</div>
+									<input id="aliveRadio{{$index}}"
+									       type="radio"
+									       name="{{livingStatusName}}"
+									       ng-model="oyster.isAlive"
+									       ng-value="radioBoolValues.boolTrue"
+									       required
+											>
+
+									<!-- skinned with live oyster icon -->
+									<label for="aliveRadio{{$index}}">Alive</label>
+
+									<!-- CTA shown when no selection yet -->
+									<p ng-if="oystersForm[livingStatusName].$invalid" class="cta">(Select one)</p>
 								</div>
 
 								<!-- oyster size -->

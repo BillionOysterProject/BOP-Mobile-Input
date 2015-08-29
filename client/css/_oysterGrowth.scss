@@ -52,15 +52,17 @@
 			margin-bottom:10px;
 		}
 
-		$height:110px;
+		$height:106px;
 
 		.living-status {
 			display: inline-block;
 			vertical-align: bottom;
 			margin-right:15px;
 
-			.living-status-label {
-				width:95%;
+			.cta {
+				width: 89%;
+				margin-top: 5px;
+				text-align: center;
 			}
 
 			input[type=radio] {
@@ -74,21 +76,28 @@
 
 				+ label {
 					display: inline-block;
-					opacity: 1;
+//					opacity: 1;
 					padding-top: 87px;
 					margin-left: -15px;
 					background: transparent url("/images/protocol1/oysterGrowth/oyster-alive.svg") no-repeat 0 0;
+					background-size: contain;
 					width: 79px;
 					text-align: center;
 
 					&.dead {
 						background: transparent url("/images/protocol1/oysterGrowth/oyster-dead.svg") no-repeat 0 0;
+						background-size: contain;
 					}
 				}
 
 				&:checked {
 					+ label {
-						opacity: .7;
+						background: transparent url("/images/protocol1/oysterGrowth/oyster-alive-selected.svg") no-repeat 0 0;
+
+						&.dead {
+							background: transparent url("/images/protocol1/oysterGrowth/oyster-dead-selected.svg") no-repeat 0 0;
+							background-size: contain;
+						}
 					}
 				}
 			}
