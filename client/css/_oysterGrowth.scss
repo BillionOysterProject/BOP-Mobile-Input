@@ -59,6 +59,10 @@
 			vertical-align: bottom;
 			margin-right:15px;
 
+			.living-status-label {
+				width:95%;
+			}
+
 			input[type=radio] {
 				position: absolute;
 				left:-9999px;
@@ -70,13 +74,12 @@
 
 				+ label {
 					display: inline-block;
-					opacity: .7;
+					opacity: 1;
 					padding-top: 87px;
 					margin-left: -15px;
 					background: transparent url("/images/protocol1/oysterGrowth/oyster-alive.svg") no-repeat 0 0;
 					width: 79px;
 					text-align: center;
-					height: 110px;
 
 					&.dead {
 						background: transparent url("/images/protocol1/oysterGrowth/oyster-dead.svg") no-repeat 0 0;
@@ -85,7 +88,7 @@
 
 				&:checked {
 					+ label {
-						opacity: 1;
+						opacity: .7;
 					}
 				}
 			}

@@ -46,7 +46,9 @@
 									       ng-value="radioBoolValues.boolTrue"
 									       required
 											>
-									<label for="aliveRadio{{$index}}">Alive</label>
+
+									<!-- skinned with live oyster icon -->
+									<label for="aliveRadio{{$index}}"></label>
 
 									<input id="deadRadio{{$index}}"
 									       name="{{livingStatusName}}"
@@ -55,7 +57,14 @@
 									       ng-value="radioBoolValues.boolFalse"
 									       required
 									       >
-									<label for="deadRadio{{$index}}" class="dead">Dead</label>
+
+									<!-- skinned with dead oyster icon -->
+									<label for="deadRadio{{$index}}" class="dead"></label>
+
+									<div ng-switch="oystersForm[livingStatusName].$valid" class="text-center living-status-label">
+										<p ng-switch-when="true">{{ oyster.isAlive ? 'Alive' : 'Dead'}}</p>
+										<p ng-switch-when="false"><i class="icon ion-android-arrow-up"></i> Alive or dead?</p>
+									</div>
 								</div>
 
 								<!-- oyster size -->
