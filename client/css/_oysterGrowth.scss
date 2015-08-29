@@ -179,12 +179,12 @@
 			background-size: auto $imgHeight;
 
 			&.alive {
-				background-image: url("/images/protocol1/oysterGrowth/oyster-alive.svg");
+				background-image: url("/images/protocol1/oysterGrowth/oyster-alive-selected.svg");
 				background-position-x: -10px; //compensate for left-padding in this svg image
 			}
 
 			&.dead {
-				background-image: url("/images/protocol1/oysterGrowth/oyster-dead.svg")
+				background-image: url("/images/protocol1/oysterGrowth/oyster-dead-selected.svg")
 			}
 
 			&.size {
