@@ -25,7 +25,7 @@
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
 				<!-- weather condition (i.e. sunny)-->
-				<label class="item item-input item-select bop-units-right item-text-wrap"
+				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
 					<div class="input-label"><i class="icon ion-ios-partlysunny"></i> Weather</div>
 					<select name="weatherCondition"
@@ -38,14 +38,14 @@
 				</div>
 
 				<!-- temperature -->
-				<div class="item item-input bop-units-right item-text-wrap"
+				<div class="item item-input item-text-wrap item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-temperature"></i> Temperature</span>
+					<span class="input-label"><i class="icon icon-temperature"></i> Temperature (℉)</span>
 					<input type="number"
 					       name="temperatureF"
 					       ng-model="section.temperatureF"
+					       placeholder="0"
 					       min="0" max="140">
-					℉
 				</div>
 				<div ng-messages="sectionForm.temperatureF.$error"
 				     class="form-errors"
@@ -55,16 +55,15 @@
 				</div>
 
 				<!-- wind speed-->
-				<div class="item item-input bop-units-right item-text-wrap"
+				<div class="item item-input item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed</span>
+					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed (MPH)</span>
 					<input name="windSpeed"
 					       type="number"
 					       ng-model="section.windSpeed"
 					       min="0"
 					       max="157"
 					       >
-					<span>MPH</span>
 				</div>
 				<div ng-messages="sectionForm.windSpeed.$error"
 				     class="form-errors"
@@ -74,7 +73,7 @@
 				</div>
 
 				<!-- wind direction -->
-				<label class="item item-input item-select item-text-wrap"
+				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
 					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{directionToDeg(formIntermediary.windDirection.label)}}"></i> Wind Direction</div>
 					<select name="windDirection"
@@ -87,16 +86,16 @@
 				</div>
 
 				<!-- humidity -->
-				<div class="item item-input bop-units-right item-text-wrap"
+				<div class="item item-input item-text-wrap item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.humidityPct.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-humidity"></i> Humidity</span>
+					<span class="input-label"><i class="icon icon-humidity"></i> Humidity (%)</span>
 					<input name="humidityPct"
 					       type="number"
 					       ng-model="section.humidityPct"
 					       min="0"
 					       max="100"
+					       placeholder="0"
 					       >
-					%
 				</div>
 				<div ng-messages="sectionForm.humidityPct.$error"
 				     class="form-errors"

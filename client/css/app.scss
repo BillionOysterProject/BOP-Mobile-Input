@@ -70,6 +70,7 @@
 
 	.input-label i {
 		font-size: 1.2em;
+		vertical-align: baseline;
 	}
 }
 
@@ -87,7 +88,7 @@
 	.section {
 		i.title {
 			font-size: 140%;
-			vertical-align: middle;
+			vertical-align: baseline;
 			padding-right: 5px;
 		}
 	}
