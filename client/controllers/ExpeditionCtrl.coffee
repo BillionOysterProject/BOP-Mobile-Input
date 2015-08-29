@@ -12,8 +12,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		$scope.cameFromExpeditions = ->
 			return $ionicHistory.backView()?.stateId is 'app.expeditions'
 
+		#TODO I don't think this fn is needed in this controller anymore (there's another version of it in CageLocationCtrl).
 		$scope.setLocationUsingGPS = ->
-			$ionicPlatform.ready =>
+			$ionicPlatform.ready ->
 				bopLocationHelper.getGPSPosition()
 				.then (position)->
 #					console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
@@ -185,57 +186,68 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			#console.log scaleCenter
 			scaleCenter
 
-		#get current location
-		location = bopLocationHelper.getGPSPosition().$$state.value.coords
+		defineMap = ->
+			#setup map
+			$scope.map =
+				scope: 'nyc_harbor'
+				options:
+					width: '100%'
+					aspectRatio: 0.66
+					legendHeight: 0
+					staticGeoData: true
+				geographyConfig:
+					dataUrl: '/data/map.topo.json'
+					popupTemplate: (geography, data) ->
+						#this function should just return a string
+						'<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>'
+					popupOnHover: false
+					highlightOnHover: false
+				bubblesConfig:
+					radius: 10
+					borderWidth: 1.5
+					borderColor: '#353535'
+					popupOnHover: true
+					popupTemplate: (geography, data) ->
+						'<div class="hoverinfo">Station: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
+					fillOpacity: 1
+					highlightOnHover: true
+					highlightFillColor: '#E96057'
+					highlightBorderColor: 'rgba(0, 0, 0, 0.2)'
+					highlightBorderWidth: 1
+					highlightFillOpacity: 0.85
+				fills:
+					defaultFill: '#AAC06C'
+					unselectedSite: '#75A3F0'
+					selectedSite: '#E96057'
+				dataType: 'json'
+				setProjection: (element) ->
+					projection = d3.geo.mercator().center([
+						calcScaleCenter().center.longitude
+						calcScaleCenter().center.latitude
+					]).scale(calcScaleCenter().scale).translate([
+						element.offsetWidth / 2
+						element.offsetHeight / 2
+					])
+					path = d3.geo.path().projection(projection)
+					{
+						path: path
+						projection: projection
+					}
+				responsive: true
+			$scope.mapPlugins = bubbles: null
 
-		#setup map
-		$scope.map =
-			scope: 'nyc_harbor'
-			options:
-				width: '100%'
-				aspectRatio: 0.66
-				legendHeight: 0
-				staticGeoData: true
-			geographyConfig:
-				dataUrl: '/data/map.topo.json'
-				popupTemplate: (geography, data) ->
-					#this function should just return a string
-					'<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>'
-				popupOnHover: false
-				highlightOnHover: false
-			bubblesConfig:
-				radius: 10
-				borderWidth: 1.5
-				borderColor: '#353535'
-				popupOnHover: true
-				popupTemplate: (geography, data) ->
-					'<div class="hoverinfo">Station: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
-				fillOpacity: 1
-				highlightOnHover: true
-				highlightFillColor: '#E96057'
-				highlightBorderColor: 'rgba(0, 0, 0, 0.2)'
-				highlightBorderWidth: 1
-				highlightFillOpacity: 0.85
-			fills:
-				defaultFill: '#AAC06C'
-				unselectedSite: '#75A3F0'
-				selectedSite: '#E96057'
-			dataType: 'json'
-			setProjection: (element) ->
-				projection = d3.geo.mercator().center([
-					calcScaleCenter().center.longitude
-					calcScaleCenter().center.latitude
-				]).scale(calcScaleCenter().scale).translate([
-					element.offsetWidth / 2
-					element.offsetHeight / 2
-				])
-				path = d3.geo.path().projection(projection)
-				{
-					path: path
-					projection: projection
-				}
-			responsive: true
-		$scope.mapPlugins = bubbles: null
+		#get current location
+		location = null
+		$ionicPlatform.ready ->
+			bopLocationHelper.getGPSPosition()
+			.then (position)->
+#				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
+				location = position.coords
+			.then defineMap
+
+			.catch (error)->
+				console.error 'error: ' + JSON.stringify(error)
+				$scope.alert JSON.stringify(error), 'error'
 
 		$scope.updateBubbles = ->
 			siteBubbles = []
