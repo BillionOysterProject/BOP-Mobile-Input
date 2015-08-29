@@ -22,19 +22,19 @@
 		<div class="row">
 			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
 				<h5>Minimum size</h5>
-				<p class="value size">{{stats.sizeMM.min}}<span class="units">mm</span></p>
+				<p class="value size">{{stats.sizeMM.min | number:0}}<span class="units">mm</span></p>
 			</div>
 
 			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
 				<h5>Maximum size</h5>
-				<p class="value size">{{stats.sizeMM.max}}<span class="units">mm</span></p>
+				<p class="value size">{{stats.sizeMM.max | number:0}}<span class="units">mm</span></p>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
+			<div class="col" ng-class="{'col-75':!useTabletLayout(), 'col-50':useTabletLayout()}">
 				<h5>Average size</h5>
-				<p class="value size">{{stats.sizeMM.avg}}<span class="units">mm</span></p>
+				<p class="value size">{{stats.sizeMM.avg | number:2}}<span class="units">mm</span></p>
 			</div>
 
 			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}"></div>

@@ -138,7 +138,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 					delete oyster.sizeMM
 
 			if shell.totals.live > 1
-				avg = Math.round(avg / shell.totals.live)
+				avg = avg / shell.totals.live
 
 			shell.totals.sizeMM = {min, max, avg}
 			shell.totals.live = live
@@ -166,7 +166,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 				if shell.totals.dead?
 					dead += shell.totals.dead
 
-			avg = Math.round(avg / shellsNotIgnoredCount)
+			avg = avg / shellsNotIgnoredCount
 
 			$scope.section.totalsMM = {min, max, avg}
 			$scope.section.totalsMortality = {live, dead}
