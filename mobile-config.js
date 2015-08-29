@@ -5,7 +5,7 @@
 // the entire section is optional.
 App.info({
   id: 'ca.visualscience.bopinput',
-  version: '0.1.7',
+  version: '0.1.8',
   name: 'BOP Input',
   description: 'Data collection app for BOP',
   author: 'ABCD',
