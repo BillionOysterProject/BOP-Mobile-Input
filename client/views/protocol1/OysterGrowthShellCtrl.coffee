@@ -138,7 +138,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 					delete oyster.sizeMM
 
 			if shell.totals.live > 1
-				avg = avg / shell.totals.live
+				avg = avg / live
 
 			shell.totals.sizeMM = {min, max, avg}
 			shell.totals.live = live
