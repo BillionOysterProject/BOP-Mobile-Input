@@ -9,12 +9,16 @@
 	<div class="bar bar-subheader bar-default filter-buttons">
 		<div class="row">
 			<div class="col">
-				<button class="button button-clear button-positive all-cats" ng-click="onChangeCategory()">All</button>
+				<button class="button button-clear all-cats"
+				        ng-click="onChangeCategory()"
+				        ng-class="{'button-calm':filters.category == undefined}">All</button>
 			</div>
 			<div class="col" ng-repeat="cat in organismCategories">
-				<button class="button button-clear" ng-click="onChangeCategory(cat)" ng-disabled="cat == filters.category">
-					<img class="filterIcon"
-					     ng-src="/images/protocol2/mobileOrganisms/filterIcons/{{organismCategoriesFileMap[cat]}}">
+				<button class="button button-clear filter"
+				        ng-click="onChangeCategory(cat)"
+				        ng-disabled="cat == filters.category">
+					<ng-include class="filterIcon"
+					            src="'/images/protocol2/mobileOrganisms/filterIcons/' + organismCategoriesFileMap[cat]"></ng-include>
 				</button>
 			</div>
 		</div>

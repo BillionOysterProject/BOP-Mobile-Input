@@ -45,17 +45,34 @@
 				padding:0;
 			}
 		}
-	}
 
-//	.button.all-cats {
-//		margin-left:10px;
-//	}
+		.filterIcon {
+			$iconSize: 35px;
+			display: inline-block;
+			width: $iconSize;
+			height: $iconSize;
 
-	.filterIcon {
-		display: inline-block;
-		width: 35px;
-		height:35px;
-//		margin-left:8px;
+			svg {
+				height: $iconSize;
+				width:auto;
+
+				path {
+					fill:$bop-disabled;
+				}
+			}
+		}
+
+		.button[disabled] {
+			opacity: 1;
+
+			.filterIcon {
+				svg {
+					path {
+						fill:$calm;
+					}
+				}
+			}
+		}
 	}
 
 	.name {
@@ -106,7 +123,6 @@
 .mobileOrganismsModal {
 	.tiles {
 		text-align: center;
-//		vertical-align: top;
 	}
 
 	.tile {
@@ -117,10 +133,38 @@
 		height: 140px;
 		overflow: hidden;
 		vertical-align: top;
+	}
+}
 
-//		img {
-//			width:145px;
-//			height:145px;
-//		}
+@media screen and (min-width: 768px) {
+	.protocol-section.mobileOrganisms {
+		$newHeight: 95px;
+		.bar-subheader {
+			height: $newHeight !important;
+		}
+
+		.has-subheader {
+			top: $bar-height + $newHeight !important;
+		}
+
+		.filter-buttons {
+			padding: 5px 10px 0 10px;
+
+			.filterIcon {
+				$iconSize: 80px;
+				width: $iconSize;
+				height:$iconSize;
+
+				svg {
+					height:$iconSize;
+				}
+			}
+		}
+
+		.button.all-cats {
+			font-size:3em;
+			margin-top: 23px;
+			margin-left: 27px;
+		}
 	}
 }
