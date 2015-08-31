@@ -35,6 +35,13 @@ angular.module('app.example').controller 'AuthCtrl', [
 
 				Accounts.createUser userOptions
 
+		$scope.alert = (message, title = 'Whoops!')->
+			promise = $ionicPopup.alert
+				title: title
+				template: message
+				okType: 'button-calm'
+			return promise
+
 		Accounts.onLoginFailure ->
 			$scope.alert('There was a problem logging in, please try again', 'Sorry')
 
