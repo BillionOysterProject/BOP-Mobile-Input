@@ -1,4 +1,6 @@
 com.ionic.keyboard@1.0.4
 com.plugin.datepicker@https://github.com/VitaliiBlagodir/cordova-plugin-datepicker/tarball/1e0f4bf47b0c343f39c64287eae9c3b632edb7f5
+cordova-plugin-camera@https://github.com/apache/cordova-plugin-camera/tarball/437cf3d93a2c0c841d38c6c80472b2ba118f372a
 cordova-plugin-geolocation@https://github.com/apache/cordova-plugin-geolocation/tarball/6dcc55b2a9ef36ae8f300ade8abecf74850e41f0
+org.apache.cordova.file@1.3.3
 uk.co.whiteoctober.cordova.appversion@https://github.com/whiteoctober/cordova-plugin-app-version/tarball/22e8147c51a168c0c06b1747d868d938d852c30f

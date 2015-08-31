@@ -18,6 +18,14 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/menu.ng.html'
 					controller: 'AuthCtrl'
 
+		.state 'app.uploadTest',
+			cache:false
+			url: '/uploadTest'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/uploadTest.ng.html'
+					controller: 'UploadTestCtrl'
+
 		.state 'auth.lobby',
 #			cache:false
 			url: '/'
@@ -37,7 +45,8 @@ angular.module('app.example').config [
 #						console.log 'Meteor.userId(): ' + Meteor.userId()
 						if Meteor.userId()
 							if Expeditions.find().count() > 0
-								$state.go('app.home')
+#								$state.go('app.home')
+								$state.go('app.uploadTest')
 							else
 								$state.go('app.expeditions')
 

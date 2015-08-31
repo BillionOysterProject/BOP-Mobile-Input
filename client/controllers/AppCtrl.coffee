@@ -110,7 +110,8 @@ angular.module('app.example').controller 'AppCtrl', [
 				$ionicSideMenuDelegate.toggleLeft(false)
 
 				if Expeditions.find().count() > 0
-					$state.go('app.home')
+#					$state.go('app.home')
+					$state.go('app.uploadTest')
 				else
 					$state.go('app.expeditions')
 

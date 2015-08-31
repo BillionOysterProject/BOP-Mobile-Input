@@ -1,0 +1,49 @@
+<ion-view title="UL Test" class="uploadTest">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<!--<ion-nav-buttons side="right">-->
+		<!--<button class="button button-clear button-positive" ng-click="removeAllImages()">Remove All</button>-->
+	<!--</ion-nav-buttons>-->
+	<ion-content class="has-header padding">
+		<img class="preview"
+		     ngf-src="picFile"
+		     ngf-default-src="/images/placeholder.svg"
+		     ngf-accept="'image/*'">
+
+		<!--<div class="button button-calm"-->
+		     <!--ngf-select-->
+		     <!--ng-model="picFile"-->
+		     <!--ngf-multiple="false">Select File</div>-->
+		<div class="button button-calm"
+		     ngf-select
+		     ngf-change="addImages($files)"
+		     ngf-multiple="false">Select File</div>
+		<button class="button button-calm" ng-click="takePic()">Take Picture</button>
+		<p>picFile.name: {{picFile.name}}</p>
+
+		<h2>Data Images:</h2>
+		<!--<img ng-repeat="pic in dataImages track by pic._id"
+		     class="item-text-wrap thumb"
+		     hires="{{pic.url( {store:'thumb'} )}}"
+		     ng-src="/images/placeholder2.svg">-->
+		<!--<img ng-repeat="pic in dataImages track by pic._id"-->
+		     <!--class="item-text-wrap thumb"-->
+		     <!--ng-src="{{pic.url()}}">-->
+		<img ng-src="{{uri}}" width="320" height="320">
+
+		<ion-list>
+			<ion-item ng-repeat="pic in dataImages track by pic._id" class="item-text-wrap">
+				<!--<img class="preview"
+				     hires="{{pic.url( {store:'medium'} )}}"
+				     ng-src="/images/placeholder2.svg"
+				     >-->
+				<img class="preview"
+				     ng-src="{{ pic.url({store:'original'}) }}"
+				     >
+				<br>
+				<button class="button button-clear button-positive" ng-click="dataImages.remove(pic._id)">Remove</button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
