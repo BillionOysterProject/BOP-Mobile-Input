@@ -82,13 +82,11 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 							fieldCount++ if section.indicators.temperature?.totalSamples > 0
 							fieldCount++ if section.indicators.DO?.totalSamples > 0
 							fieldCount++ if section.indicators.turbidity?.totalSamples > 0
-							fieldCount++ if section.indicators.oxiReducPot?.totalSamples > 0
 							fieldCount++ if section.indicators.salinity?.totalSamples > 0
 							fieldCount++ if section.indicators.pH?.totalSamples > 0
 							fieldCount++ if section.indicators.nitrates?.totalSamples > 0
 							fieldCount++ if section.indicators.phosphates?.totalSamples > 0
 							fieldCount++ if section.indicators.ammonia?.totalSamples > 0
-							fieldCount++ if section.indicators.fecal?.totalSamples > 0
 
 					when 'sediment'
 						fieldCount++ if section.volume?
