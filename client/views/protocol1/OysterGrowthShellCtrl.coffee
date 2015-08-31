@@ -11,7 +11,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 		totalShells = 10
 		$scope.shellIndex = $stateParams.shellIndex;
-		$scope.maxOysters = 12
+		$scope.maxOysters = 50
 
 		$scope.maxSpatSizeMM = 99
 
@@ -75,7 +75,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 		$scope.addOyster = ->
 			#enforce max with warning $scope.alert
 			if $scope.getOysters().length is $scope.maxOysters
-				$scope.alert("Measure only #{$scope.maxOysters} of the #{$scope.section.substrateShells[shellIndex].totals.live} at random")
+				$scope.alert("Measure only #{$scope.maxOysters} of the #{$scope.section.substrateShells[$scope.shellIndex].totals.live} at random")
 			else
 				shell = $scope.section.substrateShells[$scope.shellIndex]
 				shell.oysters.push
