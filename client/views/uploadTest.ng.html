@@ -15,10 +15,10 @@
 		     <!--ngf-select-->
 		     <!--ng-model="picFile"-->
 		     <!--ngf-multiple="false">Select File</div>-->
-		<div class="button button-calm"
-		     ngf-select
-		     ngf-change="addImages($files)"
-		     ngf-multiple="false">Select File</div>
+		<!--<div class="button button-calm"-->
+		     <!--ngf-select-->
+		     <!--ngf-change="addImages($files)"-->
+		     <!--ngf-multiple="false">Select File</div>-->
 		<button class="button button-calm" ng-click="takePic()">Take Picture</button>
 		<p>picFile.name: {{picFile.name}}</p>
 
@@ -30,19 +30,16 @@
 		<!--<img ng-repeat="pic in dataImages track by pic._id"-->
 		     <!--class="item-text-wrap thumb"-->
 		     <!--ng-src="{{pic.url()}}">-->
-		<img ng-src="{{uri}}" width="320" height="320">
+		<!--<img ng-src="{{uri}}" width="320" height="320">-->
 
 		<ion-list>
-			<ion-item ng-repeat="pic in dataImages track by pic._id" class="item-text-wrap">
-				<!--<img class="preview"
-				     hires="{{pic.url( {store:'medium'} )}}"
-				     ng-src="/images/placeholder2.svg"
-				     >-->
+			<ion-item ng-repeat="pic in images track by pic._id" class="item-text-wrap">
 				<img class="preview"
-				     ng-src="{{ pic.url({store:'original'}) }}"
+				     ng-src="{{pic.uri}}"
+				     width="50"
 				     >
 				<br>
-				<button class="button button-clear button-positive" ng-click="dataImages.remove(pic._id)">Remove</button>
+				<button class="button button-clear button-positive" ng-click="removePic(pic)">Remove</button>
 			</ion-item>
 		</ion-list>
 	</ion-content>

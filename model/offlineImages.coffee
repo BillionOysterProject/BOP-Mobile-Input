@@ -1,0 +1,1 @@
+@LocalOnlyImages = new Ground.Collection(new Meteor.Collection(null))
