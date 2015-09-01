@@ -16,7 +16,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					tide:3
 					water:5
 					land:5
-					waterQuality:10 # total indicators - at least one for each, regardless of method used
+					waterQuality:8 # total indicators - at least one for each, regardless of method used
 					sediment:3
 
 			# Gets completeness of a section as a percentage, 0-1
