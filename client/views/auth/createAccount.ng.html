@@ -7,6 +7,7 @@
 
 		<h2>Create a new account</h2>
 		<form name="createUserForm" novalidate ng-submit="onTapCreateAccount(createUserForm.$valid)">
+			<div ng-init="setFormScope(createUserForm)"></div>
 			<ion-list>
 
 				<!-- first name -->

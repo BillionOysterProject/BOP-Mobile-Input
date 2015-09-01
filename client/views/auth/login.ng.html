@@ -9,6 +9,7 @@
 		<!--<meteor-include src="loginButtons"></meteor-include>-->
 
 		<form name="loginForm" novalidate ng-submit="onTapLogin(loginForm.$valid)">
+			<div ng-init="setFormScope(loginForm)"></div>
 			<ion-list>
 				<label class="item item-input"
 				       ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.$submitted}">

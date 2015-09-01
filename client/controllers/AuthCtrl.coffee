@@ -3,8 +3,9 @@ angular.module('app.example').controller 'AuthCtrl', [
 	'$meteor'
 	'$ionicHistory'
 	'$ionicSideMenuDelegate'
+	'$ionicPopup'
 	'$state'
-	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $state) ->
+	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $state) ->
 		$scope.user = {}
 		Meteor.subscribe 'Messages'
 
@@ -35,6 +36,9 @@ angular.module('app.example').controller 'AuthCtrl', [
 
 				Accounts.createUser userOptions
 
+		$scope.getMessage = (tplKey)->
+			Messages.findOne({tplKey:tplKey}).tpl
+
 		$scope.alert = (message, title = 'Whoops!')->
 			promise = $ionicPopup.alert
 				title: title
@@ -42,10 +46,17 @@ angular.module('app.example').controller 'AuthCtrl', [
 				okType: 'button-calm'
 			return promise
 
+		$scope.setFormScope = (authForm)->
+			console.log 'AuthCtrl#setFormScope'
+			$scope.authFormRef = authForm
+
 		Accounts.onLoginFailure ->
 			$scope.alert('There was a problem logging in, please try again', 'Sorry')
 
 		Accounts.onLogin ->
+			$scope.user = {}
+			$scope.authFormRef.$setPristine()
+
 			if Expeditions.find().count() > 0
 				$state.go('app.home')
 			else
