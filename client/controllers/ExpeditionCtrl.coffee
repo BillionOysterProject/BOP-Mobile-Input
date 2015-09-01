@@ -191,10 +191,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.map =
 				scope: 'nyc_harbor'
 				options:
-					width: '100%'
-					aspectRatio: 0.66
-					legendHeight: 0
+					height: $(window).height() - 144
 					staticGeoData: true
+					legendHeight: 0
 				geographyConfig:
 					dataUrl: '/data/map.topo.json'
 					popupTemplate: (geography, data) ->
@@ -233,7 +232,6 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 						path: path
 						projection: projection
 					}
-				responsive: true
 			$scope.mapPlugins = bubbles: null
 
 		#get current location

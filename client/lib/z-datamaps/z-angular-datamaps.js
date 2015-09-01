@@ -106,7 +106,7 @@ angular.module('datamaps').directive('datamap', [
             element.empty().css({
               'position': 'relative',
               'display': 'block',
-              'padding-bottom': scope.legendHeight + 'px'
+              'padding-bottom': 0
             });
           }
         };
