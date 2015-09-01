@@ -7,6 +7,7 @@ angular.module('app.example').controller 'AuthCtrl', [
 	'$state'
 	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $state) ->
 		$scope.user = {}
+		userAccessFailureMessage = null
 		Meteor.subscribe 'Messages'
 
 		$scope.$on '$ionicView.beforeEnter', -> #doesn't work without wrapping in beforeEnter handler
@@ -15,11 +16,13 @@ angular.module('app.example').controller 'AuthCtrl', [
 
 
 		$scope.onTapLogin = (formIsValid)->
+			userAccessFailureMessage = 'There was a problem logging in, please try again.'
 			if formIsValid
 				#Note, see onLogin in AppCtrl
 				Meteor.loginWithPassword $scope.user.email, $scope.user.password
 
 		$scope.onTapCreateAccount = (formIsValid)->
+			userAccessFailureMessage = 'There was a problem creating a new account. If you already have an account, tap back and choose Sign In.'
 			if formIsValid
 
 				# ref: http://docs.meteor.com/#/full/accounts_createuser
@@ -51,7 +54,7 @@ angular.module('app.example').controller 'AuthCtrl', [
 			$scope.authFormRef = authForm
 
 		Accounts.onLoginFailure ->
-			$scope.alert('There was a problem logging in, please try again', 'Sorry')
+			$scope.alert(userAccessFailureMessage, 'Sorry')
 
 		Accounts.onLogin ->
 			$scope.user = {}
