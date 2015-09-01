@@ -1,22 +1,19 @@
 angular.module('app.example').controller 'UploadTestCtrl', [
 	'$scope'
 	'$meteor'
-	'$interval'
+	'$timeout'
 	'bopOfflineImageHelper'
-	($scope, $meteor, $interval, bopOfflineImageHelper) ->
-		$scope.localOnlyImages = $meteor.collection(LocalOnlyImages)
-
-		initImages = ->
-			console.log ''
-			console.log 'localOnlyImages changed length --------- start'
-			console.log 'length is ' + $scope.localOnlyImages.length
-			for imageMeta in $scope.localOnlyImages
+	($scope, $meteor, $timeout, bopOfflineImageHelper) ->
+		updateImages = ->
+			imageCursor = LocalOnlyImages.find();
+			imageCursor.forEach (imageMeta)->
 				do (imageMeta)->
-					localPathToImage = bopOfflineImageHelper.getLocalPathForImageID(imageMeta._id)
-					console.log 'localPathToImage: ' + JSON.stringify(localPathToImage)
-					bopOfflineImageHelper.getDataURI(localPathToImage)
-					.then (uri)->
-						$scope.images.push({_id:imageMeta._id, uri:uri})
+					#find all images in collection that aren't yet in the data url array (on startup, helps add images as they become known since collection isn't necessarily full initially)
+					if !_.findWhere($scope.images, {_id:imageMeta._id})
+						localPathToImage = bopOfflineImageHelper.getLocalPathForImageID(imageMeta._id)
+						bopOfflineImageHelper.getDataURI(localPathToImage)
+						.then (uri)->
+							$scope.images.push({_id:imageMeta._id, uri:uri})
 
 		$scope.addImages = (files)->
 			console.log 'saving picFile...'
@@ -38,9 +35,12 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 
 		$scope.images = []
 
-		stop = $interval ->
-			if LocalOnlyImages.find().count() > 0
-				$interval.cancel(stop)
-				initImages()
-		, 100
+		if LocalOnlyImages.find().count() > 0
+			updateImages()
+		else
+			$timeout ->
+				updateImages()
+			, 1000
+
+
 	]
