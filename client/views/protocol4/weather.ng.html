@@ -40,7 +40,7 @@
 				<!-- temperature -->
 				<div class="item item-input item-text-wrap item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-temperature"></i> Temperature (℉)</span>
+					<span class="input-label"><i class="icon icon-temperature"></i> Temperature (&deg;C)</span>
 					<input type="number"
 					       name="temperatureF"
 					       ng-model="section.temperatureF"
@@ -57,7 +57,7 @@
 				<!-- wind speed-->
 				<div class="item item-input item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed (MPH)</span>
+					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed (m/s)</span>
 					<input name="windSpeed"
 					       type="number"
 					       ng-model="section.windSpeed"
@@ -76,7 +76,7 @@
 				<!-- wind direction -->
 				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
-					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{directionToDeg(formIntermediary.windDirection.label)}}"></i> Wind Direction</div>
+					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{formIntermediary.windDirection.deg}}"></i> Wind Direction</div>
 					<select name="windDirection"
 					        ng-options="direction.label for direction in windDirections"
 					        ng-model="formIntermediary.windDirection"></select>
