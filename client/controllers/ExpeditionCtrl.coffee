@@ -137,7 +137,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 #							class:$scope.formIntermediary.selectedClass._id
 
 					$scope.showSaveDone()
-					$ionicHistory.goBack()
+#					$ionicHistory.goBack()
 
 			else
 				console.log 'do nothing, overviewForm invalid'

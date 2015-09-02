@@ -14,7 +14,7 @@
 			<ion-item ng-repeat="exp in expeditions | orderBy:'-date'"
 			          ui-sref="app.expeditionSettings({expeditionID:exp._id})"
 			          class="item-text-wrap"
-			          ng-class="{'new':isNew(exp)}">
+			          ng-class="{selected:exp._id===expedition._id}">
 				{{exp.alias || getExpeditionTitle(exp)}}
 				<p ng-if="exp.alias">{{getExpeditionTitle(exp)}}</p>
 				<ion-option-button class="button-assertive" ng-click="deleteExpedition(exp)">Delete</ion-option-button>
