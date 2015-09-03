@@ -3,7 +3,9 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 	"$ionicPlatform"
 	"$cordovaCamera"
 	"$cordovaFile"
-	($q, $ionicPlatform, $cordovaCamera, $cordovaFile)->
+	"$cordovaFileTransfer"
+	"$timeout"
+	($q, $ionicPlatform, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, $timeout)->
 		class bopOfflineImageHelper
 			constructor:->
 
@@ -95,6 +97,76 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 					LocalOnlyImages.remove(id)
 					console.log 'deleted file record from local collection'
 
+
+			uploadPic:(id, progressCB)->
+				$q (resolve, reject)=>
+					basePath = cordova.file.dataDirectory
+					filename = id + '.jpg'
+					sourceFilepath = basePath + filename
+					console.log 'uploadPic sourceFilepath: ' + sourceFilepath
+					@getSignedAWSPolicy(filename)
+					.then (data)->
+						s3URL = "https://#{data.bucket}.s3.amazonaws.com/"
+						acl = 'public-read'
+
+						options =
+							fileKey: 'file'
+							fileName: filename
+							mimeType: 'image/jpeg'
+							chunkedMode: false
+							params:
+								key: filename
+								AWSAccessKeyId: data.accessKeyId
+								acl: acl
+								policy: data.policy
+								signature: data.signature
+								'Content-Type': 'image/jpeg'
+
+						$cordovaFileTransfer.upload(s3URL, sourceFilepath, options).then ((result) ->
+							console.log 'SUCCESS: ' + JSON.stringify(result.response)
+
+						), ((err) ->
+							console.error JSON.stringify(err)
+
+						), (progress) ->
+							# constant progress updates
+							$timeout ->
+								progressCB( progress.loaded / progress.total )
+
+
+
+			getSignedAWSPolicy:(filename)->
+				$q (resolve, reject)->
+					Meteor.call "sign", filename, (err, data)->
+						if err
+							console.error err
+							reject(err)
+						else
+							console.log 'data: ', data
+							resolve(data)
+
+			#snip ---------- start
+#			$scope.uploadFile = ->
+#				basePath = cordova.file.dataDirectory
+#				filename = id + '.jpg'
+#				uploadEndpointURL = "https://#{data.bucket}.s3.amazonaws.com/"
+#				sourceFilepath = basePath + filename
+#
+#
+#				$cordovaFileTransfer.upload(uploadEndpointURL, sourceFilepath, options).then ((result) ->
+#					console.log 'SUCCESS: ' + JSON.stringify(result.response)
+#					alert 'success'
+#					alert JSON.stringify(result.response)
+#
+#				), ((err) ->
+#					console.log 'ERROR: ' + JSON.stringify(err)
+#					alert JSON.stringify(err)
+#
+#				), (progress) ->
+#					# constant progress updates
+#					$timeout ->
+#						$scope.downloadProgress = progress.loaded / progress.total * 100
+			#snip ---------- end
 
 		locationHelper = new bopOfflineImageHelper()
 

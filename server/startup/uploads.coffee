@@ -1,4 +1,6 @@
+#TODO should I get rid of this file? I don't think we're using it anymore
 fs = Npm.require('fs')
+#TODO is there a meteor package we can also get rid of for uploads?
 
 uploadDir = process.env.PWD + '/.uploads/'
 

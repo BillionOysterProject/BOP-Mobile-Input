@@ -20,3 +20,5 @@ ground:db
 urigo:angular
 accounts-ui-unstyled
 meteoric:ionic-sass
+jparker:crypto-hmac
+jparker:crypto-sha1

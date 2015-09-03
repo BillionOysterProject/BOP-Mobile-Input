@@ -40,6 +40,9 @@
 				     >
 				<br>
 				<button class="button button-clear button-positive" ng-click="removePic(pic)">Remove</button>
+				<br>
+				<button class="button button-clear button-calm" ng-click="uploadPic(pic)">Upload to S3</button>
+				<bop-progress-bar ng-if="uploadingID == pic._id" p="uploadProgress"></bop-progress-bar>
 			</ion-item>
 		</ion-list>
 	</ion-content>
