@@ -123,7 +123,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$scope.expedition = $filter('orderBy')($scope.expeditions, '-date', false)[0]
 
 		$scope.showSaveDone = ->
-			toastr.success("Saved")
+			toastr.success 'Saved'
 
 		$scope.getMessage = (tplKey)->
 			Messages.findOne({tplKey:tplKey}).tpl
@@ -170,10 +170,10 @@ angular.module('app.example').controller 'AppCtrl', [
 			'positionClass': 'toast-bottom-center'
 			'preventDuplicates': false
 			'onclick': null
-			'showDuration': '150'
-			'hideDuration': '750'
-			'timeOut': '1000'
-			'extendedTimeOut': '1300'
+			'showDuration': 150
+			'hideDuration': 750
+			'timeOut': 1000
+			'extendedTimeOut': 1300
 			'showEasing': 'swing'
 			'hideEasing': 'linear'
 			'showMethod': 'fadeIn'
