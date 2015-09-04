@@ -8,8 +8,6 @@ angularui:angular-ui-router
 netanelgilad:ng-cordova
 coffeescript
 fourseven:scss
-tomi:upload-jquery
-tomi:upload-server
 peerlibrary:aws-sdk
 accounts-password
 angular:angular-messages
@@ -20,5 +18,3 @@ ground:db
 urigo:angular
 accounts-ui-unstyled
 meteoric:ionic-sass
-jparker:crypto-hmac
-jparker:crypto-sha1

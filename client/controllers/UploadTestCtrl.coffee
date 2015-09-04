@@ -5,15 +5,16 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 	'bopOfflineImageHelper'
 	($scope, $meteor, $timeout, bopOfflineImageHelper) ->
 		updateImages = ->
-			imageCursor = LocalOnlyImages.find();
-			imageCursor.forEach (imageMeta)->
-				do (imageMeta)->
-					#find all images in collection that aren't yet in the data url array (on startup, helps add images as they become known since collection isn't necessarily full initially)
-					if !_.findWhere($scope.images, {_id:imageMeta._id})
-						localPathToImage = bopOfflineImageHelper.getLocalPathForImageID(imageMeta._id)
-						bopOfflineImageHelper.getDataURI(localPathToImage)
-						.then (uri)->
-							$scope.images.push({_id:imageMeta._id, uri:uri})
+			idList = bopOfflineImageHelper.getAllLocalImageIDsForUser()
+
+			bopOfflineImageHelper.getDataURIByID(idList)
+			.then (dataURLs)->
+				for id, index in idList
+					# Find all images in collection that aren't yet in the data url* array (on startup, helps
+					# add images as they become known since collection isn't necessarily full initially – takes time for collection to fill up)
+					# *Note by 'data url' I mean the url that contains the full data of the image as base64
+					if !_.findWhere($scope.images, {_id:id})
+						$scope.images.push({_id:id, uri:dataURLs[index]})
 
 		$scope.addImages = (files)->
 			console.log 'saving picFile...'
@@ -52,10 +53,10 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 		$scope.images = []
 
 		#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
-		if LocalOnlyImages.find().count() > 0
+		if bopOfflineImageHelper.getTotalLocalImages() > 0
 			updateImages()
 		else
 			$timeout ->
 				updateImages()
-			, 1000
+			, 2000
 	]
