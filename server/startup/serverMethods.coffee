@@ -1,8 +1,11 @@
 awsConfig = null
+
 Assets.getText 'awsConfig.json', (err, result) ->
 	awsConfig = JSON.parse(result)
+	AWS.config.update(awsConfig)
 
 Meteor.methods
+	# this method is used for signing AWS S3 requests that the client makes directly to S3 – those client requests do not use the AWS S3 SDK, FYI
 	sign:(filename)->
 		bucket = "bop-upload-test"
 
