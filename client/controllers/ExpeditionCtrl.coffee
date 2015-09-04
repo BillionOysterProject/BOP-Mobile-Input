@@ -120,7 +120,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					.then saveExpedition
 					.then (insertedID)->
 						console.log 'insertedID: ' + insertedID
-						toastr.success("Expedition Created", null, {timeOut:'4000'})
+						toastr.success 'Expedition Created', null, timeOut:4000
 						$scope.changeExpedition(insertedID)
 					.catch (err)->
 						console.error(err)
@@ -145,7 +145,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.changeExpedition = (id)->
 			$scope.setCurrentExpeditionByID(id)
-			toastr.success("Switched Expeditions", null, {timeOut:'4000'})
+			toastr.success 'Switched Expeditions', null, timeOut:4000
 			$scope.navigateHome()
 
 		$scope.formIntermediary = {}
@@ -207,7 +207,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					borderColor: '#353535'
 					popupOnHover: true
 					popupTemplate: (geography, data) ->
-						'<div class="hoverinfo">Station: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
+						'<div class="hoverinfo">Site: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
 					fillOpacity: 1
 					highlightOnHover: true
 					highlightFillColor: '#E96057'
@@ -266,8 +266,8 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.mapPluginData = bubbles: siteBubbles
 			if siteName != ''
 				toastr.remove()
-				toastr.success siteName, null, timeOut: '4000'
-				toastr.warning 'Click Create to Continue', null, timeOut: '4000'
+				toastr.success siteName, null, timeOut: 4000
+				toastr.warning 'Click Create to Continue', null, timeOut: 4000
 			addClickHandlers()
 			return
 
