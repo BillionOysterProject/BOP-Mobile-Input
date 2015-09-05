@@ -14,9 +14,9 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 					@_captureCamera()
 					.then @_storePicLocally
 					.then (insertedID)=>
-						@getDataURIForLocalFilepath(@getLocalPathForImageID(insertedID))
+						@_getDataURIForLocalFilepath(@_getLocalPathForImageID(insertedID))
 						.then (dataURI)->
-							console.log '@getDataURIForLocalFilepath success, dataURI: ' + dataURI
+							console.log '@_getDataURIForLocalFilepath success, dataURI: ' + dataURI
 							resolve({_id:insertedID, uri:dataURI})
 
 					.catch (error)->
@@ -90,7 +90,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 				)
 #				console.log 'inserted obj: ', LocalOnlyImages.findOne(imageID)
 
-			getLocalPathForImageID:(id)->
+			_getLocalPathForImageID:(id)->
 				if cordova?
 					obj =
 						basePath:cordova.file.dataDirectory
@@ -102,7 +102,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 				obj
 
 			# @param localPathToImage i.e. filesystem path (not a URL) like: /foo/bar/foobar.jpg
-			getDataURIForLocalFilepath:(localPathToImage)->
+			_getDataURIForLocalFilepath:(localPathToImage)->
 				if cordova?
 					return $cordovaFile.readAsDataURL(localPathToImage.basePath, localPathToImage.filename)
 				else
@@ -116,7 +116,9 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 					idList.push imageMeta._id
 				idList
 
-			# Gets data urls that contain jpg binary data as base64 string that can be assigned directly to <img src="myURL"> (or ngSrc)
+			# An abstracted URL getter for given image id
+			# If id is in LocalOnlyImages collection, URL is a data url generated from an asset on the device' local filesystem
+			# Otherwise, URL is an absolute URL to the asset on S3
 			#
 			# If given id is a single id string then promise resolves with a single data url string
 			#
@@ -125,77 +127,124 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 			# If given id is an array of id strings then promise resolves with an array of data url strings
 			#
 			# @param id String id or array of string ids
-			getDataURIByID:(id)->
+			getURLForID:(singleOrMultipleID)->
+				# multiple ids
+				if singleOrMultipleID instanceof Array
+					idList = singleOrMultipleID
 
-				if id instanceof Array #if multiple
-					idList = id
-					promiseList = []
-					query =
-						owner:Meteor.userId()
-						_id:{$in:idList}
+					promises = []
 
-					imageCursor = LocalOnlyImages.find(query)
-					imageCursor.forEach (imageMeta)=>
-						localPathToImage = @getLocalPathForImageID(imageMeta._id)
+					for id in idList
+						if @_fileExistsLocally(id)
+							promises.push @_getDataURIByID(id)
+						else
+							console.log 'id ' + id + ' doesn\'t exist locally, getting remote url for it...'
+							remoteURLPromise = $q (resolve, reject)->
+								resolve("http://bop-upload-test.s3.amazonaws.com/#{id}.jpg")
+							promises.push remoteURLPromise
 
-						# adding promises in the forEach works with the assumption that cursor.forEach()
-						# is synchronous which it seems to be.
-						promiseList.push @getDataURIForLocalFilepath(localPathToImage)
+					console.log 'getURLForID returning a batch of ' + promises.length + ' promises'
+					return $q.all(promises)
 
-					promise = $q.all(promiseList)
+				# single id
+				else
+					id = singleOrMultipleID
+					if @_fileExistsLocally(id)
+						return @_getDataURIByID(id)
+					else
+						return $q (resolve, reject)-> resolve("https://bop-upload-test.s3.amazonaws.com/#{id}.jpg")
 
-				else if typeof id is "string"
+			# Gets data urls that contain jpg binary data as base64 string
+			# that can be assigned directly to <img src="myURL"> (or ngSrc)
+			# These urls are derived from jpg data stored on the local filesystem
+			#
+			# @see getURLForID
+			_getDataURIByID:(id)->
+				if typeof id is "string"
 					promise = $q (resolve, reject)=>
 						query =
 							_id:id
 							owner:Meteor.userId()
-						if @fileExistsLocally(id)
+						if @_fileExistsLocally(id)
 							#the image exists, get it
 							imageMeta = LocalOnlyImages.findOne(query)
-							localPathToImage = @getLocalPathForImageID(imageMeta._id)
-							@getDataURIForLocalFilepath(localPathToImage)
+							localPathToImage = @_getLocalPathForImageID(imageMeta._id)
+							@_getDataURIForLocalFilepath(localPathToImage)
 							.then (uri)->
 								resolve(uri)
 						else
-							#the id was a valid string but not found in the database so just return an empty result
-							resolve()
+							reject('no local data for given id, ' + id)
 
 				else
 					promise = $q (resolve, reject)->
-						reject('getDataURIByID() failed: id not a string id or array of ids')
+						reject('_getDataURIByID() failed: id not a string id or array of ids')
 
 				return promise
 
 			# Gets whether or not the image exists locally (based on whether or not if it's find in the local-only collection)
 			# It is assumed that the corresponding file is also not present on the filesystem.
-			fileExistsLocally:(id)->
+			_fileExistsLocally:(id)->
 				LocalOnlyImages.find({_id: id}, {limit:1}).count() > 0
 
+			#delete a picture, whether it's local or remote
 			removePic:(id)->
-				if cordova?
-					console.log 'removePic at ' + cordova.file.dataDirectory + id + '.jpg'
-					$cordovaFile.removeFile(cordova.file.dataDirectory, id + '.jpg')
-					.then ->
-						console.log 'successfully deleted file from local filesystem'
-						LocalOnlyImages.remove(id)
-						console.log 'deleted file record from local collection'
-				else #for desktop testing only
-					LocalOnlyImages.remove(id)
-					console.log 'deleted file record from local collection'
+				$q (resolve, reject)=>
+					console.log 'bopOfflineImageHelper#removePic id: ' + id
+					@_removeFileData(id)
+					.then =>
+						if @_fileExistsLocally(id)
+							LocalOnlyImages.remove(id)
+							console.log 'deleted file record from local collection'
 
-			uploadAllLocalPicsToS3:->
+						resolve()
+					.catch (err)->
+						reject(err)
+
+			#remove the pics from the device, leaving any copies that may exist on S3
+			removeAllLocalPics: ->
+				promises = []
+				idList = @getAllLocalImageIDsForUser()
+				promises.push(@removePic(id)) for id in idList
+				$q.all(promises)
+
+
+			_removeFileData:(id)->
+				console.log 'bopOfflineImageHelper#_removeFileData'
+				if @_fileExistsLocally(id)
+					if cordova?
+						return $cordovaFile.removeFile(cordova.file.dataDirectory, id + '.jpg')
+					else #for testing on desktop only
+						return $q (resolve, reject)->
+							resolve()
+				else
+					console.log 'file doesn\'t exist locally...'
+					return $q (resolve, reject)->
+						console.log ' calling deleteRemoteImage with id: ' + id
+						Meteor.call "deleteRemoteImage", id, (err, data)->
+							if err
+								console.error err
+								reject(err)
+							else
+								console.log 'data: ', data
+								resolve(data)
+
+
+			uploadAllLocalPicsToRemote:(progressCB)->
+				promises = []
 				imageCursor = LocalOnlyImages.find({owner:Meteor.userId()})
-#				imageCursor.forEach (imageMeta)->
-				#TODO
+				imageCursor.forEach (imageMeta)=>
+					promises.push @_uploadPic(imageMeta._id, progressCB)
 
-			uploadPic:(id, progressCB)->
+				$q.all(promises)
+
+			_uploadPic:(id, progressCB)->
 				$q (resolve, reject)=>
 					if cordova?
 						basePath = cordova.file.dataDirectory
 						filename = id + '.jpg'
 						sourceFilepath = basePath + filename
-						console.log 'uploadPic sourceFilepath: ' + sourceFilepath
-						@getSignedAWSPolicy(filename)
+						console.log '_uploadPic sourceFilepath: ' + sourceFilepath
+						@_getSignedAWSPolicy(filename)
 						.then (data)->
 							s3URL = "https://#{data.bucket}.s3.amazonaws.com/"
 	#						acl = 'public-read'
@@ -213,23 +262,24 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 									signature: data.signature
 									'Content-Type': 'image/jpeg'
 
-							$cordovaFileTransfer.upload(s3URL, sourceFilepath, options).then ((result) ->
-								console.log 'SUCCESS: ' + JSON.stringify(result.response)
+							$cordovaFileTransfer.upload(s3URL, sourceFilepath, options).then (result) ->
+								console.log 'SUCCESS: ' + JSON.stringify(result)
+								resolve()
 
-							), ((err) ->
+							, (err) ->
 								console.error JSON.stringify(err)
 
-							), (progress) ->
+							, (progress) ->
 								# constant progress updates
 								$timeout ->
-									progressCB( progress.loaded / progress.total )
+									progressCB( progress.loaded / progress.total, id )
 					else #desktop testing only
 						reject("can't upload pics when testing on desktop version")
 
 			getTotalLocalImages:->
 				LocalOnlyImages.find({owner:Meteor.userId()}).count()
 
-			getSignedAWSPolicy:(filename)->
+			_getSignedAWSPolicy:(filename)->
 				$q (resolve, reject)->
 					Meteor.call "sign", filename, (err, data)->
 						if err

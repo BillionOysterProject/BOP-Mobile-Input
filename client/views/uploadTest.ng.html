@@ -32,6 +32,11 @@
 		     <!--ng-src="{{pic.url()}}">-->
 		<!--<img ng-src="{{uri}}" width="320" height="320">-->
 
+		<button class="button button-calm" ng-click="uploadAll()">Upload all ({{totalToUpload()}})</button>
+		<span> {{combinedUploadProgress * 100 | number:0}}%</span>
+		<br>
+		<bop-progress-bar p="combinedUploadProgress"></bop-progress-bar>
+		<pre>{{progressMap | json}}</pre>
 		<ion-list>
 			<ion-item ng-repeat="pic in images track by pic._id" class="item-text-wrap">
 				<img class="preview"
@@ -41,8 +46,7 @@
 				<br>
 				<button class="button button-clear button-positive" ng-click="removePic(pic)">Remove</button>
 				<br>
-				<button class="button button-clear button-calm" ng-click="uploadPic(pic)">Upload to S3</button>
-				<bop-progress-bar ng-if="uploadingID == pic._id" p="uploadProgress"></bop-progress-bar>
+				<bop-progress-bar ng-if="progressMap[pic._id] > 0" p="progressMap[pic._id]"></bop-progress-bar>
 			</ion-item>
 		</ion-list>
 	</ion-content>

@@ -7,7 +7,7 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 		updateImages = ->
 			idList = bopOfflineImageHelper.getAllLocalImageIDsForUser()
 
-			bopOfflineImageHelper.getDataURIByID(idList)
+			bopOfflineImageHelper.getURLForID(idList)
 			.then (dataURLs)->
 				for id, index in idList
 					# Find all images in collection that aren't yet in the data url* array (on startup, helps
@@ -34,21 +34,72 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 			_.pull($scope.images, pic)
 			bopOfflineImageHelper.removePic(pic._id)
 
-		$scope.uploadPic = (pic)->
-			$scope.uploadingID = pic._id
+#		$scope.uploadPic = (pic)->
+#			#updated repeatedly while upload takes place
+#			# @param p 0 - 1
+#			progressCB = (p, id)->
+#				console.log 'uploading ' + id + '\t' + 'p: ' + Math.floor(p * 100)
+#
+#			bopOfflineImageHelper._uploadPic(pic._id, progressCB)
+#			.then ->
+#				console.log 'UploadTestCtrl#uploadPic complete'
+#			.catch (err)->
+#				console.error 'UploadTestCtrl#uploadPic error: ', err
+
+		$scope.totalToUpload = ->
+			bopOfflineImageHelper.getTotalLocalImages()
+
+		$scope.uploadAll = ->
+			localIDList = bopOfflineImageHelper.getAllLocalImageIDsForUser()
+			initProgressMap = ->
+				$scope.progressMap = {}
+				$scope.progressMap[id] = 0 for id in localIDList
+
+			initProgressMap()
+
+			$scope.combinedUploadProgress = 0
 
 			#updated repeatedly while upload takes place
 			# @param p 0 - 1
-			progressCB = (p)->
-				$scope.uploadProgress = p
+			progressCB = (p, id)->
+				$scope.progressMap[id] = p
 
-			bopOfflineImageHelper.uploadPic(pic._id, progressCB)
+				progressSum = 0
+				(progressSum += $scope.progressMap[id]) for id in localIDList
+
+				$timeout ->
+					$scope.combinedUploadProgress = progressSum / localIDList.length
+
+			processRemoteURLs = (remoteURLs)->
+				console.log 'remoteURLs: ' + remoteURLs
+				picObjects = []
+				for id, index in uploadedIDs
+					picObjects.push {_id:id, uri:remoteURLs[index]}
+
+				$scope.images = picObjects
+
+			uploadedIDs = localIDList #reuse id list – makes more sense semantically below
+
+			bopOfflineImageHelper.uploadAllLocalPicsToRemote(progressCB)
 			.then ->
-				console.log 'UploadTestCtrl#uploadPic complete'
+				console.log 'uploadAllLocalPicsToRemote complete. Removing all local pics...'
+				bopOfflineImageHelper.removeAllLocalPics()
+
+			.then ->
+				console.log 'uploadedIDs: ' + uploadedIDs
+				bopOfflineImageHelper.getURLForID(uploadedIDs)
+
+			.then processRemoteURLs
+			.then ->
+				console.log 'UploadTestCtrl#uploadAll complete'
+				$scope.combinedUploadProgress = 1
+
 			.catch (err)->
-				console.error 'UploadTestCtrl#uploadPic error: ', err
+				console.error 'UploadTestCtrl#uploadAll error: ', err
+
 			.finally ->
-				$scope.uploadingID = null
+				$scope.combinedUploadProgress = 0
+				initProgressMap()
 
 		$scope.images = []
 
