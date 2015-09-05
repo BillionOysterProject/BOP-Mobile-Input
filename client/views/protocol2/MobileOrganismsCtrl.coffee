@@ -14,15 +14,9 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 
 		$scope.organismCategories = _.unique((org.category for org in $scope.organisms), true)
 
-		#TODO might want to move this into the db
-		$scope.organismCategoriesFileMap =
-			Crustaceans:"filter-crustaceans.svg"
-			Fish:"filter-fish.svg"
-			Molluscs:"filter-molluscs.svg"
-			Sponges:"filter-sponges.svg"
-			Tunicates:"filter-tunicates.svg"
-			Worms:"filter-worms.svg"
-
+		#svg files for filter icons need to be named as filter-category-organism.svg
+		$scope.organismCategoriesFileName = (cat)->
+			'/images/protocol2/mobileOrganisms/filterIcons/filter-' + cat.toLowerCase().replace(' ', '-') + '.svg'
 
 		$scope.increment = (id)->
 			org = $scope.section.organisms[id]
