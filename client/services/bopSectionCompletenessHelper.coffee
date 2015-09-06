@@ -14,7 +14,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					weather:5
 					rainfall:3
 					tide:6
-					water:4
+					water:13
 					land:5
 					observations:1
 					waterQuality:8 # total indicators - at least one for each, regardless of method used
@@ -72,7 +72,11 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 						fieldCount++ if section.waterColor?
 						fieldCount++ if section.oilSheen?
 						fieldCount++ if section.waterGarbage?
-						fieldCount++ if section.sewerDrainLocations? and section.sewerDrainLocations.length > 0
+						console.log 'TODO: Water conditions completeness helper needs fixing'
+						fieldCount++ if section.sewerDrainsNear?
+						fieldCount++ if section.pipeDiameter?
+						fieldCount++ if section.pipeFlow?
+						fieldCount++ if section.pipeFlowAmount?
 
 					when 'land'
 						fieldCount++ if section.shorelineTypes? and section.shorelineTypes.length > 0
