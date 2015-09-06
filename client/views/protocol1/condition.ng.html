@@ -12,7 +12,7 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
-				<h5 class="padding">Bioaccumulation on cage:</h5>
+				<h4 class="padding">Bioaccumulation on cage: <span class="selectedText">{{section.bioaccumulation | toBioAccumulationName}}</span></h4>
 				<div class="imageGrid">
 					<div class="row">
 						<div class="col text-right">
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<label class="item item-input item-stacked-label item-text-wrap"
 				       ng-class="{ 'has-error' : sectionForm.damageDescription.$invalid && sectionForm.$submitted}">
 					<span class="input-label">Note any damage to cage:</span>
