@@ -12,8 +12,8 @@
 			          class="section item-text-wrap"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
 				<i class="icon {{::section.icon}} title"></i>
-				{{::$index + 1}}. {{::section.title}}
-				<span class="item-note">{{::getCompleteness(section.machineName) * 100 | number}}%</span>
+				{{::$index + 1}}. {{::section.title}}<br />
+				<bop-progress-bar p="::getCompleteness(section.machineName)"></bop-progress-bar>
 			</ion-item>
 		</ion-list>
 	</ion-content>
