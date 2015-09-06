@@ -26,6 +26,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		$scope.onTapSave = (form) ->
 			if form.$valid
 				if isNew
+					#TODO Could this be built up automatically in a loop from the MetaProtocols collection documents?
 					#create protocol section documents ------ start
 					sections = [
 						#protocol 1.1
@@ -71,6 +72,10 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 						#protocol 4.5
 						owner: Meteor.userId()
 						machineName:'land'
+					,
+						#protocol 4.6
+						owner: Meteor.userId()
+						machineName:'otherObservations'
 					,
 						#protocol 5.1
 						owner: Meteor.userId()

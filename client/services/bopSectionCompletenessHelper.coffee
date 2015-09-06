@@ -16,7 +16,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					tide:6
 					water:13
 					land:5
-					observations:1
+					otherObservations:1
 					waterQuality:8 # total indicators - at least one for each, regardless of method used
 					sediment:3
 
@@ -86,8 +86,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 						fieldCount++ if section.landGarbage?
 
 					when 'otherObservations'
-						#fieldCount++ if section.siteObservations?
-						fieldCount++
+						fieldCount++ if section.otherObservations? and section.otherObservations.length > 0
 
 					when 'waterQuality'
 						if section.indicators?
