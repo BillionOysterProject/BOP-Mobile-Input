@@ -43,7 +43,7 @@ angular.module('app.example').controller 'WeatherCtrl', [
 				if $scope.formIntermediary.windDirection?
 					$scope.section.windDirection = $scope.formIntermediary.windDirection.label
 
-				$scope.saveSection(['humidityPct','machineName','temperatureF','weatherCondition','windDirection','windSpeed'])
+				$scope.saveSection(['humidityPct','machineName','temperature','weatherCondition','windDirection','windSpeed'])
 				$scope.showSaveDone()
 				$scope.back()
 			else
