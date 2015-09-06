@@ -15,7 +15,7 @@
 				<!-- depth -->
 				<label class="item item-input item-stacked-label item-text-wrap"
 				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Submerged depth of cage at time of monitor (length of wet line - from surface to cage):</span>
+					<span class="input-label">Submerged depth of cage (m):</span>
 
 					<input type="number"
 					       name="submergedDepth"
@@ -30,28 +30,6 @@
                          <!--min="0" max="100" ></div>-->
 				</label>				<!-- depth -->
 
-				<label class="item item-input item-stacked-label item-text-wrap"
-				     ng-class="{ 'has-error' : sectionForm.avgDepth.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Average depth of cage (observe degrees of fouling along top section of line):</span>
-
-					<input type="number"
-					       name="avgDepth"
-	                       ng-model="section.avgDepth"
-	                       placeholder="0"
-	                       min="0" max="100">
-
-					<!--<div samsung-fix-->
-					     <!--name="avgDepth"-->
-                         <!--ng-model="section.avgDepth"-->
-                         <!--is-samsung="isSamsung"-->
-                         <!--min="0" max="100" ></div>-->
-				</label>
-				<div ng-messages="sectionForm.avgDepth.$error"
-				     class="form-errors"
-				     ng-show="sectionForm.avgDepth.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="max">{{getMessage('metersCheck')}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
 
 				<button class="button button-full button-calm"
 				        padding="true"
