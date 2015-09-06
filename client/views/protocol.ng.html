@@ -12,7 +12,7 @@
 			          class="section item-text-wrap"
 			          ui-sref="app.{{section.machineName}}({protocolNum:protocol.num, sectionMachineName:section.machineName})">
 				<i class="icon {{::section.icon}} title"></i>
-				{{::$index + 1}}. {{::section.title}}<br />
+				{{::$index + 1}}. {{::section.title}}
 				<bop-progress-bar p="::getCompleteness(section.machineName)"></bop-progress-bar>
 			</ion-item>
 		</ion-list>
