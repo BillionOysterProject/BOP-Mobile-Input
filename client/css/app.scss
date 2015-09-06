@@ -99,3 +99,8 @@
 		font-size: 25px;
 	}
 }
+
+//move toasts up from bottom so they aren't covering Create etc buttons
+.toast-bottom-center {
+	bottom: 50px !important;
+}

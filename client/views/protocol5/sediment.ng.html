@@ -14,68 +14,86 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
-				<!-- sediment volume ____________ start -->
-				<label class="item item-input item-stacked-label"
-				       ng-class="{ 'has-error' : sectionForm.outfallGPM.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Sediment volume (cm&sup3;)</span>
-					<input name="volume"
-					       type="number"
-					       ng-model="section.volume"
-					       ng-change="updateVolumeRate(sectionForm)"
-					       placeholder="0"
-					       min="0"
-					       max="100">
+				<div class="item item-divider">Describe the appearance of the accumulated sediment on the inside of the sediment tube</div>
+
+				<!-- The  | orderObjectBy:'order':false is not currently being used - that property is not yet in the DB -->
+
+				<!-- smell-->
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.smell.$invalid && sectionForm.$submitted}">
+					<div class="input-label"><i class="icon ion-coffee"></i> Smell</div>
+					<select name="smell"
+					        ng-options="option.label for option in sedimentOptions.smells.options | orderObjectBy:'order':false"
+					        ng-model="formIntermediary.smell"></select>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.volume.$error"
-				     ng-show="sectionForm.volume.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="max">{{getMessage('unlikely')}}</div>
+				<div class="form-errors" ng-messages="sectionForm.smell.$error"
+				     ng-show="sectionForm.smell.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<!-- n days collected ____________ start -->
-				<label class="item item-input item-text-wrap item-stacked-label"
-				       ng-class="{ 'has-error' : sectionForm.daysCollected.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Number of days sediment was collected</span>
-					<input name="daysCollected"
-					       type="number"
-					       ng-model="section.daysCollected"
-					       ng-change="updateVolumeRate(sectionForm)"
-					       placeholder="0"
-					       min="0">
+				<!-- color-->
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.color.$invalid && sectionForm.$submitted}">
+					<div class="input-label"><i class="icon ion-android-color-palette"></i> Color</div>
+					<select name="color"
+					        ng-options="option.label for option in sedimentOptions.colors.options | orderObjectBy:'order':false"
+					        ng-model="formIntermediary.color"></select>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.daysCollected.$error"
-				     ng-show="sectionForm.daysCollected.$invalid && sectionForm.$submitted">
+				<div class="form-errors" ng-messages="sectionForm.color.$error"
+				     ng-show="sectionForm.color.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<!-- calculated ____________ start -->
-				<div ng-show="sectionForm.volume.$valid && sectionForm.daysCollected.$valid"
-				     class="calculated-fields bop-units-right">
-					<label class="item item-input item-text-wrap">
-						<span class="input-label">Rate per day: </span>
-						<input name="volumeRate"
-						       type="text"
-						       class="text-right"
-						       ng-model="volumeRateDisplay"
-						       ng-init="updateVolumeRate(sectionForm)"
-						       tabindex="-1"
-						       readonly>
-						cm&sup3;
+				<!-- texture-->
+				<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : sectionForm.texture.$invalid && sectionForm.$submitted}">
+					<div class="input-label"><i class="icon ion-android-hand"></i> Texture</div>
+					<select name="texture"
+					        ng-options="option.label for option in sedimentOptions.textures.options | orderObjectBy:'order':false"
+					        ng-model="formIntermediary.texture"></select>
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.texture.$error"
+				     ng-show="sectionForm.texture.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<!-- organisms-->
+				<div class="item item-divider"><i class="icon ion-bug"></i> Organisms</div>
+				<ion-checkbox ng-repeat="option in sedimentOptions.organisms.options | orderObjectBy:'order':false track by option.machineName"
+				              ng-model="formIntermediary.organisms[option.machineName]">{{option.label}}</ion-checkbox>
+				<div class="form-errors" ng-messages="sectionForm.organisms.$error"
+				     ng-show="sectionForm.organisms.$invalid && sectionForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<div ng-if="formIntermediary.organisms.other">
+					<label class="item item-input item-stacked-label item-text-wrap"
+					       ng-class="{ 'has-error' : sectionForm.organismsDescOther.$invalid && sectionForm.$submitted}"
+							>
+						<span class="input-label">Other Organism Description</span>
+
+						<textarea name="organismsDescOther"
+						          ng-model="section.organismsDescOther"
+						          msd-elastic="\n"></textarea>
 					</label>
+					<div class="form-errors" ng-messages="sectionForm.organismsDescOther.$error"
+					     ng-show="sectionForm.organismsDescOther.$invalid && sectionForm.$submitted">
+						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+					</div>
 				</div>
 
-				<!-- appearance description ____________ start -->
-				<label class="item item-input item-stacked-label item-text-wrap"
-				       ng-class="{ 'has-error' : sectionForm.garbageDescription.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Describe appearance of sediment</span>
+				<!-- notes-->
+				<div class="item item-divider"><i class="icon ion-document-text"></i> Notes</div>
+				<label class="item item-divider item-stacked-label item-text-wrap"
+				       ng-class="{ 'has-error' : sectionForm.notes.$invalid && sectionForm.$submitted}">
 
-					<textarea name="sedimentDescription"
-					          placeholder="{{getMessage('sedimentDescPlaceholder')}}"
-					          ng-model="section.sedimentDescription"
+					<textarea name="notes"
+					          placeholder="{{getMessage('sedimentNotesPlaceholder')}}"
+					          ng-model="section.notes"
 					          msd-elastic="\n"></textarea>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.sedimentDescription.$error"
-				     ng-show="sectionForm.sedimentDescription.$invalid && sectionForm.$submitted">
+				<div class="form-errors" ng-messages="sectionForm.notes.$error"
+				     ng-show="sectionForm.notes.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 

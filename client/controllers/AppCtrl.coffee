@@ -238,6 +238,16 @@ angular.module('app.example').controller 'AppCtrl', [
 						resolve()
 				, 100
 
+		getMetaSedimentOptions = ->
+			$q (resolve, reject)->
+				Meteor.subscribe('MetaSedimentOptions')
+
+				stop = $interval ->
+					if MetaSedimentOptions.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
+
 		getOrganisms = ->
 			$q (resolve, reject)->
 				Meteor.subscribe 'Organisms'
@@ -257,6 +267,7 @@ angular.module('app.example').controller 'AppCtrl', [
 #			.then initOrganisms
 			.then getMetaWaterQualityIndicators
 			.then getMetaWeatherConditions
+			.then getMetaSedimentOptions
 			.then getSites
 			.then getProtocolSections
 			.then getUserExpeditions
