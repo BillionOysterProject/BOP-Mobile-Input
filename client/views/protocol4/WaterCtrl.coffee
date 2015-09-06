@@ -48,6 +48,7 @@ angular.module('app.example').controller 'WaterCtrl', [
 		#$scope.section.sewerDrainLocations ?= []
 		#$scope.formIntermediary.sewerDrainsNear = $scope.section.sewerDrainLocations.length > 0
 
+		$scope.formIntermediary.oilSheen = $scope.section.oilSheen
 		$scope.formIntermediary.waterGarbage = $scope.section.waterGarbage
 		$scope.formIntermediary.sewerDrainsNear = $scope.section.sewerDrainsNear
 		$scope.formIntermediary.pipeFlow = $scope.section.pipeFlow
@@ -70,6 +71,7 @@ angular.module('app.example').controller 'WaterCtrl', [
 				$scope.section.waterGarbage = $scope.formIntermediary.waterGarbage
 				$scope.section.sewerDrainsNear = $scope.formIntermediary.sewerDrainsNear
 				$scope.section.pipeFlow = $scope.formIntermediary.pipeFlow
+				$scope.section.pipeFlowAmount = $scope.formIntermediary.pipeFlowAmount?.label
 
 				sectionsToSave = ['waterColor', 'waterGarbage', 'oilSheen', 'sewerDrainsNear', 'pipeDiameter', 'pipeFlow', 'pipeFlowAmount']
 
