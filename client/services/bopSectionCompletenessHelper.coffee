@@ -18,7 +18,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					land:5
 					otherObservations:1
 					waterQuality:8 # total indicators - at least one for each, regardless of method used
-					sediment:3
+					sediment:4
 
 			# Gets completeness of a section as a percentage, 0-1
 			getSectionCompleteness:(id, machineName) ->
@@ -99,9 +99,10 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 							fieldCount++ if section.indicators.ammonia?.totalSamples > 0
 
 					when 'sediment'
-						fieldCount++ if section.volume?
-						fieldCount++ if section.daysCollected?
-						fieldCount++ if section.sedimentDescription? and section.sedimentDescription.length > 0
+						fieldCount++ if section.smell?
+						fieldCount++ if section.color?
+						fieldCount++ if section.texture?
+						fieldCount++ if section.organisms? and section.organisms.length >0
 
 					else
 						console.warn "Unknown section, '#{machineName}'"
