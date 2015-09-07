@@ -110,12 +110,14 @@ angular.module('app.example').controller 'AppCtrl', [
 				$ionicSideMenuDelegate.toggleLeft(false)
 
 				if Expeditions.find().count() > 0
-#					$state.go('app.home')
-					$state.go('app.uploadTest')
+					$state.go('app.home')
 				else
 					$state.go('app.expeditions')
 
 				$ionicHistory.clearHistory()
+
+		$scope.isLocalDev = ->
+			location.host.indexOf(':3000') isnt -1
 
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);

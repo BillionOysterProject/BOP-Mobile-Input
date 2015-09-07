@@ -45,8 +45,7 @@ angular.module('app.example').config [
 #						console.log 'Meteor.userId(): ' + Meteor.userId()
 						if Meteor.userId()
 							if Expeditions.find().count() > 0
-#								$state.go('app.home')
-								$state.go('app.uploadTest')
+								$state.go('app.home')
 							else
 								$state.go('app.expeditions')
 
