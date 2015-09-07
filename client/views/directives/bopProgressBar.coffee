@@ -13,8 +13,14 @@ angular.module('app.example').directive 'bopProgressBar', [
 				p:'='
 
 			link:($scope, element, attrs)->
+				updateWidth = ->
+					element.find('.inner').css('width', Math.floor($scope.p * 100) + '%')
+
+				$scope.$watch 'p', ->
+					updateWidth()
+
 				element.addClass('bop-progress-bar')
-				element.find('.inner').css('width', Math.floor($scope.p * 100) + '%')
+				updateWidth()
 
 		return def
 	]

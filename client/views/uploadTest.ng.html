@@ -1,0 +1,53 @@
+<ion-view title="UL Test" class="uploadTest">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<!--<ion-nav-buttons side="right">-->
+		<!--<button class="button button-clear button-positive" ng-click="removeAllImages()">Remove All</button>-->
+	<!--</ion-nav-buttons>-->
+	<ion-content class="has-header padding">
+		<img class="preview"
+		     ngf-src="picFile"
+		     ngf-default-src="/images/placeholder.svg"
+		     ngf-accept="'image/*'">
+
+		<!--<div class="button button-calm"-->
+		     <!--ngf-select-->
+		     <!--ng-model="picFile"-->
+		     <!--ngf-multiple="false">Select File</div>-->
+		<!--<div class="button button-calm"-->
+		     <!--ngf-select-->
+		     <!--ngf-change="addImages($files)"-->
+		     <!--ngf-multiple="false">Select File</div>-->
+		<button class="button button-calm" ng-click="takePic()">Take Picture</button>
+		<p>picFile.name: {{picFile.name}}</p>
+
+		<h2>Data Images:</h2>
+		<!--<img ng-repeat="pic in dataImages track by pic._id"
+		     class="item-text-wrap thumb"
+		     hires="{{pic.url( {store:'thumb'} )}}"
+		     ng-src="/images/placeholder2.svg">-->
+		<!--<img ng-repeat="pic in dataImages track by pic._id"-->
+		     <!--class="item-text-wrap thumb"-->
+		     <!--ng-src="{{pic.url()}}">-->
+		<!--<img ng-src="{{uri}}" width="320" height="320">-->
+
+		<button class="button button-calm" ng-click="uploadAll()">Upload all ({{totalToUpload()}})</button>
+		<span> {{combinedUploadProgress * 100 | number:0}}%</span>
+		<br>
+		<bop-progress-bar p="combinedUploadProgress"></bop-progress-bar>
+		<pre>{{progressMap | json}}</pre>
+		<ion-list>
+			<ion-item ng-repeat="pic in images track by pic._id" class="item-text-wrap">
+				<img class="preview"
+				     ng-src="{{pic.uri}}"
+				     width="50"
+				     >
+				<br>
+				<button class="button button-clear button-positive" ng-click="removePic(pic)">Remove</button>
+				<br>
+				<bop-progress-bar ng-if="progressMap[pic._id] > 0" p="progressMap[pic._id]"></bop-progress-bar>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

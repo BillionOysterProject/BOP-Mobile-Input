@@ -14,7 +14,10 @@ App.info({
 });
 
 App.accessRule("http://maps.googleapis.com");
-App.accessRule("http://bop-images.s3-website-us-west-1.amazonaws.com");
+App.accessRule("https://bop-upload-test.s3.amazonaws.com/*");
+App.accessRule("https://bop-images.s3.amazonaws.com/*");
+App.accessRule("http://bop-upload-test.s3.amazonaws.com/*");
+App.accessRule("http://bop-images.s3.amazonaws.com/*");
 App.accessRule("http://meteor.local/*");
 
 

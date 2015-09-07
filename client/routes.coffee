@@ -18,6 +18,14 @@ angular.module('app.example').config [
 					templateUrl: 'client/views/menu.ng.html'
 					controller: 'AuthCtrl'
 
+		.state 'app.uploadTest',
+			cache:false
+			url: '/uploadTest'
+			views:
+				'menuContent':
+					templateUrl: 'client/views/uploadTest.ng.html'
+					controller: 'UploadTestCtrl'
+
 		.state 'auth.lobby',
 #			cache:false
 			url: '/'

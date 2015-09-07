@@ -116,6 +116,9 @@ angular.module('app.example').controller 'AppCtrl', [
 
 				$ionicHistory.clearHistory()
 
+		$scope.isLocalDev = ->
+			location.host.indexOf(':3000') isnt -1
+
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);
 
@@ -183,6 +186,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'Expeditions'
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if Expeditions.find().count() > 0
 						$interval.cancel(stop)
@@ -193,6 +197,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'Messages'
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if Messages.find().count() > 0
 						$interval.cancel(stop)
@@ -212,6 +217,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'ProtocolSection'
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if ProtocolSection.find().count() > 0
 						$interval.cancel(stop)
@@ -222,6 +228,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'MetaWaterQualityIndicators'
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if MetaWaterQualityIndicators.find().count() > 0
 						$interval.cancel(stop)
@@ -232,6 +239,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe('MetaWeatherConditions')
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if MetaWeatherConditions.find().count() > 0
 						$interval.cancel(stop)
@@ -242,6 +250,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'Organisms'
 
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
 				stop = $interval ->
 					if Organisms.find().count() > 0
 						$interval.cancel(stop)

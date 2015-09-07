@@ -25,6 +25,9 @@
 					My Expeditions
 					<span class="badge badge-positive">{{getTotalExpeditions()}}</span>
 				</ion-item>
+				<ion-item ng-if="isLocalDev()" nav-clear menu-close ui-sref="app.uploadTest">
+					Offline Images Demo
+				</ion-item>
 				<ion-item ng-click="logout()">
 					Logout
 					<p>{{getUserEmail()}}</p>
