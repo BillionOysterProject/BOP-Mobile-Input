@@ -117,7 +117,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				$ionicHistory.clearHistory()
 
 		$scope.isLocalDev = ->
-			location.host.indexOf(':3000') isnt -1
+			Meteor.absoluteUrl().indexOf(':3000') isnt -1
 
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $meteor.object(Expeditions, id, false);
