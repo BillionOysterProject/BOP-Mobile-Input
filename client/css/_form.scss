@@ -101,3 +101,35 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+//styling for inline radio buttons
+.list.list-inline {
+  @include display-flex();
+  @include flex-direction(row);
+  @include flex-wrap(nowrap);
+  width: 100%;
+  margin-bottom: 0 !important;
+
+  .item {
+    @include flex();
+    font-size: inherit;
+  }
+
+  /* Radio item */
+  .item-radio {
+    .item-content {
+      /* give some room to the right for the checkmark icon */
+      padding: $item-padding - 4;
+      padding-right: $item-padding;
+    }
+
+    .radio-icon {
+      /* checkmark icon will be hidden by default */
+      padding: floor($item-padding / 3);
+    }
+  }
+}
+
+.selectedText {
+  color:#E96057;
+}

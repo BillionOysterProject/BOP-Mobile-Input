@@ -18,7 +18,7 @@
 						Name of site
 					</div>
 					<select name="site"
-					        ng-options="site.label for site in sites track by site._id"
+					        ng-options="site.label for site in sites | orderObjectBy:'label':false track by site._id"
 					        ng-model="formIntermediary.selectedSite"
 					        ng-change="updateBubbles()"></select>
 				</label>
@@ -39,6 +39,7 @@
 				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
 
 				<button class="button button-full button-calm"
+						style="margin:0"
 				        padding="true"
 				        type="submit"
 				        >Create</button>

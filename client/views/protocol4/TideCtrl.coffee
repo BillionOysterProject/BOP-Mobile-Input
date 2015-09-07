@@ -14,15 +14,18 @@ angular.module('app.example').controller 'TideCtrl', [
 #			'high'
 #		]
 
-		$scope.castTideEstimateToNum = ->
-			$scope.section.estimate = Number($scope.section.estimate)
+#		$scope.castTideEstimateToNum = ->
+#			$scope.section.estimate = Number($scope.section.estimate)
 
-		$scope.castTideSpeedToNum = ->
-			$scope.section.speed = Number($scope.section.speed)
+#		$scope.castTideSpeedToNum = ->
+#			$scope.section.speed = Number($scope.section.speed)
 
-		$scope.section.estimate ?= 0
-		$scope.section.speed ?= 1
-		$scope.section.direction ?= 'slack'
+		$scope.section.tideLevel ?= null
+		$scope.section.pmHighTideHeight ?= null
+		$scope.section.pmHighTideTime ?= null
+		$scope.section.currentDistance ?= null
+		$scope.section.currentTime ?= null
+		$scope.section.direction ?= null
 
 
 		#an object to bind certain things to that we don't want directly bound to the meteor model.
@@ -31,7 +34,7 @@ angular.module('app.example').controller 'TideCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.saveSection ['estimate', 'direction', 'speed']
+				$scope.saveSection ['tideLevel', 'pmHighTideHeight', 'pmHighTideTime', 'currentDistance', 'currentTime', 'direction']
 				$scope.showSaveDone()
 				$scope.back()
 

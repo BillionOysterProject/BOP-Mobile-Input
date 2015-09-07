@@ -27,104 +27,109 @@
 				<!--<h2>TODO: Take a landscape photo of the water</h2>-->
 
 				<label class="item item-input item-select"
-				       ng-class="{ 'has-error' : sectionForm.waterColour.$invalid && sectionForm.$submitted}">
+				       ng-class="{ 'has-error' : sectionForm.waterColor.$invalid && sectionForm.$submitted}">
 					<div class="input-label">Water Color</div>
-					<select name="waterColour"
-					        ng-options="colour.label for colour in waterColours"
-					        ng-model="formIntermediary.waterColour"></select>
+					<select name="waterColor"
+					        ng-options="color.label for color in waterColors"
+					        ng-model="formIntermediary.waterColor"></select>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.waterColour.$error"
-				     ng-show="sectionForm.waterColour.$invalid && sectionForm.$submitted">
+				<div class="form-errors" ng-messages="sectionForm.waterColor.$error"
+				     ng-show="sectionForm.waterColor.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
 
-				<ion-checkbox name="recentRain72h"
-				              ng-model="section.oilSheen">Oil sheen present</ion-checkbox>
-
-				<label class="item item-input item-stacked-label item-text-wrap"
-				       ng-class="{ 'has-error' : sectionForm.garbageDescription.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Describe the type and extent of garbage on the water</span>
-
-					<textarea name="garbageDescription"
-					          placeholder="{{getMessage('garbageDescPlaceholderWater')}}"
-					          ng-model="section.garbageDescription"
-					          msd-elastic="\n"></textarea>
-				</label>
-				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
-				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted">
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				<div class="item item-divider">
+					Oil sheen present
 				</div>
+				<div class="list list-inline">
+					<ion-radio name="oilSheen" value=""
+					              ng-model="formIntermediary.oilSheen">No</ion-radio>
+					<ion-radio name="oilSheen" value="1"
+					              ng-model="formIntermediary.oilSheen">Yes</ion-radio>
+				</div>
+
+				<div class="item item-divider">
+					Is there any garbage in the water?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="waterGarbage"
+					              class="item-text-wrap"
+					              value=""
+					              ng-model="formIntermediary.waterGarbage">No</ion-radio>
+					<ion-radio name="waterGarbage"
+					              class="item-text-wrap"
+					              value="1"
+					              ng-model="formIntermediary.waterGarbage">Yes</ion-radio>
+				</div>
+				<div ng-if="formIntermediary.waterGarbage" class="item item-divider">
+					Identify the quantity of each type of garbage
+				</div>
+				<div ng-if="formIntermediary.waterGarbage">
+					<div ng-repeat="garbageType in garbageTypes">
+						<label class="item item-input item-select">
+							<div class="input-label" ng-bind="garbageType.label"></div>
+							<select name="garbageType.name"
+							        ng-options="garbageQuantity.label for garbageQuantity in garbageQuantities track by garbageQuantity.value"
+							        ng-model="section[garbageType.name]"></select>
+						</label>
+					</div>
+				</div>
+
+
+
 
 				<!-- sewer drains ____________ start -->
-				<ion-checkbox name="sewerDrainsNear"
-				              class="item-text-wrap"
-				              ng-model="formIntermediary.sewerDrainsNear">Active sewer drains or outfalls observed in vicinity of site</ion-checkbox>
-				<div ng-if="formIntermediary.sewerDrainsNear">
-					<div class="item item-input bop-icon-right item-text-wrap"
-					     ng-class="{ 'has-error' : sectionForm.sewerDrainLocation.$invalid && sectionForm.$submitted}">
-						<span class="input-label">Drain Location</span>
-						<input name="sewerDrainLocation"
-						       type="text"
-						       placeholder="lat,lng"
-						       ng-model="section.sewerDrainLocations[0].location"
-						       latlng
-						       >
-						<span class="input-label button button-clear button-positive icon ion-pinpoint"
-						        ng-click="setDrainLocationUsingGPS()"></span>
-					</div>
-					<div class="form-errors" ng-messages="sectionForm.sewerDrainLocation.$error"
-					     ng-show="sectionForm.sewerDrainLocation.$invalid && sectionForm.$submitted">
-						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-					</div>
-
-					<label class="item item-input item-stacked-label"
-					       ng-class="{ 'has-error' : sectionForm.outfallGPM.$invalid && sectionForm.$submitted}">
-						<span class="input-label">Approximate volume of outfall (GPM)</span>
-						<input name="outfallGPM"
-						       type="number"
-						       ng-model="section.sewerDrainLocations[0].outfallGPM"
-	                           min="0">
-					</label>
-					<div class="form-errors" ng-messages="sectionForm.outfallGPM.$error"
-					     ng-show="sectionForm.outfallGPM.$invalid && sectionForm.$submitted">
-						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-					</div>
+				<div class="item item-divider">
+					Are there any sewer or outfall pipes?
 				</div>
-
-				<!-- polution alert ____________ start -->
-				<ion-checkbox name="pollutionDrainsNear"
-				              class="item-text-wrap"
-				              ng-model="formIntermediary.pollutionDrainsNear">Pollution Alert</ion-checkbox>
-				<div ng-if="formIntermediary.pollutionDrainsNear">
-					<div class="item item-input bop-icon-right item-text-wrap"
-					     ng-class="{ 'has-error' : sectionForm.pollutionDrainLocation.$invalid && sectionForm.$submitted}">
-						<span class="input-label">Drain Location</span>
-						<input name="pollutionDrainLocation"
-						       type="text"
-						       placeholder="lat,lng"
-						       ng-model="section.pollutionDrainLocations[0].location"
-						       latlng
-						       >
-						<span class="input-label button button-clear button-positive icon ion-pinpoint"
-						        ng-click="setPollutionDrainLocationUsingGPS()"></span>
-					</div>
-					<div class="form-errors" ng-messages="sectionForm.pollutionDrainLocation.$error"
-					     ng-show="sectionForm.pollutionDrainLocation.$invalid && sectionForm.$submitted">
-						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-					</div>
-
+				<div class="list list-inline">
+					<ion-radio name="sewerDrainsNear"
+					              class="item-text-wrap"
+					              value=""
+					              ng-model="formIntermediary.sewerDrainsNear">No</ion-radio>
+					<ion-radio name="sewerDrainsNear"
+					              class="item-text-wrap"
+					              value="1"
+					              ng-model="formIntermediary.sewerDrainsNear">Yes</ion-radio>
+				</div>
+				<div ng-if="formIntermediary.sewerDrainsNear">
 					<label class="item item-input item-stacked-label"
-					       ng-class="{ 'has-error' : sectionForm.pollutionOutfallGPM.$invalid && sectionForm.$submitted}">
-						<span class="input-label">Approximate volume of outfall (GPM)</span>
-						<input name="pollutionOutfallGPM"
+					       ng-class="{ 'has-error' : sectionForm.pipeDiameter.$invalid && sectionForm.$submitted}">
+						<span class="input-label">What is the diameter of the pipe (cm)?</span>
+						<input name="pipeDiameter"
 						       type="number"
-						       ng-model="section.pollutionDrainLocations[0].outfallGPM"
-	                           min="0">
+						       min="1"
+						       max="300"
+						       ng-model="section.pipeDiameter"
+						       >
 					</label>
-					<div class="form-errors" ng-messages="sectionForm.pollutionOutfallGPM.$error"
-					     ng-show="sectionForm.pollutionOutfallGPM.$invalid && sectionForm.$submitted">
+					<div class="form-errors" ng-messages="sectionForm.pipeDiameter.$error"
+					     ng-show="sectionForm.pipeDiameter.$invalid && sectionForm.$submitted">
 						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 					</div>
+
+					<div class="item item-divider">
+						Is there any flow through the pipe?
+					</div>
+					<div class="list list-inline">
+						<ion-radio name="pipeFlow"
+						              class="item-text-wrap"
+						              value=""
+						              ng-model="formIntermediary.pipeFlow">No</ion-radio>
+						<ion-radio name="pipeFlow"
+						              class="item-text-wrap"
+						              value="1"
+						              ng-model="formIntermediary.pipeFlow">Yes</ion-radio>
+					</div>
+
+
+					<label ng-if="formIntermediary.pipeFlow" class="item item-input item-select"
+					     ng-class="{ 'has-error' : sectionForm.pipeFlowAmount.$invalid && sectionForm.$submitted}">
+						<div class="input-label">How much flow</div>
+						<select name="pipeFlowAmount"
+						        ng-options="pipeFlowAmount.label for pipeFlowAmount in pipeFlowAmounts track by pipeFlowAmount.value"
+						        ng-model="formIntermediary.pipeFlowAmount"></select>
+					</label>
 				</div>
 
 				<button class="button button-full button-calm"

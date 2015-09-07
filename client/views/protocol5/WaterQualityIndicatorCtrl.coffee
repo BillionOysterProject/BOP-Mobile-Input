@@ -34,13 +34,17 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 				$ionicPlatform.ready ->
 					cordova?.plugins.Keyboard.close()
-					
+
 				$scope.datumPopupScope.popup.close()
 
 		#popup containing an input field for the data to create/edit
 		$scope.createDatumPopup = (action)->
 			$scope.datumPopupScope.action = action
-			$scope.datumPopupScope.units = $scope.getUnitsForMethod($scope.formIntermediary.method.machineName)
+			$scope.datumPopupScope.units = $scope.getPropertyForMethod($scope.formIntermediary.method.machineName, 'units')
+			$scope.datumPopupScope.min = $scope.getPropertyForMethod($scope.formIntermediary.method.machineName, 'min')
+			$scope.datumPopupScope.max = $scope.getPropertyForMethod($scope.formIntermediary.method.machineName, 'max')
+			$scope.datumPopupScope.tooLow = $stateParams.indicatorMachineName + 'TooLow'
+			$scope.datumPopupScope.tooHigh = $stateParams.indicatorMachineName + 'TooHigh'
 
 			$scope.datumPopupScope.getMessage = (tplKey)->
 				$scope.getMessage(tplKey)
@@ -134,10 +138,10 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 		#shorthand alias to current indicator data
 		$scope.sectionIndicator = $scope.section.indicators[$scope.indicator.machineName]
 
-		$scope.getUnitsForMethod = (methodMachineName)->
+		$scope.getPropertyForMethod = (methodMachineName, property)->
 			for method in $scope.indicator.methods
 				if method.machineName is methodMachineName
-					return method.units
+					return method[property]
 
 		for method in $scope.indicator.methods
 			$scope.sectionIndicator.methods ?= {}

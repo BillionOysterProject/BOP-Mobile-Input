@@ -1,0 +1,1 @@
+@MetaSedimentOptions = new Ground.Collection(new Meteor.Collection('MetaSedimentOptions'))

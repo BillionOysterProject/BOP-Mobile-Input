@@ -6,13 +6,16 @@
 		     ng-class="{ 'has-error' : datumForm.$invalid && datumForm.$submitted}">
 			<input name="datum"
 			       type="number"
-			       min="0"
+			       min="{{min}}"
+			       max="{{max}}"
 			       ng-model="data.popupData"
 			       autofocus>
 			{{units}}
 		</label>
 		<div class="form-errors" ng-messages="datumForm.datum.$error"
 		     ng-show="datumForm.datum.$invalid && datumForm.$submitted">
+			<div class="form-error" ng-message="min">{{getMessage(tooLow)}}</div>
+			<div class="form-error" ng-message="max">{{getMessage(tooHigh)}}</div>
 			<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 		</div>
 		<div class="popup-buttons">

@@ -24,11 +24,39 @@
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
-				<ion-checkbox name="recentRain72h"
-				              ng-model="section.recentRain72h">Rained in the past 72 hours?</ion-checkbox>
-
-				<ion-checkbox name="recentRain7d"
-				              ng-model="section.recentRain7d">Rained in the past 7 days?</ion-checkbox>
+				<div class="item radio-title">
+					Has it rained in the past 24 hours?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain24h"
+					              value=""
+					              ng-model="section.recentRain24h">No</ion-radio>
+					<ion-radio name="recentRain24h"
+					              value="1"
+					              ng-model="section.recentRain24h">Yes</ion-radio>
+				</div>
+				<div class="item radio-title">
+					Has it rained in the past 72 hours?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain72h"
+					              value=""
+					              ng-model="section.recentRain72h">No</ion-radio>
+					<ion-radio name="recentRain72h"
+					              value="1"
+					              ng-model="section.recentRain72h">Yes</ion-radio>
+				</div>
+				<div class="item radio-title">
+					Has it rained in the past 7 days?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain7d"
+					              value=""
+					              ng-model="section.recentRain7d">No</ion-radio>
+					<ion-radio name="recentRain7d"
+					              value="1"
+					              ng-model="section.recentRain7d">Yes</ion-radio>
+				</div>
 
 				<button class="button button-full button-calm"
 				        padding="true"

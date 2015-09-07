@@ -9,4 +9,8 @@
 	&.new .item-content{
         background-color:yellow;
 	}
+	&.selected .item-content{
+        background-color:#E96058;
+        color:#FFF;
+	}
 }

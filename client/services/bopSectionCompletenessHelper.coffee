@@ -12,10 +12,11 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					mobileOrganisms:1 #for now making it look for at least one organism
 					sessileOrganisms:1 #TODO replace with actual number
 					weather:5
-					rainfall:2
-					tide:3
-					water:5
+					rainfall:3
+					tide:6
+					water:7
 					land:5
+					otherObservations:1
 					waterQuality:8 # total indicators - at least one for each, regardless of method used
 					sediment:3
 
@@ -55,27 +56,36 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 
 					when 'rainfall'
 						#they'll be true or false once section is saved, initially they're undefined so we know user has saved that form despite the fields' checked state.
+						fieldCount++ if section.recentRain24h?
 						fieldCount++ if section.recentRain72h?
 						fieldCount++ if section.recentRain7d?
 
 					when 'tide'
-						fieldCount++ if section.estimate?
-						fieldCount++ if section.speed?
+						fieldCount++ if section.tideLevel?
+						fieldCount++ if section.pmHighTideHeight?
+						fieldCount++ if section.pmHighTideTime?
+						fieldCount++ if section.currentDistance?
+						fieldCount++ if section.currentTime?
 						fieldCount++ if section.direction?
 
 					when 'water'
-						fieldCount++ if section.waterColour?
+						fieldCount++ if section.waterColor? and section.waterColor.length > 0
 						fieldCount++ if section.oilSheen?
-						fieldCount++ if section.garbageDescription? and section.garbageDescription.length > 0
-						fieldCount++ if section.pollutionDrainLocations?
-						fieldCount++ if section.sewerDrainLocations?
+						fieldCount++ if section.waterGarbage?
+						fieldCount++ if section.sewerDrainsNear?
+						fieldCount++ if section.pipeDiameter?
+						fieldCount++ if section.pipeFlow?
+						fieldCount++ if (section.pipeFlowAmount? and section.pipeFlowAmount.length > 0) or section.pipeFlow is ''
 
 					when 'land'
 						fieldCount++ if section.shorelineTypes? and section.shorelineTypes.length > 0
-						fieldCount++ if section.adjacentShoreline?.pavedPct?
-						fieldCount++ if section.adjacentShoreline?.vegetatedPct?
-						fieldCount++ if section.adjacentShoreline?.porousPct?
-						fieldCount++ if section.garbageDescription? and section.garbageDescription.length > 0
+						fieldCount++ if section.imperviousSurfacePct?
+						fieldCount++ if section.perviousSurfacePct?
+						fieldCount++ if section.vegetatedSurfacePct?
+						fieldCount++ if section.landGarbage?
+
+					when 'otherObservations'
+						fieldCount++ if section.otherObservations? and section.otherObservations.length > 0
 
 					when 'waterQuality'
 						if section.indicators?

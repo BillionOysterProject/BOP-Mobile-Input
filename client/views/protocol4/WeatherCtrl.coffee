@@ -8,14 +8,14 @@ angular.module('app.example').controller 'WeatherCtrl', [
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		$scope.windDirections = [
-			{label:"N"}
-			{label:"NW"}
-			{label:"W"}
-			{label:"SW"}
-			{label:"S"}
-			{label:"SE"}
-			{label:"E"}
-			{label:"NE"}
+			{deg:0, label:"N"}
+			{deg:45, label:"NE"}
+			{deg:90, label:"E"}
+			{deg:135, label:"SE"}
+			{deg:180, label:"S"}
+			{deg:225, label:"SW"}
+			{deg:270, label:"W"}
+			{deg:315, label:"NW"}
 		]
 
 		#an object to bind certain things to that we don't want directly bound to the meteor model.
@@ -35,22 +35,6 @@ angular.module('app.example').controller 'WeatherCtrl', [
 				if $scope.section.windDirection is item.label
 					$scope.formIntermediary.windDirection = item
 
-		directionsDegMap =
-			E:0
-			NE:45
-			N:90
-			NW:135
-			W:180
-			SW:225
-			S:270
-			SE:315
-
-		# @param directionStr i.e. "NW", "S", "SE"...
-		$scope.directionToDeg = (directionStr)->
-			deg = directionsDegMap[directionStr]
-			deg -= directionsDegMap.S #adjustment because icon points south – ideally it would point east at 0 degrees before rotation
-			return deg
-
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
 				if $scope.formIntermediary.weatherCondition?
@@ -59,7 +43,7 @@ angular.module('app.example').controller 'WeatherCtrl', [
 				if $scope.formIntermediary.windDirection?
 					$scope.section.windDirection = $scope.formIntermediary.windDirection.label
 
-				$scope.saveSection(['humidityPct','machineName','temperatureF','weatherCondition','windDirection','windSpeed'])
+				$scope.saveSection(['humidityPct','machineName','temperature','weatherCondition','windDirection','windSpeed'])
 				$scope.showSaveDone()
 				$scope.back()
 			else

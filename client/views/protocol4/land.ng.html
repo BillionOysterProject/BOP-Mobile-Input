@@ -25,7 +25,7 @@
 				<h2 class="padding">{{sectionMeta.title}}</h2>
 
 				<!-- Shoreline types ____________ start -->
-				<div class="item item-divider">Shoreline Type:</div>
+				<div class="item item-divider">Choose shoreline type:</div>
 				<ion-checkbox ng-repeat="type in shorelineTypes track by type.id"
 				              ng-model="formIntermediary.shorelineTypes[type.id]">{{type.label}}</ion-checkbox>
 
@@ -45,77 +45,111 @@
 					</div>
 				</div>
 
-				<!-- Observe adjacent shoreline ___________ start -->
-				<div class="item item-divider">Observe adjacent shoreline</div>
-				<div class="item item-input item-text-wrap item-stacked-label"
-				     ng-class="{ 'has-error' : sectionForm.adjacentShorelinePavedPct.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Coverage adjacent shoreline paved or impervious surface (%)</span>
-					<input name="adjacentShorelinePavedPct"
+				<!-- Observe percent coverage ___________ start -->
+				<div class="item item-divider">Estimate percent surface cover</div>
+				<label class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.imperviousSurfacePct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Impervious Surface (concrete/asphalt paths, roads, buildings etc.) (%)</span>
+					<input name="imperviousSurfacePct"
 					       type="number"
-					       ng-model="section.adjacentShoreline.pavedPct"
+					       ng-model="section.imperviousSurfacePct"
+					       ng-change="settotalLandSurfaceAreas()"
 					       min="0"
 					       max="100"
 					       >
-				</div>
-				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePavedPct.$error"
-				     ng-show="sectionForm.adjacentShorelinePavedPct.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
-
-				<div class="item item-input item-text-wrap item-stacked-label"
-				     ng-class="{ 'has-error' : sectionForm.adjacentShorelineVegetatedPct.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Coverage vegetated surface (grass, shrubs, trees) (%)</span>
-					<input name="adjacentShorelineVegetatedPct"
-					       type="number"
-					       ng-model="section.adjacentShoreline.vegetatedPct"
-					       min="0"
-					       max="100"
-					       >
-				</div>
-				<div class="form-errors" ng-messages="sectionForm.adjacentShorelineVegetatedPct.$error"
-				     ng-show="sectionForm.adjacentShorelineVegetatedPct.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
-
-				<div class="item item-input item-text-wrap item-stacked-label"
-				     ng-class="{ 'has-error' : sectionForm.adjacentShorelinePorousPct.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Coverage dirt, gravel, or other porous surface (%)</span>
-					<input name="adjacentShorelinePorousPct"
-					       type="number"
-					       ng-model="section.adjacentShoreline.porousPct"
-					       min="0"
-					       max="100"
-					       >
-				</div>
-				<div class="form-errors" ng-messages="sectionForm.adjacentShorelinePorousPct.$error"
-				     ng-show="sectionForm.adjacentShorelinePorousPct.$invalid && sectionForm.$submitted">
-					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
-					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-				</div>
-
-				<label class="item item-input item-stacked-label item-text-wrap"
-				       ng-class="{ 'has-error' : sectionForm.garbageDescription.$invalid && sectionForm.$submitted}">
-					<span class="input-label">Describe the type and extent of garbage present on land</span>
-
-					<textarea name="garbageDescription"
-					          placeholder="{{getMessage('garbageDescPlaceholderLand')}}"
-					          ng-model="section.garbageDescription"
-					          msd-elastic="\n"></textarea>
 				</label>
-				<div class="form-errors" ng-messages="sectionForm.garbageDescription.$error"
-				     ng-show="sectionForm.garbageDescription.$invalid && sectionForm.$submitted">
+				<div class="form-errors" ng-messages="sectionForm.imperviousSurfacePct.$error"
+				     ng-show="sectionForm.imperviousSurfacePct.$invalid && sectionForm.$submitted">
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<label class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.perviousSurfacePct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Pervious Surface (dirt, gravel etc.) (%)</span>
+					<input name="perviousSurfacePct"
+					       type="number"
+					       ng-model="section.perviousSurfacePct"
+					       ng-change="settotalLandSurfaceAreas()"
+					       min="0"
+					       max="100"
+					       >
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.perviousSurfacePct.$error"
+				     ng-show="sectionForm.perviousSurfacePct.$invalid && sectionForm.$submitted">
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<label class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.vegetatedSurfacePct.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Vegetated surface (grass, shrubs, trees) (%)</span>
+					<input name="vegetatedSurfacePct"
+					       type="number"
+					       ng-model="section.vegetatedSurfacePct"
+					       ng-change="settotalLandSurfaceAreas()"
+					       min="0"
+					       max="100"
+					       >
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.vegetatedSurfacePct.$error"
+				     ng-show="sectionForm.vegetatedSurfacePct.$invalid && sectionForm.$submitted">
+					<div class="form-error" ng-message="min">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('outOfBounds') | tokenValues:[0,100]}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<label class="item item-input item-text-wrap item-stacked-label"
+				     ng-class="{ 'has-error' : sectionForm.totalLandSurfaceAreas.$invalid && sectionForm.$submitted}">
+				    <span class="input-label">Total (must equal 100%)</span>
+					<input name="totalLandSurfaceAreas"
+					       type="number"
+					       ng-model="formIntermediary.totalLandSurfaceAreas"
+					       min="100"
+					       max="100"
+					       >
+				</label>
+				<div class="form-errors" ng-messages="sectionForm.totalLandSurfaceAreas.$error"
+				     ng-show="sectionForm.totalLandSurfaceAreas.$invalid && sectionForm.$submitted">
+					<div class="form-error" ng-message="min">{{getMessage('exactly') | tokenValues:[100]}}</div>
+					<div class="form-error" ng-message="max">{{getMessage('exactly') | tokenValues:[100]}}</div>
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
+
+				<div class="item item-divider">
+					Is there any garbage on the land?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="landGarbage"
+					              class="item-text-wrap"
+					              value=""
+					              ng-model="formIntermediary.landGarbage">No</ion-radio>
+					<ion-radio name="landGarbage"
+					              class="item-text-wrap"
+					              value="1"
+					              ng-model="formIntermediary.landGarbage">Yes</ion-radio>
+				</div>
+				<div ng-if="formIntermediary.landGarbage" class="item item-divider">
+					Identify the quantity of each type of garbage
+				</div>
+				<div ng-if="formIntermediary.landGarbage">
+					<div ng-repeat="garbageType in garbageTypes">
+						<label class="item item-input item-select">
+							<div class="input-label" ng-bind="garbageType.label"></div>
+							<select name="garbageType.name"
+							        ng-options="garbageQuantity.label for garbageQuantity in garbageQuantities track by garbageQuantity.value"
+							        ng-model="section[garbageType.name]"></select>
+						</label>
+					</div>
 				</div>
 
 				<button class="button button-full button-calm"
 				        padding="true"
 				        type="submit"
 				        >Save</button>
+
 			</ion-list>
 		</form>
 	</ion-content>

@@ -23,8 +23,14 @@
 			<div ng-init="setFormScope(sectionForm)"></div>
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
-				<div class="item item-divider">Level: </div>
-				<div class="item range range-positive">
+				<div class="item item-divider">Tide Level: </div>
+				<ion-radio name="tideLevel" ng-model="section.tideLevel" ng-value="1"><i class="icon icon-tide-1"></i> Low</ion-radio>
+				<ion-radio name="tideLevel" ng-model="section.tideLevel" ng-value="2"><i class="icon icon-tide-2"></i> Medium Low</ion-radio>
+				<ion-radio name="tideLevel" ng-model="section.tideLevel" ng-value="3"><i class="icon icon-tide-3"></i> Mid</ion-radio>
+				<ion-radio name="tideLevel" ng-model="section.tideLevel" ng-value="4"><i class="icon icon-tide-4"></i> Medium High</ion-radio>
+				<ion-radio name="tideLevel" ng-model="section.tideLevel" ng-value="5"><i class="icon icon-tide-5"></i> High</ion-radio>
+
+				<!--<div class="item range range-positive">
 					<i class="icon icon-tide-1"></i>
 					<input type="range"
 					       name="estimate"
@@ -32,12 +38,52 @@
 					       ng-model="section.estimate"
 					       ng-change="castTideEstimateToNum()">
 					<i class="icon icon-tide-5"></i>
-				</div>
+				</div>-->
 
-				<h1>TODO tide table tideActual</h1>
+				<div class="item item-divider">Today's PM high tide:</div>
+				<label class="item item-input item-stacked-label"
+				       ng-class="{ 'has-error' : sectionForm.pmHighTideHeight.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Height (m)</span>
+					<input name="pmHighTideHeight"
+					       type="number"
+					       ng-model="section.pmHighTideHeight"
+                           min="0">
+				</label>
+				<label class="item item-input item-stacked-label"
+				       ng-class="{ 'has-error' : sectionForm.pmHighTideTime.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Time of day</span>
+					<input name="pmHighTideTime"
+					       type="time"
+					       ng-model="section.pmHighTideTime">
+				</label>
 
-				<div class="item item-divider">Speed: </div>
-				<div class="item range range-positive">
+				<div class="item item-divider">Current Speed:</div>
+				<label class="item item-input item-stacked-label"
+				       ng-class="{ 'has-error' : sectionForm.currentDistance.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Distance (m)</span>
+					<input name="currentDistance"
+					       type="number"
+					       ng-model="section.currentDistance"
+                           min="0">
+				</label>
+				<label class="item item-input item-stacked-label"
+				       ng-class="{ 'has-error' : sectionForm.currentTime.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Time (seconds)</span>
+					<input name="currentTime"
+					       type="number"
+					       ng-model="section.currentTime"
+                           min="0">
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Speed (m/s)</span>
+					<input name="currentSpeed"
+					       type="number"
+					       ng-value="(section.currentDistance/section.currentTime) | number:2"
+                           min="0"
+                           disabled>
+				</label>
+
+				<!--<div class="item range range-positive">
 					<i class="icon icon-speed-slow"></i>
 					<input type="range"
 					       name="speed"
@@ -45,12 +91,12 @@
 					       ng-model="section.speed"
 					       ng-change="castTideSpeedToNum()">
 					<i class="icon icon-speed-fast"></i>
-				</div>
+				</div>-->
 
-				<div class="item item-divider">Direction:</div>
-				<ion-radio ng-model="section.direction" ng-value="'flood'">Flood Current</ion-radio>
-				<ion-radio ng-model="section.direction" ng-value="'slack'">Slack Water</ion-radio>
-				<ion-radio ng-model="section.direction" ng-value="'ebb'">Ebb Current</ion-radio>
+				<div class="item item-divider">Current Direction:</div>
+				<ion-radio name="direction" ng-model="section.direction" ng-value="'flood'">Flood Current</ion-radio>
+				<ion-radio name="direction" ng-model="section.direction" ng-value="'slack'">Slack Water</ion-radio>
+				<ion-radio name="direction" ng-model="section.direction" ng-value="'ebb'">Ebb Current</ion-radio>
 
 
 				<button class="button button-full button-calm"

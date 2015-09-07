@@ -26,6 +26,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		$scope.onTapSave = (form) ->
 			if form.$valid
 				if isNew
+					#TODO Could this be built up automatically in a loop from the MetaProtocols collection documents?
 					#create protocol section documents ------ start
 					sections = [
 						#protocol 1.1
@@ -71,6 +72,10 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 						#protocol 4.5
 						owner: Meteor.userId()
 						machineName:'land'
+					,
+						#protocol 4.6
+						owner: Meteor.userId()
+						machineName:'otherObservations'
 					,
 						#protocol 5.1
 						owner: Meteor.userId()
@@ -120,7 +125,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					.then saveExpedition
 					.then (insertedID)->
 						console.log 'insertedID: ' + insertedID
-						toastr.success("Expedition Created", null, {timeOut:'4000'})
+						toastr.success 'Expedition Created', null, timeOut:4000
 						$scope.changeExpedition(insertedID)
 					.catch (err)->
 						console.error(err)
@@ -137,7 +142,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 #							class:$scope.formIntermediary.selectedClass._id
 
 					$scope.showSaveDone()
-					$ionicHistory.goBack()
+#					$ionicHistory.goBack()
 
 			else
 				console.log 'do nothing, overviewForm invalid'
@@ -145,7 +150,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.changeExpedition = (id)->
 			$scope.setCurrentExpeditionByID(id)
-			toastr.success("Switched Expeditions", null, {timeOut:'4000'})
+			toastr.success 'Switched Expeditions', null, timeOut:4000
 			$scope.navigateHome()
 
 		$scope.formIntermediary = {}
@@ -191,10 +196,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.map =
 				scope: 'nyc_harbor'
 				options:
-					width: '100%'
-					aspectRatio: 0.66
-					legendHeight: 0
+					height: $(window).height() - 144
 					staticGeoData: true
+					legendHeight: 0
 				geographyConfig:
 					dataUrl: '/data/map.topo.json'
 					popupTemplate: (geography, data) ->
@@ -208,7 +212,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					borderColor: '#353535'
 					popupOnHover: true
 					popupTemplate: (geography, data) ->
-						'<div class="hoverinfo">Station: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
+						'<div class="hoverinfo">Site: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
 					fillOpacity: 1
 					highlightOnHover: true
 					highlightFillColor: '#E96057'
@@ -233,7 +237,6 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 						path: path
 						projection: projection
 					}
-				responsive: true
 			$scope.mapPlugins = bubbles: null
 
 		#get current location
@@ -268,8 +271,8 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.mapPluginData = bubbles: siteBubbles
 			if siteName != ''
 				toastr.remove()
-				toastr.success siteName, null, timeOut: '4000'
-				toastr.warning 'Click Create to Continue', null, timeOut: '4000'
+				toastr.success siteName, null, timeOut: 4000
+				toastr.warning 'Click Create to Continue', null, timeOut: 4000
 			addClickHandlers()
 			return
 

@@ -12,11 +12,12 @@ angular.module('app.example').controller 'RainfallCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				#default these to false if undefined (helps support measuring of section completeness)
-				$scope.section.recentRain72h ?= false
-				$scope.section.recentRain7d ?= false
+				#default these to null if undefined (helps support measuring of section completeness)
+				$scope.section.recentRain24h ?= null
+				$scope.section.recentRain72h ?= null
+				$scope.section.recentRain7d ?= null
 
-				$scope.saveSection ['recentRain72h', 'recentRain7d']
+				$scope.saveSection ['recentRain24h', 'recentRain72h', 'recentRain7d']
 				$scope.showSaveDone()
 				$scope.back()
 

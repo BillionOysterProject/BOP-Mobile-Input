@@ -29,7 +29,7 @@
 				       ng-class="{ 'has-error' : sectionForm.weatherCondition.$invalid && sectionForm.$submitted}">
 					<div class="input-label"><i class="icon ion-ios-partlysunny"></i> Weather</div>
 					<select name="weatherCondition"
-					        ng-options="condition.label for condition in weatherConditions"
+					        ng-options="condition.label for condition in weatherConditions | orderObjectBy:'order':false"
 					        ng-model="formIntermediary.weatherCondition"></select>
 				</label>
 				<div class="form-errors" ng-messages="sectionForm.weatherCondition.$error"
@@ -39,17 +39,17 @@
 
 				<!-- temperature -->
 				<div class="item item-input item-text-wrap item-stacked-label"
-				     ng-class="{ 'has-error' : sectionForm.temperatureF.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-temperature"></i> Temperature (℉)</span>
+				     ng-class="{ 'has-error' : sectionForm.temperature.$invalid && sectionForm.$submitted}">
+					<span class="input-label"><i class="icon icon-temperature"></i> Temperature (&deg;C)</span>
 					<input type="number"
-					       name="temperatureF"
-					       ng-model="section.temperatureF"
+					       name="temperature"
+					       ng-model="section.temperature"
 					       placeholder="0"
-					       min="0" max="140">
+					       min="0" max="50">
 				</div>
-				<div ng-messages="sectionForm.temperatureF.$error"
+				<div ng-messages="sectionForm.temperature.$error"
 				     class="form-errors"
-				     ng-show="sectionForm.temperatureF.$invalid && sectionForm.$submitted">
+				     ng-show="sectionForm.temperature.$invalid && sectionForm.$submitted">
 					<div class="form-error" ng-message="max">{{getMessage('unlikelyHot')}}</div>
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
@@ -57,7 +57,7 @@
 				<!-- wind speed-->
 				<div class="item item-input item-stacked-label"
 				     ng-class="{ 'has-error' : sectionForm.windSpeed.$invalid && sectionForm.$submitted}">
-					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed (MPH)</span>
+					<span class="input-label"><i class="icon icon-wind"></i> Wind Speed (m/s)</span>
 					<input name="windSpeed"
 					       type="number"
 					       ng-model="section.windSpeed"
@@ -76,7 +76,7 @@
 				<!-- wind direction -->
 				<label class="item item-input item-select"
 				       ng-class="{ 'has-error' : sectionForm.windDirection.$invalid && sectionForm.$submitted}">
-					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{directionToDeg(formIntermediary.windDirection.label)}}"></i> Wind Direction</div>
+					<div class="input-label"><i class="icon icon-wind-direction" rotate="{{formIntermediary.windDirection.deg}}"></i> Wind Direction</div>
 					<select name="windDirection"
 					        ng-options="direction.label for direction in windDirections"
 					        ng-model="formIntermediary.windDirection"></select>

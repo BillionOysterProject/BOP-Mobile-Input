@@ -18,7 +18,7 @@
 				        ng-click="onChangeCategory(cat)"
 				        ng-disabled="cat == filters.category">
 					<ng-include class="filterIcon"
-					            src="'/images/protocol2/mobileOrganisms/filterIcons/' + organismCategoriesFileMap[cat]"></ng-include>
+					            src="organismCategoriesFileName(cat)"></ng-include>
 				</button>
 			</div>
 		</div>

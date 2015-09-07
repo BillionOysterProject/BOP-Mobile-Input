@@ -43,9 +43,10 @@
 	display: block;
 	background-color: #cccbca;
 	width: 100%;
+	margin-top:10px;
 
 	.inner {
-		background-color: #aa322b;
+		background-color: #E96057;
 		height: 10px;
 	}
 }
@@ -98,4 +99,9 @@
 	h1 {
 		font-size: 25px;
 	}
+}
+
+//move toasts up from bottom so they aren't covering Create etc buttons
+.toast-bottom-center {
+	bottom: 50px !important;
 }
