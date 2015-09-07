@@ -180,11 +180,11 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 			if inBounds(location, bounds)
 				scaleCenter =
-					'scale': '300000'
+					'scale': '200000'
 					'center': location
 			else
 				scaleCenter =
-					'scale': '50000'
+					'scale': '130000'
 					'center':
 						latitude: '40.67'
 						longitude: '-74.10'
@@ -196,23 +196,20 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			$scope.map =
 				scope: 'nyc_harbor'
 				options:
-					height: $(window).height() - 144
+					height: $(window).height()
 					staticGeoData: true
 					legendHeight: 0
 				geographyConfig:
 					dataUrl: '/data/map.topo.json'
-					popupTemplate: (geography, data) ->
-						#this function should just return a string
-						'<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>'
 					popupOnHover: false
 					highlightOnHover: false
 				bubblesConfig:
 					radius: 10
 					borderWidth: 1.5
 					borderColor: '#353535'
-					popupOnHover: true
-					popupTemplate: (geography, data) ->
-						'<div class="hoverinfo">Site: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
+					popupOnHover: false
+#					popupTemplate: (geography, data) ->
+#						'<div class="hoverinfo">Site: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
 					fillOpacity: 1
 					highlightOnHover: true
 					highlightFillColor: '#E96057'

@@ -31,8 +31,8 @@ angular.module('app.example').factory "bopLocationHelper", [
 						#hardcoded Governor's island location for browser testing
 						position =
 							coords:
-								latitude: 40.684517,
-								longitude: -74.026048
+								latitude: 40.68,
+								longitude: -74.02
 						resolve(position)
 				#console.log promise
 				promise
