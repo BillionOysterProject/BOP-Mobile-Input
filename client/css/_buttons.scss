@@ -3,3 +3,8 @@
 	@include button-clear($button-action-alternate-bg);
 	@include button-outline($button-action-alternate-bg);
 }
+
+&.button-footer {
+	margin:0 !important;
+	font-size:1rem !important;
+}
