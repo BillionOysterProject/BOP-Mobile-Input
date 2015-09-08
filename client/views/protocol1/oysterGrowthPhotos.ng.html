@@ -1,7 +1,7 @@
 <ion-modal-view class="protocol-section oysterGrowth photos">
 	<ion-header-bar>
 		<h1 class="title">Photos</h1>
-		<button class="button button-clear button-positive" ng-click="photosModal.remove()">Close</button>
+		<button class="button button-calm" ng-click="requestClosePhotosModal()">Done</button>
 	</ion-header-bar>
 
 	<div class="bar bar-footer bar-default">
@@ -24,7 +24,9 @@
 		<h1 class="wanted">Wanted<br>
 		Dead or Alive</h1>
 		<div class="sides">
-			<div ng-if="side == 'inside'" class="photo-frame inside slide-right">
+			<div ng-if="side == 'inside'"
+			     class="photo-frame inside slide-right"
+			     on-swipe-left="toggleSide()">
 				<div class="inner"
 				     ng-class="{'photo-matte': photoURLs.inside != null}"
 				     ng-click="takePhoto('inside')"
@@ -34,7 +36,9 @@
 					<div class="frame"></div>
 				</div>
 			</div>
-			<div ng-if="side == 'outside'" class="photo-frame outside slide-left">
+			<div ng-if="side == 'outside'"
+			     class="photo-frame outside slide-left"
+			     on-swipe-right="toggleSide()">
 				<div class="inner"
 				     ng-class="{'photo-matte': photoURLs.outside != null}"
 				     ng-click="takePhoto('outside')"
