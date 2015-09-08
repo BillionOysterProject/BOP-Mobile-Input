@@ -306,7 +306,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 				context.fillText(label, 10, 550);
 				canvas.toDataURL("image/jpg")
 
-		locationHelper = new bopOfflineImageHelper()
+		imagesHelper = new bopOfflineImageHelper()
 
-		locationHelper
+		imagesHelper
 ]
