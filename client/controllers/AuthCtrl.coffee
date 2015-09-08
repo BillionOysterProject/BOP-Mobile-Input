@@ -5,10 +5,20 @@ angular.module('app.example').controller 'AuthCtrl', [
 	'$ionicSideMenuDelegate'
 	'$ionicPopup'
 	'$state'
-	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $state) ->
-		$scope.user = {}
-		userAccessFailureMessage = null
-		Meteor.subscribe 'Messages'
+	'$q'
+	'$interval'
+	($scope, $meteor, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $state, $q, $interval) ->
+
+		getMessages = ->
+			$q (resolve, reject)->
+				Meteor.subscribe 'Messages'
+
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				stop = $interval ->
+					if Messages.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
 
 		$scope.$on '$ionicView.beforeEnter', -> #doesn't work without wrapping in beforeEnter handler
 			#disable swipe (content fg) to reveal main menu. Disables for all future views (unless they call this again with true)
@@ -66,5 +76,11 @@ angular.module('app.example').controller 'AuthCtrl', [
 				$state.go('app.expeditions')
 
 			$ionicHistory.clearHistory()
+
+		getMessages()
+		.then ->
+			$scope.user = {}
+			userAccessFailureMessage = null
+
 
 	]
