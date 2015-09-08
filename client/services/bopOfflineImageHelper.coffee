@@ -20,7 +20,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 							resolve({_id:insertedID, uri:dataURI})
 
 					.catch (error)->
-						console.log 'takePic error: ', error
+						console.error 'takePic error: ', error
 						reject(error)
 
 			_captureCamera:->

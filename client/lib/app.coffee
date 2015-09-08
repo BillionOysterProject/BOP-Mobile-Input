@@ -8,6 +8,7 @@ angular.module('app.example', [
 	'ui.router'
 	'ionic'
 	'ngMessages'
+	'ngAnimate'
 	'ngCordova'
 	'monospaced.elastic' #for resizable textarea
 	'datamaps'

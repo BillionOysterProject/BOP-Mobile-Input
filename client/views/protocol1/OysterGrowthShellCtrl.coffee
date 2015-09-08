@@ -5,7 +5,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 	'$ionicListDelegate'
 	'$ionicModal'
 	'$ionicScrollDelegate'
-	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicScrollDelegate) ->
+	'bopOfflineImageHelper'
+	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicScrollDelegate, bopOfflineImageHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -33,6 +34,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 						totals:
 							sizeMM:{}
 						oysters:[]
+						photoIDInside:null
+						photoIDOutside:null
 
 			$scope.section.totalsMM ?=
 				min: null
@@ -43,23 +46,7 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 				live: null
 				dead: null
 
-#		$scope.onChangeTotalLive = (shellIndex, formIsValid)->
-#			if formIsValid
-#				$scope.pruneModel shellIndex
-#				$scope.updateMainTotals(formIsValid)
-
-		# truncate the model's liveSizesMM array in case it used ot be longer.
-		# ng-repeat will keep up with the right amount of fields but won't prune
-		# the model if total live oysters is reduced by user.
-#		$scope.pruneModel = (shellIndex)->
-#			shell = $scope.section.substrateShells[shellIndex]
-#			totalLive = $scope.getTotalLiveOysters(shellIndex)
-#			shell.oysters = shell.liveSizesMM[0...totalLive]
-
-		# Dummy array to enable ng-repeat for n times (maxed at 12). Array does not get populated.
-		# @see getTotalLiveOysters
-#		$scope.getTotalLiveOystersArr = (shellIndex)->
-#			new Array(Math.min($scope.getTotalLiveOysters(shellIndex), $scope.maxLiveOysterMeasurements))
+			initPhotoURLs()
 
 		$scope.getOysters = ->
 			$scope.section.substrateShells[$scope.shellIndex].oysters
@@ -99,24 +86,6 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 			_.pull(shell.oysters, oyster)
 
 			$scope.sectionFormRef.$setDirty()
-
-#		$scope.onChangeIsAlive = (oysterIndex)->
-#			shell = $scope.section.substrateShells[$scope.shellIndex]
-#			oyster = shell.oysters[oysterIndex]
-#
-#			#increment or decrement depending on living status
-##			shell.totals.live += if oyster.isAlive then -1 else 1
-#			$scope.updateOysterTotals(oysterIndex)
-
-#		$scope.updateOysterTotals = (oysterIndex)->
-#			shell = $scope.section.substrateShells[$scope.shellIndex]
-#			live = 0
-#			dead = 0
-#			for oyster in $scope.getOysters()
-#				if oyster.isAlive then live++ else dead++
-#
-#			shell.totals.live = live
-#			shell.totals.dead = dead
 
 		$scope.updateOysterStats = ->
 			shell = $scope.section.substrateShells[$scope.shellIndex]
@@ -201,7 +170,93 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 			$scope.updateOysterStats()
 			$scope.updateMainTotals()
 
+		$scope.showPhotos = ->
+			$scope.updateStats()
+
+			$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthPhotos.ng.html",
+				scope: $scope
+				animation: 'slide-in-up')
+			.then (modal) ->
+				$scope.photosModal = modal
+				$scope.photosModal.show()
+
+		$scope.toggleSide = ->
+			if $scope.side is 'inside'
+				$scope.side = 'outside'
+			else
+				$scope.side = 'inside'
+
+		getPhotoIDForSide = (side)->
+			photoID = null
+			shell = $scope.section.substrateShells[$scope.shellIndex]
+			switch side
+				when 'inside'
+					photoID = shell.photoIDInside
+
+				when 'outside'
+					photoID = shell.photoIDOutside
+
+			photoID
+
+		initPhotoURLs = ->
+			insideID = getPhotoIDForSide('inside')
+			outsideID = getPhotoIDForSide('outside')
+
+			$scope.photoURLs ?= {}
+
+			if insideID?
+				bopOfflineImageHelper.getURLForID(insideID)
+				.then (uri)->
+					$scope.photoURLs.inside = uri
+
+			if outsideID?
+				bopOfflineImageHelper.getURLForID(outsideID)
+				.then (uri)->
+					$scope.photoURLs.outside = uri
+
+		$scope.takePhoto = (side)->
+			shell = $scope.section.substrateShells[$scope.shellIndex]
+
+			bopOfflineImageHelper.takePic()
+			.then (photoMeta) ->
+				#photoMeta obj object contains _id and uri
+
+				switch side
+					when 'inside'
+						oldURL = shell.photoIDInside
+						shell.photoIDInside = photoMeta._id
+
+					when 'outside'
+						oldURL = shell.photoIDOutside
+						shell.photoIDOutside = photoMeta._id
+
+				initPhotoURLs()
+
+				if oldURL
+					bopOfflineImageHelper.removePic(oldURL)
+
+		#dirty if section data has changed – emulates ngForm.dirty
+		$scope.isDirty = ->
+			angular.toJson($scope.section) != $scope.sectionBeforeChanged
+
+		#intercepting back button ------- start
+
+		# userTappedBack is broadcast from AppCtrl
+		$scope.$on 'bop.userTappedBack', ->
+			$scope.setSectionFormState($scope.isDirty(), false, false)
+
+		#user taps save in back button prompt so we submit the form
+		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+			$scope.onTapSave()
+
+		#intercepting back button ------- end
+
 		$scope.Math = Math
 
+		#for photo taking modal – the side of the oyster shell to show and take a picture of (inside/outside)
+		$scope.side = 'inside'
+
 		$scope.initSection()
+
+		$scope.sectionBeforeChanged = angular.toJson($scope.section)
 	]

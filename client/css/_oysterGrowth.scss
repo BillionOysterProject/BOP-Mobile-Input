@@ -197,4 +197,74 @@
 			}
 		}
 	}
+
+	.button.photos {
+		//I didn't see a more "Ionic" way of having two buttons on the right in the bar-subheader
+		//so instead I added pull-right to both of them and am offsetting the one button here using a margin.
+		margin-right:46px;
+	}
+
+	&.photos {
+
+		.wanted {
+			margin-bottom: 27px;
+			font-weight: bold;
+		}
+
+		.sides {
+			position:relative;
+			width:100%;
+			height:300px;
+			margin-bottom: 20px;
+		}
+
+		.photo-frame {
+			position:absolute;
+			width:100%;
+
+			.inner {
+				position: relative;
+				margin: 0 auto;
+				$frameSize: 300px;
+				width: $frameSize;
+				height: $frameSize;
+				padding: 10px;
+				background-size: contain;
+				background-position: center;
+
+				&.photo-matte {
+					background-color: #ddd;
+				}
+
+				p {
+					width: 85%;
+					margin: 37% auto;
+					color: $calm;
+
+					.icon {
+						font-size: 1.7em;
+						vertical-align: middle;
+						margin-right: 8px;
+					}
+				}
+
+				&.activated {
+					p {
+						opacity: .7;
+					}
+				}
+
+				.frame {
+					position: absolute;
+					top:0;
+					left:0;
+					width: $frameSize;
+					height: $frameSize;
+
+					//TODO replace with SVG border as in Tracey's comp
+					border: 2px solid #333333;
+				}
+			}
+		}
+	}
 }

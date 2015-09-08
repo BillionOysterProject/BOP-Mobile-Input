@@ -8,7 +8,10 @@
 
 	<div class="bar bar-subheader bar-default">
 		<h2 class="title title-left">Substrate shell {{::shellIndex + 1}} of {{section.substrateShells.length}}</h2>
-		<button class="button button-action-alternate icon ion-stats-bars" ng-click="showShellStats()"> Stats</button>
+		<button class="button button-action-alternate icon ion-stats-bars pull-right"
+		        ng-click="showShellStats()"></button>
+		<button class="button button-action-alternate icon ion-ios-camera pull-right photos"
+		        ng-click="showPhotos()"></button>
 	</div>
 
 	<div class="bar bar-footer bar-default">

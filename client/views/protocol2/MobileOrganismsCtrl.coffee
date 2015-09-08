@@ -73,7 +73,7 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 			$scope.onTapSave()
 		#intercepting back button ------- end
 
-		#initia values
+		#initial values
 		$scope.section.organisms ?= {}
 		for org in $scope.organisms
 			orgID = org._id
