@@ -1,20 +1,25 @@
 angular.module('app.example').controller 'SessileOrganismsCtrl', [
 	'$scope'
 	'$controller'
-	'$ionicPlatform'
-	'bopLocationHelper'
-	($scope, $controller, $ionicPlatform, bopLocationHelper) ->
+	'$stateParams'
+	'$ionicModal'
+	'$rootScope'
+	($scope, $controller, $stateParams, $ionicModal, $rootScope) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		#an object to bind certain things to that we don't want directly bound to the meteor model.
-		# We can take what we need from this right before save.
-		$scope.formIntermediary = {}
+		# Dummy array to enable ng-repeat for n times. Array does not get populated.
+		$scope.totalTiles = new Array(4)
+		$scope.protocol = $scope.protocolsMetadataMap[$stateParams.protocolNum]
 
-		$scope.onTapSave = (formIsValid)->
-			if formIsValid
-				$scope.section.save().then ->
-					console.log 'saved section form to db'
-			else
-				console.log 'do nothing, sectionForm invalid'
+		$scope.tileIsComplete = (index)->
+			$scope.section.settlementTiles?[index].grid.length > 0
+
+		$scope.showOverallStats = ->
+			$ionicModal.fromTemplateUrl("client/views/protocol1/SessileOrganismsOverallStats.ng.html",
+				scope: $scope
+				animation: 'slide-in-up')
+			.then (modal) ->
+				$scope.overallStatsModal = modal
+				$scope.overallStatsModal.show()
 	]

@@ -1,0 +1,45 @@
+<ion-modal-view class="protocol-section oysterGrowth stats">
+	<ion-header-bar>
+		<h1 class="title">Substrate shell {{::shellIndex + 1}} stats</h1>
+		<button class="button button-clear button-positive" ng-click="shellStatsModal.remove()">Close</button>
+	</ion-header-bar>
+	<ion-content scroll="true"
+	             class="has-header padding"
+	             ng-init="stats = section.substrateShells[shellIndex].totals">
+
+		<div class="row">
+			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
+				<h5>Total alive</h5>
+				<p class="value alive">{{stats.live}}</p>
+			</div>
+
+			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
+				<h5>Total dead</h5>
+				<p class="value dead">{{stats.dead}}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
+				<h5>Minimum size</h5>
+				<p class="value size">{{stats.sizeMM.min | number:0}}<span class="units">mm</span></p>
+			</div>
+
+			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}">
+				<h5>Maximum size</h5>
+				<p class="value size">{{stats.sizeMM.max | number:0}}<span class="units">mm</span></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col" ng-class="{'col-75':!useTabletLayout(), 'col-50':useTabletLayout()}">
+				<h5>Average size</h5>
+				<p class="value size">{{stats.sizeMM.avg | number:2}}<span class="units">mm</span></p>
+			</div>
+
+			<div class="col" ng-class="{'col-50':!useTabletLayout(), 'col-33':useTabletLayout()}"></div>
+		</div>
+
+		<!--<pre>{{section.substrateShells[shellIndex].totals | json}}</pre>-->
+	</ion-content>
+</ion-modal-view>

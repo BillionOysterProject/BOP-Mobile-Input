@@ -7,6 +7,7 @@ angular.module('app.example').config [
 	'$urlRouterProvider'
 	'$stateProvider'
 	($urlRouterProvider, $stateProvider) ->
+
 		# if none of the below states are matched, use this as the fallback
 		$urlRouterProvider.otherwise '/'
 
@@ -141,6 +142,22 @@ angular.module('app.example').config [
 				'menuContent':
 					templateUrl: "client/views/protocol1/oysterGrowthShell.ng.html"
 					controller: 'OysterGrowthShellCtrl'
+
+
+		#subsection for sessile organisms (an individual settlement tile) (note, app.SessileOrganisms is defined in bopRoutesDynamic.coffee and is a list of the 4 settlement tiles)
+		.state 'app.SessileOrganisms',
+			cache: false
+
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				tileIndex: undefined
+
+			views:
+				'menuContent':
+					templateUrl: "client/views/protocol3/sessileOrganismsTile.ng.html"
+					controller: 'SessileOrganismsCtrl'
 
 		.state('eventmenu.home.home1', {
 		      url: "/home1",

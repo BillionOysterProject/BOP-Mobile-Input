@@ -1,0 +1,105 @@
+.protocol-section.sessileOrganisms {
+	.settlement-tile {
+		position: relative;
+		display: inline-block;
+		margin-right: -7px;
+		margin-bottom: 13px;
+		padding: 0;
+		height: 90px;
+		max-height: none;
+
+		i.icon-settlement-tile {
+			&::before {
+				font-size: 500%;
+
+			}
+
+			color: $bop-action;
+		}
+
+		.icon::before {
+			margin: 0;
+		}
+
+		i.icon-check-mark {
+			&::before {
+				font-size: 110%;
+
+			}
+
+			position: absolute;
+			right: 10px;
+			bottom: -9px;
+			color: $bop-action;
+		}
+
+		.label {
+			position: absolute;
+			font-size: 1.4em;
+			top: 11px;
+			left: 20px;
+			text-align: center;
+			width: 40px;
+			font-weight: bold;
+			color: $bop-action;
+		}
+	}
+
+	.oyster {
+		$iconSize:54px;
+
+		h3 {
+			margin-bottom:10px;
+		}
+
+		$height:106px;
+
+
+		.item-content {
+			padding-right:16px;
+
+			.form-errors {
+				text-align: right;
+				margin-right: 12px;
+			}
+		}
+	}
+
+	&.stats {
+
+		.col:first-child {
+			padding-right:25px;
+		}
+
+		.value {
+			$imgHeight: 50px;
+			font-size: 30px;
+			white-space: nowrap;
+			text-align: right;
+			height:$imgHeight;
+			line-height: 2.4em;
+
+			background-repeat: no-repeat;
+			background-position: bottom left;
+			background-size: auto $imgHeight;
+
+			&.alive {
+				background-image: url("/images/protocol1/sessileOrganisms/oyster-alive-selected.svg");
+				background-position-x: -10px; //compensate for left-padding in this svg image
+			}
+
+			&.dead {
+				background-image: url("/images/protocol1/sessileOrganisms/oyster-dead-selected.svg")
+			}
+
+			&.size {
+				background-image: url("/images/protocol1/sessileOrganisms/calipers-average-grey.svg")
+			}
+
+			.units {
+				font-size:70%;
+				padding-left:5px
+			}
+		}
+	}
+}
