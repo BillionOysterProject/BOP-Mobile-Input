@@ -1,13 +1,14 @@
 <ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
-	<ion-nav-buttons side="left">
-		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
-	</ion-nav-buttons>
-	<ion-nav-buttons side="right">
-		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
-	</ion-nav-buttons>
+	<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+		<ion-nav-buttons side="left">
+			<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+		</ion-nav-buttons>
+		<ion-nav-buttons side="right">
+			<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+		</ion-nav-buttons>
 
-	<ion-content class="has-header">
-		<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+		<ion-content class="has-header" scroll="false">
+
 			<div ng-init="setFormScope(sectionForm)"></div>
 			<ion-list>
 				<h2 class="padding">{{sectionMeta.title}}</h2>
@@ -29,13 +30,26 @@
 				     ng-show="sectionForm.location.$invalid && sectionForm.$submitted">
 					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
 				</div>
-				<bop-static-map ng-if="sectionForm.location.$valid && section.location" location="section.location"></bop-static-map>
 
+	            <datamap
+	                style="background:#75C1F1"
+	                map="cageLocationMap"
+	                zoomable
+	                plugins="mapPlugins"
+	                plugin-data="mapPluginData"
+	                >
+	            </datamap>
+
+				<!--<bop-static-map ng-if="sectionForm.location.$valid && section.location" location="section.location"></bop-static-map>-->
+
+			</ion-list>
+		</ion-content>
+			<ion-footer-bar style="padding: 0px !important">
 				<button class="button button-full button-calm"
+						style="margin:0; font-size:1rem"
 				        padding="true"
 				        type="submit"
 				        >Save</button>
-			</ion-list>
-		</form>
-	</ion-content>
+			</ion-footer-bar>
+	</form>
 </ion-view>
