@@ -5,8 +5,9 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 	'$ionicListDelegate'
 	'$ionicModal'
 	'$ionicScrollDelegate'
+	'$q'
 	'bopOfflineImageHelper'
-	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicScrollDelegate, bopOfflineImageHelper) ->
+	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicScrollDelegate, $q, bopOfflineImageHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -25,28 +26,36 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 		#init with some basic structure that will be populated via bindings in the template
 		$scope.initSection = ->
-			#set up initial shells array if empty
-			if !$scope.section.substrateShells
-				$scope.section.substrateShells = []
-				i = totalShells
-				while i--
-					$scope.section.substrateShells[i] =
-						totals:
-							sizeMM:{}
-						oysters:[]
-						photoIDInside:null
-						photoIDOutside:null
+			$q (resolve, reject)->
+				#set up initial shells array if empty
+				if !$scope.section.substrateShells
+					$scope.section.substrateShells = []
+					i = totalShells
+					while i--
+						$scope.section.substrateShells[i] =
+							totals:
+								sizeMM:{}
+							oysters:[]
+							photoIDInside:null
+							photoIDOutside:null
 
-			$scope.section.totalsMM ?=
-				min: null
-				max: null
-				avg: null
+				$scope.section.totalsMM ?=
+					min: null
+					max: null
+					avg: null
 
-			$scope.section.totalsMortality ?=
-				live: null
-				dead: null
+				$scope.section.totalsMortality ?=
+					live: null
+					dead: null
 
-			initPhotoURLs()
+				console.log 'init section bottom, about to initPhotoURLs'
+				initPhotoURLs()
+				.then ->
+					console.log 'initPhotoURLs done'
+					#used by back button prompt-to-save-changes logic
+					$scope.sectionBeforeChanged = angular.toJson($scope.section)
+
+					resolve()
 
 		$scope.getOysters = ->
 			$scope.section.substrateShells[$scope.shellIndex].oysters
@@ -171,14 +180,26 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 			$scope.updateMainTotals()
 
 		$scope.showPhotos = ->
-			$scope.updateStats()
-
 			$ionicModal.fromTemplateUrl("client/views/protocol1/oysterGrowthPhotos.ng.html",
 				scope: $scope
 				animation: 'slide-in-up')
 			.then (modal) ->
 				$scope.photosModal = modal
 				$scope.photosModal.show()
+
+		# Enforces completion before closing
+		#
+		# @see closePhotosModal
+		$scope.requestClosePhotosModal = ->
+			shell = $scope.section.substrateShells[$scope.shellIndex]
+			if !shell.photoIDInside? or !shell.photoIDOutside?
+				$scope.alert("You must take two photos first – the outside and the inside")
+			else
+				$scope.closePhotosModal()
+
+		# @see requestClosePhotosModal
+		$scope.closePhotosModal = ->
+			$scope.photosModal.remove()
 
 		$scope.toggleSide = ->
 			if $scope.side is 'inside'
@@ -199,20 +220,36 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 			photoID
 
 		initPhotoURLs = ->
-			insideID = getPhotoIDForSide('inside')
-			outsideID = getPhotoIDForSide('outside')
+			$q (resolve, reject)->
+				insideID = getPhotoIDForSide('inside')
+				outsideID = getPhotoIDForSide('outside')
 
-			$scope.photoURLs ?= {}
+				$scope.photoURLs ?= {}
 
-			if insideID?
-				bopOfflineImageHelper.getURLForID(insideID)
-				.then (uri)->
-					$scope.photoURLs.inside = uri
+				getInsideURL = ->
+					$q (resolve, reject)->
+						if insideID?
+							bopOfflineImageHelper.getURLForID(insideID)
+							.then (uri)->
+								$scope.photoURLs.inside = uri
+								resolve()
+						else
+							resolve()
 
-			if outsideID?
-				bopOfflineImageHelper.getURLForID(outsideID)
-				.then (uri)->
-					$scope.photoURLs.outside = uri
+				getOutsideURL = ->
+					$q (resolve, reject)->
+						if outsideID?
+							bopOfflineImageHelper.getURLForID(outsideID)
+							.then (uri)->
+								$scope.photoURLs.outside = uri
+								resolve()
+						else
+							resolve()
+
+				getInsideURL()
+				.then getOutsideURL
+				.then ->
+					resolve()
 
 		$scope.takePhoto = (side)->
 			shell = $scope.section.substrateShells[$scope.shellIndex]
@@ -257,6 +294,8 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 		$scope.side = 'inside'
 
 		$scope.initSection()
-
-		$scope.sectionBeforeChanged = angular.toJson($scope.section)
+		.then ->
+			shell = $scope.section.substrateShells[$scope.shellIndex]
+			console.log 'OysterGrowthShellCtrl#startup complete shell.photoIDInside: ' + shell.photoIDInside
+			$scope.showPhotos() if !shell.photoIDInside?
 	]
