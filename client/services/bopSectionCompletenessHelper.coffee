@@ -72,10 +72,14 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 						fieldCount++ if section.waterColor? and section.waterColor.length > 0
 						fieldCount++ if section.oilSheen?
 						fieldCount++ if section.waterGarbage?
-						fieldCount++ if section.sewerDrainsNear?
-						fieldCount++ if section.pipeDiameter?
-						fieldCount++ if section.pipeFlow?
-						fieldCount++ if (section.pipeFlowAmount? and section.pipeFlowAmount.length > 0) or section.pipeFlow is ''
+						fieldCount++ if section.sewerDrainsNear? and section.sewerDrainsNear != ''
+						fieldCount=fieldCount+4 if section.sewerDrainsNear? and section.sewerDrainsNear is ''
+						if section.sewerDrainsNear? and section.sewerDrainsNear is '1'
+							fieldCount++ if section.pipeDiameter?
+							fieldCount++ if section.pipeFlow? and section.pipeFlow != ''
+							fieldCount=fieldCount+2 if section.pipeFlow is ''
+							if section.pipeFlow? and section.pipeFlow != ''
+								fieldCount++ if section.pipeFlowAmount? and section.pipeFlowAmount.value?
 
 					when 'land'
 						fieldCount++ if section.shorelineTypes? and section.shorelineTypes.length > 0

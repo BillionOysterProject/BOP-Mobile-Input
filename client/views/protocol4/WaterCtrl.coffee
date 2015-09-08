@@ -52,6 +52,7 @@ angular.module('app.example').controller 'WaterCtrl', [
 		$scope.formIntermediary.waterGarbage = $scope.section.waterGarbage
 		$scope.formIntermediary.sewerDrainsNear = $scope.section.sewerDrainsNear
 		$scope.formIntermediary.pipeFlow = $scope.section.pipeFlow
+		$scope.formIntermediary.pipeFlowAmount = $scope.section.pipeFlowAmount
 
 		if $scope.section.waterColor?
 			for item in $scope.waterColors
@@ -71,7 +72,7 @@ angular.module('app.example').controller 'WaterCtrl', [
 				$scope.section.waterGarbage = $scope.formIntermediary.waterGarbage
 				$scope.section.sewerDrainsNear = $scope.formIntermediary.sewerDrainsNear
 				$scope.section.pipeFlow = $scope.formIntermediary.pipeFlow
-				$scope.section.pipeFlowAmount = $scope.formIntermediary.pipeFlowAmount?.label
+				$scope.section.pipeFlowAmount = $scope.formIntermediary.pipeFlowAmount
 
 				sectionsToSave = ['waterColor', 'waterGarbage', 'oilSheen', 'sewerDrainsNear', 'pipeDiameter', 'pipeFlow', 'pipeFlowAmount']
 
