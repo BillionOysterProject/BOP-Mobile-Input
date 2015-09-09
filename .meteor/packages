@@ -18,3 +18,6 @@ ground:db
 urigo:angular
 accounts-ui-unstyled
 meteoric:ionic-sass
+momentjs:moment
+sergeyt:jquery-xml2json
+matthieuh:angular-local-storage

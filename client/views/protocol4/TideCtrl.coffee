@@ -2,9 +2,25 @@ angular.module('app.example').controller 'TideCtrl', [
 	'$scope'
 	'$controller'
 	'$ionicPlatform'
-	($scope, $controller, $ionicPlatform) ->
+	'$ionicModal'
+	'localStorageService'
+	($scope, $controller, $ionicPlatform, $ionicModal, localStorageService) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
+
+		$scope.tides = localStorageService.get('tides')
+
+		$scope.showTideTimes = ->
+			$ionicModal.fromTemplateUrl("client/views/protocol4/tideTimes.ng.html",
+				scope: $scope
+				animation: 'slide-in-up')
+			.then (modal) ->
+				$scope.tideTimesModal = modal
+				$scope.tideTimesModal.show()
+
+		$scope.closeTideTimesModal = ->
+			$scope.tideTimesModal.remove()
+
 
 #		$scope.tideLevels = [
 #			'dead low'

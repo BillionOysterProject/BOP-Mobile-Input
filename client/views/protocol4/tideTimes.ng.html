@@ -1,0 +1,28 @@
+<ion-modal-view class="protocol-section">
+	<ion-header-bar>
+		<h1 class="title">Tide Times & Heights</h1>
+		<button class="button button-clear button-positive" ng-click="closeTideTimesModal()">Close</button>
+	</ion-header-bar>
+
+	<ion-content scroll="true" class="has-header padding">
+		<div ng-if="tides=='notAvailable'">
+			<p>Sorry, tide times are not available</p>
+		</div>
+		<div ng-if="tides!='notAvailable'">
+			<div ng-repeat="day in tides" ng-class-odd="odd-row">
+				<h5>{{day['$']['date']}}</h5>
+				<div class="row" ng-repeat="time in day">
+					<div class="col" ng-repeat="data in time">
+						{{data['time']}}
+					</div>
+				</div>
+				<div class="row" ng-repeat="time in day">
+					<div class="col" ng-repeat="data in time">
+						{{data['pred']}} ({{data['type']}})
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-modal-view>
