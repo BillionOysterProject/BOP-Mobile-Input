@@ -213,7 +213,14 @@ angular.module('app.example').controller 'AppCtrl', [
 				resolve()
 
 		getSites = ->
-			Meteor.subscribe 'Sites'
+			$q (resolve, reject)->
+				Meteor.subscribe 'Sites'
+				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				stop = $interval ->
+					if Sites.find().count() > 0
+						$interval.cancel(stop)
+						resolve()
+				, 100
 
 		getTideTimes = ->
 			$q (resolve, reject)->
