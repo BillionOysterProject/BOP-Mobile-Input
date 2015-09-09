@@ -27,13 +27,19 @@
 			     class="tile-row">
 
 				<!-- note ngClick seems to be a dependency of ngMousedown -->
-				<div ng-repeat="cell in row track by $index"
+				<div ng-repeat="cellIndex in row track by $index"
 				     ng-init="$colIndex = $index"
 				     class="tile"
+				     ng-class="{'completed':cellIsComplete(cellIndex)}"
 				     ng-click
 				     ng-mousedown="className='activated'"
-				     ui-sref="app.sessileOrganismsSelectDominant({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:tileIndex, cellIndex:cell})"
-					>{{cell + 1}}</div>
+				     ui-sref="app.sessileOrganismsSelectDominant({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:tileIndex, cellIndex:cellIndex})"
+					>
+					<span ng-if="!cellIsComplete(cellIndex)" class="number">{{cellIndex + 1}}</span>
+					<i ng-if="cellIsComplete(cellIndex)"
+					   class="icon icon-check-mark"
+						></i>
+				</div>
 				     <!--ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>-->
 			</div>
 		</div>

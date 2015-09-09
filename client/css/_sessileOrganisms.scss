@@ -63,13 +63,19 @@
 		}
 
 		.tile {
+			position: relative;
 			display:table-cell;
 			background-color: $bop-disabled;
 			color:#fff;
 			text-align: center;
 			vertical-align: middle;
+			font-size: 1.5em;
 
 			&.activated {
+				background-color: $calm;
+			}
+
+			&.completed {
 				background-color: $calm;
 			}
 		}
@@ -140,13 +146,17 @@
 			vertical-align: top;
 		}
 
+		$picwidth:145px;
+		$picHeight:226px;
+		$borderColor: #666;
+
 		.tile {
 			position: relative;
 			display:inline-block;
 			margin: 5px;
-			width: 145px;
-			height: 226px;
-			border: 1px solid #666;
+			width: $picwidth;
+			height: $picHeight;
+			border: 1px solid $borderColor;
 			overflow: hidden;
 			vertical-align: top;
 
@@ -180,6 +190,13 @@
 				background-position-x: -$selectedBorderSize;
 				background-position-y: -$selectedBorderSize;
 			}
+		}
+
+		.noImage{
+			width: $picwidth;
+			height: $picHeight;
+			border-bottom:1px solid $borderColor;
+			background-color: $bop-disabled;
 		}
 
 		.name {

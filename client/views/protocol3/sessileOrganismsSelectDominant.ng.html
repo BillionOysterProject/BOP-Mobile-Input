@@ -6,13 +6,15 @@
 		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
-	<div class="bar bar-footer bar-default">
-		<!--<h2 class="title">Foo</h2>-->
-		<button class="button button-calm pull-right">Next</button>
-	</div>
-
 	<div class="bar bar-subheader">
 		<h2 class="title">Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}: {{getDominantOrganism().common}}</h2>
+	</div>
+
+	<div class="bar bar-footer bar-default">
+		<!--<h2 class="title">Foo</h2>-->
+		<button class="button button-calm pull-right"
+				ng-click="setDone('dominant')"
+				ng-disabled="!cell.dominantOrgID">Next</button>
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">

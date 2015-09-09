@@ -9,9 +9,9 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		$scope.cellIsComplete = (index)->
-			#TODO
-#			$scope.section.settlementTiles?[index].grid.length > 0
+		$scope.cellIsComplete = (cellIndex)->
+			cell = $scope.getCurrentTile().cells[cellIndex]
+			cell.dominantOrgID and cell.coDominantOrgID
 
 		$scope.showPhoto = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismTilePhoto.ng.html",

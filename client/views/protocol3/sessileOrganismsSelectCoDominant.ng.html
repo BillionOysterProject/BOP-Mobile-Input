@@ -1,4 +1,4 @@
-<ion-view title="{{::title}}" class="protocol-section {{::sectionMeta.machineName}}">
+<ion-view title="{{::title}}" class="protocol-section {{::sectionMeta.machineName}} selectOrganism">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
@@ -6,12 +6,35 @@
 		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
-	<div class="bar bar-footer bar-default">
-		<!--<h2 class="title">Foo</h2>-->
-		<button class="button button-calm pull-right">Next</button>
+	<div class="bar bar-subheader">
+		<h2 class="title">Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}: {{getCoDominantOrganism().common}}</h2>
 	</div>
 
-	<ion-content class="has-header has-footer">
-		<p>TODO list of dominant species</p>
+	<div class="bar bar-footer bar-default">
+		<!--<h2 class="title">Foo</h2>-->
+		<button class="button button-calm pull-right"
+		        ng-click="setDone('co-dominant')"
+				ng-disabled="!cell.coDominantOrgID">Done</button>
+	</div>
+
+	<ion-content class="has-header has-subheader has-footer">
+		<div class="tiles">
+
+			<!-- tile -->
+			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id" ng-init="id = org._id"
+			     class="tile"
+			     ng-class="{'selected':org._id == cell.coDominantOrgID}"
+			     ng-click="cell.coDominantOrgID = org._id"
+			     ng-mousedown="className = 'activated'"
+			     >
+
+				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
+				<p class="name">
+					<span class="common">{{org.common}}</span><br>
+					<span class="latin">{{org.latin}}</span>
+				</p>
+			</div>
+			<!-- tile end -->
+		</div>
 	</ion-content>
 </ion-view>
