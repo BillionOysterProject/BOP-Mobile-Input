@@ -8,99 +8,33 @@
 
 	<div class="bar bar-subheader bar-default">
 		<h2 class="title title-left">Choose grid number for Tile {{::tileIndex + 1}}</h2>
-		<button class="button button-action-alternate icon ion-stats-bars" ng-click="showTileStats()"> Stats</button>
+		<button class="button button-action-alternate icon ion-stats-bars pull-right"
+		        ng-click="showTileStats()"></button>
+		<button class="button button-action-alternate icon ion-ios-camera pull-right photos"
+		        ng-click="showPhoto()"></button>
 	</div>
 
-	<div class="bar bar-footer bar-default">
-		<button class="button button-clear button-calm icon ion-ios-plus-empty"
-		        ng-click="addOyster()">Add oyster</button>
+	<div class="bar bar-footer bar-default no-padding">
 		<!--<h2 class="title">Foo</h2>-->
-		<button class="button button-calm"
+		<button class="button button-calm button-full button-footer"
 		        type="submit"
 		        form="oysterGrowthForm">Save</button>
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
-		<form id="oysterGrowthForm" name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
-			<div ng-init="setFormScope(sectionForm)"></div>
-			<ion-list>
-				<ng-form name="tileSizesForm">
-					<ng-switch on="getOysters().length">
-						<p ng-switch-when="0" class="item item-icon-left item-text-wrap">
-							<i class="icon ion-ios-lightbulb-outline"></i> Tap the 'Add oyster' button to begin
-						</p>
+		<div class="grid-tiles">
+			<div ng-repeat="row in grid track by $index"
+			     ng-init="$rowIndex = $index"
+			     class="tile-row">
 
-					</ng-switch>
-					<ion-item ng-repeat="oyster in getOysters() track by $index" class="oyster">
-						<ng-form name="oystersForm" ng-init="livingStatusName = 'livingStatus' + $index">
-							<h3>Oyster #{{$index + 1}} of {{getOysters().length}}:</h3>
-								<!-- oyster isAlive toggle buttons -->
-								<div class="living-status">
-									<input id="deadRadio{{$index}}"
-									       name="{{livingStatusName}}"
-									       type="radio"
-									       ng-model="oyster.isAlive"
-									       ng-value="radioBoolValues.boolFalse"
-									       required
-									       >
-
-									<!-- skinned with dead oyster icon -->
-									<label for="deadRadio{{$index}}" class="dead">Dead</label>
-
-									<input id="aliveRadio{{$index}}"
-									       type="radio"
-									       name="{{livingStatusName}}"
-									       ng-model="oyster.isAlive"
-									       ng-value="radioBoolValues.boolTrue"
-									       required
-											>
-
-									<!-- skinned with live oyster icon -->
-									<label for="aliveRadio{{$index}}">Alive</label>
-
-									<!-- CTA shown when no selection yet -->
-									<p ng-if="oystersForm[livingStatusName].$invalid" class="cta">(Select one)</p>
-								</div>
-
-								<!-- oyster size -->
-								<div ng-if="oyster.isAlive" class="size">
-									<div class="fg">
-										<div class="inputContainer">
-											<input name="liveSizeMM"
-											       type="number"
-											       placeholder="0"
-											       ng-class="{ 'has-error' : oystersForm.liveSizeMM.$invalid && sectionForm.$submitted}"
-											       ng-model="section.settlementTiles[tileIndex].oysters[$index].sizeMM"
-						                           min="1"
-						                           max="{{maxSpatSizeMM}}"
-											       required
-											       >
-											       <!--bop-focused-on="$last"-->
-											<span>mm</span>
-										</div>
-										Measurement
-									</div>
-								</div>
-								<div ng-messages="oystersForm[livingStatusName].$error"
-								     class="form-errors"
-								     ng-show="oystersForm[livingStatusName].$invalid && sectionForm.$submitted">
-									<div class="form-error text-center" ng-message="required">{{getMessage('requiredLivingStatus')}}</div>
-									<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-								</div>
-								<div ng-messages="oystersForm.liveSizeMM.$error"
-								     class="form-errors"
-								     ng-show="oystersForm.liveSizeMM.$invalid && sectionForm.$submitted">
-									<div class="form-error" ng-message="min">{{getMessage('notLessThanN') | tokenValues:[1]}}</div>
-									<div class="form-error" ng-message="max">{{getMessage('unlikelyBig')}}</div>
-									<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-								</div>
-						</ng-form>
-						<ion-option-button class="button-assertive" ng-click="deleteOyster($index)">Delete</ion-option-button>
-					</ion-item>
-
-					<!--<pre>{{section.settlementTiles[tileIndex] | json}}</pre>-->
-				</ng-form>
-			</ion-list>
-		</form>
+				<!-- note ngClick seems to be a dependency of ngMousedown -->
+				<div ng-repeat="cell in row track by $index"
+				     ng-init="$colIndex = $index"
+				     class="tile"
+				     ng-click
+				     ng-mousedown="className='activated'">{{cell + 1}}</div>
+				     <!--ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>-->
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

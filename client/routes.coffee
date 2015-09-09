@@ -143,9 +143,8 @@ angular.module('app.example').config [
 					templateUrl: "client/views/protocol1/oysterGrowthShell.ng.html"
 					controller: 'OysterGrowthShellCtrl'
 
-
-		#subsection for sessile organisms (an individual settlement tile) (note, app.SessileOrganisms is defined in bopRoutesDynamic.coffee and is a list of the 4 settlement tiles)
-		.state 'app.SessileOrganisms',
+		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
+		.state 'app.sessileOrganismsTile',
 			cache: false
 
 			#shorthand default values
@@ -157,7 +156,7 @@ angular.module('app.example').config [
 			views:
 				'menuContent':
 					templateUrl: "client/views/protocol3/sessileOrganismsTile.ng.html"
-					controller: 'SessileOrganismsCtrl'
+					controller: 'SessileOrganismsTileCtrl'
 
 		.state('eventmenu.home.home1', {
 		      url: "/home1",

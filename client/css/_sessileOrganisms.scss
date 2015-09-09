@@ -1,104 +1,265 @@
 .protocol-section.sessileOrganisms {
-	.settlement-tile {
+	.cta {
+		margin-bottom: 5px;
+	}
+
+	.bar-subheader .title {
+		font-size: 1em;
+	}
+
+	.button.photos {
+		//I didn't see a more "Ionic" way of having two buttons on the right in the bar-subheader
+		//so instead I added pull-right to both of them and am offsetting the one button here using a margin.
+		margin-right:46px;
+	}
+
+
+	.settlement-tiles {
+		$tableSize: 320px;
+		$tileSpacing:20px;
+
 		position: relative;
-		display: inline-block;
-		margin-right: -7px;
-		margin-bottom: 13px;
-		padding: 0;
-		height: 90px;
-		max-height: none;
+		display:table;
+		border-spacing: $tileSpacing;
+		border-collapse: separate;
+		width:$tableSize;
+		height:$tableSize;
+		margin: 0 auto;
 
-		i.icon-settlement-tile {
-			&::before {
-				font-size: 500%;
 
-			}
-
-			color: $bop-action;
+		.tile-row {
+			display: table-row;
 		}
 
-		.icon::before {
-			margin: 0;
-		}
-
-		i.icon-check-mark {
-			&::before {
-				font-size: 110%;
-
-			}
-
-			position: absolute;
-			right: 10px;
-			bottom: -9px;
-			color: $bop-action;
-		}
-
-		.label {
-			position: absolute;
-			font-size: 1.4em;
-			top: 11px;
-			left: 20px;
+		.tile {
+			display:table-cell;
+			background-color: $bop-disabled;
+			color:#fff;
 			text-align: center;
-			width: 40px;
-			font-weight: bold;
-			color: $bop-action;
-		}
-	}
+			vertical-align: middle;
+			font-size: 2.5em;
 
-	.oyster {
-		$iconSize:54px;
-
-		h3 {
-			margin-bottom:10px;
-		}
-
-		$height:106px;
-
-
-		.item-content {
-			padding-right:16px;
-
-			.form-errors {
-				text-align: right;
-				margin-right: 12px;
+			&.activated {
+				background-color: $calm;
 			}
 		}
 	}
 
-	&.stats {
+	.grid-tiles {
+		$tableSize: 300px;
+		$tileSpacing:4px;
 
-		.col:first-child {
-			padding-right:25px;
+		padding-top: 10px;
+		position: relative;
+		display:table;
+		border-spacing: $tileSpacing;
+		border-collapse: separate;
+		width:$tableSize;
+		height:$tableSize;
+		margin: 0 auto;
+
+		.tile-row {
+			display: table-row;
 		}
 
-		.value {
-			$imgHeight: 50px;
-			font-size: 30px;
-			white-space: nowrap;
-			text-align: right;
-			height:$imgHeight;
-			line-height: 2.4em;
+		.tile {
+			display:table-cell;
+			background-color: $bop-disabled;
+			color:#fff;
+			text-align: center;
+			vertical-align: middle;
 
-			background-repeat: no-repeat;
-			background-position: bottom left;
-			background-size: auto $imgHeight;
-
-			&.alive {
-				background-image: url("/images/protocol1/sessileOrganisms/oyster-alive-selected.svg");
-				background-position-x: -10px; //compensate for left-padding in this svg image
+			&.activated {
+				background-color: $calm;
 			}
+		}
+	}
 
-			&.dead {
-				background-image: url("/images/protocol1/sessileOrganisms/oyster-dead-selected.svg")
+	&.photos {
+		//TODO cleanup – don't need sides and there's only one photo
+		.sides {
+			position:relative;
+			width:100%;
+			height:300px;
+			margin-bottom: 20px;
+		}
+
+		.photo-frame {
+			position:absolute;
+			width:100%;
+
+			.inner {
+				position: relative;
+				margin: 0 auto;
+				$frameSize: 300px;
+				width: $frameSize;
+				height: $frameSize;
+				padding: 10px;
+				background-size: contain;
+				background-position: center;
+
+				&.photo-matte {
+					background-color: #ddd;
+				}
+
+				p {
+					width: 85%;
+					margin: 37% auto;
+					color: $calm;
+
+					.icon {
+						font-size: 1.7em;
+						vertical-align: middle;
+						margin-right: 8px;
+					}
+				}
+
+				&.activated {
+					p {
+						opacity: .7;
+					}
+				}
+
+				.frame {
+					position: absolute;
+					top:0;
+					left:0;
+					width: $frameSize;
+					height: $frameSize;
+
+					//TODO replace with SVG border as in Tracey's comp
+					border: 2px solid #333333;
+				}
 			}
+		}
+	}
+//
+//	.settlement-tile {
+//		position: relative;
+//		display: inline-block;
+//		margin-right: -7px;
+//		margin-bottom: 13px;
+//		padding: 0;
+//		height: 90px;
+//		max-height: none;
+//
+//		i.icon-settlement-tile {
+//			&::before {
+//				font-size: 500%;
+//
+//			}
+//
+//			color: $bop-action;
+//		}
+//
+//		.icon::before {
+//			margin: 0;
+//		}
+//
+//		i.icon-check-mark {
+//			&::before {
+//				font-size: 110%;
+//
+//			}
+//
+//			position: absolute;
+//			right: 10px;
+//			bottom: -9px;
+//			color: $bop-action;
+//		}
+//
+//		.label {
+//			position: absolute;
+//			font-size: 1.4em;
+//			top: 11px;
+//			left: 20px;
+//			text-align: center;
+//			width: 40px;
+//			font-weight: bold;
+//			color: $bop-action;
+//		}
+//	}
 
-			&.size {
-				background-image: url("/images/protocol1/sessileOrganisms/calipers-average-grey.svg")
-			}
+//	.oyster {
+//		$iconSize:54px;
+//
+//		h3 {
+//			margin-bottom:10px;
+//		}
+//
+//		$height:106px;
+//
+//
+//		.item-content {
+//			padding-right:16px;
+//
+//			.form-errors {
+//				text-align: right;
+//				margin-right: 12px;
+//			}
+//		}
+//	}
 
-			.units {
-				font-size:70%;
-				padding-left:5px
+//	&.stats {
+//
+//		.col:first-child {
+//			padding-right:25px;
+//		}
+//
+//		.value {
+//			$imgHeight: 50px;
+//			font-size: 30px;
+//			white-space: nowrap;
+//			text-align: right;
+//			height:$imgHeight;
+//			line-height: 2.4em;
+//
+//			background-repeat: no-repeat;
+//			background-position: bottom left;
+//			background-size: auto $imgHeight;
+//
+//			&.alive {
+//				background-image: url("/images/protocol1/sessileOrganisms/oyster-alive-selected.svg");
+//				background-position-x: -10px; //compensate for left-padding in this svg image
+//			}
+//
+//			&.dead {
+//				background-image: url("/images/protocol1/sessileOrganisms/oyster-dead-selected.svg")
+//			}
+//
+//			&.size {
+//				background-image: url("/images/protocol1/sessileOrganisms/calipers-average-grey.svg")
+//			}
+//
+//			.units {
+//				font-size:70%;
+//				padding-left:5px
+//			}
+//		}
+//	}
+}
+
+@media screen and (min-width: 768px) {
+	.protocol-section.sessileOrganisms {
+		.settlement-tiles {
+			$tableSize: 500px;
+			$tileSpacing:20px;
+			border-spacing: $tileSpacing;
+			width:$tableSize;
+			height:$tableSize;
+		}
+
+		.grid-tiles {
+			$tableSize: 520px;
+			$tileSpacing:4px;
+
+			padding-top: 30px;
+			border-spacing: $tileSpacing;
+			width:$tableSize;
+			height:$tableSize;
+
+			.tile {
+				font-size:2em;
 			}
 		}
 	}

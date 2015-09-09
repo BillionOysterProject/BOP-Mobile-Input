@@ -6,19 +6,48 @@
 		<!--<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>-->
 	<!--</ion-nav-buttons>-->
 
-	<ion-content class="has-header">
-		<h2 class="padding"><i class="icon icon-oyster-measurement"></i>{{::sectionMeta.title}}</h2>
-		<p class="item item-icon-left item-text-wrap cta"><i class="icon ion-ios-lightbulb-outline"></i> Choose a settlement tile</p>
-		<button ng-repeat="tile in totalTiles track by $index"
-		        class="button button-clear substrate-shell"
-		        ui-sref="app.SessileOrganisms({protocolNum:protocol.num, sectionMachineName:section.machineName, tileIndex:$index})">
-			<img ng-src="images/protocol-03.svg" src="images/protocol-03.svg">
-			<i ng-show="tileIsComplete($index)"
-			   class="icon icon-check-mark"
-				></i>
-			<div class="label">{{::$index + 1}}</div>
-		</button><br>
+	<div class="bar bar-footer bar-default no-padding">
+		<!--<h2 class="title">Foo</h2>-->
+		<button class="button button-calm button-full button-footer"
+		        type="submit"
+		        form="oysterGrowthForm">Save</button>
+	</div>
 
-		<button class="button button-full button-action-alternate" ng-click="showOverallStats()">Overall Stats</button>
+	<ion-footer-bar class="no-padding">
+		<button class="button button-full button-action-alternate button-footer"
+				padding="true"
+				ng-click="showOverallStats()">Overall Stats
+		</button>
+	</ion-footer-bar>
+
+	<ion-content class="has-header has-footer">
+		<h2 class="padding">{{::sectionMeta.title}}</h2>
+		<p class="item item-icon-left item-text-wrap cta"><i class="icon ion-ios-lightbulb-outline"></i> Choose a settlement tile</p>
+		<div class="settlement-tiles">
+			<div class="tile-row">
+
+				<!-- note ngClick seems to be a dependency of ngMousedown -->
+				<div class="tile"
+				     ng-click
+				     ng-mousedown="className='activated'"
+				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>
+
+				<div class="tile"
+				     ng-click
+				     ng-mousedown="className='activated'"
+				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:1})">2</div>
+				</div>
+			<div class="tile-row">
+				<div class="tile"
+				     ng-click
+				     ng-mousedown="className='activated'"
+				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:2})">3</div>
+
+				<div class="tile"
+				     ng-click
+				     ng-mousedown="className='activated'"
+				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:3})">4</div>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>
