@@ -4,13 +4,14 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 	'$stateParams'
 	'$ionicListDelegate'
 	'$ionicModal'
-	'$ionicScrollDelegate'
-	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicScrollDelegate) ->
+	'$ionicHistory'
+	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicHistory) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		totalShells = 10
-		$scope.tileIndex = $stateParams.tileIndex;
+		$scope.cellIsComplete = (index)->
+			#TODO
+#			$scope.section.settlementTiles?[index].grid.length > 0
 
 		$scope.showPhoto = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismTilePhoto.ng.html",
@@ -25,21 +26,40 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 			#set up initial shells array if empty
 			if !$scope.section.settlementTiles
 				$scope.section.settlementTiles = []
-				i = totalShells
-				while i--
-					$scope.section.settlementTiles[i] =
-						totals:
-							sizeMM:{}
-						oysters:[]
+				totalTiles = 4
+				totalCells = 25
+				t = totalTiles
+				while t--
+					c = totalCells
+					$scope.section.settlementTiles[t] =
+						photoID:null
+						cells: []
 
-			$scope.section.totalsMM ?=
-				min: null
-				max: null
-				avg: null
+					while c--
+						$scope.section.settlementTiles[t].cells[c] =
+							dominantOrgID:null
+							coDominantOrgID:null
+							desc:null
 
-			$scope.section.totalsMortality ?=
-				live: null
-				dead: null
+				#save the emtpy object structure so that the 'select dominant/co-dominant organism' screens have access to it.
+				$scope.saveSection ['settlementTiles']
+
+		#creates 2D array representing grids and columns. No contents.
+		initGrid = ->
+			rows = 5
+			cols = 5
+			tile = rows * cols - 1
+			$scope.grid = new Array(rows)
+
+			r = rows
+			while r--
+				c = cols
+				$scope.grid[r] = []
+
+				while c--
+					$scope.grid[r][c] = tile--
+
+				initSection
 
 		# Enforces completion before closing
 		#
@@ -112,7 +132,7 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 #			$scope.section.totalsMM = {min, max, avg}
 #			$scope.section.totalsMortality = {live, dead}
 
-		$scope.onTapSave = (formIsValid)->
+		$scope.onTapSave = ->
 			#TODO
 
 #			if formIsValid
@@ -134,23 +154,14 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 				$scope.shellStatsModal = modal
 				$scope.shellStatsModal.show()
 
-		#creates 2D array representing grids and columns. No contents.
-		initGrid = ->
-			rows = 5
-			cols = 5
-			tile = 0
-			$scope.grid = new Array(rows)
+		$scope.getCurrentTile = ->
+			$scope.section.settlementTiles[$scope.tileIndex]
 
-			r = 0
-			while r < rows
-				c = 0
-				$scope.grid[r] = []
-				while c < cols
-					$scope.grid[r][c++] = tile++
-				r++
-
-				initSection
+		$scope.tileIndex = $stateParams.tileIndex;
 
 		initSection()
 		initGrid()
+
+		#show the photo if we don't have one yet and we've arrived here by navigating forward (not coming back to this view from somewhere deeper in the stack)
+		$scope.showPhoto() if !$scope.getCurrentTile().photoID? and $ionicHistory.forwardView() is null
 	]

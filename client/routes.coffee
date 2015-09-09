@@ -158,6 +158,38 @@ angular.module('app.example').config [
 					templateUrl: "client/views/protocol3/sessileOrganismsTile.ng.html"
 					controller: 'SessileOrganismsTileCtrl'
 
+		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
+		.state 'app.sessileOrganismsSelectDominant',
+			cache: false
+
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				tileIndex: undefined
+				cellIndex: undefined
+
+			views:
+				'menuContent':
+					templateUrl: "client/views/protocol3/sessileOrganismsSelectDominant.ng.html"
+					controller: 'SessileOrganismsSelectOrganismsCtrl'
+
+		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
+		.state 'app.sessileOrganismsSelectCoDominant',
+			cache: false
+
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				tileIndex: undefined
+				cellIndex: undefined
+
+			views:
+				'menuContent':
+					templateUrl: "client/views/protocol3/sessileOrganismsSelectCoDominant.ng.html"
+					controller: 'SessileOrganismsSelectOrganismsCtrl'
+
 		.state('eventmenu.home.home1', {
 		      url: "/home1",
 		      views: {

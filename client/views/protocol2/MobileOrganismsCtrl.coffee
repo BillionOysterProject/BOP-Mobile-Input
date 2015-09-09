@@ -8,7 +8,7 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		#prepares the organism data for UI. Also supports preloading MobileOrganisms images
+		#prepares the organism data for UI.
 		$scope.organisms = $meteor.collection ->
 			Organisms.find({mobile:true})
 

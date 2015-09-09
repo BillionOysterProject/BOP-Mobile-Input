@@ -17,8 +17,7 @@
 	<div class="bar bar-footer bar-default no-padding">
 		<!--<h2 class="title">Foo</h2>-->
 		<button class="button button-calm button-full button-footer"
-		        type="submit"
-		        form="oysterGrowthForm">Save</button>
+				ng-click="onTapSave()">Save</button>
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
@@ -32,7 +31,9 @@
 				     ng-init="$colIndex = $index"
 				     class="tile"
 				     ng-click
-				     ng-mousedown="className='activated'">{{cell + 1}}</div>
+				     ng-mousedown="className='activated'"
+				     ui-sref="app.sessileOrganismsSelectDominant({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:tileIndex, cellIndex:cell})"
+					>{{cell + 1}}</div>
 				     <!--ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>-->
 			</div>
 		</div>
