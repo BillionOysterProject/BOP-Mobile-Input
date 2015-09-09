@@ -9,7 +9,7 @@
 			<p>Sorry, tide times are not available</p>
 		</div>
 		<div ng-if="tides!='notAvailable'">
-			<div ng-repeat="day in tides" ng-class-odd="odd-row">
+			<div ng-repeat="day in tides">
 				<h5>{{day['$']['date']}}</h5>
 				<div class="row" ng-repeat="time in day">
 					<div class="col" ng-repeat="data in time">
