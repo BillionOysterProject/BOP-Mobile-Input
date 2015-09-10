@@ -18,7 +18,7 @@ angular.module('app.example').controller 'LandCtrl', [
 			{id: 'floatingDock', label:'Floating Dock'}
 			{id: 'riprap', label:'Riprap'}
 			{id: 'rockyShoreline', label:'Rocky Shoreline'}
-			{id: 'natural', label:'Natural'}
+			{id: 'dirtOrSand', label:'Dirt or Sand'}
 			{id: 'other', label:'Other'}
 		]
 
