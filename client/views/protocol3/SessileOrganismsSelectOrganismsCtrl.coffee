@@ -9,9 +9,19 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
-		#prepares the organism data for UI.
-		$scope.organisms = $meteor.collection ->
-			Organisms.find({mobile:false})
+		initOrganisms = ->
+			#prepares the organism data for UI.
+			$scope.organisms = $meteor.collection ->
+				query =
+					mobile:false
+
+				# if we're in the co-dominant seleection view, exclude the dominant organism
+				# since it wouldn't make sense for a user to be able to select the same organism
+				# for dominant and co-dominant
+				if $ionicHistory.currentView().stateName is 'app.sessileOrganismsSelectCoDominant'
+					query._id = { $ne: $scope.cell.dominantOrgID }
+
+				Organisms.find query
 
 		$scope.setDone = (dominance)->
 			stateParams =
@@ -64,7 +74,12 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 			#add id to the sessile organisms data
 			switch dominance
 				when 'dominant'
-					$scope.cell.dominantOrgID = orgID
+					# covers use case where user selects different organisms for dominant, co-dominant, then goes back
+					# and changes dominant to an org that matches codominant
+					if orgID is $scope.cell.coDominantOrgID
+						$scope.alert("You have already selected #{ Organisms.findOne(orgID)?.common} as the co-dominant organism. You can change the co-dominant organism on the next screen.")
+					else
+						$scope.cell.dominantOrgID = orgID
 
 				when 'co-dominant'
 					$scope.cell.coDominantOrgID = orgID
@@ -98,6 +113,9 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 		$scope.tileIndex = $stateParams.tileIndex;
 		$scope.cellIndex = $stateParams.cellIndex;
 		$scope.cell = $scope.section.settlementTiles[$scope.tileIndex].cells[$scope.cellIndex]
+
+
+		initOrganisms()
 		initOrgName()
 		$scope.sectionBeforeChanged = angular.toJson($scope.section)
 
