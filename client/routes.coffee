@@ -190,6 +190,22 @@ angular.module('app.example').config [
 					templateUrl: "client/views/protocol3/sessileOrganismsSelectCoDominant.ng.html"
 					controller: 'SessileOrganismsSelectOrganismsCtrl'
 
+		# Notes: description input view that yous see after selecting dominant/co-dominant organisms.
+		.state 'app.sessileOrganismsNotes',
+			cache: false
+
+			#shorthand default values
+			params:
+				protocolNum: undefined
+				sectionMachineName: undefined
+				tileIndex: undefined
+				cellIndex: undefined
+
+			views:
+				'menuContent':
+					templateUrl: "client/views/protocol3/sessileOrganismsNotes.ng.html"
+					controller: 'SessileOrganismsSelectOrganismsCtrl'
+
 		.state('eventmenu.home.home1', {
 		      url: "/home1",
 		      views: {

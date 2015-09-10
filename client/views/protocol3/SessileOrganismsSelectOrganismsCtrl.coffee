@@ -14,21 +14,38 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 			Organisms.find({mobile:true})
 
 		$scope.setDone = (dominance)->
-			$scope.saveSection ['settlementTiles']
-			$scope.showSaveDone()
+			stateParams =
+				protocolNum:$scope.protocolMetadata.num
+				sectionMachineName:$scope.section.machineName
+				tileIndex:$scope.tileIndex
+				cellIndex:$scope.cellIndex
+
 			switch dominance
 				when 'dominant'
-					stateParams =
-						protocolNum:$scope.protocolMetadata.num
-						sectionMachineName:$scope.section.machineName
-						tileIndex:$scope.tileIndex
-						cellIndex:$scope.cellIndex
+					if $scope.cell.dominantOrgID is 'none'
+						$scope.cell.coDominantOrgID = 'none'
+						$state.go('app.sessileOrganismsNotes', stateParams)
 
-					$state.go('app.sessileOrganismsSelectCoDominant', stateParams)
+					else
+						$state.go('app.sessileOrganismsSelectCoDominant', stateParams)
 
 				when 'co-dominant'
+					$state.go('app.sessileOrganismsNotes', stateParams)
+
+				when 'notes'
 					#back two steps
-					$scope.back(-2)
+					switch $ionicHistory.backView().stateName
+						when 'app.sessileOrganismsSelectDominant'
+							numStepsBack = 2
+
+						when 'app.sessileOrganismsSelectCoDominant'
+							numStepsBack = 3
+
+					$scope.back(-numStepsBack)
+
+			$scope.saveSection ['settlementTiles']
+			$scope.showSaveDone()
+			return
 
 		$scope.saveAndGoBackOneStep = ->
 			$scope.saveSection ['settlementTiles']

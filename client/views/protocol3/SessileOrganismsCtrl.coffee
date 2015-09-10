@@ -19,32 +19,3 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 				$scope.overallStatsModal = modal
 				$scope.overallStatsModal.show()
 	]
-
-###
-
-
-section.settlementTiles = [
-	photoID:'b1dH36' # photo _id value
-	cells:[
-		main:'ab12345' # aka 'dominant'. organism _id value
-		sub:'za24' # aka 'co-dominant'. 3 possible value types: 1. organism _id value, 2. 'none' or 3. 'other'
-		desc:"Also saw a puffer fish"
-		#... 25
-	]
-,
-	cells:[
-
-		#... 25
-	]
-,
-	cells:[
-
-		#... 25
-	]
-,
-	cells:[
-
-		#... 25
-	]
-]
-###
