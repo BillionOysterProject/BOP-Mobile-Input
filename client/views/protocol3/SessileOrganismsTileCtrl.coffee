@@ -21,29 +21,6 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 				$scope.photosModal = modal
 				$scope.photosModal.show()
 
-		#init with some basic structure that will be populated via bindings in the template
-		initSection = ->
-			#set up initial shells array if empty
-			if !$scope.section.settlementTiles
-				$scope.section.settlementTiles = []
-				totalTiles = 4
-				totalCells = 25
-				t = totalTiles
-				while t--
-					c = totalCells
-					$scope.section.settlementTiles[t] =
-						photoID:null
-						cells: []
-
-					while c--
-						$scope.section.settlementTiles[t].cells[c] =
-							dominantOrgID:null
-							coDominantOrgID:null
-							desc:null
-
-				#save the emtpy object structure so that the 'select dominant/co-dominant organism' screens have access to it.
-				$scope.saveSection ['settlementTiles']
-
 		#creates 2D array representing grids and columns. No contents.
 		initGrid = ->
 			rows = 5
@@ -58,8 +35,6 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 
 				while c--
 					$scope.grid[r][c] = tile--
-
-				initSection
 
 		# Enforces completion before closing
 		#
@@ -132,20 +107,6 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 #			$scope.section.totalsMM = {min, max, avg}
 #			$scope.section.totalsMortality = {live, dead}
 
-		$scope.onTapSave = ->
-			#TODO
-
-#			if formIsValid
-#				for oyster in $scope.getOysters()
-#					delete oyster.sizeMM if !oyster.isAlive
-#
-#				$scope.updateStats()
-#				$scope.saveSection ['settlementTiles', 'totalsMM', 'totalsMortality']
-#				$scope.showSaveDone()
-#				$scope.back()
-#			else
-#				console.log 'do nothing, sectionForm invalid'
-
 		$scope.showTileStats = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsTileStats.ng.html",
 				scope: $scope
@@ -159,7 +120,6 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 
 		$scope.tileIndex = $stateParams.tileIndex;
 
-		initSection()
 		initGrid()
 
 		#show the photo if we don't have one yet and we've arrived here by navigating forward (not coming back to this view from somewhere deeper in the stack)

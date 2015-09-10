@@ -14,11 +14,11 @@
 		        ng-click="showPhoto()"></button>
 	</div>
 
-	<div class="bar bar-footer bar-default no-padding">
-		<!--<h2 class="title">Foo</h2>-->
-		<button class="button button-calm button-full button-footer"
-				ng-click="onTapSave()">Save</button>
-	</div>
+	<!--<div class="bar bar-footer bar-default no-padding">-->
+		<!--&lt;!&ndash;<h2 class="title">Foo</h2>&ndash;&gt;-->
+		<!--<button class="button button-calm button-full button-footer"-->
+				<!--ng-click="onTapSave()">Save</button>-->
+	<!--</div>-->
 
 	<ion-content class="has-header has-subheader has-footer">
 		<div class="grid-tiles">
@@ -35,12 +35,11 @@
 				     ng-mousedown="className='activated'"
 				     ui-sref="app.sessileOrganismsSelectDominant({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:tileIndex, cellIndex:cellIndex})"
 					>
-					<span ng-if="!cellIsComplete(cellIndex)" class="number">{{cellIndex + 1}}</span>
+					<span ng-if="!cellIsComplete(cellIndex)">{{cellIndex + 1}}</span>
 					<i ng-if="cellIsComplete(cellIndex)"
 					   class="icon icon-check-mark"
 						></i>
 				</div>
-				     <!--ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>-->
 			</div>
 		</div>
 	</ion-content>

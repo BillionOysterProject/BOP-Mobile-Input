@@ -25,28 +25,22 @@
 		<p class="item item-icon-left item-text-wrap cta"><i class="icon ion-ios-lightbulb-outline"></i> Choose a settlement tile</p>
 		<div class="settlement-tiles">
 			<div class="tile-row">
+				<settlement-tile tile-index="0"
+				                 completed="tileIsComplete(0)"
+				                 ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})"></settlement-tile>
 
-				<!-- note ngClick seems to be a dependency of ngMousedown -->
-				<div class="tile"
-				     ng-click
-				     ng-mousedown="className='activated'"
-				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:0})">1</div>
-
-				<div class="tile"
-				     ng-click
-				     ng-mousedown="className='activated'"
-				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:1})">2</div>
-				</div>
+				<settlement-tile tile-index="1"
+				                 completed="tileIsComplete(1)"
+				                 ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:1})"></settlement-tile>
+			</div>
 			<div class="tile-row">
-				<div class="tile"
-				     ng-click
-				     ng-mousedown="className='activated'"
-				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:2})">3</div>
+				<settlement-tile tile-index="2"
+				                 completed="tileIsComplete(2)"
+				                 ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:2})"></settlement-tile>
 
-				<div class="tile"
-				     ng-click
-				     ng-mousedown="className='activated'"
-				     ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:3})">4</div>
+				<settlement-tile tile-index="3"
+				                 completed="tileIsComplete(3)"
+				                 ui-sref="app.sessileOrganismsTile({protocolNum:protocolMetadata.num, sectionMachineName:section.machineName, tileIndex:3})"></settlement-tile>
 			</div>
 		</div>
 	</ion-content>

@@ -1,0 +1,8 @@
+<div class="tile"
+     ng-class="{'completed':completed}"
+     ng-click
+     ng-mousedown="className='activated'">
+	<span ng-if="!completed">{{tileIndex + 1}}</span>
+	<i ng-if="completed"
+	   class="icon icon-check-mark"></i>
+</div>

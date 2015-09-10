@@ -10,15 +10,7 @@ angular.module('app.example').directive 'sessileOrganismCard', [
 				selected:'='
 				specialLabel:'='
 
-			link:($scope, element, attrs)->
-#				updateWidth = ->
-#					element.find('.inner').css('width', Math.floor($scope.p * 100) + '%')
-#
-#				$scope.$watch 'p', ->
-#					updateWidth()
-#
-#				element.addClass('bop-progress-bar')
-#				updateWidth()
+#			link:($scope, element, attrs)->
 
 		return def
 	]

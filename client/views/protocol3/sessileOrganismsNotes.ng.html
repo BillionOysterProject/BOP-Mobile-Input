@@ -1,4 +1,4 @@
-<ion-view title="{{::title}}" class="protocol-section {{::sectionMeta.machineName}} selectOrganism">
+<ion-view title="{{::title}}" class="protocol-section {{::sectionMeta.machineName}} notes">
 	<ion-nav-buttons side="left">
 		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
 	</ion-nav-buttons>
@@ -7,7 +7,7 @@
 	</ion-nav-buttons>
 
 	<div class="bar bar-subheader">
-		<h2 class="title">Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}: {{getDominantOrganism().common}}</h2>
+		<h2 class="title title-left">Notes for Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}: {{getDominantOrganism().common}}</h2>
 	</div>
 
 	<div class="bar bar-footer bar-default">
@@ -18,6 +18,18 @@
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
-		<p>TODO - Notes.</p>
+		<ion-list>
+			<!-- notes -->
+			<label class="item item-divider item-stacked-label item-text-wrap"
+			       ng-class="{ 'has-error' : sectionForm.notes.$invalid && sectionForm.$submitted}">
+
+				<span class="input-label">For example, record any other species that may be present in the grid</span>
+
+				<textarea name="notes"
+				          placeholder="{{getMessage('sessileNotesPlaceholder')}}"
+				          ng-model="cell.notes"
+				          msd-elastic="\n"></textarea>
+			</label>
+		</ion-list>
 	</ion-content>
 </ion-view>
