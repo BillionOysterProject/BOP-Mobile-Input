@@ -14,9 +14,8 @@ angular.module('app.example').controller 'AppCtrl', [
 	'$interval'
 	'$cordovaAppVersion'
 	'bopRoutesDynamic'
-	'$http'
 	'localStorageService'
-	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $interval, $cordovaAppVersion, bopRoutesDynamic, $http, localStorageService) ->
+	($scope, $rootScope, $state, $q, $ionicPlatform, $ionicHistory, $ionicNavBarDelegate, $ionicSideMenuDelegate, $meteor, $ionicPopup, $ionicModal, $filter, $interval, $cordovaAppVersion, bopRoutesDynamic, localStorageService) ->
 		$scope.$on '$ionicView.beforeEnter', -> #doesn't work without wrapping in beforeEnter handler
 			#disable swipe (content fg) to reveal main menu. Disables for all future views (unless they call this again with true)
 			$ionicSideMenuDelegate.canDragContent(false)
@@ -232,19 +231,22 @@ angular.module('app.example').controller 'AppCtrl', [
 
 				#this is the nicer API as it returns JSON, but I could only get it to return tide heights
 				#at 6 minute intervals throughout the day, when we really just want each of the high and low tides of each day
-				#$http.get('http://tidesandcurrents.noaa.gov/api/datagetter?begin_date='+startDate+'&end_date='+endDate+'&station=8518750&product=water_level&datum=mllw&units=metric&time_zone=lst&application=web_services&format=json').success((data, status, headers, config) ->
+				#http://tidesandcurrents.noaa.gov/api/datagetter?begin_date='+startDate+'&end_date='+endDate+'&station=8518750&product=water_level&datum=mllw&units=metric&time_zone=lst&application=web_services&format=json
 
 				#this service returns xml,text, or html but not json so we convert to json using xml2json package
 				#https://atmospherejs.com/sergeyt/jquery-xml2json
-				$http.get('http://opendap.co-ops.nos.noaa.gov/axis/webservices/highlowtidepred/response.jsp?stationId=8518750&beginDate='+startDate+'&endDate='+endDate+'&datum=MLLW&unit=1&timeZone=0&format=xml&Submit=Submit').success((data, status, headers, config) ->
-					jsonTides = $.xml2json(data)
-					localStorageService.set('tides', jsonTides['soapenv:Envelope']['soapenv:Body']['HighLowAndMetadata']['HighLowValues']['item']);
-					resolve()
-				).error (data, status, headers, config) ->
-					localStorageService.set('tides', 'notAvailable')
-					console.log 'failed tide lookup'
-					resolve()
-					return
+				Meteor.call "dataFromApi", "http://opendap.co-ops.nos.noaa.gov/axis/webservices/highlowtidepred/response.jsp?stationId=8518750&beginDate="+startDate+"&endDate="+endDate+"&datum=MLLW&unit=1&timeZone=0&format=xml&Submit=Submit", (err, data)->
+					if err
+						console.error err
+						#reject(err)
+						localStorageService.set('tides', 'notAvailable')
+						console.log 'failed tide lookup'
+						resolve()
+					else
+						jsonTides = $.xml2json(data['content'])
+						#console.log jsonTides
+						localStorageService.set 'tides', jsonTides['soapenv:Envelope']['soapenv:Body']['HighLowAndMetadata']['HighLowValues']['item']
+						resolve(data)
 
 		getProtocolSections = ->
 			$q (resolve, reject)->

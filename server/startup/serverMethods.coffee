@@ -11,6 +11,11 @@ awsBucket = "bop-upload-test"
 #awsBucket = "bop-images"
 
 Meteor.methods
+
+	dataFromApi: (url) ->
+		@unblock()
+		return Meteor.http.call 'GET', url
+
 	# this method is used for signing AWS S3 requests that the client makes directly to S3 – those client requests do not use the AWS S3 SDK, FYI
 	sign:(filename)->
 
