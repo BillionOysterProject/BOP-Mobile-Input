@@ -1,6 +1,4 @@
-<div class="tile"
-     ng-class="{'selected':selected}"
-     >
+<div class="tile">
 	<img ng-if="organism"
 	     ng-src="/images/protocol3/sessileOrganisms/{{organism.file}}">
 	<div ng-if="!organism" class="noImage"></div>
@@ -8,4 +6,6 @@
 		<span class="common">{{organism ? organism.common : specialLabel}}</span><br>
 		<span class="latin">{{organism.latin}}</span>
 	</p>
+	<div ng-class="{'selected':selected}"
+	     class="frame"></div>
 </div>

@@ -174,7 +174,6 @@
 			margin: 5px;
 			width: $tileWidth;
 			height: $tileHeight;
-			border: 1px solid $borderColor;
 			overflow: hidden;
 			vertical-align: top;
 
@@ -203,12 +202,19 @@
 				opacity: .7;
 			}
 
-			&.selected {
-				$selectedBorderSize:3px;
-				border: $selectedBorderSize solid $calm;
-				background-position-x: -$selectedBorderSize;
-				background-position-y: -$selectedBorderSize;
+			.frame{
+				position: absolute;
+				top:0;
+				left:0;
+				width: $tileWidth;
+				height: $tileHeight;
+				border: 1px solid $borderColor;
+
+				&.selected {
+					border: 3px solid $calm;
+				}
 			}
+
 		}
 
 		.noImage{
@@ -230,7 +236,6 @@
 				font-style: italic;
 			}
 		}
-
 	}
 
 	&.notes {
