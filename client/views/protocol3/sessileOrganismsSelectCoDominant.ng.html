@@ -7,7 +7,9 @@
 	</ion-nav-buttons>
 
 	<div class="bar bar-subheader">
-		<h2 class="title">Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}: {{getCoDominantOrganism().common}}</h2>
+		<h2 class="title">
+			Tile {{::tileIndex + 1}} Grid {{::cellIndex + 1}}<span ng-if="selectedOrgName" class="name">: {{selectedOrgName}}</span>
+		</h2>
 	</div>
 
 	<div class="bar bar-footer bar-default">
@@ -18,21 +20,22 @@
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
+		<p class="item item-icon-left item-text-wrap cta"><i class="icon ion-ios-lightbulb-outline"></i> Record co-dominant cover</p>
 		<div class="tiles">
 			<sessile-organism-card organism="null"
 			                       special-label="'NONE'"
 			                       selected="cell.coDominantOrgID == 'none'"
-			                       ng-click="cell.coDominantOrgID = 'none'"></sessile-organism-card>
+			                       ng-click="setSelectedOrg('co-dominant', 'none')"></sessile-organism-card>
 
 			<sessile-organism-card ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id"
 			                       organism="org"
 			                       selected="org._id == cell.coDominantOrgID"
-			                       ng-click="cell.coDominantOrgID = org._id"></sessile-organism-card>
+			                       ng-click="setSelectedOrg('co-dominant', org._id)"></sessile-organism-card>
 
 			<sessile-organism-card organism="null"
 			                       special-label="'OTHER'"
 			                       selected="cell.coDominantOrgID == 'other'"
-			                       ng-click="cell.coDominantOrgID = 'other'"></sessile-organism-card>
+			                       ng-click="setSelectedOrg('co-dominant', 'other')"></sessile-organism-card>
 		</div>
 	</ion-content>
 </ion-view>

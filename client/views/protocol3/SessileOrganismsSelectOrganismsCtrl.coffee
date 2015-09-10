@@ -52,6 +52,33 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 			$scope.showSaveDone()
 			$scope.back()
 
+		initOrgName = ->
+			switch $ionicHistory.currentView().stateName
+				when 'app.sessileOrganismsSelectDominant'
+					$scope.setSelectedOrg('dominant', $scope.cell.dominantOrgID)
+
+				when 'app.sessileOrganismsSelectCoDominant'
+					$scope.setSelectedOrg('co-dominant', $scope.cell.coDominantOrgID)
+
+		$scope.setSelectedOrg = (dominance, orgID)->
+			#add id to the sessile organisms data
+			switch dominance
+				when 'dominant'
+					$scope.cell.dominantOrgID = orgID
+
+				when 'co-dominant'
+					$scope.cell.coDominantOrgID = orgID
+
+			#store the common name too for display purposes
+			switch orgID
+				when null, 'none', 'other'
+					name = null
+
+				else
+					name = Organisms.findOne(orgID)?.common
+
+			$scope.selectedOrgName = name
+
 		#dirty if section data has changed – emulates ngForm.dirty
 		$scope.isDirty = ->
 			angular.toJson($scope.section) != $scope.sectionBeforeChanged
@@ -71,5 +98,7 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 		$scope.tileIndex = $stateParams.tileIndex;
 		$scope.cellIndex = $stateParams.cellIndex;
 		$scope.cell = $scope.section.settlementTiles[$scope.tileIndex].cells[$scope.cellIndex]
+		initOrgName()
 		$scope.sectionBeforeChanged = angular.toJson($scope.section)
+
 	]

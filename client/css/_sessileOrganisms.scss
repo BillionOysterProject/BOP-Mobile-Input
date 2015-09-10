@@ -151,6 +151,15 @@
 	}
 
 	&.selectOrganism{
+		.bar-subheader .name {
+			color: $calm;
+		}
+
+		.cta {
+			//tweak so you can see the top border which was hiding under the bar-subhead
+			margin-top:1px;
+		}
+
 		.tiles {
 			text-align: center;
 			vertical-align: top;
@@ -227,77 +236,11 @@
 	}
 
 	&.notes {
-//		textarea {
-//			min-height: 100px;
-//		}
+		.bar-subheader .name {
+			color: $calm;
+		}
 	}
 	
-//
-//	.settlement-tile {
-//		position: relative;
-//		display: inline-block;
-//		margin-right: -7px;
-//		margin-bottom: 13px;
-//		padding: 0;
-//		height: 90px;
-//		max-height: none;
-//
-//		i.icon-settlement-tile {
-//			&::before {
-//				font-size: 500%;
-//
-//			}
-//
-//			color: $bop-action;
-//		}
-//
-//		.icon::before {
-//			margin: 0;
-//		}
-//
-//		i.icon-check-mark {
-//			&::before {
-//				font-size: 110%;
-//
-//			}
-//
-//			position: absolute;
-//			right: 10px;
-//			bottom: -9px;
-//			color: $bop-action;
-//		}
-//
-//		.label {
-//			position: absolute;
-//			font-size: 1.4em;
-//			top: 11px;
-//			left: 20px;
-//			text-align: center;
-//			width: 40px;
-//			font-weight: bold;
-//			color: $bop-action;
-//		}
-//	}
-
-//	.oyster {
-//		$iconSize:54px;
-//
-//		h3 {
-//			margin-bottom:10px;
-//		}
-//
-//		$height:106px;
-//
-//
-//		.item-content {
-//			padding-right:16px;
-//
-//			.form-errors {
-//				text-align: right;
-//				margin-right: 12px;
-//			}
-//		}
-//	}
 
 //	&.stats {
 //
@@ -346,6 +289,10 @@
 			border-spacing: $tileSpacing;
 			width:$tableSize;
 			height:$tableSize;
+
+			.tile {
+				font-size: 4em;
+			}
 		}
 
 		.grid-tiles {
