@@ -48,7 +48,6 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 					live: null
 					dead: null
 
-				console.log 'init section bottom, about to initPhotoURLs'
 				initPhotoURLs()
 				.then ->
 					console.log 'initPhotoURLs done'
@@ -260,17 +259,17 @@ angular.module('app.example').controller 'OysterGrowthShellCtrl', [
 
 				switch side
 					when 'inside'
-						oldURL = shell.photoIDInside
+						oldPicID = shell.photoIDInside
 						shell.photoIDInside = photoMeta._id
 
 					when 'outside'
-						oldURL = shell.photoIDOutside
+						oldPicID = shell.photoIDOutside
 						shell.photoIDOutside = photoMeta._id
 
 				initPhotoURLs()
 
-				if oldURL
-					bopOfflineImageHelper.removePic(oldURL)
+				if oldPicID
+					bopOfflineImageHelper.removePic(oldPicID)
 
 		#dirty if section data has changed – emulates ngForm.dirty
 		$scope.isDirty = ->

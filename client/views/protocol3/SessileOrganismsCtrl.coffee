@@ -3,7 +3,8 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 	'$controller'
 	'$stateParams'
 	'$ionicModal'
-	($scope, $controller, $stateParams, $ionicModal) ->
+	'sessileOrganismsHelper'
+	($scope, $controller, $stateParams, $ionicModal, sessileOrganismsHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -30,19 +31,8 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 				#save the emtpy object structure so that the 'select dominant/co-dominant organism' screens have access to it.
 				$scope.saveSection ['settlementTiles']
 
-		cellIsComplete = (cellIndex)->
-			cell = $scope.getCurrentTile().cells[cellIndex]
-			cell.dominantOrgID and cell.coDominantOrgID
-
 		$scope.tileIsComplete = (tileIndex)->
-			tile = $scope.section.settlementTiles[tileIndex]
-			totalCells = tile.cells.length
-			completedCells = 0
-
-			for cell in tile.cells
-				completedCells++ if cell.dominantOrgID and cell.coDominantOrgID
-
-			completedCells == totalCells
+			sessileOrganismsHelper.tileIsComplete($scope.section, tileIndex)
 
 		$scope.showOverallStats = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsOverallStats.ng.html",

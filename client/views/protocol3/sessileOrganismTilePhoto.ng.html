@@ -1,21 +1,18 @@
-<ion-modal-view class="protocol-section oysterGrowth photos">
+<ion-modal-view class="protocol-section sessileOrganisms photos">
 	<ion-header-bar>
 		<h1 class="title">Tile {{::tileIndex + 1}} photo</h1>
 		<button class="button button-calm" ng-click="closePhotosModal()">Done</button>
 	</ion-header-bar>
 
 	<ion-content scroll="true" class="has-header text-center">
-		<div class="sides">
-			<div ng-if="side == 'inside'"
-			     class="photo-frame inside">
-				<div class="inner"
-				     ng-class="{'photo-matte': photoURLs.inside != null}"
-				     ng-click="takePhoto('inside')"
-				     ng-mousedown="className='activated'"
-				     bop-back-img="{{photoURLs.inside}}">
-					<p ng-show="!photoURLs.inside"><i class="icon ion-ios-camera"></i> TAKE A PHOTO OF SETTLEMENT TILE {{::tileIndex + 1}}</p>
-					<div class="frame"></div>
-				</div>
+		<div class="photo-frame">
+			<div class="inner"
+			     ng-class="{'photo-matte': photoURL != null}"
+			     ng-click="takePhoto()"
+			     ng-mousedown="className='activated'"
+			     bop-back-img="{{photoURL}}">
+				<p ng-show="!photoURL"><i class="icon ion-ios-camera"></i>TAKE A PHOTO OF SETTLEMENT TILE {{::tileIndex + 1}}</p>
+				<div class="frame"></div>
 			</div>
 		</div>
 	</ion-content>

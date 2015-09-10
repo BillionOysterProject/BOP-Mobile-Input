@@ -11,7 +11,7 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 
 		#prepares the organism data for UI.
 		$scope.organisms = $meteor.collection ->
-			Organisms.find({mobile:true})
+			Organisms.find({mobile:false})
 
 		$scope.setDone = (dominance)->
 			stateParams =

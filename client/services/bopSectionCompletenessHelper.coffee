@@ -1,6 +1,6 @@
 angular.module('app.example').factory "bopSectionCompletenessHelper", [
-	"$q"
-	($q)->
+	"sessileOrganismsHelper"
+	(sessileOrganismsHelper)->
 		class SectionCompletenessHelper
 			constructor:->
 				#need to manually keep this up to date to keep in sync with number of fields in the section forms
@@ -10,7 +10,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					condition:1
 					oysterGrowth:10
 					mobileOrganisms:1 #for now making it look for at least one organism
-					sessileOrganisms:1 #TODO replace with actual number
+					sessileOrganisms:4
 					weather:5
 					rainfall:3
 					tide:6
@@ -45,7 +45,8 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 							fieldCount = 1 if _.keys(section.organisms).length > 0
 
 					when 'sessileOrganisms'
-						console.log 'TODO: getSectionCompleteness() for sessileOrganisms'
+						for tile, tileIndex in section.settlementTiles
+							fieldCount++ if sessileOrganismsHelper.tileIsComplete(section, tileIndex)
 
 					when 'weather'
 						fieldCount++ if section.windSpeed?

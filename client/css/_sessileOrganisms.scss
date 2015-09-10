@@ -13,7 +13,6 @@
 		margin-right:46px;
 	}
 
-
 	.settlement-tiles {
 		$tableSize: 320px;
 		$tileSpacing:20px;
@@ -87,22 +86,21 @@
 
 			&.completed {
 				background-color: $calm;
+
+				i {
+					position: absolute;
+					top: 28%;
+					left: 28%;
+				}
 			}
 		}
 	}
 
 	&.photos {
-		//TODO cleanup – don't need sides and there's only one photo
-		.sides {
-			position:relative;
-			width:100%;
-			height:300px;
-			margin-bottom: 20px;
-		}
-
 		.photo-frame {
 			position:absolute;
 			width:100%;
+			margin-top:40px;
 
 			.inner {
 				position: relative;
@@ -240,7 +238,6 @@
 			color: $calm;
 		}
 	}
-	
 
 //	&.stats {
 //
@@ -306,6 +303,13 @@
 
 			.tile {
 				font-size:2em;
+
+				&.completed {
+					i {
+						top: 34%;
+						left: 34%;
+					}
+				}
 			}
 		}
 	}

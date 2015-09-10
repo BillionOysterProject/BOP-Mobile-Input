@@ -1,17 +1,19 @@
 angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 	'$scope'
 	'$controller'
+	'$q'
 	'$stateParams'
 	'$ionicListDelegate'
 	'$ionicModal'
 	'$ionicHistory'
-	($scope, $controller, $stateParams, $ionicListDelegate, $ionicModal, $ionicHistory) ->
+	'sessileOrganismsHelper'
+	'bopOfflineImageHelper'
+	($scope, $controller, $q, $stateParams, $ionicListDelegate, $ionicModal, $ionicHistory, sessileOrganismsHelper, bopOfflineImageHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		$scope.cellIsComplete = (cellIndex)->
-			cell = $scope.getCurrentTile().cells[cellIndex]
-			cell.dominantOrgID and cell.coDominantOrgID
+			sessileOrganismsHelper.cellIsComplete($scope.section, $scope.tileIndex, cellIndex)
 
 		$scope.showPhoto = ->
 			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismTilePhoto.ng.html",
@@ -118,9 +120,57 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 		$scope.getCurrentTile = ->
 			$scope.section.settlementTiles[$scope.tileIndex]
 
+		initPhotoURL = ->
+			$q (resolve, reject)->
+				photoID = $scope.getCurrentTile().photoID
+				if photoID?
+					bopOfflineImageHelper.getURLForID(photoID)
+					.then (uri)->
+						$scope.photoURL = uri
+						resolve()
+				else
+					resolve()
+
+		$scope.takePhoto = ()->
+			bopOfflineImageHelper.takePic()
+			.then (photoMeta) ->
+				#photoMeta obj object contains _id and uri
+				console.log 'photoMeta: ', photoMeta
+
+				oldURL = $scope.getCurrentTile().photoID
+				$scope.getCurrentTile().photoID = photoMeta._id
+
+				initPhotoURL()
+
+				if oldURL
+					bopOfflineImageHelper.removePic(oldURL)
+
+		$scope.saveAndGoBackOneStep = ->
+			$scope.saveSection ['settlementTiles']
+			$scope.showSaveDone()
+			$scope.back()
+
+		#dirty if section data has changed – emulates ngForm.dirty
+		$scope.isDirty = ->
+			angular.toJson($scope.section) != $scope.sectionBeforeChanged
+
+		#intercepting back button ------- start
+
+		# userTappedBack is broadcast from AppCtrl
+		$scope.$on 'bop.userTappedBack', ->
+			$scope.setSectionFormState($scope.isDirty(), false, false)
+
+		#user taps save in back button prompt so we submit the form
+		$scope.$on 'bop.userChoseSaveAndGoBack', ->
+			$scope.saveAndGoBackOneStep()
+
+		#intercepting back button ------- end
+
 		$scope.tileIndex = $stateParams.tileIndex;
 
 		initGrid()
+		initPhotoURL()
+		$scope.sectionBeforeChanged = angular.toJson($scope.section)
 
 		#show the photo if we don't have one yet and we've arrived here by navigating forward (not coming back to this view from somewhere deeper in the stack)
 		$scope.showPhoto() if !$scope.getCurrentTile().photoID? and $ionicHistory.forwardView() is null
