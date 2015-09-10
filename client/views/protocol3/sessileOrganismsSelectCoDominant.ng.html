@@ -19,22 +19,20 @@
 
 	<ion-content class="has-header has-subheader has-footer">
 		<div class="tiles">
+			<sessile-organism-card organism="null"
+			                       special-label="'NONE'"
+			                       selected="cell.coDominantOrgID == 'none'"
+			                       ng-click="cell.coDominantOrgID = 'none'"></sessile-organism-card>
 
-			<!-- tile -->
-			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id" ng-init="id = org._id"
-			     class="tile"
-			     ng-class="{'selected':org._id == cell.coDominantOrgID}"
-			     ng-click="cell.coDominantOrgID = org._id"
-			     ng-mousedown="className = 'activated'"
-			     >
+			<sessile-organism-card ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id"
+			                       organism="org"
+			                       selected="org._id == cell.coDominantOrgID"
+			                       ng-click="cell.coDominantOrgID = org._id"></sessile-organism-card>
 
-				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
-				<p class="name">
-					<span class="common">{{org.common}}</span><br>
-					<span class="latin">{{org.latin}}</span>
-				</p>
-			</div>
-			<!-- tile end -->
+			<sessile-organism-card organism="null"
+			                       special-label="'OTHER'"
+			                       selected="cell.coDominantOrgID == 'other'"
+			                       ng-click="cell.coDominantOrgID = 'other'"></sessile-organism-card>
 		</div>
 	</ion-content>
 </ion-view>

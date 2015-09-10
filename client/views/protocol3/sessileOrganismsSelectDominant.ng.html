@@ -19,22 +19,10 @@
 
 	<ion-content class="has-header has-subheader has-footer">
 		<div class="tiles">
-
-			<!-- tile -->
-			<div ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id" ng-init="id = org._id"
-			     class="tile"
-			     ng-class="{'selected':org._id == cell.dominantOrgID}"
-			     ng-click="cell.dominantOrgID = org._id"
-			     ng-mousedown="className = 'activated'"
-			     >
-
-				<img ng-src="/images/protocol2/mobileOrganisms/{{org.file}}"><br>
-				<p class="name">
-					<span class="common">{{org.common}}</span><br>
-					<span class="latin">{{org.latin}}</span>
-				</p>
-			</div>
-			<!-- tile end -->
+			<sessile-organism-card ng-repeat="org in organisms | filter:{category:filters.category || undefined} | orderBy:'common' track by org._id"
+			                       organism="org"
+			                       selected="org._id == cell.dominantOrgID"
+			                       ng-click="cell.dominantOrgID = org._id"></sessile-organism-card>
 		</div>
 	</ion-content>
 </ion-view>

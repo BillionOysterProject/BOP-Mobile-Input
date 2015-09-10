@@ -146,23 +146,25 @@
 			vertical-align: top;
 		}
 
-		$picwidth:145px;
-		$picHeight:226px;
+		$picSize:145px;
+		$tileWidth:$picSize;
+		$tileHeight:226px;
 		$borderColor: #666;
 
 		.tile {
 			position: relative;
 			display:inline-block;
 			margin: 5px;
-			width: $picwidth;
-			height: $picHeight;
+			width: $tileWidth;
+			height: $tileHeight;
 			border: 1px solid $borderColor;
 			overflow: hidden;
 			vertical-align: top;
 
 			img {
-				width:145px;
-				height:145px;
+				display:block;
+				width:$picSize;
+				height:$picSize;
 			}
 
 			.item {
@@ -193,14 +195,15 @@
 		}
 
 		.noImage{
-			width: $picwidth;
-			height: $picHeight;
+			width: $picSize;
+			height: $picSize;
 			border-bottom:1px solid $borderColor;
 			background-color: $bop-disabled;
 		}
 
 		.name {
 			line-height: 1.2em;
+			padding-top:5px;
 
 			.common{
 				font-weight: bold;
