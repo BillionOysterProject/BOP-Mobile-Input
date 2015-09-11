@@ -1,5 +1,6 @@
 angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 	'$scope'
+	'$rootScope'
 	'$controller'
 	'$q'
 	'$stateParams'
@@ -8,7 +9,7 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 	'$ionicHistory'
 	'sessileOrganismsHelper'
 	'bopOfflineImageHelper'
-	($scope, $controller, $q, $stateParams, $ionicListDelegate, $ionicModal, $ionicHistory, sessileOrganismsHelper, bopOfflineImageHelper) ->
+	($scope, $rootScope, $controller, $q, $stateParams, $ionicListDelegate, $ionicModal, $ionicHistory, sessileOrganismsHelper, bopOfflineImageHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -52,70 +53,19 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 		$scope.closePhotosModal = ->
 			$scope.photosModal.remove()
 
-		$scope.getTileStats = ->
-			#TODO
-
-#			shell = $scope.section.settlementTiles[$scope.shellIndex]
-#
-#			console.log  'form is valid, update stats'
-#			min = null
-#			max = null
-#			avg = 0
-#			live = 0
-#			dead = 0
-#			for oyster in shell.oysters
-#				if oyster.isAlive
-#					live++
-#					avg += oyster.sizeMM
-#					min = if min then Math.min(min, oyster.sizeMM) else oyster.sizeMM
-#					max = if max then Math.max(max, oyster.sizeMM) else oyster.sizeMM
-#				else
-#					dead++
-#					delete oyster.sizeMM
-#
-#			if shell.totals.live > 1
-#				avg = avg / live
-#
-#			shell.totals.sizeMM = {min, max, avg}
-#			shell.totals.live = live
-#			shell.totals.dead = dead
-
-		$scope.updateMainTotals = ->
-			#TODO
-
-#			live = 0
-#			dead = 0
-#			min = null
-#			max = null
-#			avg = 0
-#
-#			#we'll skip over oysters that don't have a measurement (could happen if an oyster measurement field is invalid). We'll count the valid ones
-#			shellsNotIgnoredCount = 0
-#
-#			for shell in $scope.section.settlementTiles
-#				if shell.totals.live? and shell.totals.sizeMM.min?
-#					shellsNotIgnoredCount++
-#					avg += shell.totals.sizeMM.avg
-#					min = if min then Math.min(min, shell.totals.sizeMM.min) else shell.totals.sizeMM.min
-#					max = if max then Math.max(max, shell.totals.sizeMM.max) else shell.totals.sizeMM.max
-#
-#					live += shell.totals.live
-#
-#				if shell.totals.dead?
-#					dead += shell.totals.dead
-#
-#			avg = avg / shellsNotIgnoredCount
-#
-#			$scope.section.totalsMM = {min, max, avg}
-#			$scope.section.totalsMortality = {live, dead}
-
 		$scope.showTileStats = ->
-			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsTileStats.ng.html",
-				scope: $scope
-				animation: 'slide-in-up')
-			.then (modal) ->
-				$scope.shellStatsModal = modal
-				$scope.shellStatsModal.show()
+			if sessileOrganismsHelper.tileIsComplete($scope.section, $scope.tileIndex)
+				statsScope = $rootScope.$new()
+				statsScope.stats = sessileOrganismsHelper.getStatsForTile($scope.section, $scope.tileIndex)
+
+				$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsTileStats.ng.html",
+					scope: statsScope
+					animation: 'slide-in-up')
+				.then (modal) ->
+					statsScope.tileStatsModal = modal
+					statsScope.tileStatsModal.show()
+			else
+				$scope.alert("I can't show stats until you complete the tile", "Sorry")
 
 		$scope.getCurrentTile = ->
 			$scope.section.settlementTiles[$scope.tileIndex]

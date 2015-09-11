@@ -45,8 +45,9 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 							fieldCount = 1 if _.keys(section.organisms).length > 0
 
 					when 'sessileOrganisms'
-						for tile, tileIndex in section.settlementTiles
-							fieldCount++ if sessileOrganismsHelper.tileIsComplete(section, tileIndex)
+						if section.settlementTiles?
+							for tile, tileIndex in section.settlementTiles
+								fieldCount++ if sessileOrganismsHelper.tileIsComplete(section, tileIndex)
 
 					when 'weather'
 						fieldCount++ if section.windSpeed?

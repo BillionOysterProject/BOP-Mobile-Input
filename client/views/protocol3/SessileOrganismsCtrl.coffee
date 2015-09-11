@@ -1,10 +1,11 @@
 angular.module('app.example').controller 'SessileOrganismsCtrl', [
 	'$scope'
+	'$rootScope'
 	'$controller'
 	'$stateParams'
 	'$ionicModal'
 	'sessileOrganismsHelper'
-	($scope, $controller, $stateParams, $ionicModal, sessileOrganismsHelper) ->
+	($scope, $rootScope, $controller, $stateParams, $ionicModal, sessileOrganismsHelper) ->
 		#inherit from common protocol-section controller
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
@@ -35,12 +36,19 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 			sessileOrganismsHelper.tileIsComplete($scope.section, tileIndex)
 
 		$scope.showOverallStats = ->
-			$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsOverallStats.ng.html",
-				scope: $scope
-				animation: 'slide-in-up')
-			.then (modal) ->
-				$scope.overallStatsModal = modal
-				$scope.overallStatsModal.show()
+			if sessileOrganismsHelper.allTilesAreComplete($scope.section)
+				statsScope = $rootScope.$new()
+				statsScope.stats = sessileOrganismsHelper.getOverallStats($scope.section)
+
+				$ionicModal.fromTemplateUrl("client/views/protocol3/sessileOrganismsOverallStats.ng.html",
+					scope: statsScope
+					animation: 'slide-in-up')
+				.then (modal) ->
+					statsScope.overallStatsModal = modal
+					statsScope.overallStatsModal.show()
+
+			else
+				$scope.alert("I can't show overall stats until you complete all the tiles", "Sorry")
 
 		initSection()
 	]
