@@ -74,7 +74,6 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 			#add id to the sessile organisms data
 			switch dominance
 				when 'dominant'
-					console.log 'setSelectedOrg orgID: ', orgID , 'cell: ', JSON.stringify($scope.cell)
 					# covers use case where user selects different organisms for dominant, co-dominant, then goes back
 					# and changes dominant to an org that matches codominant
 					if orgID? and orgID isnt 'none' and orgID is $scope.cell.coDominantOrgID
