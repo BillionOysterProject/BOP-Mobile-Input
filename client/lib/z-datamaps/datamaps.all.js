@@ -456,9 +456,12 @@
           else if ( datum.centered ) {
             latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
           }
-          if ( latLng ) return latLng[1];;
+          if ( latLng ) return latLng[1];
         })
-        .attr('r', 0) //for animation purposes
+        .attr('r', function(datum) {
+          // if animation enabled start with radius 0, otherwise use full size.
+          return options.animate ? 0 : val(datum.radius, options.radius, datum);
+        })
         .attr('data-info', function(d) {
           return JSON.stringify(d);
         })
