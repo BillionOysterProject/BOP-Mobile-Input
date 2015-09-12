@@ -6,18 +6,6 @@
 		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
 	</ion-nav-buttons>
 
-	<!--<div class="bar bar-subheader bar-positive">-->
-		<!--<div class="buttons">-->
-			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
-		<!--</div>-->
-
-		<!--<h2 class="title">Subhead!</h2>-->
-
-		<!--<div class="buttons">-->
-			<!--<button class="button">Right Button</button>-->
-		<!--</div>-->
-	<!--</div>-->
-
 	<ion-content class="has-header">
 		<ion-list>
 			<h3 class="padding">{{indicator.title}}</h3>
@@ -55,9 +43,11 @@
 			<div class="padding text-right"><button class="button button-clear button-positive" ng-click="onClickAdd()">
 				<i class="icon ion-ios-plus-empty"></i> Add {{getSamples().length > 0 ? 'another' : 'a'}} sample</button></div>
 		</ion-list>
-		<button class="button button-full button-calm"
-	        padding="true"
-		    ng-click="onTapSave()"
-	        >Save</button>
 	</ion-content>
+	<ion-footer-bar class="no-padding">
+		<button class="button button-full button-calm button-footer"
+		        padding="true"
+		        ng-click="onTapSave()"
+		        >Save</button>
+	</ion-footer-bar>
 </ion-view>

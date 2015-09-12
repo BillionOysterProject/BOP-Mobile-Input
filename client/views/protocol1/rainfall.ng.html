@@ -1,0 +1,72 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader bar-positive">-->
+		<!--<div class="buttons">-->
+			<!--<button class="button button-clear" ng-click="showFilters()">Filters</button>-->
+		<!--</div>-->
+
+		<!--<h2 class="title">Subhead!</h2>-->
+
+		<!--<div class="buttons">-->
+			<!--<button class="button">Right Button</button>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+		<ion-content class="has-header">
+			<div ng-init="setFormScope(sectionForm)"></div>
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<div class="item radio-title">
+					Has it rained in the past 24 hours?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain24h"
+					              value=""
+					              ng-model="section.recentRain24h">No</ion-radio>
+					<ion-radio name="recentRain24h"
+					              value="1"
+					              ng-model="section.recentRain24h">Yes</ion-radio>
+				</div>
+				<div class="item radio-title">
+					Has it rained in the past 72 hours?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain72h"
+					              value=""
+					              ng-model="section.recentRain72h">No</ion-radio>
+					<ion-radio name="recentRain72h"
+					              value="1"
+					              ng-model="section.recentRain72h">Yes</ion-radio>
+				</div>
+				<div class="item radio-title">
+					Has it rained in the past 7 days?
+				</div>
+				<div class="list list-inline">
+					<ion-radio name="recentRain7d"
+					              value=""
+					              ng-model="section.recentRain7d">No</ion-radio>
+					<ion-radio name="recentRain7d"
+					              value="1"
+					              ng-model="section.recentRain7d">Yes</ion-radio>
+				</div>
+
+			</ion-list>
+		</ion-content>
+
+		<ion-footer-bar class="no-padding">
+			<button class="button button-full button-calm button-footer"
+			        padding="true"
+			        type="submit"
+			        >Save</button>
+		</ion-footer-bar>
+	</form>
+</ion-view>

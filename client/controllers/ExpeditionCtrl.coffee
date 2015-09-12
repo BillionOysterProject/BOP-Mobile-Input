@@ -159,6 +159,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		$scope.sites = $meteor.collection(Sites)
 
 		inBounds = (point, bounds) ->
+			console.log 'inBounds'
 			eastBound = point.longitude < bounds.NE.longitude
 			westBound = point.longitude > bounds.SW.longitude
 			inLong = undefined
@@ -169,7 +170,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			inLat = point.latitude > bounds.SW.latitude and point.latitude < bounds.NE.latitude
 			inLat and inLong
 
-		calcScaleCenter = ->
+
+		defineMap = ->
+			console.log 'defineMap'
 			bounds =
 				'NE':
 					latitude: '41.20'
@@ -188,10 +191,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					'center':
 						latitude: '40.67'
 						longitude: '-74.10'
-			#console.log scaleCenter
-			scaleCenter
 
-		defineMap = ->
 			#setup map
 			$scope.map =
 				scope: 'nyc_harbor'
@@ -223,9 +223,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 				dataType: 'json'
 				setProjection: (element) ->
 					projection = d3.geo.mercator().center([
-						calcScaleCenter().center.longitude
-						calcScaleCenter().center.latitude
-					]).scale(calcScaleCenter().scale).translate([
+						scaleCenter.center.longitude
+						scaleCenter.center.latitude
+					]).scale(scaleCenter.scale).translate([
 						element.offsetWidth / 2
 						element.offsetHeight / 2
 					])
@@ -236,20 +236,9 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					}
 			$scope.mapPlugins = bubbles: null
 
-		#get current location
-		location = null
-		$ionicPlatform.ready ->
-			bopLocationHelper.getGPSPosition()
-			.then (position)->
-#				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
-				location = position.coords
-			.then defineMap
-
-			.catch (error)->
-				console.error 'error: ' + JSON.stringify(error)
-				$scope.alert JSON.stringify(error), 'error'
 
 		$scope.updateBubbles = ->
+			console.log 'updateBubbles'
 			siteBubbles = []
 			siteName = ''
 			i = 0
@@ -274,13 +263,14 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 			return
 
 		addClickHandlers = ->
+			console.log 'addClickHandlers'
 			$('.datamaps-bubble').off 'click'
 			$('.datamaps-bubble').on 'click', ->
+				console.log 'clicked'
 				$scope.formIntermediary.selectedSite = '_id': $(this).data('info')['id']
 				$scope.updateBubbles()
 				$scope.$apply()
 				return
-			$interval.cancel bubblesReady
 			return
 
 		#set initial bubble data
@@ -288,8 +278,23 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		bubblesReady = $interval((->
 			if $('.datamaps-bubble')
 				addClickHandlers()
+				$interval.cancel bubblesReady
 			return
 		), 100)
+
+		#get current location
+		location = null
+		$ionicPlatform.ready ->
+			bopLocationHelper.getGPSPosition()
+			.then (position)->
+#				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
+				location = position.coords
+			.then defineMap
+
+			.catch (error)->
+				console.error 'error: ' + JSON.stringify(error)
+				$scope.alert JSON.stringify(error), 'error'
+
 
 		if $stateParams.expeditionID
 			$scope.formIntermediary.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);

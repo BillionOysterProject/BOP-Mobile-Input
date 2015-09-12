@@ -1,0 +1,42 @@
+<ion-view title="{{title}}" class="protocol-section {{sectionMeta.machineName}}">
+	<ion-nav-buttons side="left">
+		<!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="showHelp(protocolMetadata.num, sectionMeta.machineName)">Help</button>
+	</ion-nav-buttons>
+
+	<form name="sectionForm" novalidate="" ng-submit="onTapSave(sectionForm.$valid)">
+		<ion-content class="has-header">
+			<div ng-init="setFormScope(sectionForm)"></div>
+			<ion-list>
+				<h2 class="padding">{{sectionMeta.title}}</h2>
+
+				<!-- depth -->
+				<label class="item item-input item-stacked-label item-text-wrap"
+				     ng-class="{ 'has-error' : sectionForm.submergedDepth.$invalid && sectionForm.$submitted}">
+					<span class="input-label">Submerged depth of cage (m):</span>
+
+					<input type="number"
+					       name="submergedDepth"
+	                       ng-model="section.submergedDepth"
+	                       placeholder="0"
+	                       min="0" max="100">
+
+					<!--<div samsung-fix-->
+					     <!--name="submergedDepth"-->
+                         <!--ng-model="section.submergedDepth"-->
+                         <!--is-samsung="isSamsung"-->
+                         <!--min="0" max="100" ></div>-->
+				</label>				<!-- depth -->
+
+			</ion-list>
+		</ion-content>
+		<ion-footer-bar class="no-padding">
+			<button class="button button-full button-calm button-footer"
+			        padding="true"
+			        type="submit"
+			        >Save</button>
+		</ion-footer-bar>
+	</form>
+</ion-view>

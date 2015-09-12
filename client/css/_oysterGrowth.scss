@@ -79,23 +79,23 @@
 //					opacity: 1;
 					padding-top: 87px;
 					margin-left: -15px;
-					background: transparent url("/images/protocol1/oysterGrowth/oyster-alive.svg") no-repeat 0 0;
+					background: transparent url("/images/protocol2/oysterGrowth/oyster-alive.svg") no-repeat 0 0;
 					background-size: contain;
 					width: 79px;
 					text-align: center;
 
 					&.dead {
-						background: transparent url("/images/protocol1/oysterGrowth/oyster-dead.svg") no-repeat 0 0;
+						background: transparent url("/images/protocol2/oysterGrowth/oyster-dead.svg") no-repeat 0 0;
 						background-size: contain;
 					}
 				}
 
 				&:checked {
 					+ label {
-						background: transparent url("/images/protocol1/oysterGrowth/oyster-alive-selected.svg") no-repeat 0 0;
+						background: transparent url("/images/protocol2/oysterGrowth/oyster-alive-selected.svg") no-repeat 0 0;
 
 						&.dead {
-							background: transparent url("/images/protocol1/oysterGrowth/oyster-dead-selected.svg") no-repeat 0 0;
+							background: transparent url("/images/protocol2/oysterGrowth/oyster-dead-selected.svg") no-repeat 0 0;
 							background-size: contain;
 						}
 					}
@@ -109,7 +109,7 @@
 			vertical-align: bottom;
 			width: 124px;
 			height: $height;
-			background: transparent url("/images/protocol1/oysterGrowth/calipers-average-grey.svg") no-repeat 0 0;
+			background: transparent url("/images/protocol2/oysterGrowth/calipers-average-grey.svg") no-repeat 0 0;
 			background-size: auto 79px;
 
 			.fg {
@@ -179,16 +179,16 @@
 			background-size: auto $imgHeight;
 
 			&.alive {
-				background-image: url("/images/protocol1/oysterGrowth/oyster-alive-selected.svg");
+				background-image: url("/images/protocol2/oysterGrowth/oyster-alive-selected.svg");
 				background-position-x: -10px; //compensate for left-padding in this svg image
 			}
 
 			&.dead {
-				background-image: url("/images/protocol1/oysterGrowth/oyster-dead-selected.svg")
+				background-image: url("/images/protocol2/oysterGrowth/oyster-dead-selected.svg")
 			}
 
 			&.size {
-				background-image: url("/images/protocol1/oysterGrowth/calipers-average-grey.svg")
+				background-image: url("/images/protocol2/oysterGrowth/calipers-average-grey.svg")
 			}
 
 			.units {

@@ -1,0 +1,20 @@
+<ion-modal-view class="protocol-section sessileOrganisms stats">
+	<ion-header-bar>
+		<h1 class="title">Overall stats</h1>
+		<button class="button button-clear button-positive" ng-click="overallStatsModal.remove()">Close</button>
+	</ion-header-bar>
+	<ion-content scroll="true" class="has-header">
+		<ion-list>
+			<ion-item ng-repeat="stat in stats | orderBy:['-percent','common']"
+			          class="item-thumbnail-left item-text-wrap"
+					>
+				<img ng-src="images/protocol4/sessileOrganisms/{{::stat.organism | organismFilename}}">
+				<p>{{::stat.percent}}%</p>
+				<h2 ng-if="stat.organism">{{::stat.organism.common}}</h2>
+				<h2 ng-if="!stat.organism">Other</h2>
+			</ion-item>
+		</ion-list>
+
+		<!--<pre>{{getTileStats() | json}}</pre>-->
+	</ion-content>
+</ion-modal-view>

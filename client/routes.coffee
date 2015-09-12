@@ -140,7 +140,7 @@ angular.module('app.example').config [
 
 			views:
 				'menuContent':
-					templateUrl: "client/views/protocol1/oysterGrowthShell.ng.html"
+					templateUrl: "client/views/protocol2/oysterGrowthShell.ng.html"
 					controller: 'OysterGrowthShellCtrl'
 
 		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
@@ -155,7 +155,7 @@ angular.module('app.example').config [
 
 			views:
 				'menuContent':
-					templateUrl: "client/views/protocol3/sessileOrganismsTile.ng.html"
+					templateUrl: "client/views/protocol4/sessileOrganismsTile.ng.html"
 					controller: 'SessileOrganismsTileCtrl'
 
 		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
@@ -171,7 +171,7 @@ angular.module('app.example').config [
 
 			views:
 				'menuContent':
-					templateUrl: "client/views/protocol3/sessileOrganismsSelectDominant.ng.html"
+					templateUrl: "client/views/protocol4/sessileOrganismsSelectDominant.ng.html"
 					controller: 'SessileOrganismsSelectOrganismsCtrl'
 
 		#subsection for sessile organisms (an individual tile) (note, app.sessileOrganisms is defined in bopRoutesDynamic.coffee and is a grid of four numbered tiles)
@@ -187,7 +187,7 @@ angular.module('app.example').config [
 
 			views:
 				'menuContent':
-					templateUrl: "client/views/protocol3/sessileOrganismsSelectCoDominant.ng.html"
+					templateUrl: "client/views/protocol4/sessileOrganismsSelectCoDominant.ng.html"
 					controller: 'SessileOrganismsSelectOrganismsCtrl'
 
 		# Notes: description input view that yous see after selecting dominant/co-dominant organisms.
@@ -203,7 +203,7 @@ angular.module('app.example').config [
 
 			views:
 				'menuContent':
-					templateUrl: "client/views/protocol3/sessileOrganismsNotes.ng.html"
+					templateUrl: "client/views/protocol4/sessileOrganismsNotes.ng.html"
 					controller: 'SessileOrganismsSelectOrganismsCtrl'
 
 		.state('eventmenu.home.home1', {

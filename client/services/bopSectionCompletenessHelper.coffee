@@ -50,11 +50,11 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 								fieldCount++ if sessileOrganismsHelper.tileIsComplete(section, tileIndex)
 
 					when 'weather'
+						fieldCount++ if section.weatherCondition? and section.weatherCondition.length > 0
+						fieldCount++ if section.temperature?
 						fieldCount++ if section.windSpeed?
 						fieldCount++ if section.windDirection?
-						fieldCount++ if section.temperatureF?
 						fieldCount++ if section.humidityPct?
-						fieldCount++ if section.weatherCondition?
 
 					when 'rainfall'
 						#they'll be true or false once section is saved, initially they're undefined so we know user has saved that form despite the fields' checked state.
