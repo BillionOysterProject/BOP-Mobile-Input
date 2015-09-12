@@ -158,142 +158,142 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.sites = $meteor.collection(Sites)
 
-		inBounds = (point, bounds) ->
-			console.log 'inBounds'
-			eastBound = point.longitude < bounds.NE.longitude
-			westBound = point.longitude > bounds.SW.longitude
-			inLong = undefined
-			if bounds.NE.longitude < bounds.SW.longitude
-				inLong = eastBound or westBound
-			else
-				inLong = eastBound and westBound
-			inLat = point.latitude > bounds.SW.latitude and point.latitude < bounds.NE.latitude
-			inLat and inLong
+#		inBounds = (point, bounds) ->
+#			console.log 'inBounds'
+#			eastBound = point.longitude < bounds.NE.longitude
+#			westBound = point.longitude > bounds.SW.longitude
+#			inLong = undefined
+#			if bounds.NE.longitude < bounds.SW.longitude
+#				inLong = eastBound or westBound
+#			else
+#				inLong = eastBound and westBound
+#			inLat = point.latitude > bounds.SW.latitude and point.latitude < bounds.NE.latitude
+#			inLat and inLong
 
 
-		defineMap = ->
-			console.log 'defineMap'
-			bounds =
-				'NE':
-					latitude: '41.20'
-					longitude: '-73.30'
-				'SW':
-					latitude: '40.27'
-					longitude: '-74.74'
-
-			if inBounds(location, bounds)
-				scaleCenter =
-					'scale': '200000'
-					'center': location
-			else
-				scaleCenter =
-					'scale': '130000'
-					'center':
-						latitude: '40.67'
-						longitude: '-74.10'
-
-			#setup map
-			$scope.map =
-				scope: 'nyc_harbor'
-				options:
-					height: $(window).height()
-					staticGeoData: true
-					legendHeight: 0
-				geographyConfig:
-					dataUrl: '/data/map.topo.json'
-					popupOnHover: false
-					highlightOnHover: false
-				bubblesConfig:
-					radius: 10
-					borderWidth: 1.5
-					borderColor: '#353535'
-					popupOnHover: false
+#		defineMap = ->
+#			console.log 'defineMap'
+#			bounds =
+#				'NE':
+#					latitude: '41.20'
+#					longitude: '-73.30'
+#				'SW':
+#					latitude: '40.27'
+#					longitude: '-74.74'
+#
+#			if inBounds(location, bounds)
+#				scaleCenter =
+#					'scale': '200000'
+#					'center': location
+#			else
+#				scaleCenter =
+#					'scale': '130000'
+#					'center':
+#						latitude: '40.67'
+#						longitude: '-74.10'
+#
+#			#setup map
+#			$scope.map =
+#				scope: 'nyc_harbor'
+#				options:
+#					height: $(window).height()
+#					staticGeoData: true
+#					legendHeight: 0
+#				geographyConfig:
+#					dataUrl: '/data/map.topo.json'
+#					popupOnHover: false
+#					highlightOnHover: false
+#				bubblesConfig:
+#					radius: 10
+#					borderWidth: 1.5
+#					borderColor: '#353535'
+#					popupOnHover: false
 #					popupTemplate: (geography, data) ->
 #						'<div class="hoverinfo">Site: ' + data.name + '<br />Latitude: ' + data.latitude + '<br />Longitude: ' + data.longitude + '</div>'
-					fillOpacity: 1
-					highlightOnHover: true
-					highlightFillColor: '#E96057'
-					highlightBorderColor: 'rgba(0, 0, 0, 0.2)'
-					highlightBorderWidth: 1
-					highlightFillOpacity: 0.85
-				fills:
-					defaultFill: '#AAC06C'
-					unselectedSite: '#75A3F0'
-					selectedSite: '#E96057'
-				dataType: 'json'
-				setProjection: (element) ->
-					projection = d3.geo.mercator().center([
-						scaleCenter.center.longitude
-						scaleCenter.center.latitude
-					]).scale(scaleCenter.scale).translate([
-						element.offsetWidth / 2
-						element.offsetHeight / 2
-					])
-					path = d3.geo.path().projection(projection)
-					{
-						path: path
-						projection: projection
-					}
-			$scope.mapPlugins = bubbles: null
-
-
-		$scope.updateBubbles = ->
-			console.log 'updateBubbles'
-			siteBubbles = []
-			siteName = ''
-			i = 0
-			angular.forEach $scope.sites, (site, key) ->
-				bubbleFillKey = if site._id == $scope.formIntermediary.selectedSite._id then 'selectedSite' else 'unselectedSite'
-				if site._id == $scope.formIntermediary.selectedSite._id
-					siteName = site.label
-				siteBubbles[i] =
-					'id': site._id
-					'name': site.label
-					'latitude': site.lat
-					'longitude': site.lng
-					'fillKey': bubbleFillKey
-				i++
-				return
-			$scope.mapPluginData = bubbles: siteBubbles
-			if siteName != ''
-				toastr.remove()
-				toastr.success siteName, null, timeOut: 4000
-				toastr.warning 'Click Create to Continue', null, timeOut: 4000
-			addClickHandlers()
-			return
-
-		addClickHandlers = ->
-			console.log 'addClickHandlers'
-			$('.datamaps-bubble').off 'click'
-			$('.datamaps-bubble').on 'click', ->
-				console.log 'clicked'
-				$scope.formIntermediary.selectedSite = '_id': $(this).data('info')['id']
-				$scope.updateBubbles()
-				$scope.$apply()
-				return
-			return
-
-		#set initial bubble data
-		$scope.updateBubbles()
-		bubblesReady = $interval((->
-			if $('.datamaps-bubble')
-				addClickHandlers()
-				$interval.cancel bubblesReady
-			return
-		), 100)
+#					fillOpacity: 1
+#					highlightOnHover: true
+#					highlightFillColor: '#E96057'
+#					highlightBorderColor: 'rgba(0, 0, 0, 0.2)'
+#					highlightBorderWidth: 1
+#					highlightFillOpacity: 0.85
+#				fills:
+#					defaultFill: '#AAC06C'
+#					unselectedSite: '#75A3F0'
+#					selectedSite: '#E96057'
+#				dataType: 'json'
+#				setProjection: (element) ->
+#					projection = d3.geo.mercator().center([
+#						scaleCenter.center.longitude
+#						scaleCenter.center.latitude
+#					]).scale(scaleCenter.scale).translate([
+#						element.offsetWidth / 2
+#						element.offsetHeight / 2
+#					])
+#					path = d3.geo.path().projection(projection)
+#					{
+#						path: path
+#						projection: projection
+#					}
+#			$scope.mapPlugins = bubbles: null
+#
+#
+#		$scope.updateBubbles = ->
+#			console.log 'updateBubbles'
+#			siteBubbles = []
+#			siteName = ''
+#			i = 0
+#			angular.forEach $scope.sites, (site, key) ->
+#				bubbleFillKey = if site._id == $scope.formIntermediary.selectedSite._id then 'selectedSite' else 'unselectedSite'
+#				if site._id == $scope.formIntermediary.selectedSite._id
+#					siteName = site.label
+#				siteBubbles[i] =
+#					'id': site._id
+#					'name': site.label
+#					'latitude': site.lat
+#					'longitude': site.lng
+#					'fillKey': bubbleFillKey
+#				i++
+#				return
+#			$scope.mapPluginData = bubbles: siteBubbles
+#			if siteName != ''
+#				toastr.remove()
+#				toastr.success siteName, null, timeOut: 4000
+#				toastr.warning 'Click Create to Continue', null, timeOut: 4000
+#			addClickHandlers()
+#			return
+#
+#		addClickHandlers = ->
+#			console.log 'addClickHandlers'
+#			$('.datamaps-bubble').off 'click'
+#			$('.datamaps-bubble').on 'click', ->
+#				console.log 'clicked'
+#				$scope.formIntermediary.selectedSite = '_id': $(this).data('info')['id']
+#				$scope.updateBubbles()
+#				$scope.$apply()
+#				return
+#			return
+#
+#		#set initial bubble data
+#		$scope.updateBubbles()
+#		bubblesReady = $interval((->
+#			if $('.datamaps-bubble')
+#				addClickHandlers()
+#				$interval.cancel bubblesReady
+#			return
+#		), 100)
 
 		#get current location
-		location = null
-		$ionicPlatform.ready ->
-			bopLocationHelper.getGPSPosition()
-			.then (position)->
+#		location = null
+#		$ionicPlatform.ready ->
+#			bopLocationHelper.getGPSPosition()
+#			.then (position)->
 #				console.log 'getGPSPosition result: ' + JSON.stringify(position.coords)
-				location = position.coords
-			.then defineMap
+#				location = position.coords
+#			.then defineMap
 
-			.catch (error)->
-				console.error 'error: ' + JSON.stringify(error)
-				$scope.alert JSON.stringify(error), 'error'
+#			.catch (error)->
+#				console.error 'error: ' + JSON.stringify(error)
+#				$scope.alert JSON.stringify(error), 'error'
 
 
 		if $stateParams.expeditionID
