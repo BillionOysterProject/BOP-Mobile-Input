@@ -67,15 +67,14 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 					total = if overall then @_totalCells else @_totalCellsPerTile
 					{
 						percent: Math.round(orgCount / total * 100)
-						organism: Organisms.findOne( _id:orgID, mobile:false )
+						organism: Organisms.findOne( _id:orgID, settlement:true )
 					}
 
 				stats
 
 			#for dev – quickly populate the data with some preset use cases instead of clicking a silly amount of times
 			_mockData:(section, useCase)->
-				amphipod = '55f1ea4e210ecc20b34462f8'
-				blackFingeredMudCrab = '55f1ea4e210ecc20b34462f6'
+				starTunicate = '556ff488210ecc1ee84131e6'
 
 				switch useCase
 					when 0 #erase data for sessile organisms
@@ -85,7 +84,7 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 					when 1 #tile 1 is complete
 						tile = section.settlementTiles[0]
 						for cell in tile.cells
-							cell.dominantOrgID = amphipod
+							cell.dominantOrgID = starTunicate
 							cell.coDominantOrgID = 'none'
 
 						console.log 'tile one is complete. Dominant organism is amphipodID. no co-dominant'
@@ -94,7 +93,7 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 						tile = section.settlementTiles[0]
 						for cell, cellIndex in tile.cells
 							break if cellIndex > @_totalCellsPerTile - 3
-							cell.dominantOrgID = amphipod
+							cell.dominantOrgID = starTunicate
 							cell.coDominantOrgID = 'none'
 
 						console.log 'tile one is nearly complete. Dominant organism is amphipodID. no co-dominant'
@@ -103,17 +102,17 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 						for tile, tileIndex in section.settlementTiles
 							break if tileIndex is 3
 							for cell, cellIndex in tile.cells
-								cell.dominantOrgID = amphipod
+								cell.dominantOrgID = starTunicate
 								cell.coDominantOrgID = 'none'
 
 					when 4 # all tiles completed
 						for tile in section.settlementTiles
 							tile.photoID = 'foo'
 							for cell, cellIndex in tile.cells
-								cell.dominantOrgID = amphipod
+								cell.dominantOrgID = starTunicate
 								cell.coDominantOrgID = 'none'
 
-						console.log 'tiles 1,2,3 are complete, 4 is not'
+						console.log 'all tiles are complete'
 
 				section.save()
 

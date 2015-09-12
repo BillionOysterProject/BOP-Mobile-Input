@@ -8,7 +8,7 @@
 			<ion-item ng-repeat="stat in stats | orderBy:['-percent','common']"
 			          class="item-thumbnail-left item-text-wrap"
 					>
-				<img ng-src="images/protocol4/sessileOrganisms/{{::stat.organism | organismFilename}}">
+				<img ng-src="images/organisms/{{::stat.organism | organismFilename}}">
 				<p>{{::stat.percent}}%</p>
 				<h2 ng-if="stat.organism">{{::stat.organism.common}}</h2>
 				<h2 ng-if="!stat.organism">Other</h2>
