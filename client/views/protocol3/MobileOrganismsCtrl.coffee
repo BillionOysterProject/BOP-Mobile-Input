@@ -12,9 +12,14 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 		$scope.organisms = $meteor.collection ->
 			Organisms.find({mobile:true})
 
-		organismCategories = _.unique((org.category for org in $scope.organisms), true)
+		#organismCategories = _.unique((org.category for org in $scope.organisms), true)
 		#TODO Figure out why I am needing to run _.unique twice!
-		$scope.organismCategories = _.unique(organismCategories)
+		#$scope.organismCategories = _.unique(organismCategories)
+
+		#Decided to manually set up this array because we needed to define the order
+		#and it didn't seem worth adding another DB collection to handle defining the order
+		#Will revisit later if needed
+		$scope.organismCategories = ['fish', 'crustaceans', 'molluscs', 'worms', 'sponges', 'tunicates', 'cnidarians', 'bryozoans']
 
 		#svg files for filter icons need to be named as filter-category-organism.svg
 		$scope.organismCategoriesFileName = (cat)->
