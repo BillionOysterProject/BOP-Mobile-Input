@@ -26,8 +26,8 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 
 		#creates 2D array representing grids and columns. No contents.
 		initGrid = ->
-			rows = 5
-			cols = 5
+			rows = 3
+			cols = 3
 			tile = rows * cols - 1
 			$scope.grid = new Array(rows)
 

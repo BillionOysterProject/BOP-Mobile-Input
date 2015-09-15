@@ -64,7 +64,7 @@
 		}
 
 		.tile {
-			$tileSize:50px;
+			$tileSize:115px;
 
 			display:table-cell;
 			background-color: $bop-disabled;
@@ -269,7 +269,7 @@
 			border-spacing: $tileSpacing;
 
 			.tile {
-				$tileSize:100px;
+				$tileSize:175px;
 				font-size:2.5em;
 				width:$tileSize;
 				height:$tileSize;

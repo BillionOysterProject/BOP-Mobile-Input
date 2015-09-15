@@ -3,7 +3,7 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 		class SessileOrganismsHelper
 			constructor:->
 				@_totalTiles = 4
-				@_totalCellsPerTile = 25;
+				@_totalCellsPerTile = 9;
 				@_totalCells = @_totalCellsPerTile * @_totalTiles;
 
 			cellIsComplete: (section, tileIndex, cellIndex)->

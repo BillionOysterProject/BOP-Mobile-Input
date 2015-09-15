@@ -15,7 +15,7 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 			if !$scope.section.settlementTiles
 				$scope.section.settlementTiles = []
 				totalTiles = 4
-				totalCells = 25
+				totalCells = 9
 				t = totalTiles
 				while t--
 					c = totalCells
