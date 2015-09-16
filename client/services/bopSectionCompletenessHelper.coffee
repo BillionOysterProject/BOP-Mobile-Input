@@ -13,7 +13,7 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 					sessileOrganisms:4
 					weather:5
 					rainfall:3
-					tide:6
+					tide:8
 					water:7
 					land:5
 					otherObservations:1
@@ -64,8 +64,10 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 
 					when 'tide'
 						fieldCount++ if section.tideLevel?
-						fieldCount++ if section.pmHighTideHeight?
-						fieldCount++ if section.pmHighTideTime?
+						fieldCount++ if section.closestHighTideHeight?
+						fieldCount++ if section.closestHighTideTime?
+						fieldCount++ if section.closestLowTideHeight?
+						fieldCount++ if section.closestLowTideTime?
 						fieldCount++ if section.currentDistance?
 						fieldCount++ if section.currentTime?
 						fieldCount++ if section.direction?

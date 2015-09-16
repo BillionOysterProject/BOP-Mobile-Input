@@ -37,8 +37,10 @@ angular.module('app.example').controller 'TideCtrl', [
 #			$scope.section.speed = Number($scope.section.speed)
 
 		$scope.section.tideLevel ?= null
-		$scope.section.pmHighTideHeight ?= null
-		$scope.section.pmHighTideTime ?= null
+		$scope.section.closestHighTideHeight ?= null
+		$scope.section.closestHighTideTime ?= null
+		$scope.section.closestLowTideHeight ?= null
+		$scope.section.closestLowTideTime ?= null
 		$scope.section.currentDistance ?= null
 		$scope.section.currentTime ?= null
 		$scope.section.direction ?= null
@@ -50,7 +52,7 @@ angular.module('app.example').controller 'TideCtrl', [
 
 		$scope.onTapSave = (formIsValid)->
 			if formIsValid
-				$scope.saveSection ['tideLevel', 'pmHighTideHeight', 'pmHighTideTime', 'currentDistance', 'currentTime', 'direction']
+				$scope.saveSection ['tideLevel', 'closestHighTideHeight', 'closestHighTideTime', 'closestLowTideHeight', 'closestLowTideTime', 'currentDistance', 'currentTime', 'direction']
 				$scope.showSaveDone()
 				$scope.back()
 

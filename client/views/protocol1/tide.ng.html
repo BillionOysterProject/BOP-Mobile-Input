@@ -45,21 +45,38 @@
 						<i class="icon icon-tide-5"></i>
 					</div>-->
 
-					<div class="item item-divider">Today's PM high tide:</div>
+					<div class="item item-divider">Closest high tide:</div>
 					<label class="item item-input item-stacked-label"
-					       ng-class="{ 'has-error' : sectionForm.pmHighTideHeight.$invalid && sectionForm.$submitted}">
+					       ng-class="{ 'has-error' : sectionForm.closestHighTideHeight.$invalid && sectionForm.$submitted}">
 						<span class="input-label">Height (m)</span>
-						<input name="pmHighTideHeight"
+						<input name="closestHighTideHeight"
 						       type="number"
-						       ng-model="section.pmHighTideHeight"
+						       ng-model="section.closestHighTideHeight"
 	                           min="0">
 					</label>
 					<label class="item item-input item-stacked-label"
-					       ng-class="{ 'has-error' : sectionForm.pmHighTideTime.$invalid && sectionForm.$submitted}">
+					       ng-class="{ 'has-error' : sectionForm.closestHighTideTime.$invalid && sectionForm.$submitted}">
 						<span class="input-label">Time of day</span>
-						<input name="pmHighTideTime"
+						<input name="closestHighTideTime"
 						       type="time"
-						       ng-model="section.pmHighTideTime">
+						       ng-model="section.closestHighTideTime">
+					</label>
+
+					<div class="item item-divider">Closest low tide:</div>
+					<label class="item item-input item-stacked-label"
+					       ng-class="{ 'has-error' : sectionForm.closestLowTideHeight.$invalid && sectionForm.$submitted}">
+						<span class="input-label">Height (m)</span>
+						<input name="closestLowTideHeight"
+						       type="number"
+						       ng-model="section.closestLowTideHeight"
+	                           min="0">
+					</label>
+					<label class="item item-input item-stacked-label"
+					       ng-class="{ 'has-error' : sectionForm.closestLowTideTime.$invalid && sectionForm.$submitted}">
+						<span class="input-label">Time of day</span>
+						<input name="closestLowTideTime"
+						       type="time"
+						       ng-model="section.closestLowTideTime">
 					</label>
 
 					<div class="item item-divider">Current Speed:</div>
