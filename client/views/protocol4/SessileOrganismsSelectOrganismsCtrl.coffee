@@ -54,7 +54,7 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 					$scope.back(-numStepsBack)
 
 			$scope.saveSection ['settlementTiles']
-			$scope.showSaveDone()
+			#$scope.showSaveDone()
 			return
 
 		$scope.saveAndGoBackOneStep = ->

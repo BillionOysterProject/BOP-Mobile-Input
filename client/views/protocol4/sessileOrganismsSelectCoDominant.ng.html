@@ -14,9 +14,13 @@
 
 	<div class="bar bar-footer bar-default">
 		<!--<h2 class="title">Foo</h2>-->
-		<button class="button button-calm pull-right"
+		<!--<h2 class="title">Foo</h2>-->
+		<button class="button button-calm pull-right" style="margin-right:55px"
 		        ng-click="setDone('co-dominant')"
-				ng-disabled="!cell.coDominantOrgID">Next</button>
+				ng-disabled="!cell.coDominantOrgID">Add Note</button>
+		<button class="button button-calm pull-right"
+		        ng-click="setDone('notes')"
+				ng-disabled="!cell.coDominantOrgID">Done</button>
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
