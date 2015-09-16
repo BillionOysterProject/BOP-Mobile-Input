@@ -13,7 +13,11 @@ angular.module('app.example').controller 'ExpeditionListCtrl', [
 				console.log 'finished loading expedition'
 				if !$scope.expedition
 					$scope.setCurrentExpeditionByID $scope.expeditions[$scope.expeditions.length - 1]._id
-				$scope.navigateHome()
+				# Naviagting to home (protocols) doesn't seem to make sense to me
+				# Surely the user needs to choose the expedition from the list first
+				# Commenting this out also fixes the bug where you can't reliably
+				# get to the Expeditions page the first time you click the option in the sidebar
+				#$scope.navigateHome()
 				stopWatching()
 
 		#Navigates user to the form for creating a new one
