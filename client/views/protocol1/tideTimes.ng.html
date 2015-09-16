@@ -11,7 +11,7 @@
 		<div ng-if="tides!='notAvailable'">
 			<h4>The Battery</h4>
 			<div ng-repeat="day in tides">
-				<h5>{{day['$']['date']}}</h5>
+				<strong>{{day['$']['date']}}</strong>
 				<div class="row" ng-repeat="time in day">
 					<div class="col" ng-repeat="data in time">
 						{{data['time']}}

@@ -85,7 +85,7 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 			bopOfflineImageHelper.takePic()
 			.then (photoMeta) ->
 				#photoMeta obj object contains _id and uri
-				console.log 'photoMeta: ', photoMeta
+				#console.log 'photoMeta: ', photoMeta
 
 				oldURL = $scope.getCurrentTile().photoID
 				$scope.getCurrentTile().photoID = photoMeta._id

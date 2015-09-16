@@ -16,7 +16,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 					.then (insertedID)=>
 						@_getDataURIForLocalFilepath(@_getLocalPathForImageID(insertedID))
 						.then (dataURI)->
-							console.log '@_getDataURIForLocalFilepath success, dataURI: ' + dataURI
+							#console.log '@_getDataURIForLocalFilepath success, dataURI: ' + dataURI
 							resolve({_id:insertedID, uri:dataURI})
 
 					.catch (error)->
@@ -225,7 +225,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 								console.error err
 								reject(err)
 							else
-								console.log 'data: ', data
+								#console.log 'data: ', data
 								resolve(data)
 
 
@@ -286,7 +286,7 @@ angular.module('app.example').factory "bopOfflineImageHelper", [
 							console.error err
 							reject(err)
 						else
-							console.log 'data: ', data
+							#console.log 'data: ', data
 							resolve(data)
 
 			_createDummyImageDataURL:(label)->
