@@ -54,7 +54,7 @@ angular.module('app.example').controller 'SessileOrganismsTileCtrl', [
 			$scope.photosModal.remove()
 
 		$scope.showTileStats = ->
-			if sessileOrganismsHelper.tileIsComplete($scope.section, $scope.tileIndex)
+			if sessileOrganismsHelper.tileIsComplete($scope.section, $scope.tileIndex, true)
 				statsScope = $rootScope.$new()
 				statsScope.stats = sessileOrganismsHelper.getStatsForTile($scope.section, $scope.tileIndex)
 

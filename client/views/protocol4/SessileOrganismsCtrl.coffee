@@ -36,7 +36,7 @@ angular.module('app.example').controller 'SessileOrganismsCtrl', [
 			sessileOrganismsHelper.tileIsComplete($scope.section, tileIndex)
 
 		$scope.showOverallStats = ->
-			if sessileOrganismsHelper.allTilesAreComplete($scope.section)
+			if sessileOrganismsHelper.allTilesAreComplete($scope.section, true)
 				statsScope = $rootScope.$new()
 				statsScope.stats = sessileOrganismsHelper.getOverallStats($scope.section)
 

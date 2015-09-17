@@ -10,19 +10,22 @@ angular.module('app.example').factory "sessileOrganismsHelper", [
 				cell = section.settlementTiles[tileIndex].cells[cellIndex]
 				cell.dominantOrgID and cell.coDominantOrgID
 
-			tileIsComplete: (section, tileIndex)->
+			tileIsComplete: (section, tileIndex, ignorePhoto)->
 				tile = section.settlementTiles[tileIndex]
 
 				completedCells = 0
 				for cell, cellIndex in tile.cells
 					completedCells++ if @cellIsComplete(section, tileIndex, cellIndex)
 
-				tile.photoID and completedCells == @_totalCellsPerTile
+				if ignorePhoto
+					completedCells == @_totalCellsPerTile
+				else
+					tile.photoID and completedCells == @_totalCellsPerTile
 
-			allTilesAreComplete: (section)->
+			allTilesAreComplete: (section, ignorePhoto)->
 				complete = true
 				for tile, tileIndex in section.settlementTiles
-					if !@tileIsComplete(section, tileIndex)
+					if !@tileIsComplete(section, tileIndex, ignorePhoto)
 						complete = false
 						break
 				complete
