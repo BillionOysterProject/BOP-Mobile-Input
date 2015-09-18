@@ -106,7 +106,7 @@ angular.module('app.example').controller 'WaterQualityIndicatorCtrl', [
 
 
 		#get reference to current indicator (i.e. Temperature (which has a couple different methods like 'thermometer' and 'Atlas probe')
-		$scope.indicator = $meteor.object(MetaWaterQualityIndicators, machineName:$stateParams.indicatorMachineName);
+		$scope.indicator = $scope.$meteorObject(MetaWaterQualityIndicators, machineName:$stateParams.indicatorMachineName);
 
 #		#an object to bind certain things to that we don't want directly bound to the meteor model.
 #		# We can take what we need from this right before save.

@@ -52,6 +52,6 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 
 		sectionMachineName = $scope.sectionMeta.machineName
 		sectionID = $scope.expedition.sections[sectionMachineName]
-		$scope.section = $meteor.object(ProtocolSection, sectionID, false)
+		$scope.section = $scope.$meteorObject(ProtocolSection, sectionID, false)
 
 	]
