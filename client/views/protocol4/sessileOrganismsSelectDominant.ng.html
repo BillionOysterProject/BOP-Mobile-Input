@@ -12,11 +12,19 @@
 		</h2>
 	</div>
 
-	<div class="bar bar-footer bar-default">
-		<!--<h2 class="title">Foo</h2>-->
+	<div ng-if="!cell.dominantOrgID || cell.dominantOrgID!='none'" class="bar bar-footer bar-default">
 		<button class="button button-calm pull-right"
 				ng-click="setDone('dominant')"
 				ng-disabled="!cell.dominantOrgID">Next</button>
+	</div>
+
+	<div ng-if="cell.dominantOrgID=='none'" class="bar bar-footer bar-default">
+		<button class="button button-calm pull-right" style="margin-right:55px"
+		        ng-click="setDone('dominant')"
+				ng-disabled="!cell.dominantOrgID">Add Note</button>
+		<button class="button button-calm pull-right"
+		        ng-click="setDone('dominantComplete')"
+				ng-disabled="!cell.dominantOrgID">Done</button>
 	</div>
 
 	<ion-content class="has-header has-subheader has-footer">
@@ -32,7 +40,7 @@
 			                       selected="org._id == cell.dominantOrgID"
 			                       ng-click="setSelectedOrg('dominant', org._id)"></sessile-organism-card>
 
-			<sessile-organism-card organism="null"
+			<sessile-organism-card organism="other"
 			                       special-label="'OTHER'"
 			                       selected="cell.dominantOrgID == 'other'"
 			                       ng-click="setSelectedOrg('dominant', 'other')"></sessile-organism-card>

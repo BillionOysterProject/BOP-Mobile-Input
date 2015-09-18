@@ -39,6 +39,9 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 					else
 						$state.go('app.sessileOrganismsSelectCoDominant', stateParams)
 
+				when 'dominantComplete'
+					$scope.back(-1)
+
 				when 'co-dominant'
 					$state.go('app.sessileOrganismsNotes', stateParams)
 
@@ -76,19 +79,29 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 				when 'dominant'
 					# covers use case where user selects different organisms for dominant, co-dominant, then goes back
 					# and changes dominant to an org that matches codominant
-					if orgID? and orgID isnt 'none' and orgID is $scope.cell.coDominantOrgID
-						$scope.alert("You have already selected #{ Organisms.findOne(orgID)?.common} as the co-dominant organism. You can change the co-dominant organism on the next screen.")
+					if orgID? and orgID isnt 'none' and orgID isnt 'other' and orgID is $scope.cell.coDominantOrgID
+						$scope.alert("You have already selected #{Organisms.findOne(orgID)?.common} as the co-dominant organism. You can change the co-dominant organism on the next screen.")
+					# cover use case where user sets a dominant, then a co-dominant, but then goes back and sets
+					# dominant to 'none' - this resets the co-dominant to 'none' automatically
+					else if orgID? and orgID is 'none' and $scope.cell.coDominantOrgID isnt 'none'
+						$scope.cell.coDominantOrgID = 'none'
 					else
 						$scope.cell.dominantOrgID = orgID
 
 				when 'co-dominant'
-					$scope.cell.coDominantOrgID = orgID
+					if orgID? and orgID isnt 'none' and orgID isnt 'other' and orgID is $scope.cell.dominantOrgID
+						$scope.alert("You have already selected #{Organisms.findOne(orgID)?.common} as the dominant organism. You can change the dominant organism on the previous screen.")
+					else
+						$scope.cell.coDominantOrgID = orgID
 
 			#store the common name too for display purposes
 			switch orgID
-				when null, 'none', 'other'
+				when null
 					name = null
-
+				when 'none'
+					name = 'None'
+				when 'other'
+					name = 'Other'
 				else
 					name = Organisms.findOne(orgID)?.common
 
