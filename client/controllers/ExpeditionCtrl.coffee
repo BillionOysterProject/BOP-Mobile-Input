@@ -156,7 +156,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 		$scope.formIntermediary = {}
 		$scope.formIntermediary.selectedSite = {}
 
-		$scope.sites = $meteor.collection(Sites)
+		$scope.sites = $scope.$meteorCollection(Sites)
 
 #		inBounds = (point, bounds) ->
 #			console.log 'inBounds'
@@ -297,7 +297,7 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 
 		if $stateParams.expeditionID
-			$scope.formIntermediary.expedition = $meteor.object(Expeditions, $stateParams.expeditionID, false);
+			$scope.formIntermediary.expedition = $scope.$meteorObject(Expeditions, $stateParams.expeditionID, false);
 			for site in $scope.sites
 				if site._id is $scope.formIntermediary.expedition.site
 					$scope.formIntermediary.selectedSite = site
@@ -308,5 +308,5 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		isNew = !$scope.formIntermediary.expedition.hasOwnProperty('_id')
 
-		$scope.protocolSections = $meteor.collection(ProtocolSection, false).subscribe('ProtocolSection')
+		$scope.protocolSections = $scope.$meteorCollection(ProtocolSection, false).subscribe('ProtocolSection')
 	]

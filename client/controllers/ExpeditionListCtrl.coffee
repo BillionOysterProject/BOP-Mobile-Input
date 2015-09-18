@@ -4,8 +4,8 @@ angular.module('app.example').controller 'ExpeditionListCtrl', [
 	'$meteor'
 	'$timeout'
 	($scope, $state, $meteor, $timeout) ->
-#		$scope.expeditions = $meteor.collection(Expeditions).subscribe('Expeditions')
-		$scope.expeditions = $meteor.collection(Expeditions)
+#		$scope.expeditions = $scope.$meteorCollection(Expeditions).subscribe('Expeditions')
+		$scope.expeditions = $scope.$meteorCollection(Expeditions)
 
 		#navigation correction in case expeditions were slow to load after login. Note, can't use onReady with Meteor.subscribe because that doesn't work with GroundDB for offline so this is a workaround.
 		stopWatching = $scope.$watch 'expeditions.length', (newValue)->

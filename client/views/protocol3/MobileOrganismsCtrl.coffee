@@ -9,7 +9,7 @@ angular.module('app.example').controller 'MobileOrganismsCtrl', [
 		$controller 'ProtocolSectionBaseCtrl', {$scope: $scope}
 
 		#prepares the organism data for UI.
-		$scope.organisms = $meteor.collection ->
+		$scope.organisms = $scope.$meteorCollection ->
 			Organisms.find({mobile:true})
 
 		#organismCategories = _.unique((org.category for org in $scope.organisms), true)

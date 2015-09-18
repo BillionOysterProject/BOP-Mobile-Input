@@ -22,7 +22,7 @@ angular.module('app.example').controller 'WeatherCtrl', [
 		# We can take what we need from this right before save.
 		$scope.formIntermediary = {}
 
-		$scope.weatherConditions = $meteor.collection(MetaWeatherConditions)
+		$scope.weatherConditions = $scope.$meteorCollection(MetaWeatherConditions)
 
 		if $scope.section.weatherCondition?
 			for condition in $scope.weatherConditions

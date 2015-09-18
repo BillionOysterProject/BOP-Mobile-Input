@@ -124,7 +124,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			Meteor.absoluteUrl().indexOf(':3000') isnt -1
 
 		$scope.setCurrentExpeditionByID = (id)->
-			$scope.expedition = $meteor.object(Expeditions, id, false);
+			$scope.expedition = $scope.$meteorObject(Expeditions, id, false);
 
 		$scope.setCurrentExpeditionToLatest = ->
 			$scope.expedition = $filter('orderBy')($scope.expeditions, '-date', false)[0]
@@ -320,7 +320,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			.then getUserExpeditions
 			.then getTideTimes
 			.then ->
-				$scope.metaProtocols = $meteor.collection(MetaProtocols)
+				$scope.metaProtocols = $scope.$meteorCollection(MetaProtocols)
 				$scope.protocolsMetadataMap = {}
 				($scope.protocolsMetadataMap[protocol.num] = protocol) for protocol in $scope.metaProtocols
 
@@ -329,7 +329,7 @@ angular.module('app.example').controller 'AppCtrl', [
 					bopRoutesDynamic.init()
 
 				#user's expeditions
-				$scope.expeditions = $meteor.collection(Expeditions)
+				$scope.expeditions = $scope.$meteorCollection(Expeditions)
 				$scope.setCurrentExpeditionToLatest()
 
 				$scope.startupComplete = true

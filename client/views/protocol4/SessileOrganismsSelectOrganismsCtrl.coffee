@@ -11,7 +11,7 @@ angular.module('app.example').controller 'SessileOrganismsSelectOrganismsCtrl', 
 
 		initOrganisms = ->
 			#prepares the organism data for UI.
-			$scope.organisms = $meteor.collection ->
+			$scope.organisms = $scope.$meteorCollection ->
 				query =
 					settlement:true
 

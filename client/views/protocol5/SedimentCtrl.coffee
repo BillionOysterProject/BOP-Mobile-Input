@@ -10,7 +10,7 @@ angular.module('app.example').controller 'SedimentCtrl', [
 		# We can take what we need from this right before save.
 		$scope.formIntermediary = {}
 
-		$scope.sedimentOptions = $meteor.collection(MetaSedimentOptions)
+		$scope.sedimentOptions = $scope.$meteorCollection(MetaSedimentOptions)
 
 		#populate sedimentOptions object with all the select options for smells, colors, textures, organisms etc
 		if $scope.sedimentOptions?
