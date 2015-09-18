@@ -61,6 +61,9 @@ angular.module('app.example').factory "bopSectionCompletenessHelper", [
 						fieldCount++ if section.recentRain24h?
 						fieldCount++ if section.recentRain72h?
 						fieldCount++ if section.recentRain7d?
+						fieldCount=fieldCount+2 if section.recentRain7d is ''
+						fieldCount++ if section.recentRain72h is ''
+
 
 					when 'tide'
 						fieldCount++ if section.tideLevel?
