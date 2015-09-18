@@ -144,6 +144,10 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 					$scope.showSaveDone()
 #					$ionicHistory.goBack()
 
+					# without this return false angular gives a "Referencing DOM nodes in Angular expressions is disallowed!" error
+					# this is due to Coffeescript's Implicit Returns
+					return false
+
 			else
 				console.log 'do nothing, overviewForm invalid'
 
