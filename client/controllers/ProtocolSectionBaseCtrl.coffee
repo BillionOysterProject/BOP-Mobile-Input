@@ -12,9 +12,6 @@ angular.module('app.example').controller 'ProtocolSectionBaseCtrl', [
 				$scope.sectionMeta = sectionMeta
 				break
 
-		$scope.back = (steps = -1)->
-			$ionicHistory.goBack(steps)
-
 		# @param Array. Fields to pass to update function (other fields like _id, owner will be omitted)
 		$scope.saveSection = (updateFields)->
 			ProtocolSection.update $scope.section._id,

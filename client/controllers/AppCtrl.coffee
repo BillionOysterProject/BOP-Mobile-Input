@@ -105,6 +105,9 @@ angular.module('app.example').controller 'AppCtrl', [
 				historyRoot: true #The next view should become the root view in its history stack.
 				disableAnimate:true
 
+		$scope.back = (steps = -1)->
+			$ionicHistory.goBack(steps)
+
 		$scope.navigateHome = ->
 			if $ionicHistory.currentStateName() isnt 'app.home'
 				$scope.prepareForRootViewNavigation()
