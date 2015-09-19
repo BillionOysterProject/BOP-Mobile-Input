@@ -7,39 +7,45 @@
 			<!--<button class="button button-clear button-positive" ng-click="createExpedition()">Add</button>-->
 		</ion-nav-buttons>
 
-		<ion-content class="has-header" scroll="false">
+		<ion-content class="has-header">
+			<ion-list>
+				<!--<h4 class="text-center">{{getExpeditionTitle(formIntermediary.expedition)}}</h4>-->
 
-				<ion-list>
-					<!--<h4 class="text-center">{{getExpeditionTitle(formIntermediary.expedition)}}</h4>-->
+				<!-- select site -->
+				<!--<label class="item item-input item-select"
+				       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">-->
+					<!--<div class="input-label">
+						Name of site
+					</div>-->
+					<!--<select name="site"
+					        ng-options="site in sites | orderObjectBy:'label':false track by site._id"
+					        ng-model="formIntermediary.selectedSite"
+					        ng-change="updateBubbles()"></select>-->
 
-					<!-- select site -->
-					<label class="item item-input item-select"
-					       ng-class="{ 'has-error' : overviewForm.site.$invalid && overviewForm.$submitted}">
-						<div class="input-label">
-							Name of site
-						</div>
-						<select name="site"
-						        ng-options="site.label for site in sites | orderObjectBy:'label':false track by site._id"
-						        ng-model="formIntermediary.selectedSite"
-						        ng-change="updateBubbles()"></select>
-					</label>
-					<div class="form-errors" ng-messages="overviewForm.site.$error"
-					     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">
-						<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
-					</div>
+	                <div ng-repeat="site in sites | orderObjectBy:'label':false track by site._id">
+	                    <ion-radio ng-model="formIntermediary.selectedSite"
+	                               ng-value="site">{{site.label}}
+	                    </ion-radio>
+	                </div>
 
-		            <!--<datamap
-		                style="background:#75C1F1"
-		                map="map"
-		                zoomable
-		                plugins="mapPlugins"
-		                plugin-data="mapPluginData"
-		                >
-		            </datamap>-->
+				<!--</label>-->
+				<div class="form-errors" ng-messages="overviewForm.site.$error"
+				     ng-show="overviewForm.site.$invalid && overviewForm.$submitted">
+					<div ng-messages-include="client/views/partials/form-errors.ng.html"></div>
+				</div>
 
-					<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
+	            <!--<datamap
+	                style="background:#75C1F1"
+	                map="map"
+	                zoomable
+	                plugins="mapPlugins"
+	                plugin-data="mapPluginData"
+	                >
+	            </datamap>-->
 
-				</ion-list>
+				<!--<bop-static-map ng-if="formIntermediary.expedition.location.$valid" latlng="section.location"></bop-static-map>-->
+
+			</ion-list>
 
 		</ion-content>
 
