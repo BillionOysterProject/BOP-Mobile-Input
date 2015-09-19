@@ -79,7 +79,7 @@ angular.module('app.example').config [
 					controller: 'AppCtrl'
 
 		.state 'app.expeditions',
-#			cache:false
+			cache:false
 			views:
 				'menuContent':
 					templateUrl: 'client/views/expeditionList.ng.html'
