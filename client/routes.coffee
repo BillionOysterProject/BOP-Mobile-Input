@@ -206,22 +206,22 @@ angular.module('app.example').config [
 					templateUrl: "client/views/protocol4/sessileOrganismsNotes.ng.html"
 					controller: 'SessileOrganismsSelectOrganismsCtrl'
 
-		.state('eventmenu.home.home1', {
-		      url: "/home1",
-		      views: {
-		        'inception' :{
-		          templateUrl: "home1.html"
-		        }
-		      }
-		    })
-		        .state('eventmenu.home.home2', {
-		      url: "/home2",
-		      views: {
-		        'inception' :{
-		          templateUrl: "home2.html"
-		        }
-		      }
-		    })
+#		.state('eventmenu.home.home1', {
+#		      url: "/home1",
+#		      views: {
+#		        'inception' :{
+#		          templateUrl: "home1.html"
+#		        }
+#		      }
+#		    })
+#		        .state('eventmenu.home.home2', {
+#		      url: "/home2",
+#		      views: {
+#		        'inception' :{
+#		          templateUrl: "home2.html"
+#		        }
+#		      }
+#		    })
 
 		#subsection for protocol 5's waterQuality indicator
 		.state 'app.waterQualityIndicator',
