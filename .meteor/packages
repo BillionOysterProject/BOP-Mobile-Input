@@ -29,7 +29,6 @@ standard-minifiers
 meteor-base
 mobile-experience
 mongo
-blaze-html-templates
 session
 jquery
 tracker
@@ -39,6 +38,5 @@ random
 ejson
 spacebars
 check
-crosswalk
 angular
 driftyco:ionic
