@@ -162,6 +162,16 @@ angular.module('app.example').controller 'ExpeditionCtrl', [
 
 		$scope.sites = $scope.$meteorCollection(Sites)
 
+		$scope.generateExcel = ->
+			Meteor.call 'downloadExcelFile', $scope.formIntermediary.expedition._id, (err, fileUrl) ->
+				console.log fileUrl
+				link = document.createElement('a')
+				#regex to remove trailing (.) - common with street address locations
+				link.download = $scope.getExpeditionTitle($scope.formIntermediary.expedition).replace(/\.+$/, "") + '.xlsx'
+				link.href = fileUrl
+				link.click()
+				return
+
 #		inBounds = (point, bounds) ->
 #			console.log 'inBounds'
 #			eastBound = point.longitude < bounds.NE.longitude

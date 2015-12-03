@@ -123,6 +123,9 @@ angular.module('app.example').controller 'AppCtrl', [
 		$scope.isLocalDev = ->
 			Meteor.absoluteUrl().indexOf(':3000') isnt -1
 
+		$scope.isAppVersion = ->
+			Meteor.isCordova
+
 		$scope.setCurrentExpeditionByID = (id)->
 			$scope.expedition = $scope.$meteorObject(Expeditions, id, false);
 
