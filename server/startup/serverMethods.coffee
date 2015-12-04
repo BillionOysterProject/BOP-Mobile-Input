@@ -138,7 +138,10 @@ Meteor.methods
 												col = 1
 												for item of sectionResults[section][prop][subprop][cells][cell]
 													if sectionResults[section][prop][subprop][cells][cell][item] isnt null
-														worksheet.writeToCell row, col, Organisms.findOne({'_id' : sectionResults[section][prop][subprop][cells][cell][item]}).common
+														if Organisms.findOne({'_id' : sectionResults[section][prop][subprop][cells][cell][item]})
+															worksheet.writeToCell row, col, Organisms.findOne({'_id' : sectionResults[section][prop][subprop][cells][cell][item]}).common
+														else
+															worksheet.writeToCell row, col, sectionResults[section][prop][subprop][cells][cell][item]
 														col++
 												row++
 
