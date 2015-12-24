@@ -194,6 +194,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe 'Expeditions'
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if Expeditions.find().count() > 0
 						$interval.cancel(stop)
@@ -205,6 +206,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe 'Messages'
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if Messages.find().count() > 0
 						$interval.cancel(stop)
@@ -221,6 +223,7 @@ angular.module('app.example').controller 'AppCtrl', [
 			$q (resolve, reject)->
 				Meteor.subscribe 'Sites'
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if Sites.find().count() > 0
 						$interval.cancel(stop)
@@ -259,6 +262,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe 'ProtocolSection'
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if ProtocolSection.find().count() > 0
 						$interval.cancel(stop)
@@ -270,6 +274,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe 'MetaWaterQualityIndicators'
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if MetaWaterQualityIndicators.find().count() > 0
 						$interval.cancel(stop)
@@ -281,6 +286,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe('MetaWeatherConditions')
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if MetaWeatherConditions.find().count() > 0
 						$interval.cancel(stop)
@@ -302,6 +308,7 @@ angular.module('app.example').controller 'AppCtrl', [
 				Meteor.subscribe 'Organisms'
 
 				#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+				#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 				stop = $interval ->
 					if Organisms.find().count() > 0
 						$interval.cancel(stop)

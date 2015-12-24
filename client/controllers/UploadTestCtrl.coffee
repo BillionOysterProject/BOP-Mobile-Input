@@ -104,6 +104,7 @@ angular.module('app.example').controller 'UploadTestCtrl', [
 		$scope.images = []
 
 		#TODO if we can ever find a way to know when the collection has finished repopulating from disk we could avoid this hack
+		#TODO update: there's a fix: https://github.com/GroundMeteor/db/pull/141
 		if bopOfflineImageHelper.getTotalLocalImages() > 0
 			updateImages()
 		else
